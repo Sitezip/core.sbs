@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5VYFB4KHR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-L5VYFB4KHR');
+    </script>
+    <meta charset="UTF-8" />
+    <title>core.js is the way!</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<div class="container">
+    <nav class="nav">
+        <a href="?" class="nav-link" >home</a>
+        <a href="#" class="nav-link" target="#main" data-core-templates="other">change</a>
+        <a href="#" class="nav-link" target="#main" data-core-templates="default,stuff">change back</a>
+        <a href="#" class="nav-link" target="#under" data-core-templates="stuff">add stuff</a>
+        <a href="#" class="nav-link" target="#under" data-core-templates="EMPTY">remove stuff</a>
+        <a href="#" class="nav-link" target="#main" data-core-templates="user">account</a>
+        <a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a>
+        <a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div>
+        <blockquote>
+            <p class="h--dataRef-quote" data-h-data-ref="quote">I said what I said!</p>
+        </blockquote>
+        <p>—<cite class="h--quote-author">Mother</cite></p>
+    </div>
+</div>
+
+<div class="container">
+    <div id="main">
+        <div class="core-pocket" data-core-templates="default,stuff,deep" data-default-core-source="https://zzzap.io/Forms/login"></div>
+    </div>
+    <div id="under"></div>
+</div>
+
+<div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+        </ul>
+    </footer>
+</div>
+
+<!-- core-pocket storage elements -->
+<section id="cr-data" style="display:none;">
+    <template name="other">
+        <h1>Hello World!</h1>
+        <div>
+            <blockquote>
+                <p class="h--quote-quote">I said what I said!</p>
+            </blockquote>
+            <p>—<cite class="h--quote-author">Mother</cite></p>
+        </div>
+        <div id="header">This will be <strong>good</strong>.</div>
+        <a href="#" class="nav-link" target="#main" data-core-templates="deep">recursive</a>
+    </template>
+    <template name="stuff">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Height</th>
+                <th>Date</th>
+                <th>Phone</th>
+                <th class="h-pip-name f-upperfirst"></th>
+                <th>Hair</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="core-clone" data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
+                <td class="f-padleft" data-f-clue="2|0">{{aug:count}}</td>
+                <td>{{rec:firstName:upperfirst}} {{rec:lastName:upperfirst}}</td>
+                <td>{{rec:height:decimal:cm}}</td>
+                <td>{{rec:birthDate:date:MM/DD/YYYY}}</td>
+                <td>{{rec:phone:phone}}</td>
+                <td class="f-upper">{{rec:username}}</td>
+                <td>{{rec:hair.color}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <div class="row">
+            <div class="core-clone col-sm-3 mb-2" data-core-data="prods" data-core-source="https://dummyjson.com/products?limit=12">
+                <div class="card h-100">
+                    <img class="card-img-top" {{rec:thumbnail:core_pk_attr:src}} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{rec:title}}</h5>
+                        <p class="card-text">{{rec:description}} - {{aug:count:padleft:5|0}}</p>
+                        <p class="card-text">Price: {{rec:price:money:$}} <small class="text-secondary">{{rec:discountPercentage:decimal:%}} off</small> </p>
+                        <p class="card-text">Brand: <strong>{{rec:brand}}</strong></p>
+                        <p class="card-text">Rating: {{rec:rating:decimal: ⭐}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template name="deep">
+        <div class="container">
+            <h3>Recursive Cloning</h3>
+            <div class="row">
+                <div class="core-clone col-sm-4" data-core-data="pop">
+                    <span class="text-secondary">{{rec:name:upper}}</span> paid {{rec:paid:money:$}} on {{rec:ts:date:date}} for a {{rec:stuff.food}}.
+                    <div>{{rec:more:core_pk_cloner:colors}}</div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template name="colors">
+        {{aug:index}} - <strong>{{rec:color}}</strong><br>
+        <div class="bg-light ps-3">{{rec:hues:core_pk_cloner:colors}}</div>
+    </template>
+</section>
+<script src="core.js"></script>
+<script>
+    //core.js setup
+    core.ud.init = () => {
+        //set config
+        core.useRouting  = false;
+        core.useDebugger = core.hf.getRoute().includes('localhost');
+        //set custom cache life
+        core.be.cacheExpire = {type:'data',name:'quote',seconds:5}
+    }
+    //--CUSTOM FUNCTIONS--//
+
+    //callback pre/post UX insertions
+    core.ud.prepaint = (dataRef, dataObj, type) => {
+        if(core.useDebugger) console.log('ud.prepaint',{dataRef, dataObj, type});
+    }
+
+    core.ud.postpaint = (dataRef, dataObj, type) => {
+        if(core.useDebugger) console.log('ud.postpaint',{dataRef, dataObj, type});
+    }
+
+    //backend pre/post retrieval
+    core.ud.preflight = (dataRef, dataSrc, type) => {
+        let settings = {dataRef:dataRef, dataSrc:dataSrc, type:type};
+        if(type.includes('temp')){
+            if(dataRef === dataSrc){
+                settings.dataSrc = '/html/CORE/' + dataRef + '.html'
+            }
+        }else if(type === 'data'){
+            if(dataRef === 'joke'){
+                settings.fetchParams = {mode: "no-cors"};
+            }
+        }
+        if(core.useDebugger) console.log('ud.preflight',{dataRef, dataSrc, type});
+        return settings;
+    }
+
+    core.ud.postflight = (dataRef, dataObj, type) => {
+        if(type === 'data'){
+            switch(dataRef){
+                case 'prods':
+                    dataObj = dataObj.products;
+                    break;
+                case 'users':
+                    dataObj = dataObj.users;
+                    break;
+                case 'news':
+                    let ignoreList   = ['russia','chinese','china','.co.uk','macworld'];
+                    let cleanResults = [];
+                    if(dataObj.hasOwnProperty('results')){
+                        for(const result of dataObj.results){
+                            const strResult = JSON.stringify(result).toLowerCase();
+                            if(!ignoreList.some(v => strResult.includes(v.toLowerCase()))){
+                                cleanResults.push(result);
+                            }
+                        }
+                    }
+                    dataObj = cleanResults;
+                    break;
+            }
+        }else{
+            //TODO
+        }
+        if(core.useDebugger) console.log('ud.postflight',{dataRef, dataObj, type});
+        return dataObj;
+    }
+
+    //Start Of Call
+    core.ud.soc = () => {}
+
+    //End Of Call
+    core.ud.eoc = () => {}
+
+    //--END CUSTOM FUNCTIONS--//
+
+    //test data
+    core.be.getData('quote','https://dummyjson.com/quotes/random/'); //?delay=5000
+    core.be.getData('joke','https://dadjokes.developersandbox.xyz/api/v1/random'); //this one fails sucessfully
+    core.cr.setData('pip',{name:'frodo'});
+    core.cr.setData('pop',[
+        {name:'fred',paid:21.58,ts:1721788872,phone:8011231233,stuff:{food:'pizza'},more:[{color:'blue'},{color:'gold'}]},
+        {name:'jake',paid:2.11,ts:1721188872,phone:8018760408,stuff:{food:'pear'},more:[{color:'red',hues:[{color:'fire engine'},{color:'candy apple'}]}]},
+        {name:'jaker',paid:6.87,ts:1721798872,phone:8011231233,stuff:{food:'banana'},more:[{color:'yellow'},{color:'orange'},{color:'pink',hues:[{color:'bright'},{color:'hot'}]},{color:'magenta',hues:[{color:'dark'},{color:'hot'},{color:'magnetic'}]}]}
+    ]);
+</script>
+</body>
+</html>
