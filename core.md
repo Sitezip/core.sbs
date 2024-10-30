@@ -1,5 +1,16 @@
 #C.O.R.E
 
+```html
+<!-- option A: production version via CDN -->
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+<!-- option B: historical version via CDN (advised) -->
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20240815.0/core.js"></script>
+<!-- option C: production -->
+<script src="https://core.sbs/core.js"></script>
+<!-- option D: production via GitHub/Vercel -->
+<script src="https://core-sbs.vercel.app/core.js"></script>
+```
+
 ## `<section>`
 ## `<template>`
 
