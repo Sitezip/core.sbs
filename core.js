@@ -41,6 +41,9 @@ const core = (() => {
                 }
                 core.pk.init();
             })
+
+            //get core internal objects making them available as needed
+            core.be.getData('coreInternalObjects','core.json');
         },
         //backend functions
         be: (() => {
@@ -165,6 +168,14 @@ const core = (() => {
                     return defaultSettings;
                 },
                 postflight: (dataRef, dataObj, type) => {
+                    //remove text hints from internal objects
+                    if(dataRef === 'coreInternalObjects'){
+                        for (const key in dataObj) {
+                            if (key.endsWith('Use')) {
+                                delete dataObj[key];
+                            }
+                        }
+                    }
                     if(typeof core.ud.postflight === "function"){
                         return core.ud.postflight(dataRef, dataObj, type);
                     }
@@ -228,6 +239,11 @@ const core = (() => {
                 setData: (name, data, elem, storageId) => {
                     elem      = (elem || section);
                     storageId = ((storageId === null || storageId === undefined) ? storageIdDefault : +storageId);
+                    
+                    //check for internal requests
+                    if(name.startsWith('coreInternal')){
+                        storageId = 2;
+                    }
 
                     //delete previous data by name
                     core.cr.delData(name, elem);
@@ -248,6 +264,11 @@ const core = (() => {
                 getData: (name, elem, storageId) => {
                     elem = (elem || section);
                     storageId = ((storageId === null || storageId === undefined) ? storageIdDefault : +storageId);
+                    
+                    //check for internal requests
+                    if(name.startsWith('coreInternal')){
+                        storageId = 2;
+                    }
 
                     //check for expired cache
                     if(!core.be.checkCacheTs(name, 'data')){
