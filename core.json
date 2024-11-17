@@ -7,19 +7,23 @@
     "errors":[
   
     ],
-    "customerUse":"See contact.",
+    "affiliateUse":"See contact: order",
+    "affiliate":{
+  
+    },
+    "customerUse":"See contact: order",
     "customer":{
   
     },
-    "vendorUse":"See contact.",
+    "vendorUse":"See contact: product",
     "vendor":{
   
     },
-    "shippingUse":"See address.",
+    "shippingUse":"See address: order",
     "shipping":{
   
     },
-    "billingUse":"See address.",
+    "billingUse":"See address: order",
     "billing":{
   
     },
@@ -47,6 +51,7 @@
       "description":null,
       "descriptionXl":null,
       "image":{
+        "thumb":null,
         "sm":null,
         "md":null,
         "lg":null,
@@ -123,7 +128,7 @@
       "version":20241115
     },
     "inventory":{
-      "onHand":null,
+      "onHand":0,
       "onOrder":null,
       "onBackorder":null,
       "sold7":null,
@@ -135,7 +140,7 @@
       "ts":null,
       "version":20241115
     },
-    "itemUse":"Used to contain item (product summary) data.",
+    "itemUse":"Used to contain item (product summary or cart item) data: order",
     "item":{
       "guid":"",
       "type":null,
@@ -188,7 +193,7 @@
       "ts":null,
       "version":20241115
     },
-    "customizationUse":"Used to define customized options for item.",
+    "customizationUse":"Used to define customized options for item: item",
     "customization":{
       "inscription":{
         "lines":[],
@@ -206,7 +211,7 @@
       "ts":null,
       "version":20241115
     },
-    "exactItemUse":"Used to define exact item data.",
+    "exactItemUse":"Used to define exact item data: item",
     "exactItem":{
       "guid":"",
       "type":null,
@@ -220,7 +225,21 @@
       "ts":null,
       "version":20241115
     },
-    "addressUse":"Used to contain address data.",
+    "categoryUse":"Used to define category data: product, item",
+    "category":{
+        "guid":"",
+        "guidParent":"",
+        "name":"",
+        "icon":null,
+        "href":null,
+        "onclick":null,
+        "description":null,
+        "thumb":null,
+        "sort":0,
+        "ts":null,
+        "version":20241115
+    },
+    "addressUse":"Used to contain address data: contact (shipping, billing), card",
     "address":{
       "guid":"",
       "type":null,
@@ -270,7 +289,7 @@
       "ts":null,
       "version":20241115
     },
-    "phoneUse":"Used to contain public phone data for communication.",
+    "phoneUse":"Used to contain public phone data for communication: chat",
     "phone":{
       "guid":"",
       "text":null,
@@ -283,7 +302,7 @@
       "ts":null,
       "version":20241115
     },
-    "socialMediaUse":"Used to contain public social media data for communication.",
+    "socialMediaUse":"Used to contain public social media data for communication: chat",
     "socialMedia":{
       "guid":"",
       "type":null,
@@ -293,7 +312,7 @@
       "ts":null,
       "version":20241115
     },
-    "emailUse":"Used to contain email data for communication.",
+    "emailUse":"Used to contain email data for communication: chat",
     "email":{
       "guid":"",
       "from":null,
@@ -310,7 +329,7 @@
       "ts":null,
       "version":20241115
     },
-    "contactUse":"Used to contain contact/entity data.",
+    "contactUse":"Used to contain contact (entity) data: order, affiliate, customer, vendor",
     "contact":{
       "guid":"",
       "type":null,
@@ -338,6 +357,7 @@
     "orderUse":"Used for complete order data.",
     "order":{
       "guid":"",
+      "guidAffiliate":null,
       "guidDiscount":null,
       "discount":{
   
@@ -357,7 +377,6 @@
       "dateOrdered":null,
       "dateCompleted":null,
       "datePayment":null,
-      "affiliateCd":null,
       "contact":{
   
       },
@@ -382,7 +401,7 @@
       "ts":null,
       "version":20241115
     },
-    "transactionUse":"Used to contain transaction data.",
+    "transactionUse":"Used to contain transaction data: order",
     "transaction":{
       "guid":"",
       "type":null,
@@ -410,7 +429,7 @@
       "ts":null,
       "version":20241115
     },
-    "subscriptionUse":"Used to contain subscription data.",
+    "subscriptionUse":"Used to contain subscription data: order",
     "subscription":{
       "guid":"",
       "type":null,
@@ -424,7 +443,7 @@
       "ts":null,
       "version":20241115
     },
-    "accountUse":"Used to contain account/bank data.",
+    "accountUse":"Used to contain account/bank data: order",
     "account":{
       "guid":"",
       "type":"bank",
@@ -434,7 +453,7 @@
       "ts":null,
       "version":20241115
     },
-    "cardUse":"Used to contain card/credit card data.",
+    "cardUse":"Used to contain card/credit card data: order",
     "card":{
       "guid":"",
       "currency":"USD",
@@ -455,7 +474,7 @@
       "ts":null,
       "version":20241115
     },
-    "discountUse":"Used to contain discount data.",
+    "discountUse":"Used to contain discount data: order, item",
     "discount":{
       "guid":"",
       "type":"coupon",
