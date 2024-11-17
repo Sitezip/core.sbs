@@ -15,6 +15,14 @@
     "vendor":{
   
     },
+    "shippingUse":"See address.",
+    "shipping":{
+  
+    },
+    "billingUse":"See address.",
+    "billing":{
+  
+    },
     "productUse":"Used to contain complete product data.",
     "product":{
       "guid":"",
@@ -32,10 +40,13 @@
       "upc":null,
       "barcode":null,
       "lot":null,
+      "aisle":null,
+      "shelf":null,
+      "bin":null,
       "name":"",
       "description":null,
       "descriptionXl":null,
-      "images":{
+      "image":{
         "sm":null,
         "md":null,
         "lg":null,
@@ -45,7 +56,7 @@
   
         ]
       },
-      "files":{
+      "file":{
         "file":null,
         "file2":null,
         "file3":null,
@@ -56,7 +67,11 @@
       "cost":0,
       "costPer":"unit",
       "price":0,
-      "inventory":0,
+      "msrp":0,
+      "inventoryCount":0,
+      "inventory":{
+  
+      },
       "variants":[
   
       ],
@@ -90,7 +105,7 @@
         ]
       },
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "variant":{
       "name":null,
@@ -99,7 +114,26 @@
       "size":null,
       "color":null,
       "flavor":null,
-      "finish":null
+      "finish":null,
+      "inventoryCount":0,
+      "inventory":{
+  
+      },
+      "ts":null,
+      "version":20241115
+    },
+    "inventory":{
+      "onHand":null,
+      "onOrder":null,
+      "onBackorder":null,
+      "sold7":null,
+      "sold14":null,
+      "sold28":null,
+      "soldYTD":null,
+      "soldTotal":null,
+      "soldRecent":null,
+      "ts":null,
+      "version":20241115
     },
     "itemUse":"Used to contain item (product summary) data.",
     "item":{
@@ -118,7 +152,10 @@
       "lot":null,
       "name":"",
       "description":null,
-      "discountCd":null,
+      "guidDiscount":null,
+      "discount":{
+  
+      },
       "volume":0,
       "unit":"Cubic Inch",
       "customization":{
@@ -149,7 +186,7 @@
       "noteCustomer":null,
       "noteVendor":null,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "customizationUse":"Used to define customized options for item.",
     "customization":{
@@ -165,7 +202,9 @@
           "front":null,
           "back":null
         }
-      }
+      },
+      "ts":null,
+      "version":20241115
     },
     "exactItemUse":"Used to define exact item data.",
     "exactItem":{
@@ -177,7 +216,9 @@
       "bin":null,
       "location":null,
       "dateOrdered":"",
-      "dateReceived":""
+      "dateReceived":"",
+      "ts":null,
+      "version":20241115
     },
     "addressUse":"Used to contain address data.",
     "address":{
@@ -202,7 +243,7 @@
       "longitude":null,
       "instructions":null,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "chatUse":"Used to contain chat/communication data.",
     "chat":{
@@ -227,7 +268,7 @@
       "notesHidden":null,
       "receipt":null,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "phoneUse":"Used to contain public phone data for communication.",
     "phone":{
@@ -240,7 +281,7 @@
       "audioRef":false,
       "success":false,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "socialMediaUse":"Used to contain public social media data for communication.",
     "socialMedia":{
@@ -250,7 +291,7 @@
       "platform":null,
       "success":false,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "emailUse":"Used to contain email data for communication.",
     "email":{
@@ -267,7 +308,7 @@
       ],
       "success":false,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "contactUse":"Used to contain contact/entity data.",
     "contact":{
@@ -292,11 +333,15 @@
   
       ],
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "orderUse":"Used for complete order data.",
     "order":{
       "guid":"",
+      "guidDiscount":null,
+      "discount":{
+  
+      },
       "type":null,
       "subtotal":0,
       "taxRate":0,
@@ -313,10 +358,6 @@
       "dateCompleted":null,
       "datePayment":null,
       "affiliateCd":null,
-      "discountCd":null,
-      "discount":{
-  
-      },
       "contact":{
   
       },
@@ -326,9 +367,12 @@
       "items":[
   
       ],
-      "addresses":[
+      "shipping":{
   
-      ],
+      },
+      "billing":{
+  
+      },
       "chats":[
   
       ],
@@ -336,7 +380,7 @@
   
       ],
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "transactionUse":"Used to contain transaction data.",
     "transaction":{
@@ -364,7 +408,7 @@
       },
       "isCash":false,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "subscriptionUse":"Used to contain subscription data.",
     "subscription":{
@@ -378,7 +422,7 @@
       "dateFinal":null,
       "nonce":null,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "accountUse":"Used to contain account/bank data.",
     "account":{
@@ -388,7 +432,7 @@
       "number":null,
       "nonce":null,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "cardUse":"Used to contain card/credit card data.",
     "card":{
@@ -409,7 +453,7 @@
       "last4":null,
       "success":false,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     },
     "discountUse":"Used to contain discount data.",
     "discount":{
@@ -433,6 +477,6 @@
       "cartAmount":0,
       "quantityLimit":0,
       "ts":null,
-      "ver":20241115
+      "version":20241115
     }
   }
