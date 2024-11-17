@@ -1,5 +1,482 @@
 {
-    "messages": [
-        "There is nothing to see here."
-    ]
-}
+    "messagesUse":"A log of messages.",
+    "messages":[
+      "There is nothing to see here."
+    ],
+    "errorsUse":"A log of errors.",
+    "errors":[
+  
+    ],
+    "customerUse":"See contact.",
+    "customer":{
+  
+    },
+    "vendorUse":"See contact.",
+    "vendor":{
+  
+    },
+    "shippingUse":"See address.",
+    "shipping":{
+  
+    },
+    "billingUse":"See address.",
+    "billing":{
+  
+    },
+    "productUse":"Used to contain complete product data.",
+    "product":{
+      "guid":"",
+      "type":null,
+      "guidVendor":null,
+      "vendor":{
+  
+      },
+      "guidCategory":"",
+      "category":{
+  
+      },
+      "sku":null,
+      "sku8":null,
+      "upc":null,
+      "barcode":null,
+      "lot":null,
+      "aisle":null,
+      "shelf":null,
+      "bin":null,
+      "name":"",
+      "description":null,
+      "descriptionXl":null,
+      "image":{
+        "sm":null,
+        "md":null,
+        "lg":null,
+        "img":null,
+        "img2":null,
+        "other":[
+  
+        ]
+      },
+      "file":{
+        "file":null,
+        "file2":null,
+        "file3":null,
+        "other":[
+  
+        ]
+      },
+      "cost":0,
+      "costPer":"unit",
+      "price":0,
+      "msrp":0,
+      "inventoryCount":0,
+      "inventory":{
+  
+      },
+      "variants":[
+  
+      ],
+      "finishes":[
+  
+      ],
+      "sizes":[
+  
+      ],
+      "colors":[
+  
+      ],
+      "flavors":[
+  
+      ],
+      "isInscribed":false,
+      "isCustomized":false,
+      "isTaxable":true,
+      "isSerialized":false,
+      "isDropshipped":false,
+      "is3dPrinted":false,
+      "isActive":true,
+      "isShipping":false,
+      "note":{
+        "details":null,
+        "options":null,
+        "general":null,
+        "hidden":null,
+        "logs":[
+  
+        ]
+      },
+      "ts":null,
+      "version":20241115
+    },
+    "variant":{
+      "name":null,
+      "adjustmentCost":0,
+      "adjustmentPrice":0,
+      "size":null,
+      "color":null,
+      "flavor":null,
+      "finish":null,
+      "inventoryCount":0,
+      "inventory":{
+  
+      },
+      "ts":null,
+      "version":20241115
+    },
+    "inventory":{
+      "onHand":null,
+      "onOrder":null,
+      "onBackorder":null,
+      "sold7":null,
+      "sold14":null,
+      "sold28":null,
+      "soldYTD":null,
+      "soldTotal":null,
+      "soldRecent":null,
+      "ts":null,
+      "version":20241115
+    },
+    "itemUse":"Used to contain item (product summary) data.",
+    "item":{
+      "guid":"",
+      "type":null,
+      "guidVendor":null,
+      "guidProduct":null,
+      "guidCategory":"",
+      "category":{
+  
+      },
+      "sku":null,
+      "sku8":null,
+      "upc":null,
+      "barcode":null,
+      "lot":null,
+      "name":"",
+      "description":null,
+      "guidDiscount":null,
+      "discount":{
+  
+      },
+      "volume":0,
+      "unit":"Cubic Inch",
+      "customization":{
+  
+      },
+      "price":0,
+      "qty":0,
+      "subtotal":0,
+      "taxes":0,
+      "total":0,
+      "exactItem":{
+  
+      },
+      "variant":{
+  
+      },
+      "isTaxable":true,
+      "isDiscountable":false,
+      "isQtyFixed":false,
+      "isFragile":false,
+      "dateBackorder":null,
+      "dateShipped":null,
+      "dateOrdered":null,
+      "datePrinted":null,
+      "dateReceived":null,
+      "dateCanceled":null,
+      "dateCompleted":null,
+      "noteCustomer":null,
+      "noteVendor":null,
+      "ts":null,
+      "version":20241115
+    },
+    "customizationUse":"Used to define customized options for item.",
+    "customization":{
+      "inscription":{
+        "lines":[],
+        "shirtTop":{
+          "front":null,
+          "back":null,
+          "rightShoulder":null,
+          "leftShoulder":null
+        },
+        "hat":{
+          "front":null,
+          "back":null
+        }
+      },
+      "ts":null,
+      "version":20241115
+    },
+    "exactItemUse":"Used to define exact item data.",
+    "exactItem":{
+      "guid":"",
+      "type":null,
+      "serialNo":null,
+      "aisle":null,
+      "shelf":null,
+      "bin":null,
+      "location":null,
+      "dateOrdered":"",
+      "dateReceived":"",
+      "ts":null,
+      "version":20241115
+    },
+    "addressUse":"Used to contain address data.",
+    "address":{
+      "guid":"",
+      "type":null,
+      "addressee":null,
+      "house":null,
+      "street":null,
+      "address":"",
+      "address2":null,
+      "area":null,
+      "district":null,
+      "city":"",
+      "region":null,
+      "county":null,
+      "stateCd":"",
+      "state":"",
+      "postalCd":"",
+      "countryCd":null,
+      "country":null,
+      "latitude":null,
+      "longitude":null,
+      "instructions":null,
+      "ts":null,
+      "version":20241115
+    },
+    "chatUse":"Used to contain chat/communication data.",
+    "chat":{
+      "email":{
+  
+      },
+      "socialMedia":{
+  
+      },
+      "phone":{
+  
+      },
+      "contact":{
+  
+      },
+      "contacts":[
+  
+      ],
+      "guid":"",
+      "subject":null,
+      "message":null,
+      "notesHidden":null,
+      "receipt":null,
+      "ts":null,
+      "version":20241115
+    },
+    "phoneUse":"Used to contain public phone data for communication.",
+    "phone":{
+      "guid":"",
+      "text":null,
+      "personal":null,
+      "business":null,
+      "other":null,
+      "carrier":null,
+      "audioRef":false,
+      "success":false,
+      "ts":null,
+      "version":20241115
+    },
+    "socialMediaUse":"Used to contain public social media data for communication.",
+    "socialMedia":{
+      "guid":"",
+      "type":null,
+      "account":null,
+      "platform":null,
+      "success":false,
+      "ts":null,
+      "version":20241115
+    },
+    "emailUse":"Used to contain email data for communication.",
+    "email":{
+      "guid":"",
+      "from":null,
+      "to":[
+  
+      ],
+      "cc":[
+  
+      ],
+      "bcc":[
+  
+      ],
+      "success":false,
+      "ts":null,
+      "version":20241115
+    },
+    "contactUse":"Used to contain contact/entity data.",
+    "contact":{
+      "guid":"",
+      "type":null,
+      "company":null,
+      "name":null,
+      "nameFirst":"",
+      "nameLast":null,
+      "nameMiddle":null,
+      "email":"",
+      "email2":null,
+      "phone":null,
+      "phone2":null,
+      "chats":[
+  
+      ],
+      "addresses":[
+  
+      ],
+      "orders":[
+  
+      ],
+      "ts":null,
+      "version":20241115
+    },
+    "orderUse":"Used for complete order data.",
+    "order":{
+      "guid":"",
+      "guidDiscount":null,
+      "discount":{
+  
+      },
+      "type":null,
+      "subtotal":0,
+      "taxRate":0,
+      "taxes":0,
+      "total":0,
+      "payments":0,
+      "amountDue":null,
+      "name":"",
+      "email":"",
+      "email2":null,
+      "phone":null,
+      "phone2":null,
+      "dateOrdered":null,
+      "dateCompleted":null,
+      "datePayment":null,
+      "affiliateCd":null,
+      "contact":{
+  
+      },
+      "contacts":[
+  
+      ],
+      "items":[
+  
+      ],
+      "shipping":{
+  
+      },
+      "billing":{
+  
+      },
+      "chats":[
+  
+      ],
+      "transactions":[
+  
+      ],
+      "ts":null,
+      "version":20241115
+    },
+    "transactionUse":"Used to contain transaction data.",
+    "transaction":{
+      "guid":"",
+      "type":null,
+      "success":false,
+      "refCdInt":null,
+      "refCdExt":null,
+      "authCd":null,
+      "gateway":null,
+      "amount":0,
+      "amountAttempted":0,
+      "amountConfirmed":0,
+      "contacts":[
+  
+      ],
+      "card":{
+  
+      },
+      "account":{
+  
+      },
+      "subscription":{
+  
+      },
+      "isCash":false,
+      "ts":null,
+      "version":20241115
+    },
+    "subscriptionUse":"Used to contain subscription data.",
+    "subscription":{
+      "guid":"",
+      "type":null,
+      "intervalText":null,
+      "intervalNumber":0,
+      "intervalMax":0,
+      "intervalAmount":0,
+      "dateStart":null,
+      "dateFinal":null,
+      "nonce":null,
+      "ts":null,
+      "version":20241115
+    },
+    "accountUse":"Used to contain account/bank data.",
+    "account":{
+      "guid":"",
+      "type":"bank",
+      "routing":null,
+      "number":null,
+      "nonce":null,
+      "ts":null,
+      "version":20241115
+    },
+    "cardUse":"Used to contain card/credit card data.",
+    "card":{
+      "guid":"",
+      "currency":"USD",
+      "type":"credit",
+      "nonce":null,
+      "brand":null,
+      "name":null,
+      "number":null,
+      "cvc":null,
+      "amount":0,
+      "exp_mm":null,
+      "exp_yyyy":null,
+      "address":{
+  
+      },
+      "last4":null,
+      "success":false,
+      "ts":null,
+      "version":20241115
+    },
+    "discountUse":"Used to contain discount data.",
+    "discount":{
+      "guid":"",
+      "type":"coupon",
+      "name":"",
+      "description":null,
+      "dateStart":null,
+      "dateFinal":null,
+      "isActive":true,
+      "isSerialized":false,
+      "productInclusions":[
+  
+      ],
+      "productExclusions":[
+  
+      ],
+      "currencyAmount":0,
+      "percentAmount":0,
+      "maxAmount":null,
+      "cartAmount":0,
+      "quantityLimit":0,
+      "ts":null,
+      "version":20241115
+    }
+  }
