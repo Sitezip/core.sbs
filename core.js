@@ -43,7 +43,7 @@ const core = (() => {
             })
 
             //get core internal objects making them available as needed
-            core.be.getData('coreInternalObjects','core.json');
+            core.be.getData('coreInternalObjects','https://www.core.sbs/core.json');
         },
         //backend functions
         be: (() => {
