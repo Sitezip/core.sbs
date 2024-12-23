@@ -122,7 +122,7 @@ const core = (() => {
                     core.be.setCacheTs(dataRef, 'data');
                     //check if a predefined/custom object (dataObj) has been passed to settings via preflight
                     if(settings.hasOwnProperty('dataObj')){
-                        core.cr.setData(settings.dataRef, settings.dataObject);
+                        core.cr.setData(settings.dataRef, settings.dataObj);
                         return;
                     }
                     core_be_count++;
