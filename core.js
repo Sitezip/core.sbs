@@ -120,6 +120,11 @@ const core = (() => {
                 getData: (dataRef, dataSrc, settings) => {
                     settings = {...core.be.preflight(dataRef, dataSrc, 'data'), ...settings};
                     core.be.setCacheTs(dataRef, 'data');
+                    //check if a predefined/custom object (dataObj) has been passed to settings via preflight
+                    if(settings.hasOwnProperty('dataObj')){
+                        core.cr.setData(settings.dataRef, settings.dataObj);
+                        return;
+                    }
                     core_be_count++;
                     fetch(settings.dataSrc, core.be.setGetParams(settings))
                         .then((response) => {
