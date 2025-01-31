@@ -1023,7 +1023,7 @@ const core = (() => {
                 get regex() {
                     return regex;
                 },
-                format: function (value, formatStr, valueDefault = '') {
+                format: (value, formatStr, valueDefault = '') => {
                     let [format, vDefault, clue] = String(formatStr || [core.ud.defaultDeltaFormat, core.ud.defaultDelta].join('.')).split('.');
                     let [clueCount, cluePad]     = String(clue || '4|0').split('|');
                     if(value != 0 && value != false){
@@ -1146,11 +1146,11 @@ const core = (() => {
                     }
                     return value || core.ud.defaultDelta;
                 },
-                scrub: function (scrubArr) {
+                scrub: (scrubArr) => {
                     //[{name:"name",value:"John",scrubs:["req","lower"]}]
                     let resultObj = {success:true,scrubs:[],errors:{}};
                     scrubArr.forEach(function (scrubObj,i) {
-                        scrubArr[i] = core.sv.scrubEach(scrubObj,scrubArr);
+                        scrubArr[i] = core.sv.scrubEach(scrubObj, scrubArr);
                         if(!scrubArr[i].success){
                             resultObj.success = false;
                             resultObj.errors[scrubArr[i].name] = scrubArr[i].errors;
@@ -1159,7 +1159,7 @@ const core = (() => {
                     resultObj.scrubs = scrubArr;
                     return resultObj;
                 },
-                scrubEach: function (scrubObj,scrubArr) {
+                scrubEach: (scrubObj, scrubArr) => {
                     //scrubObj sample: {name:"name",value:"John",scrubs:["req","lower","max:15"]}
                     //scrubArr sample: [{name:"name",value:"John",scrubs:["req","lower","max:15"]},...]
                     scrubObj.delta   = scrubObj.value;
@@ -1263,10 +1263,10 @@ const core = (() => {
 
                     return scrubObj;
                 },
-                scrubSimple: function (name,value,scrubs) {
+                scrubSimple: (name,value,scrubs) => {
                     return core.sv.scrubEach({name:name,value:value,scrubs:scrubs});
                 },
-                scrubMatch: function (scrubArr,scrubMatch,valueMatch) {
+                scrubMatch: (scrubArr,scrubMatch,valueMatch) => {
                     let match = false;
                     scrubArr.forEach(function (scrubObj) {
                         if(scrubMatch.value === scrubObj.value && scrubObj.name === valueMatch){

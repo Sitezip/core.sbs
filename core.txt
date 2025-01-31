@@ -1,0 +1,116 @@
+<!-- core.js -->
+<!-- SAMPLE: LINKS -->
+<!-- defining new pocket via a tag -->
+<a href="#" class="nav-link" target="#main" data-core-templates="other">change</a>
+<!-- defining source -->
+<a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a>
+
+<!-- SAMPLE: ELEMENTS -->
+<!-- defining source -->
+<div class="core-pocket" data-core-templates="default,stuff,deep" data-default-core-source="https://zzzap.io/Forms/login"></div>
+
+<!-- SAMPLE: PROCESS FORMATTING -->
+<cite class="h--quote-author">Mother</cite>
+
+<!-- SAMPLE: TEMPLATES -->
+<section id="cr-data" style="display:none;">
+    <template name="samp">
+        <div class="container">
+            <h3>Cloning</h3>
+            <div class="row">
+                <div class="core-clone col-sm-4" data-core-data="pop">
+                    <span class="text-secondary">{{rec:name:upper}}</span> paid {{rec:paid:money:$}} on {{rec:ts:date:date}} for a {{rec:stuff.food}}.
+                </div>
+            </div>
+        </div>
+    </template>
+</section>
+
+<!-- SAMPLES: include core.js library -->
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20240815.0/core.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+
+<script>
+    // core.js setup
+    core.ud.init = () => {
+        // set config
+        core.useRouting  = false;
+        core.useDebugger = core.hf.getRoute().includes('localhost') || core.hf.getRoute().includes('127.0.0.1');
+        // set custom cache life
+        //core.be.cacheExpire = {type:'data',name:'quote',seconds:5};
+        
+        // set application default variables here
+        core.cr.setData('hit', {
+            ts:core.hf.date(null,'ts'),
+            YYYY:core.hf.date(null,'YYYY')
+        });
+    }
+
+    // available core data
+    const coreObjects = core.cr.getData('coreInternalObjects');
+
+    // functionality to run prepaint of cloning
+    core.ud.prepaint = (dataRef, dataObj, type) => {}
+
+    // functionality to run postpaint of cloning
+    core.ud.postpaint = (dataRef, dataObj, type) => {}
+
+    // functionality/settings manipulation to run preflight of data/template request
+    core.ud.preflight = (dataRef, dataSrc, type) => {
+        let settings = {dataRef:dataRef, dataSrc:dataSrc, type:type};
+        switch(type){
+            case 'data':
+                break;
+            case 'template':
+            default:
+        }
+        return settings; //as is, required
+    }
+
+    // functionality to run postflight of data/template request
+    core.ud.postflight = (dataRef, dataObj, type) => {
+        switch(type){
+            case 'data':
+                break;
+            case 'template':
+            default:
+        }
+        return dataObj; //as is, required
+    }
+
+    // custom formatting called during/post cloning {{rec:data.name:format:clue}}
+    core.ud.formatValue = (value, formatList, clue) => {
+        for(const format of formatList){
+            switch(format){
+                case 'customname':
+                    value = value;
+                    break;
+            }
+        }
+        return value; //as is, required
+    }
+
+    // core.js sample code
+    //core.hf.date(null,'YYYY') // date: (dateStr, format) returns current year, accepts M(M), D(D), YY(YY), HH:MM:SS or combinations of each 
+    //core.hf.ccNumAuth(4111111111111111) // ccNumAuth: (ccNum) returns boolean response if cc number is valid
+    //core.hf.copy('Hello World') // copy: (text) copies text to clipboard
+    //core.hf.digData({name:{last:"doe",first:"john"}}, 'name.last') // digData: (object, ref) returns "doe" or undefined
+    //core.hf.getRoute('href') // getRoute: (which) returns URL data as per new URL(window.location.href)
+    //core.hf.sortObj([,{last:"doe",first:"john"},{last:"doe",first:"jane"}], 'first', 'automatic', 'ASC') // sortObj: (objects, key, type, sort = 'ASC') returns sorted object
+    //core.hf.uuid() // returns a uuid
+
+    //core.sv.format(8885551212, 'phone', 9995551313) // format: function (value, formatStr, valueDefault = '') returns a formatted string/number from set of predefined formats
+    //core.sv.scrubSimple('phoneNo',8885551212,'phone') // scrubSimple: (name,value,scrubs) returns object with validation data including boolean if validated
+
+    //core.ux.formatValue(8885551212, ['phone']); // formatValue: (value, formatList, clue) returns a formatted string/number from set of predefined formats, see also core.sv.format
+    //core.ux.insertPocket('#hero-container',['today']); // insertPocket: (target, dataRefs, dataSources = [], autoFill = true)
+
+    //core.be.getData('todayObj',`https://en.wikipedia.org/api/rest_v1/feed/onthisday/${todayType}/${mm}/${dd}`) // getData: (dataRef, dataSrc, settings)
+    //core.be.getTemplate('nav',`nav.html`, {}) // getTemplate: (dataRef, dataSrc, settings)
+
+    //core.cr.setData('todayObj',checkHash) // setData: (name, data, elem, storageId)
+    //core.cr.getData('todayObj'); // getData: (name, elem, storageId)
+    //core.cr.setTemplate('sidebar','<hr>') // setTemplate: (name, value)
+    //core.cr.getTemplate('sidebar) // getTemplate: (name)
+
+</script>
