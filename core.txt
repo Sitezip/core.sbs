@@ -1,9 +1,12 @@
 <!-- core.js -->
 <!-- SAMPLE: LINKS -->
-<!-- defining new pocket via a tag -->
+<!-- defining new pocket via <A> tag -->
 <a href="#" class="nav-link" target="#main" data-core-templates="other">change</a>
-<!-- defining source -->
+<a href="#" class="nav-link" target="#main" data-core-templates="other" data-other-core-source="/html/more.html">More</a>
+
+<!-- defining data/template silent request -->
 <a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a>
+<a href="#" class="nav-link" target="core_be_getTemplate" data-core-templates="author" data-author-core-source="/html/author.html">Silent Template</a>
 
 <!-- SAMPLE: ELEMENTS -->
 <!-- defining source -->
@@ -45,6 +48,8 @@
             YYYY:core.hf.date(null,'YYYY')
         });
     }
+
+    core.ud.eoc = () => {}
 
     // available core data
     const coreObjects = core.cr.getData('coreInternalObjects');

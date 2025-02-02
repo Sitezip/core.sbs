@@ -454,35 +454,44 @@ const core = (() => {
                             break;
                     }
 
-                    const D = date.getDate();
-                    const M = date.getMonth() + 1;
-                    const Y = date.getFullYear();
-                    const h = date.getHours();
-                    const H = (h % 12) || 12;
-                    const m = date.getMinutes();
-                    const s = date.getSeconds();
-                    const p = (h >= 12 ? 'PM' : 'AM');
-                    const t = String(Math.floor(date / 1000));
-
-                    if(output === 'TS'){
-                        return +t;
-                    }else if(output === 'PERF'){
-                        return performance.now();
+                    const dateObj = {
+                            'HH': String(output.includes('P') ? ((date.getHours() % 12) || 12) : date.getHours()).padStart(2, '0'),
+                            'H': String((date.getHours() % 12) || 12),
+                            ':MM': ':' + String(date.getMinutes()).padStart(2, '0'),
+                            ':SS': ':' + String(date.getSeconds()).padStart(2, '0'),
+                            'DD': String(date.getDate()).padStart(2, '0'),
+                            'D': String(date.getDate()),
+                            'MM': String(date.getMonth() + 1).padStart(2, '0'),
+                            'M': String(date.getMonth() + 1),
+                            'YYYY': String(date.getFullYear()),
+                            'YY': String(date.getFullYear()).substr(2),
+                            'P': String(date.getHours() >= 12 ? 'PM' : 'AM'),
+                            'TS': +String(Math.floor(date / 1000)),
+                            'PERF': performance.now()
                     }
 
+                    if(output === 'TS'){
+                        return dateObj.TS;
+                    }else if(output === 'PERF'){
+                        return dateObj.PERF;
+                    }else if(output === 'OBJ'){
+                        return dateObj;
+                    }
+
+                    // Replace tokens with date values in the output string
                     return output
-                        .replace('HH', String(output.includes('P') ? H : h).padStart(2, '0'))
-                        .replace('H', String(H))
-                        .replace(':MM', ':' + String(m).padStart(2, '0')) //above Month
-                        .replace(':SS', ':' + String(s).padStart(2, '0'))
-                        .replace('DD', String(D).padStart(2, '0'))
-                        .replace('D', String(D))
-                        .replace('MM', String(M).padStart(2, '0'))
-                        .replace('M', String(M))
-                        .replace('YYYY', String(Y))
-                        .replace('YY', String(Y).substr(2))
-                        .replace('P', p)
-                        .replace('TS', t);
+                        .replace('HH', dateObj.HH)
+                        .replace('H',dateObj.H)
+                        .replace(':MM', dateObj[':MM']) //above Month
+                        .replace(':SS', dateObj[':SS']) 
+                        .replace('DD',dateObj.DD)
+                        .replace('D', dateObj.D)
+                        .replace('MM', dateObj.MM)
+                        .replace('M', dateObj.M)
+                        .replace('YYYY', dateObj.YYYY)
+                        .replace('YY', dateObj.YY)
+                        .replace('P', dateObj.P)
+                        .replace('TS', String(dateObj.TS));
                 },
                 /**
                  * Digs through an object looking for a value using a dot delimited string as a reference
