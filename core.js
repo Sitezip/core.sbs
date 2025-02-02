@@ -429,9 +429,13 @@ const core = (() => {
                     document.body.removeChild(textarea);
                     return successful;
                 },
-                date: (dateStr, format) => {
+                date: (dateStr, format, strict = false) => {
                     let date   = (dateStr || new Date().toLocaleString());
-                    let output = (format || core.ud.defaultDateFormat).toUpperCase();
+                    let output = (format || core.ud.defaultDateFormat);
+                    
+                    if(!strict){
+                        output = output.toUpperCase();
+                    }
 
                     // Check Unix timestamp (numeric)
                     if (+date) {
@@ -455,27 +459,38 @@ const core = (() => {
                     }
 
                     const dateObj = {
-                            'HH': String(output.includes('P') ? ((date.getHours() % 12) || 12) : date.getHours()).padStart(2, '0'),
-                            'H': String((date.getHours() % 12) || 12),
-                            ':MM': ':' + String(date.getMinutes()).padStart(2, '0'),
-                            ':SS': ':' + String(date.getSeconds()).padStart(2, '0'),
-                            'DD': String(date.getDate()).padStart(2, '0'),
-                            'D': String(date.getDate()),
-                            'MM': String(date.getMonth() + 1).padStart(2, '0'),
-                            'M': String(date.getMonth() + 1),
-                            'YYYY': String(date.getFullYear()),
-                            'YY': String(date.getFullYear()).substr(2),
-                            'P': String(date.getHours() >= 12 ? 'PM' : 'AM'),
-                            'TS': +String(Math.floor(date / 1000)),
-                            'PERF': performance.now()
+                        'hh': String(output.includes('P') ? ((date.getHours() % 12) || 12) : date.getHours()).padStart(2, '0'),
+                        'h': String((date.getHours() % 12) || 12),
+                        'mm': String(date.getMinutes()).padStart(2, '0'),
+                        'ss': String(date.getSeconds()).padStart(2, '0'),
+                        'p': String(date.getHours() >= 12 ? 'pm' : 'am'),
+                        'HH': String(output.includes('P') ? ((date.getHours() % 12) || 12) : date.getHours()).padStart(2, '0'),
+                        'H': String((date.getHours() % 12) || 12),
+                        ':MM': ':' + String(date.getMinutes()).padStart(2, '0'),
+                        ':SS': ':' + String(date.getSeconds()).padStart(2, '0'),
+                        'DD': String(date.getDate()).padStart(2, '0'),
+                        'D': String(date.getDate()),
+                        'MM': String(date.getMonth() + 1).padStart(2, '0'),
+                        'M': String(date.getMonth() + 1),
+                        'YYYY': String(date.getFullYear()),
+                        'YY': String(date.getFullYear()).substr(2),
+                        'P': String(date.getHours() >= 12 ? 'PM' : 'AM'),
+                        'TS': +String(Math.floor(date / 1000)),
+                        'PERF': performance.now(),
+                        '_note':'Object keys represent available tokens for date formatting find/replace, with lowercase keys for more accuracy in strict mode'
                     }
 
-                    if(output === 'TS'){
+                    if(output.toUpperCase() === 'TS'){
                         return dateObj.TS;
-                    }else if(output === 'PERF'){
+                    }else if(output.toUpperCase() === 'PERF'){
                         return dateObj.PERF;
-                    }else if(output === 'OBJ'){
+                    }else if(output.toUpperCase() === 'OBJ'){
                         return dateObj;
+                    }else if(strict){
+                        for (const [key, value] of Object.entries(dateObj)) {
+                            output = output.split(key).join(value);
+                        }
+                        return output;
                     }
 
                     // Replace tokens with date values in the output string
