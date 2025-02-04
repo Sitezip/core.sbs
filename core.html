@@ -90,6 +90,7 @@
                 <th>Phone</th>
                 <th class="h-pip-name f-upperfirst"></th>
                 <th>Hair</th>
+                <th>{{data:pip:title:upper}}</th>
             </tr>
             </thead>
             <tbody>
@@ -101,6 +102,7 @@
                 <td>{{rec:phone:phone}}</td>
                 <td class="f-upper">{{rec:username}}</td>
                 <td>{{rec:hair.color}}</td>
+                <td>{{data:pip:name:truncate:2}}</td>
             </tr>
             </tbody>
         </table>
@@ -113,8 +115,20 @@
                         <h5 class="card-title">{{rec:title}}</h5>
                         <p class="card-text">{{rec:description}} - {{aug:count:padleft:5|0}}</p>
                         <p class="card-text">Price: {{rec:price:money:$}} <small class="text-secondary">{{rec:discountPercentage:decimal:%}} off</small> </p>
-                        <p class="card-text">Brand: <strong>{{rec:brand}}</strong></p>
+                        <p class="card-text">
+                            Brand: 
+                            <strong>
+                                <!-- Example: Two ways to reference the record data, via rec and #-->
+                                {{rec:brand}} ({{#:sku:lower}})
+                            </strong>
+                        </p>
                         <p class="card-text">Rating: {{rec:rating:decimal: ⭐}}</p>
+                        <p class="card-text">
+                            <!-- Example: Two ways to reference the agumented (computed) data, via aug and !-->
+                            {{aug:count}}{{!:index}} - 
+                            <!-- Example: Two ways to reference the stored data via, data and @ -->
+                            {{data:pip:id}} {{@:pip:stuff.vendor:upper}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -172,6 +186,7 @@
 <script src="core.js"></script>
 <script>
     //core.js setup
+    //core.ud.defaultDelta = 'n/a';
     core.ud.init = () => {
         //set config
         core.useRouting  = false;
@@ -247,7 +262,7 @@
     //test data
     core.be.getData('quote','https://dummyjson.com/quotes/random/'); //?delay=5000
     core.be.getData('joke','https://dadjokes.developersandbox.xyz/api/v1/random'); //this one fails sucessfully
-    core.cr.setData('pip',{name:'frodo'});
+    core.cr.setData('pip',{name:'fRoDo',title:'LoR',id:33,phone:8881231234,stuff:{vendor:'under20bucks'}});
     core.cr.setData('pop',[
         {name:'fred',paid:21.58,ts:1721788872,phone:8011231233,stuff:{food:'pizza'},more:[{color:'blue'},{color:'gold'}]},
         {name:'jake',paid:2.11,ts:1721188872,phone:8018760408,stuff:{food:'pear'},more:[{color:'red',hues:[{color:'fire engine'},{color:'candy apple'}]}]},

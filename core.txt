@@ -19,7 +19,7 @@
 <section id="cr-data" style="display:none;">
     <template name="samp">
         <div class="container">
-            <h3>Cloning</h3>
+            <h3>Cloning {{data:user:name:upper}}</h3>
             <div class="row">
                 <div class="core-clone col-sm-4" data-core-data="pop">
                     <span class="text-secondary">{{rec:name:upper}}</span> paid {{rec:paid:money:$}} on {{rec:ts:date:date}} for a {{rec:stuff.food}}.

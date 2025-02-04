@@ -1,4 +1,4 @@
-//core.js ver:20240815.0;
+//core.js ver:20250204.0;
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -120,8 +120,12 @@ const core = (() => {
                 getData: (dataRef, dataSrc, settings) => {
                     settings = {...core.be.preflight(dataRef, dataSrc, 'data'), ...settings};
                     core.be.setCacheTs(dataRef, 'data');
-                    //check if a predefined/custom object (dataObj) has been passed to settings via preflight
-                    if(settings.hasOwnProperty('dataObj')){
+                    //check if a predefined/custom object (dataObj) has been passed to settings via preflight or data-core-source
+                    const jsonDataSrc = core.hf.parseJSON(settings.dataSrc);
+                    if(jsonDataSrc){
+                        settings.dataObj = jsonDataSrc;
+                    }
+                    if(settings.hasOwnProperty('dataObj') && isArray(settings.dataObj)){
                         core.cr.setData(settings.dataRef, settings.dataObj);
                         return;
                     }
@@ -326,7 +330,9 @@ const core = (() => {
                 },
                 getTemplate: (name) => {
                     let newTemplate = (section.querySelector('[name=' + name + ']') || template);
-                    return String(unescape(newTemplate.textContent || newTemplate.innerHTML)).trim();
+                    //replace data values in the template
+                    newTemplate = String(unescape(newTemplate.textContent || newTemplate.innerHTML)).trim();
+                    return core.pk.injector(newTemplate);
                 },
             }
         })(),
@@ -536,6 +542,15 @@ const core = (() => {
                             return core.hf.digData(object[member], ref);
                         }
                     }
+                },
+                parseJSON: (str) => { 
+                    let obj;
+                    try {
+                        obj = JSON.parse(str);
+                    } catch (e) {
+                        return undefined;
+                    }
+                    return obj;
                 },
                 getRoute: (which) => { //TODO
                     const urlObj = new URL(window.location.href);
@@ -997,12 +1012,33 @@ const core = (() => {
                     }
                     core_pk_count--;
                 },
-                cloner: (records = [], templateRef) => {
+                /**
+                 * Hydrates HTML by using the classic pocket find/replace
+                 * Basic Syntax: {{data:user:customer.name:upper}} Result -> JOHN
+                 */
+                injector: (templateStr) => {
+                    let newString = templateStr;
+                    //replace the placeholders {{rec:name}}
+                    let placeholders = newString.match(core.sv.regex.dblcurly) || [];
+                    for (const placeholder of placeholders){
+                        let [type, dataSrc, ref, format, clue] = placeholder.split(':');
+                        if(type !== 'data' && type !== '@') continue;
+                        let object = core.cr.getData(dataSrc);
+                        let value  = core.hf.digData(object, ref) ;
+                        //format if a format/value are present
+                        if(format && value != undefined){
+                            value = core.ux.formatValue(value, format, clue);
+                        }
+                        newString = newString.replaceAll('{{' + placeholder + '}}', ((value != null  && value != undefined) ? value : core.ud.defaultDelta));
+                    }
+                    return newString;
+                },
+                cloner: (records = [], cloneRef) => {
                     core_pk_count++;
-                    let newTemplateStr = '';
-                    let count          = 0;
+                    let newCloneStr = '';
+                    let count       = 0;
                     for (const record of records) {
-                        let newString = templateRef; //TODO should be able to use item reference name, someday
+                        let newString = cloneRef; //TODO should be able to use item reference name, someday
                         //replace the placeholders {{rec:name}}
                         let placeholders = newString.match(core.sv.regex.dblcurly) || [];
                         for (const placeholder of placeholders){
@@ -1024,10 +1060,10 @@ const core = (() => {
                             newString = newString.replaceAll('{{' + placeholder + '}}', ((value != null  && value != undefined) ? value : core.ud.defaultDelta)); //(value || value == 0  || value == false)
                         }
                         count++;
-                        newTemplateStr = newTemplateStr + ' ' + newString;
+                        newCloneStr = newCloneStr + ' ' + newString;
                     }
                     core_pk_count--;
-                    return newTemplateStr;
+                    return newCloneStr;
                 },
             }
         })(),
