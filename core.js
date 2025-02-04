@@ -1033,12 +1033,12 @@ const core = (() => {
                     }
                     return newString;
                 },
-                cloner: (records = [], cloneRef) => {
+                cloner: (records = [], cloneStr) => {
                     core_pk_count++;
                     let newCloneStr = '';
                     let count       = 0;
                     for (const record of records) {
-                        let newString = cloneRef; //TODO should be able to use item reference name, someday
+                        let newString = cloneStr;
                         //replace the placeholders {{rec:name}}
                         let placeholders = newString.match(core.sv.regex.dblcurly) || [];
                         for (const placeholder of placeholders){
