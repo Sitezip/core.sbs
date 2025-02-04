@@ -1033,12 +1033,12 @@ const core = (() => {
                     }
                     return newString;
                 },
-                cloner: (records = [], cloneRef) => {
+                cloner: (records = [], cloneStr) => {
                     core_pk_count++;
                     let newCloneStr = '';
                     let count       = 0;
                     for (const record of records) {
-                        let newString = cloneRef; //TODO should be able to use item reference name, someday
+                        let newString = cloneStr;
                         //replace the placeholders {{rec:name}}
                         let placeholders = newString.match(core.sv.regex.dblcurly) || [];
                         for (const placeholder of placeholders){
@@ -1048,6 +1048,9 @@ const core = (() => {
                                 case 'aug': case '!':
                                     if(['i','index'].includes(member)) value = count;
                                     else if(['c','count'].includes(member)) value = count + 1;
+                                    else if(typeof core.ud[member] === 'function'){
+                                        value = core.ud[member](record);
+                                    }
                                     break;
                                 case 'rec': case '#':
                                     value = core.hf.digData(record, member);
