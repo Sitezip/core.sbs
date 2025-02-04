@@ -125,7 +125,7 @@ const core = (() => {
                     if(jsonDataSrc){
                         settings.dataObj = jsonDataSrc;
                     }
-                    if(settings.hasOwnProperty('dataObj') && isArray(settings.dataObj)){
+                    if(settings.hasOwnProperty('dataObj') && Array.isArray(settings.dataObj)){
                         core.cr.setData(settings.dataRef, settings.dataObj);
                         return;
                     }
