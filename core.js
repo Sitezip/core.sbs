@@ -1048,6 +1048,9 @@ const core = (() => {
                                 case 'aug': case '!':
                                     if(['i','index'].includes(member)) value = count;
                                     else if(['c','count'].includes(member)) value = count + 1;
+                                    else if(typeof core.ud[member] === 'function'){
+                                        value = core.ud[member](record);
+                                    }
                                     break;
                                 case 'rec': case '#':
                                     value = core.hf.digData(record, member);
