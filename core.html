@@ -129,6 +129,7 @@
                             <!-- Example: Two ways to reference the stored data via, data and @ -->
                             {{data:pip:id}} {{@:pip:stuff.vendor:upper}}
                         </p>
+                        <p class="card-text"><small>{{!:dynamicFunctionTest}}</small></p>
                     </div>
                 </div>
             </div>
@@ -256,6 +257,12 @@
 
     //End Of Call
     core.ud.eoc = () => {}
+
+    //custom augmentation function called with {{aug:dynamicFunctionTest}} or {{!:{ud_function_name}}}
+    core.ud.dynamicFunctionTest = (record) => {
+        return core.hf.uuid();
+        //return JSON.stringify(record);
+    }
 
     //--END CUSTOM FUNCTIONS--//
 
