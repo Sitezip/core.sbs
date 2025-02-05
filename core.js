@@ -1,4 +1,4 @@
-//core.js ver:20250204.0;
+//core.js ver:20250204.1;
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
