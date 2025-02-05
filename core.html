@@ -129,7 +129,15 @@
                             <!-- Example: Two ways to reference the stored data via, data and @ -->
                             {{data:pip:id}} {{@:pip:stuff.vendor:upper}}
                         </p>
-                        <p class="card-text"><small>{{!:dynamicFunctionTest}}</small></p>
+                        <p class="card-text">
+                            <small>
+                                <!-- Example: UD callback function {{aug:{ud_function_name}:{static_argument_1}:{static_argument_2}}} -->
+                                <!-- Example: Manipulate the placeholder value as directed by the UD function, using UD argument - tags  -->
+                                {{!:dynamicFunctionTest:tags:ud_arg2}}
+                                <!-- Example: Manipulate the cloning string as needed, using keyword - core_pk_clone -->
+                                {{!:dynamicFunctionTest:core_pk_clone:ud_arg2}}
+                            </small>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -259,9 +267,25 @@
     core.ud.eoc = () => {}
 
     //custom augmentation function called with {{aug:dynamicFunctionTest}} or {{!:{ud_function_name}}}
-    core.ud.dynamicFunctionTest = (record) => {
-        return core.hf.uuid();
-        //return JSON.stringify(record);
+    core.ud.dynamicFunctionTest = (record, args) => {
+        if(core.useDebugger) console.log(record,args);
+        
+        if(args.str1 === 'core_pk_clone'){
+            //return the cloning string as is or modified as needed
+            return args.cloningStr.replace('Price:', (args.index === 2 ? 'Sale Price!!!:':'Reg. Price:'));
+        }else if(args.str1 === 'tags'){
+            // return the placeholder value
+            return record.tags.join(' | ');
+        }else if(args.str1 === 'uuid'){
+            // return a unique id
+            return core.hf.uuid();
+        }else if(args.str1 === 'random'){
+            // return a random number
+            return Math.random();
+        }else if(args.str1 === 'dump'){
+            // return the record as a string for testing
+            return JSON.stringify(record);
+        }
     }
 
     //--END CUSTOM FUNCTIONS--//

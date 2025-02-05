@@ -1049,7 +1049,18 @@ const core = (() => {
                                     if(['i','index'].includes(member)) value = count;
                                     else if(['c','count'].includes(member)) value = count + 1;
                                     else if(typeof core.ud[member] === 'function'){
-                                        value = core.ud[member](record);
+                                        // custom clone and value manipulation function, must define core.ud.{udFunction} = () => {}
+                                        let args = {str1:format, str2:clue, index:count};
+                                        if(format === 'core_pk_clone'){
+                                            // custom clone manipulation
+                                            args.cloneStr    = cloneStr;  // the original string
+                                            args.cloningStr  = newString; // the up-to-date string
+                                            args.placeholder = placeholder;
+                                            newString = core.ud[member](record, args);
+                                        }else{
+                                            // custom value manipulation
+                                            value = core.ud[member](record, args);
+                                        }
                                     }
                                     break;
                                 case 'rec': case '#':
