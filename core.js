@@ -1,4 +1,4 @@
-//core.js ver:20250204.1;
+//core.js ver:20250205.0;
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -330,8 +330,11 @@ const core = (() => {
                 },
                 getTemplate: (name) => {
                     let newTemplate = (section.querySelector('[name=' + name + ']') || template);
-                    //replace data values in the template
                     newTemplate = String(unescape(newTemplate.textContent || newTemplate.innerHTML)).trim();
+                    if(typeof core.ud.getTemplate === 'function'){
+                        newTemplate = core.ud.getTemplate(name, newTemplate) || newTemplate;
+                    }
+                    //replace data values in the template
                     return core.pk.injector(newTemplate);
                 },
             }
@@ -1035,12 +1038,12 @@ const core = (() => {
                 },
                 cloner: (records = [], cloneStr) => {
                     core_pk_count++;
-                    let newCloneStr = '';
-                    let count       = 0;
+                    let newCloneStr  = '';
+                    let count        = 0;
+                    let placeholders = (cloneStr.match(core.sv.regex.dblcurly) || []).sort();
                     for (const record of records) {
                         let newString = cloneStr;
                         //replace the placeholders {{rec:name}}
-                        let placeholders = newString.match(core.sv.regex.dblcurly) || [];
                         for (const placeholder of placeholders){
                             let [type, member, format, clue] = placeholder.split(':');
                             let value;
@@ -1048,19 +1051,12 @@ const core = (() => {
                                 case 'aug': case '!':
                                     if(['i','index'].includes(member)) value = count;
                                     else if(['c','count'].includes(member)) value = count + 1;
-                                    else if(typeof core.ud[member] === 'function'){
-                                        // custom clone and value manipulation function, must define core.ud.{udFunction} = () => {}
-                                        let args = {str1:format, str2:clue, index:count};
-                                        if(format === 'core_pk_clone'){
-                                            // custom clone manipulation
-                                            args.cloneStr    = cloneStr;  // the original string
-                                            args.cloningStr  = newString; // the up-to-date string
-                                            args.placeholder = placeholder;
-                                            newString = core.ud[member](record, args);
-                                        }else{
-                                            // custom value manipulation
-                                            value = core.ud[member](record, args);
-                                        }
+                                    else if(['v','val','value'].includes(member) && typeof core.ud.cloneValue === 'function') {
+                                        let args = {str1:format, str2:clue, index:count, placeholder:placeholder};
+                                        value = core.ud.cloneValue(record, args);
+                                    }else if(['s','str','string'].includes(member) && typeof core.ud.cloneString === 'function') {
+                                        let args = {str1:format, str2:clue, index:count, placeholder:placeholder, cloneStr:cloneStr, cloningStr:newString};
+                                        newString = core.ud.cloneString(record, args) || newString;
                                     }
                                     break;
                                 case 'rec': case '#':

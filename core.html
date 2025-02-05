@@ -131,11 +131,10 @@
                         </p>
                         <p class="card-text">
                             <small>
-                                <!-- Example: UD callback function {{aug:{ud_function_name}:{static_argument_1}:{static_argument_2}}} -->
-                                <!-- Example: Manipulate the placeholder value as directed by the UD function, using UD argument - tags  -->
-                                {{!:dynamicFunctionTest:tags:ud_arg2}}
-                                <!-- Example: Manipulate the cloning string as needed, using keyword - core_pk_clone -->
-                                {{!:dynamicFunctionTest:core_pk_clone:ud_arg2}}
+                                <!-- Example: Manipulate a template value as needed  -->
+                                {{aug:value:tags:arg2}}
+                                <!-- Example: Manipulate a template cloning string as needed -->
+                                {{aug:string:arg1:arg2}}
                             </small>
                         </p>
                     </div>
@@ -266,28 +265,26 @@
     //End Of Call
     core.ud.eoc = () => {}
 
-    //custom augmentation function called with {{aug:dynamicFunctionTest}} or {{!:{ud_function_name}}}
-    core.ud.dynamicFunctionTest = (record, args) => {
+    //custom cloning augmentation function called with {{aug:value:arg1:arg2}} or {{!:v:arg1:arg2}}
+    core.ud.cloneValue = (record, args) => {
         if(core.useDebugger) console.log(record,args);
-        
-        if(args.str1 === 'core_pk_clone'){
-            //return the cloning string as is or modified as needed
-            return args.cloningStr.replace('Price:', (args.index === 2 ? 'Sale Price!!!:':'Reg. Price:'));
-        }else if(args.str1 === 'tags'){
-            // return the placeholder value
-            return record.tags.join(' | ');
-        }else if(args.str1 === 'uuid'){
-            // return a unique id
-            return core.hf.uuid();
-        }else if(args.str1 === 'random'){
-            // return a random number
-            return Math.random();
-        }else if(args.str1 === 'dump'){
-            // return the record as a string for testing
-            return JSON.stringify(record);
-        }
+        return record.tags.join(' | '); // return optional
     }
 
+    //custom cloning augmentation function called with {{aug:string:arg1:arg2}} or {{!:s:arg1:arg2}}
+    core.ud.cloneString = (record, args) => {
+        if(core.useDebugger) console.log(record,args);
+        return args.cloningStr.replace('Price:', (record.discountPercentage > 10 ? 'Sale Price!!!:':'Reg. Price:')); // return optional
+    }
+
+    core.ud.getTemplate = (name, newTemplate) => {
+        if(core.useDebugger) console.log(name, newTemplate);
+        switch(name){
+            case 'colors':
+                return newTemplate.replace('{{aug:index}}', '{{!:c}}');
+        }
+        //return newTemplate; // return optional
+    }
     //--END CUSTOM FUNCTIONS--//
 
     //test data
