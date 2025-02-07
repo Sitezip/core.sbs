@@ -26,12 +26,39 @@
                 </div>
             </div>
         </div>
-        <!-- other placeholders -->
-        {{rec:more:core_pk_cloner:colors}}
-        <!-- Example: Manipulate a template cloning value as needed  -->
-        {{aug:value:tags:arg2}}
-        <!-- Example: Manipulate a template cloning string as needed -->
+
+        <!-- other defined placeholders -->
+        <!-- create an <A> mailto link -->
+        {{rec:email:emaillink:class="hovemail"}}
+
+        <!-- create an <A> url link with _blank target -->
+        {{rec:url.link:urllink:class="special-link"}}
+
+        <!-- create an <IMG> to avoid broken images -->
+        {{rec:thumbnail:imgsrc:class="small-img"}}
+
+        <!-- use keyword format names for additional functionality -->
+        {{rec:palette:core_pk_cloner:colors}} <!-- uses the array of objects [{}] "palette" in the template named "colors" -->
+        {{rec:user.id:core_pk_attr:data-user-id}} <!-- result: data-user-id="242" -->
+
+        <!-- Advanced Example: working with objects, digging -->
+        {{rec:customer.shipping.address.city}}
+        {{rec:customer.shipping.address.state:upper}}
+        {{rec:customer.shipping.address.zip}}
+
+        <!-- Advanced Example: working with arrays -->
+        {{rec:tags.[n]}} <!-- will dump a simple array [] to a comma delimited string -->
+        {{rec:tags.1}} <!-- will return the value of array in index 1 -->
+
+        <!-- Advanced Example: Manipulate a core-clone template string as needed -->
         {{aug:string:arg1:arg2}}
+
+        <!-- Advanced Example: Manipulate a template core-clone value as needed  -->
+        {{aug:value:tags:arg2}}
+
+        <!-- Advanced Example: Use any data source to inject into any template -->
+        {{data:user:customer.name:upper}} <!-- returns value from data source named "user" then "customer.name" and formats to upper (accepts: {{data:name:member:format:clue}}) -->
+
     </template>
 </section>
 
@@ -107,7 +134,7 @@
             case 'colors':
                 return newTemplate.replace('{{aug:index}}', '{{!:c}}');
         }
-        return newTemplate; ////return string (optional for no template change)
+        return newTemplate; //return string (optional for no template change)
     }
 
     //custom cloning augmentation function called with {{aug:value:arg1:arg2}} or {{!:v:arg1:arg2}} during cloning
