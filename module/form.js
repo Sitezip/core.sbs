@@ -1,6 +1,6 @@
-export let formValidityType = 'core-form-errors'; // alert, tooltip, html5, core-input-error, core-form-errors
+export let formValidityType = 'core-form-errors'; // Available: alert, tooltip, html5, core-input-error, core-form-errors
 
-export const clearMessages = (args) => { //element
+export const clearMessages = (args) => { // Available: element
     if(args.element instanceof HTMLInputElement || args.element instanceof HTMLTextAreaElement || args.element instanceof HTMLSelectElement){
         args.element.parentElement.querySelectorAll(".core-input-error").forEach((div) => div.textContent = "");
     }else if(args.element instanceof HTMLFormElement){
@@ -9,7 +9,7 @@ export const clearMessages = (args) => { //element
     }
 }
 
-export const inputHandler = (args) => { // inputElement, formElement, validityType
+export const inputHandler = (args) => { // Available: inputElement, formElement, validityType
     let quiet    = args.formElement && args.formElement instanceof HTMLFormElement;
     let form     = args.formElement || input.closest("form");
     let formData = new FormData(form);
@@ -77,7 +77,7 @@ export const inputHandler = (args) => { // inputElement, formElement, validityTy
     return check;
 };
 
-export const formHandler = (args) => { // formElement, validityType, formId (unused)
+export const formHandler = (args) => { // Available: formElement, validityType, formId (unused)
     
     if(args.formElement instanceof HTMLFormElement === false){
         return;
