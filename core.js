@@ -1,10 +1,12 @@
-//core.js ver:20250205.0;
+const core_version = '20250208.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
 const core = (() => {
     const template  = document.createElement('template');
     const section   = document.getElementById('cr-data') || template.cloneNode(true);
+    const urlObj    = new URL(window.location.href);
+    let baseUrl     = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@' + core_version;
     let useDebugger = false; //user setting
     let useRouting  = false; //user setting
     let useLocking  = true;  //true = pockets lock after complete, false = pockets will refresh every soc call
@@ -21,6 +23,9 @@ const core = (() => {
         },
         get template() {
             return template;
+        },
+        get baseUrl() {
+            return baseUrl;
         },
         get useDebugger() {
             return useDebugger;
@@ -42,8 +47,7 @@ const core = (() => {
                 core.pk.init();
             })
 
-            //get core internal objects making them available as needed
-            core.be.getData('coreInternalObjects','https://www.core.sbs/core.json');
+            core.be.getData('coreInternalCheck', '/module/install.json'); //check for local install
         },
         //backend functions
         be: (() => {
@@ -133,7 +137,7 @@ const core = (() => {
                     fetch(settings.dataSrc, core.be.setGetParams(settings))
                         .then((response) => {
                             core_be_count--;
-                            return (response.ok ? response.json() : '{"error":true,"settings":' + JSON.stringify(settings) + '}');
+                            return (response.ok ? response.json() : core.hf.parseJSON('{"success":false,"error":true,"settings":' + JSON.stringify(settings) + '}'));
                         }).then((dataObject) => {
                         dataObject = (core.be.postflight(settings.dataRef, dataObject, 'data') || dataObject);
                         core.cr.setData(settings.dataRef, dataObject);
@@ -184,6 +188,12 @@ const core = (() => {
                                 delete dataObj[key];
                             }
                         }
+                    }else if(dataRef === 'coreInternalCheck'){
+                        if(dataObj.hasOwnProperty('success') && dataObj.success){
+                            baseUrl = urlObj['origin'];
+                        }
+                        //get core internal objects making them available as needed
+                        core.be.getData('coreInternalObjects', baseUrl + '/core.json');
                     }
                     if(typeof core.ud.postflight === "function"){
                         return core.ud.postflight(dataRef, dataObj, type);
@@ -306,10 +316,10 @@ const core = (() => {
                         return elem._CORE_Data[name];
                     }else if(storageId === 1 && elem.dataset.hasOwnProperty(name)){
                         //STATIC (Option B)
-                        return JSON.parse(elem.dataset[name]);
+                        return core.hf.parseJSON(elem.dataset[name]);
                     }else if(storageId === 2 && sessionStorage.getItem(name)){
                         //SESSION (Option C), elem is ignored
-                        return JSON.parse(sessionStorage.getItem(name));
+                        return core.hf.parseJSON(sessionStorage.getItem(name));
                     }
                 },
                 delTemplate: (name) => {
@@ -756,7 +766,7 @@ const core = (() => {
                     const hash = core.hf.getRoute('hash');
                     if(useRouting && hash && hash.includes(escape('"t"')) && hash.includes(escape('"l"')) && hash.includes(escape('"n"'))){
                         //build the UX according to the incoming hash directive
-                        const directive = JSON.parse(unescape(core.hf.getRoute('hash').split('#').join('')));
+                        const directive = core.hf.parseJSON(unescape(core.hf.getRoute('hash').split('#').join('')));
                         for (const settings of directive){
                             let nameList    = [];
                             let dataSources = [];
@@ -1075,6 +1085,18 @@ const core = (() => {
                     core_pk_count--;
                     return newCloneStr;
                 },
+            }
+        })(),
+        //modular functions
+        md: (() => {
+            return {
+                form: (funcName, args) => {
+                    import(baseUrl + '/module/form.js').then(form => {
+                        form[funcName](args);
+                    }).catch(error => {
+                        console.error(`Error loading ${funcName}:`, error);
+                    });
+                }
             }
         })(),
         //validation functions
