@@ -80,31 +80,34 @@ export const formHandler = (args) => { // Available Arguments: formElement, vali
     if(args.formElement instanceof HTMLFormElement === false){
         return;
     }
-    
+
+    // Hide the form before cloning
+    args.formElement.style.display = "none";
+
     // Remove event listeners
     const newForm = args.formElement.cloneNode(true);
     args.formElement.replaceWith(newForm); 
 
-    // Form watcher
+    // Add Listener
     newForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        console.log("submitting...");
-
         clearMessages({element:this});
 
-        // Wait 60 seconds before sending allowing for spam protection
+        // When configured, wait 60 seconds before sending providing spam protection
+
+        if(core.useDebugger) console.log("submitting...");
         const hit = core.cr.getData('hit');
         if(hit){
             let isReady = (core.hf.date(null, 'ts') - 60) > core.cr.getData('hit').ts;
             if (!isReady) {
-                console.log("waiting..." + ((core.hf.date(null, 'ts') - 60) - core.cr.getData('hit').ts));
+                if(core.useDebugger) console.log("waiting..." + ((core.hf.date(null, 'ts') - 60) - core.cr.getData('hit').ts));
                 return;
             }
         }
 
         const name   = this.getAttribute("name") || "form";   
-        const action = this.getAttribute("action") || "https://48cfe0df1071be5638e855f9c9e32967.zzzap.io/Relay/send/sendgrid";
+        const action = this.getAttribute("action") || core.hf.getRoute('search') || '?' + name + '=submitted';
         const method = this.getAttribute("method") || "POST";
 
         let nvObj = {};
@@ -133,4 +136,7 @@ export const formHandler = (args) => { // Available Arguments: formElement, vali
             core.be.getData(name, action, { data: nvObj, method: method, isFormData: true });
         }
     });
+
+    // Show the form again
+    newForm.style.display = ""; 
 };
