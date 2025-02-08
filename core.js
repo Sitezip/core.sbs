@@ -1,5 +1,4 @@
-//core.js ver:20250205.0;
-const core_version = '20250205.0';
+const core_version = '20250208.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
