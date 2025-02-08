@@ -20,18 +20,28 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-<div class="container">
-    <nav class="nav">
-        <a href="?" class="nav-link" >home</a>
-        <a href="#" class="nav-link" target="#main" data-core-templates="other">change</a>
-        <a href="#" class="nav-link" target="#main" data-core-templates="default,stuff">change back</a>
-        <a href="#" class="nav-link" target="#under" data-core-templates="stuff">add stuff</a>
-        <a href="#" class="nav-link" target="#under" data-core-templates="EMPTY">remove stuff</a>
-        <a href="#" class="nav-link" target="#main" data-core-templates="user">account</a>
-        <a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a>
-        <a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a>
-    </nav>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow p-2">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand p-0" href="#">
+            <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 150px;"></div>
+        </a>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="?" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="other">Change</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="default,stuff">Change Back</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#under" data-core-templates="stuff">Add Stuff</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#under" data-core-templates="EMPTY">Remove Stuff</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="user">Account</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
     <div>
@@ -216,6 +226,7 @@
 
     //backend pre/post retrieval
     core.ud.preflight = (dataRef, dataSrc, type) => {
+        console.log(dataRef,dataSrc);
         let settings = {dataRef:dataRef, dataSrc:dataSrc, type:type};
         if(type.includes('temp')){
             if(dataRef === dataSrc){
