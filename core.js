@@ -1,10 +1,13 @@
 //core.js ver:20250205.0;
+const core_version = '20250205.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
 const core = (() => {
     const template  = document.createElement('template');
     const section   = document.getElementById('cr-data') || template.cloneNode(true);
+    const urlObj    = new URL(window.location.href);
+    let baseUrl     = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@' + core_version;
     let useDebugger = false; //user setting
     let useRouting  = false; //user setting
     let useLocking  = true;  //true = pockets lock after complete, false = pockets will refresh every soc call
@@ -21,6 +24,9 @@ const core = (() => {
         },
         get template() {
             return template;
+        },
+        get baseUrl() {
+            return baseUrl;
         },
         get useDebugger() {
             return useDebugger;
@@ -42,8 +48,7 @@ const core = (() => {
                 core.pk.init();
             })
 
-            //get core internal objects making them available as needed
-            core.be.getData('coreInternalObjects','https://www.core.sbs/core.json');
+            core.be.getData('coreInternalCheck', '/module/install.json'); //check for local install
         },
         //backend functions
         be: (() => {
@@ -184,6 +189,12 @@ const core = (() => {
                                 delete dataObj[key];
                             }
                         }
+                    }else if(dataRef === 'coreInternalCheck'){
+                        if(dataObj.hasOwnProperty('success') && dataObj.success){
+                            baseUrl = urlObj['origin'];
+                        }
+                        //get core internal objects making them available as needed
+                        core.be.getData('coreInternalObjects', baseUrl + '/core.json');
                     }
                     if(typeof core.ud.postflight === "function"){
                         return core.ud.postflight(dataRef, dataObj, type);
@@ -1075,6 +1086,18 @@ const core = (() => {
                     core_pk_count--;
                     return newCloneStr;
                 },
+            }
+        })(),
+        //modular functions
+        md: (() => {
+            return {
+                form: (funcName, args) => {
+                    import(baseUrl + '/module/form.js').then(form => {
+                        form[funcName](args);
+                    }).catch(error => {
+                        console.error(`Error loading ${funcName}:`, error);
+                    });
+                }
             }
         })(),
         //validation functions

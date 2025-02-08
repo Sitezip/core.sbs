@@ -280,8 +280,17 @@
     core.ud.getTemplate = (name, newTemplate) => {
         if(core.useDebugger) console.log(name, newTemplate);
         switch(name){
-            case 'colors':
+            case 'colors': //just for fun
                 return newTemplate.replace('{{aug:index}}', '{{!:c}}');
+            case 'default': //login form adjustments and event listener
+                setTimeout(() => {
+                    core.md.form('formHandler', {formElement:document.getElementById("zzzapio-login"), formId:'zzzapio-login', validityType:null});
+                },1000);
+                return newTemplate 
+                    .replace('<form', '<form id="zzzapio-login" name="login"')
+                    .replace('/Auth/signIn', 'https://zzzap.io/Auth/remote/signIn')
+                    .replace('type="button"', 'type="submit"')
+                    .replace('"post">', '"post"><div class="core-form-errors"></div>'); //optionally, could add onblur to each element if desired
         }
         //return newTemplate; // return optional
     }
