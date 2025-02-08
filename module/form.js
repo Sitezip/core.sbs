@@ -1,6 +1,6 @@
-export let formValidityType = 'core-form-errors'; // Available: alert, tooltip, html5, core-input-error, core-form-errors
+export let formValidityType = 'core-form-errors'; // Available Types: alert, tooltip, html5, core-input-error, core-form-errors
 
-export const clearMessages = (args) => { // Available: element
+export const clearMessages = (args) => { // Available Arguments: element
     if(args.element instanceof HTMLInputElement || args.element instanceof HTMLTextAreaElement || args.element instanceof HTMLSelectElement){
         args.element.parentElement.querySelectorAll(".core-input-error").forEach((div) => div.textContent = "");
     }else if(args.element instanceof HTMLFormElement){
@@ -9,7 +9,7 @@ export const clearMessages = (args) => { // Available: element
     }
 }
 
-export const inputHandler = (args) => { // Available: inputElement, formElement, validityType
+export const inputHandler = (args) => { // Available Arguments: inputElement, formElement, validityType
     let quiet    = args.formElement && args.formElement instanceof HTMLFormElement;
     let form     = args.formElement || input.closest("form");
     let formData = new FormData(form);
@@ -25,10 +25,8 @@ export const inputHandler = (args) => { // Available: inputElement, formElement,
     });
 
     let data   = args.inputElement.dataset;
-    let name   = args.inputElement.name;
-    let val    = args.inputElement.value;
     let scrubs = data.scrubs ? data.scrubs.split(",") : [];
-    let check  = core.sv.scrubEach({ name: name, value: val, scrubs: scrubs }, pairs);
+    let check  = core.sv.scrubEach({ name: args.inputElement.name, value: args.inputElement.value, scrubs: scrubs }, pairs);
 
     if (!check.success) {
         check.warningSm = `${check.errors.join(", ")}`;
@@ -77,7 +75,7 @@ export const inputHandler = (args) => { // Available: inputElement, formElement,
     return check;
 };
 
-export const formHandler = (args) => { // Available: formElement, validityType, formId (unused)
+export const formHandler = (args) => { // Available Arguments: formElement, validityType, formId (unused)
     
     if(args.formElement instanceof HTMLFormElement === false){
         return;
