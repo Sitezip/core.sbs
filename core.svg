@@ -13,9 +13,12 @@
   </g>
   
   <!-- Logo text -->
-  <g transform="translate(150, 50)">
+  <g transform="translate(150, 65)">
     <text x="0" y="50" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#2D3748">
       CORE
+    </text>
+    <text x="0" y="75" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6c757d">
+      Source Backbone Server
     </text>
   </g>
 </svg>
