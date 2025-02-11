@@ -1118,6 +1118,7 @@ const core = (() => {
                 format: (value, formatStr, valueDefault = '') => {
                     let [format, vDefault, clue] = String(formatStr || [core.ud.defaultDeltaFormat, core.ud.defaultDelta].join('.')).split('.');
                     let [clueCount, cluePad]     = String(clue || '4|0').split('|');
+                    let [wrapOpen, wrapClose]    = String(clue || '""|""').split('|');
                     if(value != 0 && value != false){
                         value = value || vDefault || valueDefault;
                     }
@@ -1228,6 +1229,11 @@ const core = (() => {
                             break;
                         case 'truncate':
                             value = String(value).length < +clue ? String(value) : String(value).substring(0, +clue) + core.ud.alertTruncated;
+                            break;
+                        case 'wrap':
+                            if(value){
+                                value = wrapOpen + String(value) + wrapClose;
+                            }
                             break;
                         case 'upper':
                             value = String(value).toUpperCase();
