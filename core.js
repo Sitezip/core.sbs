@@ -137,14 +137,29 @@ const core = (() => {
                     fetch(settings.dataSrc, core.be.setGetParams(settings))
                         .then((response) => {
                             core_be_count--;
-                            return (response.ok ? response.json() : core.hf.parseJSON('{"success":false,"error":true,"settings":' + JSON.stringify(settings) + '}'));
-                        }).then((dataObject) => {
-                        dataObject = (core.be.postflight(settings.dataRef, dataObject, 'data') || dataObject);
-                        core.cr.setData(settings.dataRef, dataObject);
-                    }).catch((error) => {
-                        core_be_count--;
-                        console.error(error);
-                    });
+                            const failResponse = {
+                                success: false,
+                                error: true,
+                                settings: settings
+                            };
+                            if (response.ok) {
+                                return response.json().catch(() => {
+                                    // If JSON parsing fails, return our fallback object
+                                    failResponse.parseError = true;
+                                    return failResponse;
+                                });
+                            } else {
+                                return failResponse;
+                            }
+                        })
+                        .then((dataObject) => {
+                            dataObject = (core.be.postflight(settings.dataRef, dataObject, 'data') || dataObject);
+                            core.cr.setData(settings.dataRef, dataObject);
+                        })
+                        .catch((error) => {
+                            core_be_count--;
+                            console.error(error);
+                        });
                 },
                 getTemplate: (dataRef, dataSrc, settings) => {
                     settings = {...core.be.preflight(dataRef, dataSrc, 'template'), ...settings};
