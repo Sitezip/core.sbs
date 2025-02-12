@@ -137,26 +137,20 @@ const core = (() => {
                     fetch(settings.dataSrc, core.be.setGetParams(settings))
                         .then((response) => {
                             core_be_count--;
-                            const failResponse = {
-                                success: false,
-                                error: true,
-                                settings: settings
-                            };
+                            const failResponse = {success: false, error: true, settings: settings};
                             if (response.ok) {
                                 return response.json().catch(() => {
-                                    // If JSON parsing fails, return our fallback object
+                                    // If JSON parsing fails, return failResponse object
                                     failResponse.parseError = true;
                                     return failResponse;
                                 });
                             } else {
                                 return failResponse;
                             }
-                        })
-                        .then((dataObject) => {
+                        }).then((dataObject) => {
                             dataObject = (core.be.postflight(settings.dataRef, dataObject, 'data') || dataObject);
                             core.cr.setData(settings.dataRef, dataObject);
-                        })
-                        .catch((error) => {
+                        }).catch((error) => {
                             core_be_count--;
                             console.error(error);
                         });
@@ -170,12 +164,12 @@ const core = (() => {
                             core_be_count--;
                             return (response.ok ? response.text() : core.ud.alertMissingTemplate);
                         }).then((dataString) => {
-                        dataString = (core.be.postflight(settings.dataRef, (dataString || core.ud.alertMissingTemplate), 'template') || dataString);
-                        core.cr.setTemplate(settings.dataRef, dataString);
-                    }).catch((error) => {
-                        core_be_count--;
-                        console.error(error);
-                    });
+                            dataString = (core.be.postflight(settings.dataRef, (dataString || core.ud.alertMissingTemplate), 'template') || dataString);
+                            core.cr.setTemplate(settings.dataRef, dataString);
+                        }).catch((error) => {
+                            core_be_count--;
+                            console.error(error);
+                        });
                 },
                 preflight: (dataRef, dataSrc, type) => {
                     //settings: method, cache, redirect, headers, data, isFormData,...dataRef, dataSrc, type
