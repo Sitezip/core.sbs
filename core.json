@@ -342,6 +342,13 @@
       "email2":null,
       "phone":null,
       "phone2":null,
+      "dob":null,
+      "ssn":null,
+      "tin":null,
+      "notes":{
+        "public":null,
+        "private":null
+      },
       "chats":[
   
       ],
