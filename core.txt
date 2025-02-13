@@ -11,6 +11,7 @@
 <!-- SAMPLE: ELEMENTS -->
 <!-- defining source -->
 <div class="core-pocket" data-core-templates="default,stuff,deep" data-default-core-source="https://zzzap.io/Forms/login"></div>
+<div class="core-pocket" data-core-templates="queue,todo,todo,basic,web,time,contact" data-queue-core-source="/cards/todo.html"></div>
 
 <!-- SAMPLE: PROCESS FORMATTING -->
 <cite class="h--quote-author">Mother</cite>
@@ -26,6 +27,19 @@
                 </div>
             </div>
         </div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="core-clone" data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
+                    <td>{{rec:firstName:upperfirst}} {{rec:lastName:upperfirst}}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- other defined placeholders -->
         <!-- create an <A> mailto link -->

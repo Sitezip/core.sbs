@@ -350,6 +350,7 @@ const core = (() => {
                 getTemplate: (name) => {
                     let newTemplate = (section.querySelector('[name=' + name + ']') || template);
                     newTemplate = String(unescape(newTemplate.textContent || newTemplate.innerHTML)).trim();
+                    if(!newTemplate) return;
                     if(typeof core.ud.getTemplate === 'function'){
                         newTemplate = core.ud.getTemplate(name, newTemplate) || newTemplate;
                     }
