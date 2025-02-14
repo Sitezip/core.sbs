@@ -1348,11 +1348,11 @@ const core = (() => {
                                 break;
                             case "gte":
                                 eachResult.success = +scrubObj.value >= +clue;
-                                eachResult.error = "Required value must have a length of " + clue + " or more.";
+                                eachResult.error = "Required value, a number, must be " + clue + " or more.";
                                 break;
                             case "lte":
                                 eachResult.success = +scrubObj.value <= +clue;
-                                eachResult.error = "Required value must have a length of " + clue + " or less.";
+                                eachResult.error = "Required value, a number, must be " + clue + " or less.";
                                 break;
                             case "email":
                                 eachResult.success = (String(scrubObj.value).length ? regex.email.test(scrubObj.value) : true);
