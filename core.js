@@ -122,6 +122,7 @@ const core = (() => {
                     return fetchParams;
                 },
                 getData: (dataRef, dataSrc, settings) => {
+                    fetchLogFIFO[dataRef] = settings;
                     settings = {...core.be.preflight(dataRef, dataSrc, 'data'), ...settings};
                     core.be.setCacheTs(dataRef, 'data');
                     //check if a predefined/custom object (dataObj) has been passed to settings via preflight or data-core-source
@@ -156,6 +157,7 @@ const core = (() => {
                         });
                 },
                 getTemplate: (dataRef, dataSrc, settings) => {
+                    fetchLogFIFO[dataRef] = settings;
                     settings = {...core.be.preflight(dataRef, dataSrc, 'template'), ...settings};
                     core.be.setCacheTs(dataRef, 'template');
                     core_be_count++;

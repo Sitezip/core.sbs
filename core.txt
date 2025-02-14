@@ -186,4 +186,8 @@
     //core.cr.setTemplate('sidebar','<hr>') // setTemplate: (name, value)
     //core.cr.getTemplate('sidebar) // getTemplate: (name)
 
+    // EXPERT CODE
+    //core.be.fetchLogFIFO = //contains all request settings
+    //core.be.fetchLogFIFO.createqueue.data = //'createqueue' is the "dataRef" of the core.be.getData(dataRef, dataSrc, settings)
+
 </script>
