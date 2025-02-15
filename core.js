@@ -1123,6 +1123,7 @@ const core = (() => {
             regex.alphanum   = /[^A-Za-z0-9]/g;
             regex.alphanumsp = /[^\w\s]/gi;
             regex.dblcurly   = /[^{\{]+(?=}\})/g;
+            regex.url        = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
             return{
                 get regex() {
                     return regex;
@@ -1357,6 +1358,10 @@ const core = (() => {
                             case "lte":
                                 eachResult.success = +scrubObj.value <= +clue;
                                 eachResult.error = "Required value, a number, must be " + clue + " or less.";
+                                break;
+                            case "url":
+                                eachResult.success = (String(scrubObj.value).length ? regex.url.test(scrubObj.value) : true);
+                                eachResult.error = "Only valid URLs are allowed.";
                                 break;
                             case "email":
                                 eachResult.success = (String(scrubObj.value).length ? regex.email.test(scrubObj.value) : true);
