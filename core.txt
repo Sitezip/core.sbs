@@ -187,7 +187,9 @@
     //core.cr.getTemplate('sidebar) // getTemplate: (name)
 
     // EXPERT CODE
-    //core.be.fetchLogFIFO = //contains all request settings
-    //core.be.fetchLogFIFO.createqueue.data = //'createqueue' is the "dataRef" of the core.be.getData(dataRef, dataSrc, settings)
+    //core.be.fetchLogFIFO //contains all request settings
+    //core.be.fetchLogFIFO.createqueue.data //'createqueue' is the "dataRef" of the core.be.getData(dataRef, dataSrc, settings)
+
+    //core.cr.setData(name, data, elem, storageId) // storageId : 0 = elem._CORE_Data, 1 = elem.dataset, 2 = sessionStorage
 
 </script>

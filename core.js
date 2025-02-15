@@ -1146,7 +1146,9 @@ const core = (() => {
                             break;
                         case 'date':
                         case 'datetime':
-                            value = core.hf.date(value, clue);
+                            if(value && clue != 'ignoreempty'){
+                                value = core.hf.date(value, clue);
+                            }
                             break;
                         case 'decimal':
                             value = (+value).toFixed(2) + (clue || '');
@@ -1362,7 +1364,7 @@ const core = (() => {
                                 scrubObj.value = core.sv.format(scrubObj.value,"lower");
                                 break;
                             default:
-                                scrubObj.value = core.sv.format(scrubObj.value,format);
+                                scrubObj.value = core.sv.format(scrubObj.value,format + (clue ? "." + core.ud.defaultDelta + "." + clue : ""));
                         }
 
                         if(!eachResult.success){
