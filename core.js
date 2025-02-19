@@ -1101,7 +1101,14 @@ const core = (() => {
         })(),
         //modular functions
         md: (() => {
+            let formSubmitLockout = 10;
             return {
+                get formSubmitLockout() {
+                    return formSubmitLockout;
+                },
+                set formSubmitLockout(value) {
+                    formSubmitLockout = parseInt(value);
+                },
                 form: (funcName, args) => {
                     import(baseUrl + '/module/form.js').then(form => {
                         form[funcName](args);
