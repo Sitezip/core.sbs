@@ -192,4 +192,7 @@
 
     //core.cr.setData(name, data, elem, storageId) // storageId : 0 = elem._CORE_Data, 1 = elem.dataset, 2 = sessionStorage
 
+    //element.closest(`[class*="core-cloned"]`)._CORE_Data.coreRecord //the record that was used in the clone
+    //element.closest('.core-pocketed').dataset //list of pockets in the pocket
+
 </script>
