@@ -1101,7 +1101,7 @@ const core = (() => {
         })(),
         //modular functions
         md: (() => {
-            let formSubmitLockout = 10;
+            let formSubmitLockout = 0;
             return {
                 get formSubmitLockout() {
                     return formSubmitLockout;

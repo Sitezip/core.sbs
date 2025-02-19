@@ -134,7 +134,7 @@ const isSubmissionReady = () => {
     if (core.useDebugger) console.log("submitting...");
 
     if(hit && hit.hasOwnProperty('ts')){
-        waitTime = (core.hf.date(null, 'ts') - (core.md.formSubmitLockout || 41)) - hit.ts;
+        waitTime = (core.hf.date(null, 'ts') - core.md.formSubmitLockout) - hit.ts;
         isReady = waitTime >= 0;
     }
 
