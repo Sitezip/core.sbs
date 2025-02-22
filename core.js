@@ -122,8 +122,8 @@ const core = (() => {
                     return fetchParams;
                 },
                 getData: (dataRef, dataSrc, settings) => {
+                    settings = core.be.preflight(dataRef, dataSrc, 'data', settings);
                     fetchLogFIFO[dataRef] = settings;
-                    settings = {...core.be.preflight(dataRef, dataSrc, 'data'), ...settings};
                     core.be.setCacheTs(dataRef, 'data');
                     //check if a predefined/custom object (dataObj) has been passed to settings via preflight or data-core-source
                     const jsonDataSrc = core.hf.parseJSON(settings.dataSrc);
@@ -157,8 +157,8 @@ const core = (() => {
                         });
                 },
                 getTemplate: (dataRef, dataSrc, settings) => {
+                    settings = core.be.preflight(dataRef, dataSrc, 'template', settings);
                     fetchLogFIFO[dataRef] = settings;
-                    settings = {...core.be.preflight(dataRef, dataSrc, 'template'), ...settings};
                     core.be.setCacheTs(dataRef, 'template');
                     core_be_count++;
                     fetch(settings.dataSrc, core.be.setGetParams(settings))
@@ -173,7 +173,7 @@ const core = (() => {
                             console.error(error);
                         });
                 },
-                preflight: (dataRef, dataSrc, type) => {
+                preflight: (dataRef, dataSrc, type, settings = {}) => {
                     //settings: method, cache, redirect, headers, data, isFormData,...dataRef, dataSrc, type
                     let defaultSettings = {
                         dataRef: dataRef, //TODO add a default here when undefined
@@ -187,9 +187,9 @@ const core = (() => {
                         isFormData: false,
                     }
                     if(typeof core.ud.preflight === "function"){
-                        return {...defaultSettings, ...core.ud.preflight(defaultSettings.dataRef, defaultSettings.dataSrc, defaultSettings.type)};
+                        return {...defaultSettings, ...settings, ...core.ud.preflight(defaultSettings.dataRef, defaultSettings.dataSrc, defaultSettings.type)};
                     }
-                    return defaultSettings;
+                    return {...defaultSettings, ...settings};
                 },
                 postflight: (dataRef, dataObj, type) => {
                     //remove text hints from internal objects

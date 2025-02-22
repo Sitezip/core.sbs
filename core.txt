@@ -194,5 +194,6 @@
 
     //element.closest(`[class*="core-cloned"]`)._CORE_Data.coreRecord //the record that was used in the clone
     //element.closest('.core-pocketed').dataset //list of pockets in the pocket
+    //core.be.cacheExpire = {type:'data',name:'quote',seconds:5} //these get added to an internal object, overrides are accepted
 
 </script>
