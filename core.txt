@@ -54,6 +54,7 @@
         <!-- use keyword format names for additional functionality -->
         {{rec:palette:core_pk_cloner:colors}} <!-- uses the array of objects [{}] "palette" in the template named "colors" -->
         {{rec:user.id:core_pk_attr:data-user-id}} <!-- result: data-user-id="242" -->
+        {{rec:detail:linkify|wrap: &#8901; | }} <!-- {{type:dataRef:formatA|formatB:clue}} this example has two formats linkify and wrap, currently only allows one clue -->
 
         <!-- Advanced Example: working with objects, digging -->
         {{rec:customer.shipping.address.city}}

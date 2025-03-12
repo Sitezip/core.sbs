@@ -1,4 +1,4 @@
-const core_version = '20250222.0';
+const core_version = '20250312.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -123,7 +123,6 @@ const core = (() => {
                 },
                 getData: (dataRef, dataSrc, settings) => {
                     settings = core.be.preflight(dataRef, dataSrc, 'data', settings);
-                    fetchLogFIFO[dataRef] = settings;
                     core.be.setCacheTs(dataRef, 'data');
                     //check if a predefined/custom object (dataObj) has been passed to settings via preflight or data-core-source
                     const jsonDataSrc = core.hf.parseJSON(settings.dataSrc);
@@ -158,7 +157,6 @@ const core = (() => {
                 },
                 getTemplate: (dataRef, dataSrc, settings) => {
                     settings = core.be.preflight(dataRef, dataSrc, 'template', settings);
-                    fetchLogFIFO[dataRef] = settings;
                     core.be.setCacheTs(dataRef, 'template');
                     core_be_count++;
                     fetch(settings.dataSrc, core.be.setGetParams(settings))
@@ -174,6 +172,8 @@ const core = (() => {
                         });
                 },
                 preflight: (dataRef, dataSrc, type, settings = {}) => {
+                    //log the request settings, pre
+                    fetchLogFIFO[dataRef] = {...settings, ...{FIFOtype:'pre',FIFOts:core.hf.date(null,'ts')}};
                     //settings: method, cache, redirect, headers, data, isFormData,...dataRef, dataSrc, type
                     let defaultSettings = {
                         dataRef: dataRef, //TODO add a default here when undefined
@@ -186,10 +186,15 @@ const core = (() => {
                         data: null,
                         isFormData: false,
                     }
+
                     if(typeof core.ud.preflight === "function"){
-                        return {...defaultSettings, ...settings, ...core.ud.preflight(defaultSettings.dataRef, defaultSettings.dataSrc, defaultSettings.type)};
+                        settings =  {...defaultSettings, ...settings, ...core.ud.preflight(defaultSettings.dataRef, defaultSettings.dataSrc, defaultSettings.type)};
                     }
-                    return {...defaultSettings, ...settings};
+                    
+                    //log the request settings, final
+                    fetchLogFIFO[dataRef] = {...defaultSettings, ...settings, ...{FIFOtype:'final',FIFOts:core.hf.date(null,'ts')}};
+
+                    return fetchLogFIFO[dataRef];
                 },
                 postflight: (dataRef, dataObj, type) => {
                     //remove text hints from internal objects
@@ -1123,6 +1128,7 @@ const core = (() => {
             let regex        = {};
             regex.email      = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             regex.phoneUS    = /(\d{3})(\d{3})(\d{4})/;
+            regex.html       = /<[^>]+>/g
             regex.numbers    = /[^0-9]/g;
             regex.floats     = /[^0-9.]/g;
             regex.alpha      = /[^A-Za-z]/g;
@@ -1130,7 +1136,8 @@ const core = (() => {
             regex.alphanum   = /[^A-Za-z0-9]/g;
             regex.alphanumsp = /[^\w\s]/gi;
             regex.dblcurly   = /[^{\{]+(?=}\})/g;
-            regex.url        = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+            regex.urlref     = /(https?:\/\/[^\s]+|www\.[^\s]+)/g
+            regex.url        = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
             return{
                 get regex() {
                     return regex;
@@ -1198,6 +1205,16 @@ const core = (() => {
                             break;
                         case 'nospace':
                             value = String(value).split(' ').join('');
+                            break;
+                        case "nohtml":
+                            value = value.replace(regex.html, '');
+                            break
+                        case 'linkify':
+                            value = value.replace(regex.urlref, match => {
+                                let secure = match.includes('https:') ? 's' : ''
+                                let url    = match.replace(/https?:\/\//, '')
+                                return `<a href="http${secure}://${url}" target="_blank">${url}</a>`
+                            });
                             break;
                         case 'null':
                             value = null;
