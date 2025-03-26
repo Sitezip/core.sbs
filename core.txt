@@ -186,6 +186,7 @@
     //core.cr.getData('todayObj'); // getData: (name, elem, storageId)
     //core.cr.setTemplate('sidebar','<hr>') // setTemplate: (name, value)
     //core.cr.getTemplate('sidebar) // getTemplate: (name)
+    //core.cr.getData('coreRecord', clonedElement, 0); //grab the cloned data
 
     // EXPERT CODE
     //core.be.fetchLogFIFO //contains all request settings
