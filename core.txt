@@ -187,6 +187,7 @@
     //core.cr.setTemplate('sidebar','<hr>') // setTemplate: (name, value)
     //core.cr.getTemplate('sidebar) // getTemplate: (name)
     //core.cr.getData('coreRecord', clonedElement, 0); //grab the cloned data
+        //element.closest(`[class*="core-cloned"]`)._CORE_Data.coreRecord //the record that was used in the clone
 
     // EXPERT CODE
     //core.be.fetchLogFIFO //contains all request settings
@@ -194,7 +195,6 @@
 
     //core.cr.setData(name, data, elem, storageId) // storageId : 0 = elem._CORE_Data, 1 = elem.dataset, 2 = sessionStorage
 
-    //element.closest(`[class*="core-cloned"]`)._CORE_Data.coreRecord //the record that was used in the clone
     //element.closest('.core-pocketed').dataset //list of pockets in the pocket
     //core.be.cacheExpire = {type:'data',name:'quote',seconds:5} //these get added to an internal object, overrides are accepted
 
