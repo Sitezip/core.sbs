@@ -1,4 +1,4 @@
-const core_version = '20250312.0';
+const core_version = '20251112.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -684,10 +684,12 @@ const core = (() => {
                         for (const hClass of hClasses){
                             if(core.ud.hydrationClassIgnoreList.includes(hClass)) continue;
                             let [ref, cache, memberRef] = hClass.split('--').join('-').split('-');
+                            let data = (core.cr.getData(cache) || {[(memberRef || 'not')]: (cache || 'found') + '*'});
                             if(cache === 'dataRef' && element.dataset.hDataRef){
-                                cache = element.dataset.hDataRef;
+                                data = core.cr.getData(element.dataset.hDataRef) || data;
+                            }else if(cache === 'coreRecord' && element.closest(`[class*="core-cloned"]`)?._CORE_Data.coreRecord){
+                                data = element.closest(`[class*="core-cloned"]`)._CORE_Data.coreRecord;
                             }
-                            const data     = (core.cr.getData(cache) || {[(memberRef || 'not')]: (cache || 'found') + '*'});
                             const tag      = element.tagName;
                             const value    = (typeof data === 'string' ? data : core.hf.digData(data, memberRef));
                             const delClass = !hClass.includes('h--');
