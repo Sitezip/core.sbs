@@ -100,24 +100,37 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
+                <th>First</th>
+                <th>Last</th>
                 <th>Height</th>
                 <th>Date</th>
                 <th>Phone</th>
+                <!-- global hydration content:pip.name, class format:upperFirst -->
                 <th class="h-pip-name f-upperfirst"></th>
                 <th>Hair</th>
+                <!-- global cache content:pip.title, argument format:upper -->
                 <th>{{data:pip:title:upper}}</th>
             </tr>
             </thead>
             <tbody>
             <tr class="core-clone" data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
+                <!-- augmented content:count(logic keyword), class format:padleft, argument class format clue:pad with 0 max length of 2 -->
                 <td class="f-padleft" data-f-clue="2|0">{{aug:count}}</td>
-                <td>{{rec:firstName:upperfirst}} {{rec:lastName:upperfirst}}</td>
+                <!-- record content:firstName, argument format:upperfirst -->
+                <td>{{rec:firstName:upperfirst}}</td>
+                <!-- record hydration content:lastName, class format:upperfirst -->
+                <td class="h-coreRecord-lastName f-upperfirst"></td>
+                <!-- record content:height, argument format:decimal, argument format clue:cm -->
                 <td>{{rec:height:decimal:cm}}</td>
+                <!-- record content:birthDate, format:date, format clue:MM/DD/YYYY -->
                 <td>{{rec:birthDate:date:MM/DD/YYYY}}</td>
+                <!-- record content:phone, format:phone -->                
                 <td>{{rec:phone:phone}}</td>
+                <!-- record content:username, class format:upper, argument format:wrap(logic keyword) argument format clue:<strong>|</strong> -->
                 <td class="f-upper">{{rec:username:wrap:<strong>|</strong>}}</td>
+                <!-- record content:hair.color -->
                 <td>{{rec:hair.color}}</td>
+                <!-- global cache content:pip.name, argument format:truncate, argument format clue:length of 2 -->
                 <td>{{data:pip:name:truncate:2}}</td>
             </tr>
             </tbody>
