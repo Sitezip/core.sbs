@@ -24,20 +24,20 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand p-0" href="#">
-            <div class="core-pocket" core-templates="core" core-source-core="core.svg" style="width: 150px;"></div>
+            <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 150px;"></div>
         </a>
 
         <!-- Navbar Links -->
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a href="?" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" core-templates="other">Change</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" core-templates="stuff">Change Back</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#under" core-templates="stuff">Add Stuff</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#under" core-templates="EMPTY">Remove Stuff</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" core-templates="user">Account</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" core-templates="news">Scammer News</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" core-templates="silent" core-source-silent="https://dummyjson.com/products?limit=1">Silent Data</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="other">Change</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="stuff">Change Back</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#under" data-core-templates="stuff">Add Stuff</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#under" data-core-templates="EMPTY">Remove Stuff</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="user">Account</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a></li>
             </ul>
         </div>
     </div>
@@ -53,14 +53,14 @@
         </div>
         <div class="col-4">
             <h3 class="mb-0">Login</h3>
-            <div class="core-pocket m-0" core-templates="default" core-source-default="https://zzzap.io/Forms/login"></div>
+            <div class="core-pocket m-0" data-core-templates="default" data-default-core-source="https://zzzap.io/Forms/login"></div>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div id="main">
-        <div class="core-pocket" core-templates="stuff,deep"></div>
+        <div class="core-pocket" data-core-templates="stuff,deep"></div>
     </div>
     <div id="under"></div>
 </div>
@@ -93,7 +93,7 @@
             <p>—<cite class="h--quote-author">Mother</cite></p>
         </div>
         <div id="header">This will be <strong>good</strong>.</div>
-        <a href="#" class="nav-link" target="#main" core-templates="deep">recursive</a>
+        <a href="#" class="nav-link" target="#main" data-core-templates="deep">recursive</a>
     </template>
     <template name="stuff">
         <table class="table">
@@ -113,7 +113,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="core-clone" core-data="users" core-source="https://dummyjson.com/users?limit=5">
+            <tr class="core-clone" data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
                 <!-- augmented content:count(logic keyword), class format:padleft, argument class format clue:pad with 0 max length of 2 -->
                 <td class="f-padleft" data-f-clue="2|0">{{aug:count}}</td>
                 <!-- record content:firstName, argument format:upperfirst -->
@@ -137,7 +137,7 @@
         </table>
         <hr>
         <div class="row">
-            <div class="core-clone col-sm-3 mb-2" core-data="prods" core-source="https://dummyjson.com/products?limit=12">
+            <div class="core-clone col-sm-3 mb-2" data-core-data="prods" data-core-source="https://dummyjson.com/products?limit=12">
                 <div class="card h-100">
                     <img class="card-img-top" {{rec:thumbnail:core_pk_attr:src}} alt="Card image cap">
                     <div class="card-body">
@@ -175,7 +175,7 @@
         <div class="container">
             <h3>Recursive Cloning</h3>
             <div class="row">
-                <div class="core-clone col-sm-4" core-data="pop">
+                <div class="core-clone col-sm-4" data-core-data="pop">
                     <span class="text-secondary">{{rec:name:upper}}</span> paid {{rec:paid:money:$}} on {{rec:ts:date:date}} for a {{rec:stuff.food}}.
                     <div>{{rec:more:core_pk_cloner:colors}}</div>
                 </div>
@@ -200,7 +200,7 @@
         </div>
 
         <div class="container">
-            <div class="core-clone col-sm-12 mb-3" core-data="news" core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology">
+            <div class="core-clone col-sm-12 mb-3" data-core-data="news" data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology,technology">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
