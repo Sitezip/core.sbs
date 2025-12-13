@@ -1,96 +1,101 @@
-#C.O.R.E
+# C.O.R.E
+*Create Once, Render Everywhere*
+
+A lightweight, dependency-free JavaScript library for building dynamic, data-driven web interfaces using simple HTML attributes. Now modernized with async/await and cleaner syntax.
 
 ```html
 <!-- option A: production version via CDN -->
 <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
 <!-- option B: historical version via CDN (advised) -->
-<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20240815.0/core.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js"></script>
 <!-- option C: production -->
 <script src="https://core.sbs/core.js"></script>
-<!-- option D: production via GitHub/Vercel -->
-<script src="https://core-sbs.vercel.app/core.js"></script>
 ```
 
-## `<section>`
-## `<template>`
+## Quick Start
 
-##custom functions
-###core.ud.prepaint()
-###core.ud.postpaint()
-
-###core.ud.preflight()
-###core.ud.postflight()
-
-###core.pk_eol()
-
-##DATA REFERENCING
-```javascript
-{{type:object-member:format-ref:clue}}
-```
-
-####BASIC - record examples
-```javascript
-{{rec:name_first:upper}} //execution
-{{rec:amount:money:$}} //execution
-```
-
-####SPECIAL - deep cloning
-```javascript
-{{type:list-of-objects:keyword:template-name}} //definition
-{{rec:items:core_pk_cloner:item}} //execution
-```
-
-####SPECIAL - HTML inline attributes
-```javascript
-{{type:object-member:keyword:tag-attribute}} //definition
-{{rec:thumbnail:core_pk_attr:src}} //execution
-```
-
-####SAMPLE - minimum usage
-```javascript
-{{rec:name_first}} //execution
-```
-
-####SAMPLE - maximum usage
-```javascript
-{{rec:name_first:lower,upperfirst}} //execution
-```
-
-####AUGMENTED - UX examples
-```javascript
-{{aug:index}} //execution, alias: {{!:i}}
-{{aug:count}} //execution, alias: {{!:c}}
-```
-```html
-<!-- execution -->
-<span>{{aug:count}}</span>
-```
-
-####KEYWORDS
-```javascript
-core_be_getData //used as an anchor target for silent data calls
-core_be_getTemplate //used as an anchor target for silent template calls
-```
-```html
-<!-- definitions -->
-<a href="#" target="core_be_getData" data-core-data="{name}" data-core-source="{source url}">More info</a>
-<a href="#" target="core_be_getTemplate" data-core-templates="{name1},{name2}" data-{name1}-core-source="{source url}">More info</a>
-```
-```javascript
-//'coreRecord' will contain the data object used to clone the records into the template
-core.cr.getData('coreRecord', {clonedElement}, 0) //definition
-```
+### 1. Define a Template
+Create a `<template>` inside a hidden section (default id `cr-data`).
 
 ```html
-<!-- before cloning, definition -->
-<div>
-    <div class="core-clone" data-core-data="{name}" data-core-source="{source url}">{{rec:nav.name}}</div>
-</div>
+<section id="cr-data" style="display:none;">
+    <template name="users">
+        <div class="user-card">
+            <h3>{{rec:name}}</h3>
+            <p>{{rec:email}}</p>
+        </div>
+    </template>
+</section>
+```
 
-<!-- after cloning, example {name} = nav -->
-<div>
-    <div class="core-cloned-nav">Home</div>
-    <div class="core-cloned-nav">About Us</div>
-    <div class="core-cloned-nav">FAQ</div>
+### 2. Create a Pocket
+Place a "pocket" where you want the content to appear. Use the new cleaner attributes.
+
+```html
+<div class="core-pocket" 
+     core-templates="users" 
+     core-source-users="https://api.example.com/users">
 </div>
 ```
+
+## Attributes
+
+| New Attribute | Legacy Attribute | Description |
+| :--- | :--- | :--- |
+| `core-templates` | `data-core-templates` | Comma-separated list of template names to load. |
+| `core-source` | `data-core-source` | Default data source URL for the element. |
+| `core-data` | `data-core-data` | Reference name for the data object. |
+| `core-source-[name]` | `data-[name]-core-source` | Specific data source for a named template. |
+
+## Data Referencing
+
+Syntax: `{{type:object-member:format-ref:clue}}`
+
+### Basic Examples
+```javascript
+{{rec:firstName}}           // Output: John
+{{rec:balance:money:$}}     // Output: $1,234.56
+{{rec:status:upper}}        // Output: ACTIVE
+```
+
+### Deep Cloning (Recursive)
+```javascript
+{{rec:items:core_pk_cloner:itemTemplate}} 
+```
+
+### HTML Attributes
+Inject data directly into HTML attributes.
+```html
+<img {{rec:avatarUrl:core_pk_attr:src}} alt="User Avatar">
+```
+
+## Custom Functions (Hooks)
+
+Hook into the lifecycle to customize behavior.
+
+*   `core.ud.soc()` - Start of Call (before anything happens)
+*   `core.ud.eoc()` - End of Call (after everything is rendered)
+*   `core.ud.preflight(dataRef, dataSrc, type)` - Modify fetch settings before request.
+*   `core.ud.postflight(dataRef, dataObj, type)` - Process data after fetch.
+*   `core.ud.prepaint(dataRef, dataObj, type)` - Before rendering a template/clone.
+*   `core.ud.postpaint(dataRef, dataObj, type)` - After rendering.
+
+## Silent Calls (Anchors)
+
+Trigger data fetching or template loading without immediate rendering using anchor tags.
+
+```html
+<a href="#" target="core_be_getData" 
+   core-data="myNewData" 
+   core-source="https://api.example.com/data">
+   Load Data Silently
+</a>
+```
+
+## Async/Await Architecture
+
+The core engine now uses modern `async/await` patterns for reliable execution order.
+1.  **Fetch**: All data and templates are fetched in parallel.
+2.  **Render**: Templates are rendered once all dependencies are resolved.
+3.  **Hydrate**: Static content is hydrated.
+4.  **Format**: Final formatting is applied.
