@@ -64,6 +64,13 @@ const core = (() => {
             };
 
             return {
+                /**
+                 * Waits for all active backend requests to complete.
+                 * This ensures that the application state is fully synchronized before proceeding.
+                 * 
+                 * @async
+                 * @returns {Promise<void>} Resolves when all tracked promises have settled.
+                 */
                 awaitAll: async () => {
                     while (activePromises.length) {
                         await Promise.all(activePromises);
@@ -134,6 +141,15 @@ const core = (() => {
 
                     return fetchParams;
                 },
+                /**
+                 * Fetches data from a source and stores it in the registry.
+                 * 
+                 * @async
+                 * @param {string} dataRef - The unique identifier for the data.
+                 * @param {string} dataSrc - The URL or source to fetch data from.
+                 * @param {object} settings - Optional configuration for the fetch request (method, headers, etc.).
+                 * @returns {Promise<object|object[]>} The fetched data object or array.
+                 */
                 getData: (dataRef, dataSrc, settings) => {
                     settings = core.be.preflight(dataRef, dataSrc, 'data', settings);
                     core.be.setCacheTs(dataRef, 'data');
@@ -170,6 +186,15 @@ const core = (() => {
 
                     return trackPromise(fetchPromise);
                 },
+                /**
+                 * Fetches a template string from a source.
+                 * 
+                 * @async
+                 * @param {string} dataRef - The unique identifier for the template.
+                 * @param {string} dataSrc - The URL or source to fetch the template from.
+                 * @param {object} settings - Optional configuration for the fetch request.
+                 * @returns {Promise<string>} The fetched template string.
+                 */
                 getTemplate: (dataRef, dataSrc, settings) => {
                     settings = core.be.preflight(dataRef, dataSrc, 'template', settings);
                     core.be.setCacheTs(dataRef, 'template');
@@ -868,6 +893,20 @@ const core = (() => {
                  *
                  * @returns {void}
                  */
+                /**
+                 * Start of Call (SOC).
+                 * Initiates the core lifecycle:
+                 * 1. Waits for pending backend requests.
+                 * 2. Calls user-defined `soc` hook.
+                 * 3. Fetches templates.
+                 * 4. Renders templates.
+                 * 5. Fetches data.
+                 * 6. Renders data (clones).
+                 * 7. Calls `eoc` (End of Call).
+                 * 
+                 * @async
+                 * @returns {Promise<void>}
+                 */
                 soc: async () => {
                     //don't continue until all preloaded backend data is loaded
                     await core.be.awaitAll();
@@ -890,6 +929,12 @@ const core = (() => {
 
                     core.pk.eoc();
                 },
+                /**
+                 * Scans the DOM for `core-templates` attributes and fetches missing templates.
+                 * 
+                 * @async
+                 * @returns {Promise<void>} Resolves when all required templates are fetched.
+                 */
                 getTemplate: async () => {
                     const promises = [];
                     let pockets = document.getElementsByClassName('core-pocket');
@@ -916,6 +961,12 @@ const core = (() => {
                         await Promise.all(promises);
                     }
                 },
+                /**
+                 * Injects fetched templates into their respective pockets.
+                 * Prepares the DOM for data cloning.
+                 * 
+                 * @returns {void}
+                 */
                 addTemplate: () => {
                     //find the pocket elements
                     let pockets = document.getElementsByClassName('core-pocket');
@@ -941,6 +992,12 @@ const core = (() => {
                         }
                     }
                 },
+                /**
+                 * Scans the DOM for `core-data` attributes (on clones) and fetches missing data.
+                 * 
+                 * @async
+                 * @returns {Promise<void>} Resolves when all required data is fetched.
+                 */
                 getData: async () => {
                     const promises = [];
                     //find the clone elements
@@ -962,6 +1019,12 @@ const core = (() => {
                         await Promise.all(promises);
                     }
                 },
+                /**
+                 * Clones the template elements for each data record.
+                 * Populates the clones with data and injects them into the DOM.
+                 * 
+                 * @returns {void}
+                 */
                 addData: () => {
                     //find the clone elements
                     // Use Array.from to create a static list since we modify the DOM
