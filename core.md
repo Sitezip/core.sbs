@@ -29,23 +29,23 @@ Create a `<template>` inside a hidden section (default id `cr-data`).
 ```
 
 ### 2. Create a Pocket
-Place a "pocket" where you want the content to appear. Use the new cleaner attributes.
+Place a "pocket" where you want the content to appear.
 
 ```html
 <div class="core-pocket" 
-     core-templates="users" 
-     core-source-users="https://api.example.com/users">
+     data-core-templates="users" 
+     data-core-source-users="https://api.example.com/users">
 </div>
 ```
 
 ## Attributes
 
-| New Attribute | Legacy Attribute | Description |
-| :--- | :--- | :--- |
-| `core-templates` | `data-core-templates` | Comma-separated list of template names to load. |
-| `core-source` | `data-core-source` | Default data source URL for the element. |
-| `core-data` | `data-core-data` | Reference name for the data object. |
-| `core-source-[name]` | `data-[name]-core-source` | Specific data source for a named template. |
+| Attribute | Description |
+| :--- | :--- |
+| `data-core-templates` | Comma-separated list of template names to load. |
+| `data-core-source` | Default data source URL for the element. |
+| `data-core-data` | Reference name for the data object. |
+| `data-core-source-[name]` | Specific data source for a named template. |
 
 ## Data Referencing
 
@@ -86,8 +86,8 @@ Trigger data fetching or template loading without immediate rendering using anch
 
 ```html
 <a href="#" target="core_be_getData" 
-   core-data="myNewData" 
-   core-source="https://api.example.com/data">
+   data-core-data="myNewData" 
+   data-core-source="https://api.example.com/data">
    Load Data Silently
 </a>
 ```
