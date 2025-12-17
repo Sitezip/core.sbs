@@ -352,7 +352,6 @@ const core = (() => {
                         if (useDebugger) console.log("core.js cache '" + name + "' has expired");
                         if (core.be.fetchLogFIFO.hasOwnProperty(name)) {
                             //if pk is not already processsing trigger refresh
-                            //if pk is not already processsing trigger refresh
                             //Trigger refresh
                             setTimeout(() => {
                                 core.pk.soc();
