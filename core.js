@@ -1,4 +1,4 @@
-const core_version = '20251212.0';
+const core_version = '20251217.0';
 const core = (() => {
     const template = document.createElement('template');
     const section = document.getElementById('cr-data') || template.cloneNode(true);
