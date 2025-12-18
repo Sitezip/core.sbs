@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.R.E.js Test Runner</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .summary { font-weight: bold; font-size: 18px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>C.O.R.E.js Test Results</h1>
+    <div id="testResults"></div>
+    
+    <script>
+        // Test framework
+        const tests = [];
+        
+        function test(name, testFn) {
+            tests.push({ name, testFn });
+        }
+        
+        function runTests() {
+            const results = [];
+            const resultsDiv = document.getElementById('testResults');
+            
+            tests.forEach(t => {
+                try {
+                    const result = t.testFn();
+                    results.push({ name: t.name, passed: result, message: result ? 'PASS' : 'FAIL' });
+                    
+                    const div = document.createElement('div');
+                    div.className = `test-result ${result ? 'pass' : 'fail'}`;
+                    div.textContent = `${t.name}: ${result ? 'PASS' : 'FAIL'}`;
+                    resultsDiv.appendChild(div);
+                } catch (error) {
+                    results.push({ name: t.name, passed: false, message: error.message });
+                    const div = document.createElement('div');
+                    div.className = 'test-result fail';
+                    div.textContent = `${t.name}: FAIL - ${error.message}`;
+                    resultsDiv.appendChild(div);
+                }
+            });
+            
+            const passed = results.filter(r => r.passed).length;
+            const total = results.length;
+            const summary = document.createElement('div');
+            summary.className = 'summary';
+            summary.textContent = `Results: ${passed}/${total} tests passed`;
+            resultsDiv.appendChild(summary);
+        }
+        
+        // Core Framework Tests
+        test('Core Object Exists', () => typeof core !== 'undefined');
+        test('Core Modules Exist', () => core && core.cr && core.be && core.pk);
+        test('Data Binding Works', () => {
+            if (!core.cr) return false;
+            core.cr.setData('test', { value: 'test' });
+            const data = core.cr.getData('test');
+            return data && data.value === 'test';
+        });
+        
+        // Product Management Tests
+        test('Product Edit Function Exists', () => core.cr && typeof core.cr.editProduct === 'function');
+        test('Product Delete Function Exists', () => core.cr && typeof core.cr.deleteProduct === 'function');
+        test('Product Filter Function Exists', () => core.cr && typeof core.cr.filterProducts === 'function');
+        
+        // Auto-refresh Tests
+        test('Auto-refresh Start Function Exists', () => core.cr && typeof core.cr.startAutoRefresh === 'function');
+        test('Auto-refresh Stop Function Exists', () => core.cr && typeof core.cr.stopAutoRefresh === 'function');
+        
+        // Component Library Tests
+        test('Component Library Exists', () => typeof core.components !== 'undefined');
+        test('Modal Component Exists', () => core.components && typeof core.components.modal === 'object');
+        test('Toast Component Exists', () => core.components && typeof core.components.toast === 'object');
+        test('Progress Component Exists', () => core.components && typeof core.components.progress === 'object');
+        
+        // Validation Tests
+        test('Validation System Exists', () => typeof core.validation !== 'undefined');
+        test('Validation Rules Exist', () => core.validation && core.validation.rules);
+        test('Form Validation Function Exists', () => core.validation && typeof core.validation.validate === 'function');
+        
+        // Analytics Tests
+        test('Analytics System Exists', () => typeof core.analytics !== 'undefined');
+        test('Memory Usage Function Exists', () => core.analytics && typeof core.analytics.getMemoryUsage === 'function');
+        test('Uptime Function Exists', () => core.analytics && typeof core.analytics.getUptime === 'function');
+        
+        // Test Suite Tests
+        test('Test Suite Exists', () => typeof core.tests !== 'undefined');
+        test('Test Runner Function Exists', () => core.tests && typeof core.tests.run === 'function');
+        
+        // DOM Elements Tests
+        test('Search Input Exists', () => document.getElementById('productSearch') !== null);
+        test('Category Filter Exists', () => document.getElementById('categoryFilter') !== null);
+        test('Sort Dropdown Exists', () => document.getElementById('sortBy') !== null);
+        test('Validation Form Exists', () => document.getElementById('validationDemo') !== null);
+        test('Progress Demo Exists', () => document.getElementById('progressDemo') !== null);
+        
+        // Performance Metrics Tests
+        test('Cache Hits Element Exists', () => document.getElementById('cacheHits') !== null);
+        test('Data Calls Element Exists', () => document.getElementById('dataCalls') !== null);
+        test('Templates Element Exists', () => document.getElementById('templates') !== null);
+        test('Clones Element Exists', () => document.getElementById('clones') !== null);
+        
+        // Run tests when page loads
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html>

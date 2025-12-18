@@ -77,10 +77,18 @@
         .core-clone .card:hover img {
             transform: scale(1.05);
         }
+        .body-padding-top {
+            padding-top: 4rem;
+        }
     </style>
 </head>
-<body style="padding-top: 4rem;">
+<body class="body-padding-top">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="core.js"></script>
+<script src="product-management.js"></script>
+<script src="components.js"></script>
+<script src="validation.js"></script>
+<script src="tests.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
     <div class="container">
@@ -114,7 +122,16 @@
                 </li>
                 <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="user">Account</a></li>
                 <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="refreshDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Auto-Refresh
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="core.cr.startAutoRefresh()">Start Auto-Refresh</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="core.cr.stopAutoRefresh()">Stop Auto-Refresh</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm ms-2">GitHub</a>
                 </li>
@@ -166,11 +183,133 @@
     </div>
 </div>
 
+<!-- Validation Demo Section -->
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Form Validation Demo</h5>
+                </div>
+                <div class="card-body">
+                    <form id="validationDemo">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   data-validate-required="true" 
+                                   data-validate-min-length="2"
+                                   placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   data-validate-required="true"
+                                   data-validate-type="email"
+                                   placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone"
+                                   data-validate-type="phone"
+                                   placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age *</label>
+                            <input type="number" class="form-control" id="age" name="age"
+                                   data-validate-required="true"
+                                   data-validate-type="integer"
+                                   data-validate-range="18|120"
+                                   placeholder="Enter your age">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   data-validate-required="true"
+                                   data-validate-type="password"
+                                   placeholder="Enter password">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                   data-validate-required="true"
+                                   data-validate-confirm="password"
+                                   placeholder="Confirm password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Submit Form</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Component Library Demo</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6>Toast Notifications</h6>
+                        <button class="btn btn-info btn-sm me-2" onclick="showToastDemo('info')">Info Toast</button>
+                        <button class="btn btn-success btn-sm me-2" onclick="showToastDemo('success')">Success Toast</button>
+                        <button class="btn btn-warning btn-sm me-2" onclick="showToastDemo('warning')">Warning Toast</button>
+                        <button class="btn btn-danger btn-sm" onclick="showToastDemo('danger')">Error Toast</button>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Modal Dialogs</h6>
+                        <button class="btn btn-primary btn-sm me-2" onclick="showModalDemo('basic')">Basic Modal</button>
+                        <button class="btn btn-success btn-sm me-2" onclick="showModalDemo('confirm')">Confirm Dialog</button>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Progress Bars</h6>
+                        <div id="progressDemo"></div>
+                        <button class="btn btn-info btn-sm mt-2" onclick="animateProgress()">Animate Progress</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Interactive Demo Section -->
 <div class="container mb-5" id="demo">
     <div class="text-center mb-5">
         <h2 class="display-5 fw-bold">Live Demo Showcase</h2>
         <p class="lead text-muted">See C.O.R.E.js in action with real-time data binding and templating</p>
+    </div>
+    
+    <!-- Search and Filter Controls -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text">Search Products:</span>
+                <input type="text" class="form-control" id="productSearch" placeholder="Search by title, brand, or description..." onkeyup="core.cr.filterProducts()">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" id="categoryFilter" aria-label="Filter by category" onchange="core.cr.filterProducts()">
+                <option value="">All Categories</option>
+                <option value="smartphones">Smartphones</option>
+                <option value="laptops">Laptops</option>
+                <option value="fragrances">Fragrances</option>
+                <option value="skincare">Skincare</option>
+                <option value="groceries">Groceries</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" id="sortBy" aria-label="Sort products" onchange="core.cr.filterProducts()">
+                <option value="title">Sort by Title</option>
+                <option value="price">Sort by Price</option>
+                <option value="rating">Sort by Rating</option>
+                <option value="brand">Sort by Brand</option>
+            </select>
+        </div>
     </div>
     
     <!-- Performance Metrics -->
@@ -180,6 +319,7 @@
                 <div class="card-body">
                     <h3 class="text-primary" id="cacheHits">0</h3>
                     <p class="mb-0">Cache Hits</p>
+                    <small class="text-muted">Cache efficiency: <span id="cacheEfficiency">0%</span></small>
                 </div>
             </div>
         </div>
@@ -188,6 +328,7 @@
                 <div class="card-body">
                     <h3 class="text-success" id="dataCalls">0</h3>
                     <p class="mb-0">Data Calls</p>
+                    <small class="text-muted">Response time: <span id="avgResponseTime">0ms</span></small>
                 </div>
             </div>
         </div>
@@ -196,6 +337,7 @@
                 <div class="card-body">
                     <h3 class="text-info" id="templates">0</h3>
                     <p class="mb-0">Templates</p>
+                    <small class="text-muted">Active: <span id="activeTemplates">0</span></small>
                 </div>
             </div>
         </div>
@@ -204,6 +346,39 @@
                 <div class="card-body">
                     <h3 class="text-warning" id="clones">0</h3>
                     <p class="mb-0">Clones</p>
+                    <small class="text-muted">Render time: <span id="renderTime">0ms</span></small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Advanced Analytics -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Performance Analytics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>Memory Usage</h6>
+                            <div class="progress mb-2">
+                                <div class="progress-bar" id="memoryUsage" style="width: 0%"></div>
+                            </div>
+                            <small>Used: <span id="memoryUsed">0KB</span> / <span id="memoryTotal">0KB</span></small>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Network Requests</h6>
+                            <p class="mb-0">Success: <span class="text-success" id="successRequests">0</span></p>
+                            <p class="mb-0">Failed: <span class="text-danger" id="failedRequests">0</span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>System Health</h6>
+                            <p class="mb-0">Uptime: <span id="uptime">0s</span></p>
+                            <p class="mb-0">Errors: <span class="text-warning" id="errorCount">0</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,6 +493,10 @@
                                 {{aug:string:arg1:arg2}}
                             </small>
                         </p>
+                        <div class="mt-2 d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-primary" onclick="core.cr.editProduct({{rec:id}})">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="core.cr.deleteProduct({{rec:id}})">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -368,18 +547,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <h6>System Health</h6>
+                        <p class="mb-0">Uptime: <span id="uptime">0s</span></p>
+                        <p class="mb-0">Errors: <span class="text-warning" id="errorCount">0</span></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </template>
-</section>
-<script src="core.js"></script>
-<script>
-    //core.js setup
-    //core.ud.defaultDelta = 'n/a';
-    core.ud.init = () => {
-        //set config
-        core.useRouting  = false;
+    </div>
+</div>
+</div>
         core.useDebugger = core.hf.getRoute().includes('localhost');
         //set custom cache life
         core.be.cacheExpire = {type:'data',name:'quote',seconds:5}
