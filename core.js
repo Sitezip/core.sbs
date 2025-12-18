@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-const core_version = '20251112.1';
-let core_be_count = 0;
-let core_cr_count = 0;
-let core_pk_count = 0;
-=======
 const core_version = '20251212.0';
->>>>>>> 34ac0bd3858fb5ded780bb5d3eb2088c24e93394
 const core = (() => {
     const template = document.createElement('template');
     const section = document.getElementById('cr-data') || template.cloneNode(true);
