@@ -1,17 +1,17 @@
 <!-- core.js -->
 <!-- SAMPLE: LINKS -->
 <!-- defining new pocket via <A> tag -->
-<a href="#" class="nav-link" target="#main" data-core-templates="other">change</a>
-<a href="#" class="nav-link" target="#main" data-core-templates="other" data-other-core-source="/html/more.html">More</a>
+<a href="#" class="nav-link" target="#main" core-templates="other">change</a>
+<a href="#" class="nav-link" target="#main" core-templates="other" core-source-other="/html/more.html">More</a>
 
 <!-- defining data/template silent request -->
-<a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a>
-<a href="#" class="nav-link" target="core_be_getTemplate" data-core-templates="author" data-author-core-source="/html/author.html">Silent Template</a>
+<a href="#" class="nav-link" target="core_be_getData" core-templates="silent" core-source-silent="https://dummyjson.com/products?limit=1">Silent Data</a>
+<a href="#" class="nav-link" target="core_be_getTemplate" core-templates="author" core-source-author="/html/author.html">Silent Template</a>
 
 <!-- SAMPLE: ELEMENTS -->
 <!-- defining source -->
-<div class="core-pocket" data-core-templates="default,stuff,deep" data-default-core-source="https://zzzap.io/Forms/login"></div>
-<div class="core-pocket" data-core-templates="queue,todo,todo,basic,web,time,contact" data-queue-core-source="/cards/todo.html"></div>
+<div class="core-pocket" core-templates="default,stuff,deep" core-source-default="https://zzzap.io/Forms/login"></div>
+<div class="core-pocket" core-templates="queue,todo,todo,basic,web,time,contact" core-source-queue="/cards/todo.html"></div>
 
 <!-- SAMPLE: PROCESS FORMATTING -->
 <cite class="h--quote-author">Mother</cite>
@@ -22,7 +22,7 @@
         <div class="container">
             <h3>Cloning {{data:user:name:upper}}</h3>
             <div class="row">
-                <div class="core-clone col-sm-4" data-core-data="pop">
+                <div class="core-clone col-sm-4" core-data="pop">
                     <span class="text-secondary">{{rec:name:upper}}</span> paid {{rec:paid:money:$}} on {{rec:ts:date:date}} for a {{rec:stuff.food}}.
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="core-clone" data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
+                <tr class="core-clone" core-data="users" core-source="https://dummyjson.com/users?limit=5">
                     <td>{{rec:firstName:upperfirst}} {{rec:lastName:upperfirst}}</td>
                 </tr>
             </tbody>
@@ -78,7 +78,7 @@
 </section>
 
 <!-- SAMPLES: include core.js library -->
-<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20240815.0/core.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
 
 <script>
