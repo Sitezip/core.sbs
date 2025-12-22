@@ -38,7 +38,7 @@ const core = (() => {
             core.cr.init();
             core.hf.addClickListeners();
 
-            //check for local install BEFORE pk.init to avoid deadlock
+            // Background check for local install - non-blocking
             core.be.getData('coreInternalCheck', '/module/install.json');
 
             setTimeout(() => {
@@ -46,7 +46,7 @@ const core = (() => {
                     core.ud.init();
                 }
                 core.pk.init();
-            }, 100) // Small delay to let getData complete
+            });
         },
         //backend functions
         be: (() => {
@@ -556,7 +556,6 @@ const core = (() => {
                         'YY': String(date.getFullYear()).substr(2),
                         'P': String(date.getHours() >= 12 ? 'PM' : 'AM'),
                         'TS': +String(Math.floor(date / 1000)),
-                        'PERF': performance.now(),
                         '_note': 'Object keys represent available tokens for date formatting find/replace, with lowercase keys for more accuracy in strict mode'
                     }
 
@@ -943,7 +942,7 @@ const core = (() => {
 
                     for (const pocket of pockets) {
                         //get the items
-                        const templatesStr = pocket.getAttribute('data-core-templates') || pocket.dataset.coreTemplates || '';
+                        const templatesStr = pocket.getAttribute('core-templates') || pocket.getAttribute('data-core-templates') || pocket.dataset.coreTemplates || '';
                         const templates = templatesStr.split(',').map(s => String(s).trim()).filter(Boolean);
                         for (const template of templates) {
                             if (!template) continue;
@@ -951,7 +950,7 @@ const core = (() => {
                             let hasTemplate = core.cr.getTemplate(template);
                             if (!hasTemplate && template !== 'EMPTY') {
                                 pocket.insertAdjacentHTML('beforeend', core.cr.getTemplate('LOADING'));
-                                const dataSrc = pocket.getAttribute('core-source-' + template) || pocket.getAttribute('data-' + template + '-core-source') || pocket.dataset[template + 'CoreSource'];
+                                const dataSrc = pocket.getAttribute('core-source-' + template) || pocket.getAttribute('data-' + template + '-core-source') || pocket.dataset[template + 'CoreSource'] || pocket.getAttribute('core-source') || pocket.dataset.coreSource;
                                 promises.push(core.be.getTemplate(template, dataSrc));
                             }
                         }
@@ -999,19 +998,13 @@ const core = (() => {
                  */
                 getData: async () => {
                     const promises = [];
-                    //find the clone elements
                     let clones = document.getElementsByClassName('core-clone');
-
                     for (const clone of clones) {
                         const dataRef = clone.getAttribute('core-data') || clone.getAttribute('data-core-data') || clone.dataset.coreData;
                         const dataSrc = clone.getAttribute('core-source') || clone.getAttribute('data-core-source') || clone.dataset.coreSource;
-
-                        //check cache
-                        if (core.be.checkCacheTs(dataRef, 'data') && core.cr.getData(dataRef)) {
-                            continue;
+                        if (dataRef && dataSrc && !core.cr.getData(dataRef)) {
+                            promises.push(core.be.getData(dataRef, dataSrc));
                         }
-
-                        promises.push(core.be.getData(dataRef, dataSrc));
                     }
 
                     if (promises.length) {
