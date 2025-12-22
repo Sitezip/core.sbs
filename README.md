@@ -1,4 +1,4 @@
-# ⚡ C.O.R.E.js
+# C.O.R.E.js
 > **Create Once, Render Everywhere.** The ultra-lightweight, zero-dependency engine for the modern web.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
