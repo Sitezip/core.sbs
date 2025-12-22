@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORE.js Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>⚡ CORE.js Test Page</h1>
+    <p>Simple test without external API dependencies</p>
+
+    <div class="test-section">
+        <h2>Test 1: Basic Template Rendering</h2>
+        <div class="core-pocket" core-templates="hello"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Data Cloning</h2>
+        <div class="core-clone" core-data="testUsers">
+            <div style="padding: 10px; margin: 5px; background: #f0f0f0;">
+                {{aug:count}}. {{rec:name}} - {{rec:email}}
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Hydration</h2>
+        <p>User: <span class="h-testData-user"></span></p>
+        <p>Version: <span class="h-testData-version"></span></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Formatting</h2>
+        <p>Price: <span class="f-money">1234.56</span></p>
+        <p>Upper: <span class="f-upper">hello world</span></p>
+    </div>
+
+    <!-- Templates -->
+    <section id="cr-data" style="display:none;">
+        <template name="hello">
+            <div style="padding: 20px; background: #e8f5e9; border-radius: 5px;">
+                <h3 class="success">✓ CORE.js is working!</h3>
+                <p>Template rendering successful</p>
+                <p>Current time: {{data:testData:timestamp}}</p>
+            </div>
+        </template>
+    </section>
+
+    <script src="core.js"></script>
+    <script>
+        // Setup
+        core.useDebugger = true;
+
+        // Test data
+        core.cr.setData('testData', {
+            user: 'Test User',
+            version: '20251217.0',
+            timestamp: new Date().toLocaleString()
+        });
+
+        core.cr.setData('testUsers', [
+            { name: 'Alice', email: 'alice@test.com' },
+            { name: 'Bob', email: 'bob@test.com' },
+            { name: 'Charlie', email: 'charlie@test.com' }
+        ]);
+
+        console.log('✓ Test page loaded');
+        console.log('✓ CORE.js version:', core_version);
+        console.log('✓ Test data set:', core.cr.getData('testData'));
+    </script>
+</body>
+
+</html>

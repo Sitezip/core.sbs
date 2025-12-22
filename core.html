@@ -86,7 +86,7 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand p-0 d-flex align-items-center" href="?">
-            <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 120px;"></div>
+            <div class="core-pocket" core-templates="core" core-source-core="core.svg" style="width: 120px;"></div>
             <span class="ms-2 fw-bold text-primary">C.O.R.E.js</span>
         </a>
 
@@ -104,17 +104,17 @@
                         Demos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" target="#main" data-core-templates="other">Change Content</a></li>
-                        <li><a class="dropdown-item" href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
-                        <li><a class="dropdown-item" href="#" target="#under" data-core-templates="stuff">Add Products</a></li>
-                        <li><a class="dropdown-item" href="#" target="#under" data-core-templates="EMPTY">Clear Products</a></li>
+                        <li><a class="dropdown-item" href="#" target="#main" core-templates="other">Change Content</a></li>
+                        <li><a class="dropdown-item" href="#" target="#main" core-templates="stuff">Product Grid</a></li>
+                        <li><a class="dropdown-item" href="#" target="#under" core-templates="stuff">Add Products</a></li>
+                        <li><a class="dropdown-item" href="#" target="#under" core-templates="EMPTY">Clear Products</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
+                        <li><a class="dropdown-item" href="#" target="#main" core-templates="deep">Recursive Demo</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="user">Account</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" core-templates="user">Account</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="#main" core-templates="news">Scammer News</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" core-templates="silent" core-source-silent="https://dummyjson.com/products?limit=1">Silent Data</a></li>
                 <li class="nav-item">
                     <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm ms-2">GitHub</a>
                 </li>
@@ -128,8 +128,8 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-3">C.O.R.E.js</h1>
-                <p class="lead mb-4">The ultra-lightweight JavaScript framework for dynamic web applications. Zero dependencies, maximum performance.</p>
+                <h1 class="display-4 fw-bold mb-3">⚡ C.O.R.E.js</h1>
+                <p class="lead mb-4">The ultra-lightweight JavaScript framework for dynamic web applications. Zero dependencies, maximum performance, and clean "React-like" attributes.</p>
                 <div class="d-flex gap-3 mb-4">
                     <div class="badge bg-primary">Data Binding</div>
                     <div class="badge bg-success">Template System</div>
@@ -143,7 +143,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="text-center">
-                    <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 100%; max-width: 400px;"></div>
+                    <div class="core-pocket" core-templates="core" core-source-core="core.svg" style="width: 100%; max-width: 400px;"></div>
                 </div>
             </div>
         </div>
@@ -154,14 +154,18 @@
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-8">
-            <blockquote>
-                <p class="h--dataRef-quote" data-h-data-ref="quote">I said what I said!</p>
-            </blockquote>
-            <p>—<cite class="h--quote-author">Mother</cite></p>
+            <div class="p-5 bg-light rounded-4 shadow-sm">
+                <blockquote class="blockquote">
+                    <p class="h--dataRef-quote display-6 italic" data-h-data-ref="quote">I said what I said!</p>
+                </blockquote>
+                <p class="mt-3">— <cite class="h--quote-author fw-bold text-primary">Mother</cite></p>
+            </div>
         </div>
         <div class="col-4">
-            <h3 class="mb-0">Login</h3>
-            <div class="core-pocket m-0" data-core-templates="default" data-default-core-source="https://zzzap.io/Forms/login"></div>
+            <div class="card border-0 shadow-sm p-3">
+                <h3 class="mb-3 text-center">Secure Login</h3>
+                <div class="core-pocket m-0" core-templates="default" core-source-default="https://zzzap.io/Forms/login"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -176,34 +180,34 @@
     <!-- Performance Metrics -->
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="card text-center border-primary">
+            <div class="card text-center border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="text-primary" id="cacheHits">0</h3>
-                    <p class="mb-0">Cache Hits</p>
+                    <p class="mb-0 text-secondary">Cache Hits</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-center border-success">
+            <div class="card text-center border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="text-success" id="dataCalls">0</h3>
-                    <p class="mb-0">Data Calls</p>
+                    <p class="mb-0 text-secondary">Data Calls</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-center border-info">
+            <div class="card text-center border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="text-info" id="templates">0</h3>
-                    <p class="mb-0">Templates</p>
+                    <p class="mb-0 text-secondary">Templates</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-center border-warning">
+            <div class="card text-center border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="text-warning" id="clones">0</h3>
-                    <p class="mb-0">Clones</p>
+                    <p class="mb-0 text-secondary">Clones</p>
                 </div>
             </div>
         </div>
@@ -212,7 +216,7 @@
 
 <div class="container">
     <div id="main">
-        <div class="core-pocket" data-core-templates="stuff,deep"></div>
+        <div class="core-pocket" core-templates="stuff,deep"></div>
     </div>
     <div id="under"></div>
 </div>
