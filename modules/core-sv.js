@@ -284,7 +284,7 @@ const core_sv = (() => {
         },
 
         scrubSimple: (name, value, scrubs) => {
-            return core_sv.scrubEach({ name: name, value: value, scrubs: scrubs });
+            return core_sv.scrubEach({ name: name, value: value, scrubs, scrubs });
         },
 
         scrubMatch: (scrubArr, scrubMatch, valueMatch) => {
