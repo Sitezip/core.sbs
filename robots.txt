@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://core.sbs/sitemap.xml
+
+# Allow crawling of all important files
+Allow: /core.html
+Allow: /index.html
+Allow: /core.js
+Allow: /index.css
+
+# Block crawling of development files
+Disallow: /README.md
+Disallow: /requirements.md
+Disallow: /core.json
+Disallow: /core.txt
+Disallow: /core.pdf
+Disallow: /core.svg
+Disallow: /core.txt
+Disallow: /reset.txt
+Disallow: /avatar.png
+Disallow: /hero_bg.png
+
+# Allow crawling of module files
+Allow: /module/

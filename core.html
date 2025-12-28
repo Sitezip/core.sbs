@@ -3,28 +3,28 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>C.O.R.E.js - The Future of Client-Side Rendering | High-Performance JavaScript Framework</title>
+    <title>core.js is the way!</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="C.O.R.E.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.">
-    <meta name="keywords" content="JavaScript framework, client-side rendering, performance optimization, virtual DOM alternative, async rendering, web development, frontend framework, C.O.R.E.js, shadow-less rendering">
-    <meta name="author" content="C.O.R.E.js Team">
+    <meta name="description" content="core.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.">
+    <meta name="keywords" content="JavaScript framework, client-side rendering, performance optimization, virtual DOM alternative, async rendering, web development, frontend framework, core.js, shadow-less rendering">
+    <meta name="author" content="core.js Team">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://core.sbs/">
-    <meta property="og:title" content="C.O.R.E.js - The Future of Client-Side Rendering">
+    <meta property="og:title" content="core.js - The Future of Client-Side Rendering">
     <meta property="og:description" content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
     <meta property="og:image" content="https://core.sbs/hero_bg.png">
-    <meta property="og:image:alt" content="C.O.R.E.js Framework Visualization">
+    <meta property="og:image:alt" content="core.js Framework Visualization">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://core.sbs/">
-    <meta property="twitter:title" content="C.O.R.E.js - The Future of Client-Side Rendering">
+    <meta property="twitter:title" content="core.js - The Future of Client-Side Rendering">
     <meta property="twitter:description" content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
     <meta property="twitter:image" content="https://core.sbs/hero_bg.png">
     
@@ -119,7 +119,7 @@
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="coreToast" class="toast glass border-0 text-white" role="alert">
             <div class="toast-header bg-transparent border-0 text-white border-bottom border-light border-opacity-10">
-                <strong class="me-auto">C.O.R.E.js Event</strong>
+                <strong class="me-auto">core.js Event</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body" id="toastMessage"></div>
@@ -205,7 +205,7 @@
                     <div class="col-lg-8">
                         <div class="glass p-5 h-100">
                             <h2 class="fw-bold mb-4">The Logic Bridge</h2>
-                            <p class="fs-5 text-muted mb-5">C.O.R.E.js automatically manages the serialization of your
+                            <p class="fs-5 text-muted mb-5">core.js automatically manages the serialization of your
                                 state into the DOM, allowing for instant "resurrection" of UI components.</p>
 
                             <div
@@ -253,7 +253,7 @@
                         height="120" alt="Avatar">
                     <div>
                         <h1 class="display-5 fw-bold mb-1">Architect Account</h1>
-                        <p class="fs-5 text-muted mb-0">Senior Developer | C.O.R.E. Contributor</p>
+                        <p class="fs-5 text-muted mb-0">Senior Developer | core. Contributor</p>
                     </div>
                     <div class="ms-auto">
                         <button class="btn btn-outline-light rounded-pill px-4">Edit Profile</button>
@@ -449,7 +449,7 @@
                     <h1 class="display-4 fw-bold mb-4">Architecture Deep-Dive</h1>
                     <div class="row g-5">
                         <div class="col-lg-6 text-white fs-5">
-                            <p>C.O.R.E.js utilizes a <strong>Shadow-less Rendering</strong> approach. By treating the
+                            <p>core.js utilizes a <strong>Shadow-less Rendering</strong> approach. By treating the
                                 DOM itself as the state tree, we bypass the need for expensive diffing algorithms.</p>
                             <p class="mb-5">Our cloner engine allows for nested, recursive component definitions that
                                 hydrate automatically upon data insertion.</p>
@@ -487,9 +487,9 @@
         <!-- RECURSIVE TEMPLATE -->
         <template name="deep">
             <div class="container py-5 mt-5">
-                <h1 class="display-4 fw-bold mb-5" style="color: #000000 !important;">Recursive Logic Chains</h1>
+                <h1 class="display-4 fw-bold mb-5" style="color: #ffffff !important;">Recursive Logic Chains</h1>
                 <div class="glass p-5">
-                    <div class="core-clone" data-core-data="pop">
+                    <div class="core-clone" data-core-data="recursive" data-core-source="https://dummyjson.com/products?limit=1">
                         <div class="p-4 rounded-4 bg-white bg-opacity-5 mb-4 border-start border-primary border-4" style="color: #000000 !important;">
                             <h4 class="fw-bold mb-2" style="color: #000000 !important;">{{rec:name:upper}}</h4>
                             <p class="text-muted small mb-3" style="color: #000000 !important;">Syncing deep tree structure...</p>
@@ -593,6 +593,37 @@
                     case 'prods': return dataObj.products;
                     case 'users': return dataObj.users;
                     case 'news': return dataObj.results; // newsdata.io returns results array
+                    case 'recursive': return [
+                        {
+                            name: 'FRED paid $21.58 on 7/23/24 for a pizza.',
+                            more: [
+                                { color: 'blue' },
+                                { color: 'gold' }
+                            ]
+                        },
+                        {
+                            name: 'JAKE paid $2.11 on 7/16/24 for a pear.',
+                            more: [
+                                { color: 'red' },
+                                { color: 'fire engine' },
+                                { color: 'candy apple' }
+                            ]
+                        },
+                        {
+                            name: 'JAKER paid $6.87 on 7/23/24 for a banana.',
+                            more: [
+                                { color: 'yellow' },
+                                { color: 'orange' },
+                                { color: 'pink' },
+                                { color: 'bright' },
+                                { color: 'hot' },
+                                { color: 'magenta' },
+                                { color: 'dark' },
+                                { color: 'hot' },
+                                { color: 'magnetic' }
+                            ]
+                        }
+                    ];
                 }
             }
             return dataObj;
@@ -601,7 +632,7 @@
         // INERTIA / TEST DATA
         core.be.getData('quote', 'https://dummyjson.com/quotes/random/');
         core.cr.setData('pip', { name: 'Core Engineer', title: 'Architect', id: 1 });
-        core.cr.setData('pop', [
+        core.cr.setData('recursive', [
             { name: 'Logic Chain Alpha', more: [{ color: 'cyan' }, { color: 'magenta', hues: [{ color: 'violet' }] }] },
             { name: 'Logic Chain Beta', more: [{ color: 'lime', hues: [{ color: 'emerald' }] }] }
         ]);
