@@ -3,12 +3,45 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>C.O.R.E.js | The Future of Client-Side Rendering</title>
+    <title>C.O.R.E.js - The Future of Client-Side Rendering | High-Performance JavaScript Framework</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="C.O.R.E.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.">
+    <meta name="keywords" content="JavaScript framework, client-side rendering, performance optimization, virtual DOM alternative, async rendering, web development, frontend framework, C.O.R.E.js, shadow-less rendering">
+    <meta name="author" content="C.O.R.E.js Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://core.sbs/">
+    <meta property="og:title" content="C.O.R.E.js - The Future of Client-Side Rendering">
+    <meta property="og:description" content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
+    <meta property="og:image" content="https://core.sbs/hero_bg.png">
+    <meta property="og:image:alt" content="C.O.R.E.js Framework Visualization">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://core.sbs/">
+    <meta property="twitter:title" content="C.O.R.E.js - The Future of Client-Side Rendering">
+    <meta property="twitter:description" content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
+    <meta property="twitter:image" content="https://core.sbs/hero_bg.png">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="msapplication-TileColor" content="#0a0a0a">
+    <link rel="canonical" href="https://core.sbs/">
+    
+    <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" href="favicon.png">
+    <link rel="icon" href="core.svg">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
 </head>
 
 <body>
@@ -17,39 +50,54 @@
         <div class="container">
             <a class="navbar-brand p-0 d-flex align-items-center" href="#" target="#main" data-core-templates="home">
                 <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg"
-                    style="width: 140px; filter: drop-shadow(0 0 8px var(--primary-glow));"></div>
+                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px var(--primary-glow));"></div>
             </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler border-0 shadow-none text-white" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="home">Home</a></li>
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link-premium active" target="#main"
+                            data-core-templates="home">Home</a>
+                    </li>
+                    
+                    <!-- Demos -->
                     <li class="nav-item dropdown">
                         <a class="nav-link-premium dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown">Showcase</a>
+                            data-bs-toggle="dropdown">Demos</a>
                         <ul class="dropdown-menu dropdown-menu-dark glass border-0 shadow-lg mt-3">
-                            <li><a class="dropdown-item py-2 px-4" href="#" target="#main"
-                                    data-core-templates="other">Features Architecture</a></li>
-                            <li><a class="dropdown-item py-2 px-4" href="#" target="#main"
-                                    data-core-templates="stuff">E-Commerce Grid</a></li>
-                            <li><a class="dropdown-item py-2 px-4" href="#" target="#under"
-                                    data-core-templates="stuff">Append Dynamic Content</a></li>
-                            <li><a class="dropdown-item py-2 px-4" href="#" target="#under"
-                                    data-core-templates="EMPTY">Reset Workspace</a></li>
+                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="other">Change Content</a></li>
+                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
+                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="stuff">Add Products</a></li>
+                            <li><a class="dropdown-item" href="#" target="#under" data-core-templates="EMPTY">Clear Products</a></li>
                             <li>
                                 <hr class="dropdown-divider opacity-10">
                             </li>
-                            <li><a class="dropdown-item py-2 px-4" href="#" target="#main"
-                                    data-core-templates="deep">Recursive Engine</a></li>
+                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="user">Account</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="news">Scammer News</a></li>
+                    
+                    <!-- Account -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="user">Account</a>
+                    </li>
+                    
+                    <!-- Scammer News -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="news">Scammer News</a>
+                    </li>
+                    
+                    <!-- Silent Data -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="deep">Silent Data</a>
+                    </li>
+                    
                     <li class="nav-item ms-lg-4">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank"
                             class="btn-premium text-decoration-none">Star on GitHub</a>
@@ -60,7 +108,7 @@
     </nav>
 
     <!-- Main Viewhost -->
-    <div id="main">
+    <div id="main" class="fade-in-up">
         <div class="core-pocket" data-core-templates="home"></div>
     </div>
 
@@ -87,7 +135,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-6">
-                            <span class="badge-premium mb-3 d-inline-block">V2.0 Core Engine</span>
+                            <span class="badge-premium mb-4 d-inline-block">V2.0 Core Engine</span>
                             <h1 class="hero-title">Experience the<br>Speed of Logic.</h1>
                             <p class="lead text-muted mb-5 fs-5">A high-performance JS orchestration layer that
                                 eliminates virtual DOM overhead. Decoupled, asynchronous, and remarkably clean.</p>
@@ -101,7 +149,7 @@
                                     <div class="small fw-bold text-uppercase ls-wide">Zero Overload</div>
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
-                                    <div class="text-warning fs-3">●</div>
+                                    <div class="text-white opacity-50 fs-3">●</div>
                                     <div class="small fw-bold text-uppercase ls-wide">Recursive</div>
                                 </div>
                             </div>
@@ -109,16 +157,14 @@
                                 <a href="#" target="#main" data-core-templates="stuff" class="btn-premium">View
                                     Components</a>
                                 <a href="#" onclick="showToast('Silent Background Sync Initialized', 'info')"
-                                    class="btn btn-outline-light border-0 py-3 px-4">Silent Sync Demo</a>
+                                    class="btn btn-outline-light border-0 py-3 px-4 fw-bold"
+                                    style="background: rgba(255,255,255,0.05);">Silent Sync Demo</a>
                             </div>
                         </div>
                         <div class="col-lg-6 text-center position-relative">
                             <div class="hero-visual animate-float">
                                 <img src="hero_bg.png" class="img-fluid rounded-4 shadow-lg"
                                     style="mask-image: linear-gradient(to bottom, black, transparent);">
-                            </div>
-                            <div class="core-pocket p-5" data-core-templates="core" data-core-core-source="core.svg"
-                                style="max-width: 500px; margin: auto; filter: drop-shadow(0 20px 40px var(--primary-glow));">
                             </div>
                         </div>
                     </div>
@@ -129,25 +175,25 @@
                 <div class="row g-4">
                     <div class="col-md-3">
                         <div class="metric-box glass">
-                            <h2 class="text-primary" id="cacheHits">0</h2>
+                            <h2 class="text-gradient" id="cacheHits">0</h2>
                             <div class="metric-label">Cache Integrity</div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="metric-box glass">
-                            <h2 class="text-success" id="dataCalls">0</h2>
+                            <h2 class="text-gradient-primary" id="dataCalls">0</h2>
                             <div class="metric-label">Backend Flow</div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="metric-box glass">
-                            <h2 class="text-info" id="templates">0</h2>
+                            <h2 class="text-gradient" id="templates">0</h2>
                             <div class="metric-label">Registered DOM</div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="metric-box glass">
-                            <h2 class="text-warning" id="clones">0</h2>
+                            <h2 class="text-gradient-primary" id="clones">0</h2>
                             <div class="metric-label">Clustered Logic</div>
                         </div>
                     </div>
@@ -155,25 +201,43 @@
             </div>
 
             <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-8">
+                <div class="row g-5">
+                    <div class="col-lg-8">
                         <div class="glass p-5 h-100">
                             <h2 class="fw-bold mb-4">The Logic Bridge</h2>
-                            <p class="fs-5 text-muted mb-4">C.O.R.E.js automatically manages the serialization of your
+                            <p class="fs-5 text-muted mb-5">C.O.R.E.js automatically manages the serialization of your
                                 state into the DOM, allowing for instant "resurrection" of UI components.</p>
-                            <hr class="opacity-10 my-5">
-                            <div class="p-4 border-start border-primary border-4 bg-white bg-opacity-5 rounded-end-4">
-                                <p class="h--dataRef-quote fs-4 fw-light italic mb-2" data-h-data-ref="quote">Fetch in
-                                    progress...</p>
-                                <cite class="h--quote-author text-primary fw-bold">— Author</cite>
+
+                            <div
+                                class="p-5 border-start border-primary border-4 bg-white bg-opacity-5 rounded-end-4 position-relative overflow-hidden">
+                                <div
+                                    class="position-absolute top-0 end-0 p-4 opacity-10 fw-bold display-1 line-height-1">
+                                    "</div>
+                                <p class="h--dataRef-quote fs-4 fw-light italic mb-3 position-relative z-1"
+                                    data-h-data-ref="quote">Fetch in progress...</p>
+                                <cite class="h--quote-author text-primary fw-bold fst-normal position-relative z-1">—
+                                    System Architect</cite>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="glass p-5">
+                    <div class="col-lg-4">
+                        <div class="glass p-5 h-100">
                             <h3 class="fw-bold mb-4">Form Engine</h3>
                             <div class="core-pocket" data-core-templates="default"
-                                data-default-core-source="https://zzzap.io/Forms/login"></div>
+                                data-default-core-source="https://zzzap.io/Forms/login">
+                                <!-- Fallback form content -->
+                                <div class="form-engine-fallback">
+                                    <div class="mb-3">
+                                        <label class="form-label small text-uppercase ls-wide">Username</label>
+                                        <input type="text" class="form-control bg-dark border-secondary text-white" placeholder="Enter username">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small text-uppercase ls-wide">Password</label>
+                                        <input type="password" class="form-control bg-dark border-secondary text-white" placeholder="Enter password">
+                                    </div>
+                                    <button class="btn btn-premium w-100">Sign In</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,12 +246,17 @@
 
         <!-- ACCOUNT TEMPLATE -->
         <template name="user">
-            <div class="container py-5">
-                <div class="account-hero glass border-0 shadow-2xl">
-                    <img src="avatar.png" class="account-avatar" alt="Avatar">
+            <div class="container py-5 mt-5">
+                <div class="glass p-5 mb-5 d-flex align-items-center gap-4">
+                    <img src="avatar.png"
+                        class="rounded-circle shadow-lg border border-3 border-white border-opacity-10" width="120"
+                        height="120" alt="Avatar">
                     <div>
-                        <h1 class="display-4 fw-bold mb-1">Architect Account</h1>
-                        <p class="fs-5 opacity-75 mb-0">Senior Developer | C.O.R.E. Contributor</p>
+                        <h1 class="display-5 fw-bold mb-1">Architect Account</h1>
+                        <p class="fs-5 text-muted mb-0">Senior Developer | C.O.R.E. Contributor</p>
+                    </div>
+                    <div class="ms-auto">
+                        <button class="btn btn-outline-light rounded-pill px-4">Edit Profile</button>
                     </div>
                 </div>
 
@@ -198,17 +267,17 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div
-                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10">
+                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-5">
                                         <label class="small text-muted text-uppercase fw-bold mb-1">Sync Version</label>
                                         <div class="fs-4 fw-bold text-primary">v2025.12.26</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div
-                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10">
+                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-5">
                                         <label class="small text-muted text-uppercase fw-bold mb-1">Memory
                                             Pressure</label>
-                                        <div class="fs-4 fw-bold text-success">Optimized</div>
+                                        <div class="fs-4 fw-bold text-accent">Optimized</div>
                                     </div>
                                 </div>
                             </div>
@@ -247,17 +316,17 @@
                                     <span class="small text-muted">API Latency</span>
                                     <span class="small text-primary fw-bold">12ms</span>
                                 </div>
-                                <div class="progress bg-white bg-opacity-10" style="height: 6px;">
+                                <div class="progress bg-white bg-opacity-10" style="height: 6px; border-radius: 10px;">
                                     <div class="progress-bar bg-primary" style="width: 85%"></div>
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="small text-muted">Cache Utilization</span>
-                                    <span class="small text-success fw-bold">94%</span>
+                                    <span class="small text-accent fw-bold">94%</span>
                                 </div>
-                                <div class="progress bg-white bg-opacity-10" style="height: 6px;">
-                                    <div class="progress-bar bg-success" style="width: 94%"></div>
+                                <div class="progress bg-white bg-opacity-10" style="height: 6px; border-radius: 10px;">
+                                    <div class="progress-bar bg-info" style="width: 94%"></div>
                                 </div>
                             </div>
                         </div>
@@ -268,31 +337,47 @@
 
         <!-- NEWS TEMPLATE -->
         <template name="news">
-            <div class="container py-5">
+            <div class="container py-5 mt-5">
                 <div class="d-flex align-items-end justify-content-between mb-5">
                     <div>
-                        <h1 class="display-4 fw-bold">Scammer Insights</h1>
-                        <p class="text-muted fs-5 mb-0">Live intelligence feed curated by C.O.R.E. Async Engine</p>
+                        <h1 class="display-4 fw-bold">Scammer News</h1>
+                        <p class="text-muted fs-5 mb-0">Breaking updates from the underground network.</p>
                     </div>
                     <button onclick="core.pk.soc()" class="btn-premium py-2 px-4 shadow-none">Refresh Feed</button>
                 </div>
 
-                <div class="news-row">
-                    <div class="core-clone news-card glass" data-core-data="news"
-                        data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&language=en">
-                        <div class="news-content">
-                            <div class="d-flex align-items-center gap-2 mb-3">
-                                <span
-                                    class="badge bg-primary bg-opacity-25 text-primary small fw-bold px-3 py-1 rounded-pill">{{rec:category.[n]:upper}}</span>
-                                <span class="small text-muted f-date" data-f-clue="M/D/YY">{{rec:pubDate}}</span>
+                <div class="row g-4">
+                    <div class="core-clone col-md-6 col-lg-4" data-core-data="news"
+                        data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology,technology">
+                        <div class="glass h-100 p-0 overflow-hidden d-flex flex-column">
+                            <div class="p-4 flex-grow-1">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <img src="https://www.google.com/s2/favicons?domain={{rec:source_url}}&sz=32" 
+                                         class="rounded-circle" style="width:32px;height:32px;" alt="Source favicon">
+                                    <div>
+                                        <span class="small text-muted">ID: #{{rec:article_id}}</span>
+                                        <span class="small text-primary d-block">{{rec:pubDate}} views</span>
+                                    </div>
+                                </div>
+                                <h4 class="fw-bold mb-3">{{rec:title:truncate:60}}</h4>
+                                <p class="text-muted mb-4 fs-6">{{rec:description:truncate:120}}</p>
+                                <div class="d-flex gap-2 mb-3">
+                                    <span class="badge bg-dark bg-opacity-50 text-white small">{{rec:category:upper}}</span>
+                                    <span class="badge bg-dark bg-opacity-50 text-white small">{{rec:country:upper}}</span>
+                                </div>
                             </div>
-                            <h4 class="fw-bold mb-3">{{rec:title:truncate:80}}</h4>
-                            <p class="text-muted mb-4 fs-6">{{rec:description:truncate:140}}</p>
-                            <div
-                                class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top border-white border-opacity-10">
-                                <span class="small fw-bold text-white opacity-75">{{rec:source_name}}</span>
-                                <a href="{{rec:link}}" target="_blank"
-                                    class="text-primary text-decoration-none small fw-bold">Read Full Intelligence →</a>
+                            <div class="p-4 border-top border-white border-opacity-5 mt-auto bg-white bg-opacity-5" style="color: #000000 !important;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://www.google.com/s2/favicons?domain={{rec:source_url}}&sz=24" 
+                                             class="rounded-circle" style="width:24px;height:24px;" alt="Source favicon">
+                                        <div>
+                                            <span class="small fw-bold d-block" style="color: #000000 !important;">{{rec:source_name}}</span>
+                                            <span class="small opacity-75" style="color: #000000 !important;">{{rec:source_priority}} priority</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{rec:link}}" target="_blank" class="small text-primary fw-bold" style="background-color: #1e3a8a; color: white !important; padding: 4px 8px; border-radius: 4px; text-decoration: none;">Read More →</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -302,12 +387,12 @@
 
         <!-- STUFF TEMPLATE -->
         <template name="stuff">
-            <div class="container py-5">
-                <h2 class="display-5 fw-bold mb-5">Component Cloners</h2>
+            <div class="container py-5 mt-5">
+                <h2 class="display-5 fw-bold mb-5">Component Registry</h2>
                 <div class="row g-4 mb-5">
                     <div class="col-12">
                         <div class="glass overflow-hidden">
-                            <table class="table table-dark table-hover mb-0">
+                            <table class="table table-hover mb-0">
                                 <thead class="bg-white bg-opacity-5">
                                     <tr>
                                         <th class="ps-4 py-3">Dev ID</th>
@@ -317,8 +402,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="core-clone border-white border-opacity-5" data-core-data="users"
-                                        data-core-source="https://dummyjson.com/users?limit=6">
+                                    <tr class="core-clone border-white border-opacity-5 text-white"
+                                        data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
                                         <td class="ps-4 py-3 text-muted">#{{aug:count}}</td>
                                         <td class="py-3 fw-bold">{{rec:firstName}} {{rec:lastName}}</td>
                                         <td class="py-3"><span
@@ -336,16 +421,18 @@
 
                 <div class="row g-4">
                     <div class="core-clone col-lg-3 col-md-6" data-core-data="prods"
-                        data-core-source="https://dummyjson.com/products?limit=8">
-                        <div class="card-premium p-4">
-                            <div class="bg-white bg-opacity-5 rounded-4 p-3 mb-4 text-center">
+                        data-core-source="https://dummyjson.com/products?limit=12">
+                        <div class="glass p-4 h-100 d-flex flex-column">
+                            <div class="bg-white bg-opacity-5 rounded-4 p-4 mb-4 text-center d-flex align-items-center justify-content-center"
+                                style="height: 160px;">
                                 <img {{rec:thumbnail:core_pk_attr:src}} class="img-fluid rounded-3"
-                                    style="max-height: 120px;">
+                                    style="max-height: 100%; object-fit: contain;">
                             </div>
                             <h5 class="fw-bold mb-2">{{rec:title}}</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-4 mt-auto">
                                 <span class="fs-4 fw-bold text-primary">{{rec:price:money:$}}</span>
-                                <span class="small text-danger fw-bold">-{{rec:discountPercentage:decimal}}%</span>
+                                <span
+                                    class="small text-danger fw-bold bg-danger bg-opacity-10 px-2 py-1 rounded">-{{rec:discountPercentage:decimal}}%</span>
                             </div>
                             <button onclick="showToast('Object added to local cache', 'info')"
                                 class="btn-premium w-100 py-2 fs-6">Buffer Data</button>
@@ -357,33 +444,36 @@
 
         <!-- OTHER TEMPLATE -->
         <template name="other">
-            <div class="container py-5">
+            <div class="container py-5 mt-5">
                 <div class="glass p-5">
                     <h1 class="display-4 fw-bold mb-4">Architecture Deep-Dive</h1>
                     <div class="row g-5">
-                        <div class="col-lg-6 text-muted fs-5">
+                        <div class="col-lg-6 text-white fs-5">
                             <p>C.O.R.E.js utilizes a <strong>Shadow-less Rendering</strong> approach. By treating the
                                 DOM itself as the state tree, we bypass the need for expensive diffing algorithms.</p>
                             <p class="mb-5">Our cloner engine allows for nested, recursive component definitions that
                                 hydrate automatically upon data insertion.</p>
                             <div class="row g-3">
                                 <div class="col-6">
-                                    <div class="p-4 rounded-4 bg-white bg-opacity-5 text-center">
+                                    <div
+                                        class="p-4 rounded-4 bg-white bg-opacity-5 text-center border border-white border-opacity-5">
                                         <h2 class="text-white fw-bold mb-1">Low</h2>
-                                        <span class="small text-uppercase ls-wide">Reflows</span>
+                                        <span class="small text-uppercase ls-wide text-primary">Reflows</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="p-4 rounded-4 bg-white bg-opacity-5 text-center">
+                                    <div
+                                        class="p-4 rounded-4 bg-white bg-opacity-5 text-center border border-white border-opacity-5">
                                         <h2 class="text-white fw-bold mb-1">∞</h2>
-                                        <span class="small text-uppercase ls-wide">Scalability</span>
+                                        <span class="small text-uppercase ls-wide text-accent">Scalability</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="p-4 bg-dark rounded-4 border border-white border-opacity-10">
-                                <pre class="text-accent mb-0"><code>&lt;div class="core-pocket" 
+                            <div
+                                class="p-4 bg-black bg-opacity-50 rounded-4 border border-white border-opacity-10 font-monospace">
+                                <pre class="text-primary-light mb-0"><code>&lt;div class="core-pocket" 
      data-core-templates="user"
      data-core-source="/api/v1/profile"&gt;
 &lt;/div&gt;</code></pre>
@@ -396,14 +486,14 @@
 
         <!-- RECURSIVE TEMPLATE -->
         <template name="deep">
-            <div class="container py-5">
-                <h1 class="display-4 fw-bold mb-5">Recursive Logic Chains</h1>
+            <div class="container py-5 mt-5">
+                <h1 class="display-4 fw-bold mb-5" style="color: #000000 !important;">Recursive Logic Chains</h1>
                 <div class="glass p-5">
                     <div class="core-clone" data-core-data="pop">
-                        <div class="p-4 rounded-4 bg-white bg-opacity-5 mb-4 border-start border-primary border-4">
-                            <h4 class="fw-bold mb-2">{{rec:name:upper}}</h4>
-                            <p class="text-muted small mb-3">Syncing deep tree structure...</p>
-                            <div class="ps-4">{{rec:more:core_pk_cloner:colors}}</div>
+                        <div class="p-4 rounded-4 bg-white bg-opacity-5 mb-4 border-start border-primary border-4" style="color: #000000 !important;">
+                            <h4 class="fw-bold mb-2" style="color: #000000 !important;">{{rec:name:upper}}</h4>
+                            <p class="text-muted small mb-3" style="color: #000000 !important;">Syncing deep tree structure...</p>
+                            <div class="ps-4" style="color: #000000 !important;">{{rec:more:core_pk_cloner:colors}}</div>
                         </div>
                     </div>
                 </div>
@@ -413,10 +503,11 @@
         <template name="colors">
             <div class="mb-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-circle" style="width: 12px; height: 12px; background: {{rec:color}};"></div>
-                    <span class="fw-bold text-uppercase small ls-wide">{{rec:color}}</span>
+                    <div class="rounded-circle shadow-sm" style="width: 14px; height: 14px; background: {{rec:color}};">
+                    </div>
+                    <span class="fw-bold text-uppercase small ls-wide opacity-75" style="color: #000000 !important;">{{rec:color}}</span>
                 </div>
-                <div class="ms-4 mt-2 ps-3 border-start border-white border-opacity-10">
+                <div class="ms-2 mt-2 ps-3 border-start border-white border-opacity-10" style="color: #000000 !important;">
                     {{rec:hues:core_pk_cloner:colors}}
                 </div>
             </div>
@@ -435,7 +526,7 @@
             core.useDebugger = true;
 
             // Start metrics update loop
-            setInterval(updateMetrics, 2000);
+            setInterval(updateMetrics, 1000);
             updateMetrics();
         }
 
@@ -447,7 +538,9 @@
 
                 // Active Link Management
                 document.querySelectorAll('.nav-link-premium').forEach(link => {
-                    if (link.dataset.coreTemplates === dataRef) {
+                    const templates = (link.dataset.coreTemplates || '').split(',');
+                    // Simple check if the clicked template is in the link
+                    if (templates.includes(dataRef)) {
                         link.classList.add('active');
                     } else {
                         link.classList.remove('active');
@@ -499,7 +592,7 @@
                 switch (dataRef) {
                     case 'prods': return dataObj.products;
                     case 'users': return dataObj.users;
-                    case 'news': return dataObj.results;
+                    case 'news': return dataObj.results; // newsdata.io returns results array
                 }
             }
             return dataObj;

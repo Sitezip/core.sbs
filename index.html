@@ -1,9 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="refresh" content="0; URL=core.html" />
-  </head>
-  <body>
-        <a href="core.html">core.sbs</a>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.R.E.js | The Future of Client-Side Rendering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-premium fixed-top" id="main-nav">
+        <div class="container">
+            <!-- Brand/Logo -->
+            <a class="navbar-brand p-0 d-flex align-items-center" href="#" data-core-templates="home">
+                <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 140px;"></div>
+            </a>
+            
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-core-templates="home">Home</a>
+                    </li>
+                    
+                    <!-- Showcase Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Showcase
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark glass border-0 shadow-lg mt-3">
+                            <li><a class="dropdown-item" href="#" data-core-templates="features">Features</a></li>
+                            <li><a class="dropdown-item" href="#" data-core-templates="ecommerce">E-Commerce</a></li>
+                            <li><a class="dropdown-item" href="#" data-core-templates="dynamic">Dynamic Content</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-core-templates="recursive">Recursive Engine</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Account -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-core-templates="account">Account</a>
+                    </li>
+                    
+                    <!-- News -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-core-templates="news">News</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container h-100 d-flex align-items-center">
+            <div class="row w-100">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title mb-4">Build <span class="text-gradient">Lightning Fast</span> Web Apps</h1>
+                    <p class="hero-subtitle mb-4">C.O.R.E.js is a high-performance JavaScript framework that eliminates virtual DOM overhead while providing a clean, component-based architecture.</p>
+                    <div class="hero-cta">
+                        <a href="#get-started" class="btn btn-primary btn-lg me-3">Get Started</a>
+                        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image">
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="code-title">example.js</span>
+                        </div>
+                        <pre><code class="language-javascript">// Define a component
+core.define('hello', {
+    template: '<h1>Hello, {{name}}!</h1>',
+    data: { name: 'World' }
+});
+
+// Use it anywhere
+core.cr.render('hello', '#app');</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="container-fluid p-0">
+        <!-- Content will be dynamically loaded here -->
+        <div class="text-center py-5">
+            <h1>Welcome to C.O.R.E.js</h1>
+            <p class="lead">The future of client-side rendering</p>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.24.1/prism.min.js"></script>
+    <script src="core.js"></script>
+    
+    <script>
+    // Initialize C.O.R.E.js
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize framework
+        if (typeof core !== 'undefined') {
+            core.init();
+            
+            // Set up navigation
+            document.querySelectorAll('[data-core-templates]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const template = this.getAttribute('data-core-templates');
+                    if (core && core.cr && core.cr.render) {
+                        core.cr.render(template, '#main-content');
+                    }
+                });
+            });
+        }
+        
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+    </script>
+</body>
 </html>
