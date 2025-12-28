@@ -1,510 +1,518 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:>
+<html lang="en">
+
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LC7DT41JZ"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-2LC7DT41JZ');
-    </script>
     <meta charset="UTF-8" />
-    <title>core.js is the way!</title>
+    <title>C.O.R.E.js | The Future of Client-Side Rendering</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
     <link rel="icon" href="favicon.png">
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        .badge {
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
-        }
-        .badge:nth-child(1) { animation-delay: 0.1s; }
-        .badge:nth-child(2) { animation-delay: 0.2s; }
-        .badge:nth-child(3) { animation-delay: 0.3s; }
-        .badge:nth-child(4) { animation-delay: 0.4s; }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .navbar-brand:hover .core-pocket {
-            transform: scale(1.1);
-            transition: transform 0.3s ease;
-        }
-        .table {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .core-clone .card img {
-            transition: transform 0.3s ease;
-        }
-        .core-clone .card:hover img {
-            transform: scale(1.05);
-        }
-    </style>
 </head>
-<body style="padding-top: 4rem;">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-    <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand p-0 d-flex align-items-center" href="?">
-            <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 120px;"></div>
-            <span class="ms-2 fw-bold text-primary">C.O.R.E.js</span>
-        </a>
-
-        <!-- Mobile toggle button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a href="?" class="nav-link">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="demoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Demos
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" target="#main" data-core-templates="other">Change Content</a></li>
-                        <li><a class="dropdown-item" href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
-                        <li><a class="dropdown-item" href="#" target="#under" data-core-templates="stuff">Add Products</a></li>
-                        <li><a class="dropdown-item" href="#" target="#under" data-core-templates="EMPTY">Clear Products</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="user">Account</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="#main" data-core-templates="news">Scammer News</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" target="core_be_getData" data-core-templates="silent" data-silent-core-source="https://dummyjson.com/products?limit=1">Silent Data</a></li>
-                <li class="nav-item">
-                    <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm ms-2">GitHub</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Hero Section -->
-<div class="hero-section bg-gradient text-white py-5 mb-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-3">C.O.R.E.js</h1>
-                <p class="lead mb-4">The ultra-lightweight JavaScript framework for dynamic web applications. Zero dependencies, maximum performance.</p>
-                <div class="d-flex gap-3 mb-4">
-                    <div class="badge bg-primary">Data Binding</div>
-                    <div class="badge bg-success">Template System</div>
-                    <div class="badge bg-info">Smart Caching</div>
-                    <div class="badge bg-warning">Recursive Cloning</div>
-                </div>
-                <div class="d-flex gap-2">
-                    <a href="#demo" class="btn btn-light btn-lg">See Demo</a>
-                    <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="btn btn-outline-light btn-lg">GitHub</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="text-center">
-                    <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg" style="width: 100%; max-width: 400px;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Quote Section -->
-<div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-8">
-            <blockquote>
-                <p class="h--dataRef-quote" data-h-data-ref="quote">I said what I said!</p>
-            </blockquote>
-            <p>—<cite class="h--quote-author">Mother</cite></p>
-        </div>
-        <div class="col-4">
-            <h3 class="mb-0">Login</h3>
-            <div class="core-pocket m-0" data-core-templates="default" data-default-core-source="https://zzzap.io/Forms/login"></div>
-        </div>
-    </div>
-</div>
-
-<!-- Interactive Demo Section -->
-<div class="container mb-5" id="demo">
-    <div class="text-center mb-5">
-        <h2 class="display-5 fw-bold">Live Demo Showcase</h2>
-        <p class="lead text-muted">See C.O.R.E.js in action with real-time data binding and templating</p>
-    </div>
-    
-    <!-- Performance Metrics -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card text-center border-primary">
-                <div class="card-body">
-                    <h3 class="text-primary" id="cacheHits">0</h3>
-                    <p class="mb-0">Cache Hits</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center border-success">
-                <div class="card-body">
-                    <h3 class="text-success" id="dataCalls">0</h3>
-                    <p class="mb-0">Data Calls</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center border-info">
-                <div class="card-body">
-                    <h3 class="text-info" id="templates">0</h3>
-                    <p class="mb-0">Templates</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center border-warning">
-                <div class="card-body">
-                    <h3 class="text-warning" id="clones">0</h3>
-                    <p class="mb-0">Clones</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div id="main">
-        <div class="core-pocket" data-core-templates="stuff,deep"></div>
-    </div>
-    <div id="under"></div>
-</div>
-
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-premium fixed-top">
+        <div class="container">
+            <a class="navbar-brand p-0 d-flex align-items-center" href="#" target="#main" data-core-templates="home">
+                <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg"
+                    style="width: 140px; filter: drop-shadow(0 0 8px var(--primary-glow));"></div>
             </a>
-            <span class="mb-3 mb-md-0 text-body-secondary"> 2025 Company, Inc</span>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="home">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link-premium dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown">Showcase</a>
+                        <ul class="dropdown-menu dropdown-menu-dark glass border-0 shadow-lg mt-3">
+                            <li><a class="dropdown-item py-2 px-4" href="#" target="#main"
+                                    data-core-templates="other">Features Architecture</a></li>
+                            <li><a class="dropdown-item py-2 px-4" href="#" target="#main"
+                                    data-core-templates="stuff">E-Commerce Grid</a></li>
+                            <li><a class="dropdown-item py-2 px-4" href="#" target="#under"
+                                    data-core-templates="stuff">Append Dynamic Content</a></li>
+                            <li><a class="dropdown-item py-2 px-4" href="#" target="#under"
+                                    data-core-templates="EMPTY">Reset Workspace</a></li>
+                            <li>
+                                <hr class="dropdown-divider opacity-10">
+                            </li>
+                            <li><a class="dropdown-item py-2 px-4" href="#" target="#main"
+                                    data-core-templates="deep">Recursive Engine</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="user">Account</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="news">Scammer News</a></li>
+                    <li class="nav-item ms-lg-4">
+                        <a href="https://github.com/Sitezip/core.sbs" target="_blank"
+                            class="btn-premium text-decoration-none">Star on GitHub</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-body-secondary" href="#" title="Twitter"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#" title="Instagram"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#" title="Facebook"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-        </ul>
-    </footer>
-</div>
+    <!-- Main Viewhost -->
+    <div id="main">
+        <div class="core-pocket" data-core-templates="home"></div>
+    </div>
 
-<!-- core-pocket storage elements -->
-<section id="cr-data" style="display:none;">
-    <template name="other">
-        <h1>Hello World!</h1>
-        <div>
-            <blockquote>
-                <p class="h--quote-quote">I said what I said!</p>
-            </blockquote>
-            <p>—<cite class="h--quote-author">Mother</cite></p>
+    <!-- Secondary Insertion Point -->
+    <div id="under"></div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="coreToast" class="toast glass border-0 text-white" role="alert">
+            <div class="toast-header bg-transparent border-0 text-white border-bottom border-light border-opacity-10">
+                <strong class="me-auto">C.O.R.E.js Event</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
         </div>
-        <div id="header">This will be <strong>good</strong>.</div>
-        <a href="#" class="nav-link" target="#main" data-core-templates="deep">recursive</a>
-    </template>
-    <template name="stuff">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>First</th>
-                <th>Last</th>
-                <th>Height</th>
-                <th>Date</th>
-                <th>Phone</th>
-                <!-- global hydration content:pip.name, class format:upperFirst -->
-                <th class="h-pip-name f-upperfirst"></th>
-                <th>Hair</th>
-                <!-- global cache content:pip.title, argument format:upper -->
-                <th>{{data:pip:title:upper}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="core-clone" data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
-                <!-- augmented content:count(logic keyword), class format:padleft, argument class format clue:pad with 0 max length of 2 -->
-                <td class="f-padleft" data-f-clue="2|0">{{aug:count}}</td>
-                <!-- record content:firstName, argument format:upperfirst -->
-                <td>{{rec:firstName:upperfirst}}</td>
-                <!-- record hydration content:lastName, class format:upperfirst -->
-                <td class="h-coreRecord-lastName f-upperfirst"></td>
-                <!-- record content:height, argument format:decimal, argument format clue:cm -->
-                <td>{{rec:height:decimal:cm}}</td>
-                <!-- record content:birthDate, format:date, format clue:MM/DD/YYYY -->
-                <td>{{rec:birthDate:date:MM/DD/YYYY}}</td>
-                <!-- record content:phone, format:phone -->                
-                <td>{{rec:phone:phone}}</td>
-                <!-- record content:username, class format:upper, argument format:wrap(logic keyword) argument format clue:<strong>|</strong> -->
-                <td class="f-upper">{{rec:username:wrap:<strong>|</strong>}}</td>
-                <!-- record content:hair.color -->
-                <td>{{rec:hair.color}}</td>
-                <!-- global cache content:pip.name, argument format:truncate, argument format clue:length of 2 -->
-                <td>{{data:pip:name:truncate:2}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <hr>
-        <div class="row">
-            <div class="core-clone col-sm-3 mb-2" data-core-data="prods" data-core-source="https://dummyjson.com/products?limit=12">
-                <div class="card h-100">
-                    <img class="card-img-top" {{rec:thumbnail:core_pk_attr:src}} alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{rec:title}}</h5>
-                        <p class="card-text">{{rec:description}} - {{aug:count:padleft:5|0}}</p>
-                        <p class="card-text">Price: {{rec:price:money:$}} <small class="text-secondary">{{rec:discountPercentage:decimal:%}} off</small> </p>
-                        <p class="card-text">
-                            Brand: 
-                            <strong>
-                                <!-- Example: Two ways to reference the record data, via rec and #-->
-                                {{rec:brand}} ({{#:sku:lower}})
-                            </strong>
-                        </p>
-                        <p class="card-text">Rating: {{rec:rating:decimal: ⭐}}</p>
-                        <p class="card-text">
-                            <!-- Example: Two ways to reference the agumented (computed) data, via aug and !-->
-                            {{aug:count}}{{!:index}} - 
-                            <!-- Example: Two ways to reference the stored data via, data and @ -->
-                            {{data:pip:id}} {{@:pip:stuff.vendor:upper}}
-                        </p>
-                        <p class="card-text">
-                            <small>
-                                <!-- Example: Manipulate a template value as needed  -->
-                                {{aug:value:tags:arg2}}
-                                <!-- Example: Manipulate a template cloning string as needed -->
-                                {{aug:string:arg1:arg2}}
-                            </small>
-                        </p>
+    </div>
+
+    <!-- Component Registry (Templates) -->
+    <section id="cr-data" style="display:none;">
+
+        <!-- HOME TEMPLATE -->
+        <template name="home">
+            <section class="hero-overhaul">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <span class="badge-premium mb-3 d-inline-block">V2.0 Core Engine</span>
+                            <h1 class="hero-title">Experience the<br>Speed of Logic.</h1>
+                            <p class="lead text-muted mb-5 fs-5">A high-performance JS orchestration layer that
+                                eliminates virtual DOM overhead. Decoupled, asynchronous, and remarkably clean.</p>
+                            <div class="d-flex flex-wrap gap-4 mb-5">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-primary fs-3">●</div>
+                                    <div class="small fw-bold text-uppercase ls-wide">Async-Native</div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-accent fs-3">●</div>
+                                    <div class="small fw-bold text-uppercase ls-wide">Zero Overload</div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-warning fs-3">●</div>
+                                    <div class="small fw-bold text-uppercase ls-wide">Recursive</div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <a href="#" target="#main" data-core-templates="stuff" class="btn-premium">View
+                                    Components</a>
+                                <a href="#" onclick="showToast('Silent Background Sync Initialized', 'info')"
+                                    class="btn btn-outline-light border-0 py-3 px-4">Silent Sync Demo</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-center position-relative">
+                            <div class="hero-visual animate-float">
+                                <img src="hero_bg.png" class="img-fluid rounded-4 shadow-lg"
+                                    style="mask-image: linear-gradient(to bottom, black, transparent);">
+                            </div>
+                            <div class="core-pocket p-5" data-core-templates="core" data-core-core-source="core.svg"
+                                style="max-width: 500px; margin: auto; filter: drop-shadow(0 20px 40px var(--primary-glow));">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container mb-5">
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="metric-box glass">
+                            <h2 class="text-primary" id="cacheHits">0</h2>
+                            <div class="metric-label">Cache Integrity</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-box glass">
+                            <h2 class="text-success" id="dataCalls">0</h2>
+                            <div class="metric-label">Backend Flow</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-box glass">
+                            <h2 class="text-info" id="templates">0</h2>
+                            <div class="metric-label">Registered DOM</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-box glass">
+                            <h2 class="text-warning" id="clones">0</h2>
+                            <div class="metric-label">Clustered Logic</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </template>
-    <template name="deep">
-        <div class="container">
-            <h3>Recursive Cloning</h3>
-            <div class="row">
-                <div class="core-clone col-sm-4" data-core-data="pop">
-                    <span class="text-secondary">{{rec:name:upper}}</span> paid {{rec:paid:money:$}} on {{rec:ts:date:date}} for a {{rec:stuff.food}}.
-                    <div>{{rec:more:core_pk_cloner:colors}}</div>
+
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="glass p-5 h-100">
+                            <h2 class="fw-bold mb-4">The Logic Bridge</h2>
+                            <p class="fs-5 text-muted mb-4">C.O.R.E.js automatically manages the serialization of your
+                                state into the DOM, allowing for instant "resurrection" of UI components.</p>
+                            <hr class="opacity-10 my-5">
+                            <div class="p-4 border-start border-primary border-4 bg-white bg-opacity-5 rounded-end-4">
+                                <p class="h--dataRef-quote fs-4 fw-light italic mb-2" data-h-data-ref="quote">Fetch in
+                                    progress...</p>
+                                <cite class="h--quote-author text-primary fw-bold">— Author</cite>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass p-5">
+                            <h3 class="fw-bold mb-4">Form Engine</h3>
+                            <div class="core-pocket" data-core-templates="default"
+                                data-default-core-source="https://zzzap.io/Forms/login"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </template>
-    <template name="colors">
-        <!-- recursively calling itself -->
-        {{aug:index}} - <strong>{{rec:color}}</strong><br>
-        <div class="bg-light ps-3">{{rec:hues:core_pk_cloner:colors}}</div>
-    </template>
-    <template name="user">
-        <div class="row">
-            This is user info, you like?
-        </div>
-    </template>
-    <template name="news">
-        <!-- news -->
-        <div class="container m-4">
-            <h3 class="text-primary">Scammer Highlights</h3>
-            <p>Don't be in the news and trust nothing that demands your private information</p>
-        </div>
+        </template>
 
-        <div class="container">
-            <div class="core-clone col-sm-12 mb-3" data-core-data="news" data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology,technology">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-2 col-sm-12">
-                                <a href="{{rec:source_url}}" target="{{rec:source_id}}"><img {{rec:source_icon:core_pk_attr:src}} {{rec:source_id:pk_attr:alt}} class="w-50" onerror="$(this).remove()"></a>
-                                <a href="{{rec:link}}" class="btn btn-sm btn-outline-primary mt-3" target="_blank">View</a>
+        <!-- ACCOUNT TEMPLATE -->
+        <template name="user">
+            <div class="container py-5">
+                <div class="account-hero glass border-0 shadow-2xl">
+                    <img src="avatar.png" class="account-avatar" alt="Avatar">
+                    <div>
+                        <h1 class="display-4 fw-bold mb-1">Architect Account</h1>
+                        <p class="fs-5 opacity-75 mb-0">Senior Developer | C.O.R.E. Contributor</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="glass p-5">
+                            <h3 class="fw-bold mb-4">System Console</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div
+                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10">
+                                        <label class="small text-muted text-uppercase fw-bold mb-1">Sync Version</label>
+                                        <div class="fs-4 fw-bold text-primary">v2025.12.26</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div
+                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-10">
+                                        <label class="small text-muted text-uppercase fw-bold mb-1">Memory
+                                            Pressure</label>
+                                        <div class="fs-4 fw-bold text-success">Optimized</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-10 col-sm-12">
-                                <p class="mb-0"><small class="text-muted f-datetime">{{rec:pubDate}}</small></p>
-                                <h5 class="card-title text-secondary"><span class="f-padleft" data-f-clue="2|0">{{aug:count}}</span> {{rec:title}}</h5>
-                                <p class="card-text f-null-checker f-truncate" data-f-default="..." data-f-clue="200">{{rec:description}}</p>
-                                <p class="card-text text-muted">Source: <span>{{rec:source_name}}</span> in <span class="f-upper">{{rec:category.[n]}}</span></p>
+                            <hr class="my-5 opacity-10">
+                            <h4 class="fw-bold mb-4">Workspace Preferences</h4>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted text-uppercase fw-bold">Telemetry
+                                        Level</label>
+                                    <select class="form-select bg-dark border-secondary text-white py-3 rounded-3">
+                                        <option>Production (Stable)</option>
+                                        <option>Verbose Debugging</option>
+                                        <option>Full Trace</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted text-uppercase fw-bold">Render
+                                        Strategy</label>
+                                    <select class="form-select bg-dark border-secondary text-white py-3 rounded-3">
+                                        <option>Concurrent (Async)</option>
+                                        <option>Sequential (Safe)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <button onclick="showToast('Profile settings archived', 'success')"
+                                    class="btn-premium">Synchronize Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="glass p-5 h-100">
+                            <h4 class="fw-bold mb-4">Registry Health</h4>
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="small text-muted">API Latency</span>
+                                    <span class="small text-primary fw-bold">12ms</span>
+                                </div>
+                                <div class="progress bg-white bg-opacity-10" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="small text-muted">Cache Utilization</span>
+                                    <span class="small text-success fw-bold">94%</span>
+                                </div>
+                                <div class="progress bg-white bg-opacity-10" style="height: 6px;">
+                                    <div class="progress-bar bg-success" style="width: 94%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </template>
-</section>
-<script src="core.js"></script>
-<script>
-    //core.js setup
-    //core.ud.defaultDelta = 'n/a';
-    core.ud.init = () => {
-        //set config
-        core.useRouting  = false;
-        core.useDebugger = core.hf.getRoute().includes('localhost');
-        //set custom cache life
-        core.be.cacheExpire = {type:'data',name:'quote',seconds:5}
-        
-        // Initialize performance metrics
-        updateMetrics();
-        setInterval(updateMetrics, 1000);
-    }
-    //--CUSTOM FUNCTIONS--//
+        </template>
 
-    //callback pre/post UX insertions
-    core.ud.prepaint = (dataRef, dataObj, type) => {
-        if(core.useDebugger) console.log('ud.prepaint',{dataRef, dataObj, type});
-    }
+        <!-- NEWS TEMPLATE -->
+        <template name="news">
+            <div class="container py-5">
+                <div class="d-flex align-items-end justify-content-between mb-5">
+                    <div>
+                        <h1 class="display-4 fw-bold">Scammer Insights</h1>
+                        <p class="text-muted fs-5 mb-0">Live intelligence feed curated by C.O.R.E. Async Engine</p>
+                    </div>
+                    <button onclick="core.pk.soc()" class="btn-premium py-2 px-4 shadow-none">Refresh Feed</button>
+                </div>
 
-    core.ud.postpaint = (dataRef, dataObj, type) => {
-        if(core.useDebugger) console.log('ud.postpaint',{dataRef, dataObj, type});
-    }
+                <div class="news-row">
+                    <div class="core-clone news-card glass" data-core-data="news"
+                        data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&language=en">
+                        <div class="news-content">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span
+                                    class="badge bg-primary bg-opacity-25 text-primary small fw-bold px-3 py-1 rounded-pill">{{rec:category.[n]:upper}}</span>
+                                <span class="small text-muted f-date" data-f-clue="M/D/YY">{{rec:pubDate}}</span>
+                            </div>
+                            <h4 class="fw-bold mb-3">{{rec:title:truncate:80}}</h4>
+                            <p class="text-muted mb-4 fs-6">{{rec:description:truncate:140}}</p>
+                            <div
+                                class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top border-white border-opacity-10">
+                                <span class="small fw-bold text-white opacity-75">{{rec:source_name}}</span>
+                                <a href="{{rec:link}}" target="_blank"
+                                    class="text-primary text-decoration-none small fw-bold">Read Full Intelligence →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
 
-    //backend pre/post retrieval
-    core.ud.preflight = (dataRef, dataSrc, type) => {
-        console.log(dataRef,dataSrc);
-        let settings = {dataRef:dataRef, dataSrc:dataSrc, type:type};
-        if(type.includes('temp')){
-            if(dataRef === dataSrc){
-                settings.dataSrc = '/html/CORE/' + dataRef + '.html'
-            }
-        }else if(type === 'data'){
-            if(dataRef === 'joke'){
-                settings.fetchParams = {mode: "no-cors"};
-            }
+        <!-- STUFF TEMPLATE -->
+        <template name="stuff">
+            <div class="container py-5">
+                <h2 class="display-5 fw-bold mb-5">Component Cloners</h2>
+                <div class="row g-4 mb-5">
+                    <div class="col-12">
+                        <div class="glass overflow-hidden">
+                            <table class="table table-dark table-hover mb-0">
+                                <thead class="bg-white bg-opacity-5">
+                                    <tr>
+                                        <th class="ps-4 py-3">Dev ID</th>
+                                        <th class="py-3">Interface</th>
+                                        <th class="py-3">Sync Status</th>
+                                        <th class="text-end pe-4 py-3">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="core-clone border-white border-opacity-5" data-core-data="users"
+                                        data-core-source="https://dummyjson.com/users?limit=6">
+                                        <td class="ps-4 py-3 text-muted">#{{aug:count}}</td>
+                                        <td class="py-3 fw-bold">{{rec:firstName}} {{rec:lastName}}</td>
+                                        <td class="py-3"><span
+                                                class="badge bg-success bg-opacity-10 text-success small px-3">ACTIVE</span>
+                                        </td>
+                                        <td class="text-end pe-4 py-3"><a href="#"
+                                                class="text-accent text-decoration-none small fw-bold">POCKET SOURCE</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="core-clone col-lg-3 col-md-6" data-core-data="prods"
+                        data-core-source="https://dummyjson.com/products?limit=8">
+                        <div class="card-premium p-4">
+                            <div class="bg-white bg-opacity-5 rounded-4 p-3 mb-4 text-center">
+                                <img {{rec:thumbnail:core_pk_attr:src}} class="img-fluid rounded-3"
+                                    style="max-height: 120px;">
+                            </div>
+                            <h5 class="fw-bold mb-2">{{rec:title}}</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-primary">{{rec:price:money:$}}</span>
+                                <span class="small text-danger fw-bold">-{{rec:discountPercentage:decimal}}%</span>
+                            </div>
+                            <button onclick="showToast('Object added to local cache', 'info')"
+                                class="btn-premium w-100 py-2 fs-6">Buffer Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- OTHER TEMPLATE -->
+        <template name="other">
+            <div class="container py-5">
+                <div class="glass p-5">
+                    <h1 class="display-4 fw-bold mb-4">Architecture Deep-Dive</h1>
+                    <div class="row g-5">
+                        <div class="col-lg-6 text-muted fs-5">
+                            <p>C.O.R.E.js utilizes a <strong>Shadow-less Rendering</strong> approach. By treating the
+                                DOM itself as the state tree, we bypass the need for expensive diffing algorithms.</p>
+                            <p class="mb-5">Our cloner engine allows for nested, recursive component definitions that
+                                hydrate automatically upon data insertion.</p>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <div class="p-4 rounded-4 bg-white bg-opacity-5 text-center">
+                                        <h2 class="text-white fw-bold mb-1">Low</h2>
+                                        <span class="small text-uppercase ls-wide">Reflows</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-4 rounded-4 bg-white bg-opacity-5 text-center">
+                                        <h2 class="text-white fw-bold mb-1">∞</h2>
+                                        <span class="small text-uppercase ls-wide">Scalability</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-4 bg-dark rounded-4 border border-white border-opacity-10">
+                                <pre class="text-accent mb-0"><code>&lt;div class="core-pocket" 
+     data-core-templates="user"
+     data-core-source="/api/v1/profile"&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- RECURSIVE TEMPLATE -->
+        <template name="deep">
+            <div class="container py-5">
+                <h1 class="display-4 fw-bold mb-5">Recursive Logic Chains</h1>
+                <div class="glass p-5">
+                    <div class="core-clone" data-core-data="pop">
+                        <div class="p-4 rounded-4 bg-white bg-opacity-5 mb-4 border-start border-primary border-4">
+                            <h4 class="fw-bold mb-2">{{rec:name:upper}}</h4>
+                            <p class="text-muted small mb-3">Syncing deep tree structure...</p>
+                            <div class="ps-4">{{rec:more:core_pk_cloner:colors}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template name="colors">
+            <div class="mb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle" style="width: 12px; height: 12px; background: {{rec:color}};"></div>
+                    <span class="fw-bold text-uppercase small ls-wide">{{rec:color}}</span>
+                </div>
+                <div class="ms-4 mt-2 ps-3 border-start border-white border-opacity-10">
+                    {{rec:hues:core_pk_cloner:colors}}
+                </div>
+            </div>
+        </template>
+
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="core.js"></script>
+    <script>
+        // CORE INITIALIZATION
+        core.ud.init = () => {
+            core.useRouting = false;
+            core.useDebugger = true;
+
+            // Start metrics update loop
+            setInterval(updateMetrics, 2000);
+            updateMetrics();
         }
-        if(core.useDebugger) console.log('ud.preflight',{dataRef, dataSrc, type});
-        return settings;
-    }
 
-    core.ud.postflight = (dataRef, dataObj, type) => {
-        if(type === 'data'){
-            switch(dataRef){
-                case 'prods':
-                    dataObj = dataObj.products;
-                    break;
-                case 'users':
-                    dataObj = dataObj.users;
-                    break;
-                case 'news':
-                    let ignoreList   = ['russia','chinese','china','.co.uk','macworld'];
-                    let cleanResults = [];
-                    if(dataObj.hasOwnProperty('results')){
-                        for(const result of dataObj.results){
-                            const strResult = JSON.stringify(result).toLowerCase();
-                            if(!ignoreList.some(v => strResult.includes(v.toLowerCase()))){
-                                cleanResults.push(result);
-                            }
-                        }
+        // NAVIGATION & UX HOOKS
+        core.ud.postpaint = (dataRef, dataObj, type) => {
+            // Smooth Scroll to top on page swap
+            if (type === 'template' && dataRef !== 'core') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Active Link Management
+                document.querySelectorAll('.nav-link-premium').forEach(link => {
+                    if (link.dataset.coreTemplates === dataRef) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
                     }
-                    dataObj = cleanResults;
-                    break;
+                });
+
+                // Auto-close mobile menu
+                const bNavbar = bootstrap.Collapse.getInstance(document.getElementById('navbarNav'));
+                if (bNavbar) bNavbar.hide();
             }
-        }else{
-            //TODO
         }
-        if(core.useDebugger) console.log('ud.postflight',{dataRef, dataObj, type});
-        return dataObj;
-    }
 
-    //Start Of Call
-    core.ud.soc = () => {}
+        // NOTIFICATION SYSTEM
+        function showToast(message, type = 'primary') {
+            const toastEl = document.getElementById('coreToast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
 
-    //End Of Call
-    core.ud.eoc = () => {}
+            // Color mapping
+            toastEl.className = `toast glass border-0 text-white animate-fadeIn`;
 
-    //custom cloning augmentation function called with {{aug:value:arg1:arg2}} or {{!:v:arg1:arg2}}
-    core.ud.cloneValue = (record, args) => {
-        if(core.useDebugger) console.log(record,args);
-        return record.tags.join(' | '); // return optional
-    }
-
-    //custom cloning augmentation function called with {{aug:string:arg1:arg2}} or {{!:s:arg1:arg2}}
-    core.ud.cloneString = (record, args) => {
-        if(core.useDebugger) console.log(record,args);
-        return args.cloningStr.replace('Price:', (record.discountPercentage > 10 ? 'Sale Price!!!:':'Reg. Price:')); // return optional
-    }
-
-    core.ud.getTemplate = (name, newTemplate) => {
-        if(core.useDebugger) console.log(name, newTemplate);
-        switch(name){
-            case 'colors': //just for fun
-                return newTemplate.replace('{{aug:index}}', '{{!:c}}');
-            case 'default': //login form adjustments and event listener
-                setTimeout(() => {
-                    core.md.form('formHandler', {formElement:document.getElementById("zzzapio-login"), formId:'zzzapio-login', validityType:null});
-                },1000);
-                return newTemplate 
-                    .replace('<form', '<form id="zzzapio-login" name="login"')
-                    .replace('/Auth/signIn', 'https://zzzap.io/Auth/remote/signIn')
-                    .replace('type="button"', 'type="submit"')
-                    .replace('"post">', '"post"><div class="core-form-errors"></div>'); //optionally, could add onblur to each element if desired
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
         }
-        //return newTemplate; // return optional
-    }
-    //--END CUSTOM FUNCTIONS--//
 
-    //test data
-    core.be.getData('quote','https://dummyjson.com/quotes/random/'); //?delay=5000
-    core.be.getData('joke','https://dadjokes.developersandbox.xyz/api/v1/random'); //this one fails sucessfully
-    core.cr.setData('pip',{name:'fRoDo',title:'LoR',id:33,phone:8881231234,stuff:{vendor:'under20bucks'}});
-    core.cr.setData('pop',[
-        {name:'fred',paid:21.58,ts:1721788872,phone:8011231233,stuff:{food:'pizza'},more:[{color:'blue'},{color:'gold'}]},
-        {name:'jake',paid:2.11,ts:1721188872,phone:8018760408,stuff:{food:'pear'},more:[{color:'red',hues:[{color:'fire engine'},{color:'candy apple'}]}]},
-        {name:'jaker',paid:6.87,ts:1721798872,phone:8011231233,stuff:{food:'banana'},more:[{color:'yellow'},{color:'orange'},{color:'pink',hues:[{color:'bright'},{color:'hot'}]},{color:'magenta',hues:[{color:'dark'},{color:'hot'},{color:'magnetic'}]}]}
-    ]);
+        // METRICS TELEMETRY
+        function updateMetrics() {
+            const cacheHits = Object.keys(core.be.cacheCreateTs.data).length;
+            const dataCalls = Object.keys(core.be.fetchLogFIFO).length;
+            const templates = document.querySelectorAll('#cr-data template').length;
+            const clones = document.querySelectorAll('.core-cloned').length;
 
-    // Performance metrics function
-    function updateMetrics() {
-        const cacheHits = Object.keys(core.be.cacheCreateTs.data).length;
-        const dataCalls = Object.keys(core.be.fetchLogFIFO).length;
-        const templates = document.querySelectorAll('#cr-data template').length;
-        const clones = document.querySelectorAll('.core-cloned').length;
-        
-        document.getElementById('cacheHits').textContent = cacheHits;
-        document.getElementById('dataCalls').textContent = dataCalls;
-        document.getElementById('templates').textContent = templates;
-        document.getElementById('clones').textContent = clones;
-    }
-</script>
+            const els = {
+                cacheHits: document.getElementById('cacheHits'),
+                dataCalls: document.getElementById('dataCalls'),
+                templates: document.getElementById('templates'),
+                clones: document.getElementById('clones')
+            };
+
+            if (els.cacheHits) els.cacheHits.textContent = cacheHits;
+            if (els.dataCalls) els.dataCalls.textContent = dataCalls;
+            if (els.templates) els.templates.textContent = templates;
+            if (els.clones) els.clones.textContent = clones;
+        }
+
+        // DATA SOURCE INTERCEPTORS
+        core.ud.postflight = (dataRef, dataObj, type) => {
+            if (type === 'data') {
+                switch (dataRef) {
+                    case 'prods': return dataObj.products;
+                    case 'users': return dataObj.users;
+                    case 'news': return dataObj.results;
+                }
+            }
+            return dataObj;
+        }
+
+        // INERTIA / TEST DATA
+        core.be.getData('quote', 'https://dummyjson.com/quotes/random/');
+        core.cr.setData('pip', { name: 'Core Engineer', title: 'Architect', id: 1 });
+        core.cr.setData('pop', [
+            { name: 'Logic Chain Alpha', more: [{ color: 'cyan' }, { color: 'magenta', hues: [{ color: 'violet' }] }] },
+            { name: 'Logic Chain Beta', more: [{ color: 'lime', hues: [{ color: 'emerald' }] }] }
+        ]);
+    </script>
 </body>
+
 </html>

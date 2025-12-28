@@ -419,26 +419,26 @@ const core = (() => {
                     }
                 },
                 addClickListener: (element) => {
-                    const dataRefs = element.getAttribute('data-core-templates') || element.getAttribute('data-core-data') || element.dataset.coreTemplates || element.dataset.coreData; //accepts template THEN/OR data
+                    const dataRefs = element.getAttribute('data-core-templates') || element.getAttribute('core-templates') || element.getAttribute('data-core-data') || element.getAttribute('core-data') || element.dataset.coreTemplates || element.dataset.coreData;
                     const target = (element.getAttribute('target') || core.ud.defaultClickTarget);
                     if (!dataRefs) return;
-                    //check for data sources
+
                     let dataSources = [];
-                    //pocket.dataset[template + 'CoreSource']
                     const templates = dataRefs.split(',').map(s => String(s).trim()).filter(Boolean);
                     for (const template of templates) {
-                        const source = element.getAttribute('data-' + template + '-core-source') || element.getAttribute('data-core-source') || element.dataset[template + 'CoreSource'] || element.dataset.coreSource; //accepts template THEN/OR data
+                        const source = element.getAttribute('data-' + template + '-core-source') || element.getAttribute(template + '-source') ||
+                            element.getAttribute('data-core-source') || element.getAttribute('core-source') ||
+                            element.dataset[template + 'CoreSource'] || element.dataset.coreSource;
                         if (source) {
                             dataSources.push({ name: template, url: source });
                         }
                     }
-                    //remove all listeners - replace element
+
                     const newElement = element.cloneNode(true);
                     element.parentNode.replaceChild(newElement, element);
-                    //add listener to new element
+
                     newElement.addEventListener('click', (event) => {
-                        event.preventDefault()
-                        //set up the pocket
+                        event.preventDefault();
                         core.ux.insertPocket(target, dataRefs, dataSources);
                     });
                 },
@@ -940,18 +940,15 @@ const core = (() => {
                     let pockets = document.getElementsByClassName('core-pocket');
 
                     for (const pocket of pockets) {
-                        //get the items
-                        const templatesStr = pocket.getAttribute('data-core-templates') || pocket.dataset.coreTemplates || '';
+                        const templatesStr = pocket.getAttribute('data-core-templates') || pocket.getAttribute('core-templates') || pocket.dataset.coreTemplates || '';
                         const templates = templatesStr.split(',').map(s => String(s).trim()).filter(Boolean);
                         for (const template of templates) {
                             if (!template) continue;
 
                             let hasTemplate = core.cr.getTemplate(template);
-                            //get data if not available
                             if (!hasTemplate && template !== 'EMPTY') {
-                                //add loading
                                 pocket.insertAdjacentHTML('beforeend', core.cr.getTemplate('LOADING'));
-                                const dataSrc = pocket.getAttribute('data-' + template + '-core-source') || pocket.dataset[template + 'CoreSource'];
+                                const dataSrc = pocket.getAttribute('data-' + template + '-core-source') || pocket.getAttribute(template + '-source') || pocket.dataset[template + 'CoreSource'];
                                 promises.push(core.be.getTemplate(template, dataSrc));
                             }
                         }
@@ -977,8 +974,7 @@ const core = (() => {
                         }
                         //hide the pocket, shown when filled
                         pocket.style.display = 'none';
-                        //get the items
-                        const templatesStr = pocket.getAttribute('data-core-templates') || pocket.dataset.coreTemplates || '';
+                        const templatesStr = pocket.getAttribute('data-core-templates') || pocket.getAttribute('core-templates') || pocket.dataset.coreTemplates || '';
                         const templates = templatesStr.split(',').map(s => String(s).trim()).filter(Boolean);
                         for (const template of templates) {
                             if (!template) continue;
@@ -1000,14 +996,12 @@ const core = (() => {
                  */
                 getData: async () => {
                     const promises = [];
-                    //find the clone elements
                     let clones = document.getElementsByClassName('core-clone');
 
                     for (const clone of clones) {
-                        const dataRef = clone.getAttribute('data-core-data') || clone.dataset.coreData;
-                        const dataSrc = clone.getAttribute('data-core-source') || clone.dataset.coreSource;
+                        const dataRef = clone.getAttribute('core-data') || clone.getAttribute('data-core-data') || clone.dataset.coreData;
+                        const dataSrc = clone.getAttribute('core-source') || clone.getAttribute('data-core-source') || clone.dataset.coreSource;
 
-                        //check cache
                         if (core.be.checkCacheTs(dataRef, 'data') && core.cr.getData(dataRef)) {
                             continue;
                         }
@@ -1034,11 +1028,11 @@ const core = (() => {
                         const records = core.cr.getData(dataRef) || [];
                         const cloned = clone.cloneNode(true);
                         const clonedClass = "core-cloned-" + dataRef.split('-').map(s => core.sv.scrubSimple('temp', s, ['alphaonly']).value).join('-');
-                        cloned.classList.remove("core-clone");
-                        cloned.classList.add(clonedClass);
+                        cloned.removeAttribute('core-source');
                         cloned.removeAttribute('data-core-source');
+                        cloned.removeAttribute('core-data');
                         cloned.removeAttribute('data-core-data');
-                        cloned.removeAttribute('id'); //shant have an id
+                        cloned.removeAttribute('id');
                         core.cb.prepaint(dataRef, records, 'data');
                         clone.insertAdjacentHTML('beforebegin', core.pk.cloner(records, cloned.outerHTML));
                         //add the record data to the cloned element using storageId=0
@@ -1265,7 +1259,8 @@ const core = (() => {
                             }
                             break;
                         case 'core_pk_attr':
-                            value = ' ' + clue + '="' + value + '" ';
+                            let attrName = clue === 'className' ? 'class' : clue;
+                            value = ' ' + attrName + '="' + value + '" ';
                             break
                         case 'core_pk_cloner':
                             value = core.pk.cloner(value, core.cr.getTemplate(clue) || core.ud.alertMissingTemplate);
@@ -1583,59 +1578,32 @@ const core = (() => {
                 },
                 insertPocket: (target, dataRefs, dataSources = [], autoFill = true) => {
                     if (!dataRefs) return;
-                    let isSilent = target.includes('core_be_get'); //core_be_getData, core_be_getTemplate
+                    let isSilent = target.includes('core_be_get') || target === 'silent';
                     let isData = target.includes('Data');
-                    //set up the pocket
+
                     const pocket = document.createElement('div');
-                    pocket.classList.add('core-pocket');
+                    pocket.classList.add('core-pocket', 'core-pocket-transition');
                     pocket.setAttribute('data-core-templates', dataRefs);
-                    let ignoreTemplates = [];
+
                     if (dataSources.length) {
                         for (const source of dataSources) {
                             pocket.setAttribute('data-' + source.name + '-core-source', source.url);
                             if (isSilent) {
-                                ignoreTemplates.push(source.name);
-                                if (isData) {
-                                    core.be.getData(source.name, source.url);
-                                } else {
-                                    core.be.getTemplate(source.name, source.url);
-                                }
+                                if (isData) core.be.getData(source.name, source.url);
+                                else core.be.getTemplate(source.name, source.url);
                             }
                         }
                     }
-                    if (isSilent) {
-                        const templates = dataRefs.split(',').map(s => String(s).trim()).filter(Boolean);
-                        for (const template of templates) {
-                            if (!templates.includes(template)) {
-                                if (isData) {
-                                    core.be.getData(template);
-                                } else {
-                                    core.be.getTemplate(template);
-                                }
-                            }
-                        }
-                        //delete pocket;
-                        return;
-                    }
-                    //determine the location
-                    let section;
-                    if (target.includes('#')) {
-                        section = document.getElementById(target.replace('#', ''));
-                    } else if (target.includes('.')) {
-                        section = document.getElementsByClassName(target.replace('.', ''))[0]; //first only
-                    } else {
-                        section = document.getElementsByTagName(target)[0]; //first only
-                    }
+
+                    if (isSilent) return;
+
+                    let section = (document.querySelector(target) || document.getElementById(target.replace('#', '')));
+
                     if (section) {
-                        //empty the section
-                        while (section.firstElementChild) {
-                            section.firstElementChild.remove();
-                        }
-                        //add the pocket to DOM
-                        section.append(pocket);
+                        section.innerHTML = '';
+                        section.appendChild(pocket);
+                        if (autoFill) core.pk.soc();
                     }
-                    //fill pockets with templates
-                    if (autoFill) core.pk.soc();
                 }
             }
         })(),
