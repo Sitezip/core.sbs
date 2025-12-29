@@ -178,18 +178,21 @@
                                     d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </a>
-                        <ul class="absolute left-0 mt-2 w-48 glass hidden group-hover:block py-2 z-50">
-                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
-                                    data-core-templates="other">Change Content</a></li>
-                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
-                                    data-core-templates="stuff">Product Grid</a></li>
-                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
-                                    data-core-templates="stuff">Add Products</a></li>
-                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors text-red-400" href="#"
-                                    target="#under" data-core-templates="EMPTY">Clear Products</a></li>
-                            <li class="border-t border-white/10 my-1"></li>
-                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
-                                    data-core-templates="deep">Recursive Demo</a></li>
+                        <!-- Invisible padding bridge to keep dropdown open -->
+                        <div class="absolute left-0 right-0 h-4 top-full"></div>
+                        <ul
+                            class="absolute left-0 top-full mt-2 w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="#" target="#main" data-core-templates="other">Change Content</a></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="#" target="#main" data-core-templates="stuff">Add Products</a></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-red-400"
+                                    href="#" target="#under" data-core-templates="EMPTY">Clear Products</a></li>
+                            <li class="border-t border-white/10 my-2 mx-2"></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
                         </ul>
                     </li>
 
