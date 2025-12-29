@@ -183,13 +183,11 @@
                         <ul
                             class="absolute left-0 top-full mt-2 w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="other">Change Content</a></li>
+                                    href="#" target="#main" data-core-templates="other">Architecture</a></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="#" target="#main" data-core-templates="bridge">Logic Bridge</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
                                     href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="stuff">Add Products</a></li>
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-red-400"
-                                    href="#" target="#under" data-core-templates="EMPTY">Clear Products</a></li>
                             <li class="border-t border-white/10 my-2 mx-2"></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
                                     href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
@@ -322,15 +320,20 @@
                     </div>
                 </div>
             </div>
+        </template>
 
-            <div class="container mx-auto px-4 py-20">
+        <!-- LOGIC BRIDGE TEMPLATE -->
+        <template name="bridge">
+            <div class="container mx-auto px-4 py-32">
                 <div class="flex flex-col lg:flex-row gap-12">
                     <div class="lg:w-2/3">
                         <div class="glass p-12 h-full">
-                            <h2 class="text-3xl font-bold mb-6 text-white">The Logic Bridge</h2>
-                            <p class="text-xl text-slate-400 mb-12">core.js automatically manages the serialization of
-                                your state into the DOM, allowing for instant "resurrection" of UI components.</p>
-
+                            <h1 class="text-5xl font-extrabold mb-8 text-white leading-tight">The Logic Bridge</h1>
+                            <p class="text-xl text-slate-400 mb-12 leading-relaxed">
+                                core.js automatically manages the serialization of your state directly into the DOM,
+                                allowing for instant <span class="text-primary-light font-bold">"resurrection"</span>
+                                of UI components without virtual DOM overhead.
+                            </p>
                             <div
                                 class="p-10 border-l-4 border-primary bg-white/5 rounded-r-3xl relative overflow-hidden">
                                 <div
@@ -839,6 +842,31 @@
             </div>
         </template>
 
+        <!-- LICENSE TEMPLATE -->
+        <template name="license">
+            <div class="container mx-auto px-4 py-32 text-white">
+                <div class="glass p-16 max-w-4xl mx-auto">
+                    <h1 class="text-6xl font-extrabold mb-12">MIT License</h1>
+                    <div class="space-y-6 text-lg text-slate-300 leading-relaxed font-mono">
+                        <p>Copyright (c) 2025 CORE_ORCHESTRATOR</p>
+                        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+                            and associated documentation files (the "Software"), to deal in the Software without
+                            restriction, including without limitation the rights to use, copy, modify, merge, publish,
+                            distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom
+                            the Software is furnished to do so, subject to the following conditions:</p>
+                        <p>The above copyright notice and this permission notice shall be included in all copies or
+                            substantial portions of the Software.</p>
+                        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+                            BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+                            NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+                            DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+                            FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                            SOFTWARE.</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
     </section>
 
     <footer class="container mx-auto px-4 py-20 mt-20 border-t border-white/5 relative overflow-hidden">
@@ -885,10 +913,10 @@
                                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                 </path>
                             </svg></a></li>
-                    <li><a href="#"
+                    <li><a href="#" target="#main" data-core-templates="other"
                             class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Documentation</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="#" target="#main" data-core-templates="license"
                             class="text-slate-400 hover:text-white transition-colors no-underline text-sm">License /
                             MIT</a></li>
                 </ul>
