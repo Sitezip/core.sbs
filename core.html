@@ -5,40 +5,144 @@
     <meta charset="UTF-8" />
     <title>core.js is the way!</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="core.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.">
-    <meta name="keywords" content="JavaScript framework, client-side rendering, performance optimization, virtual DOM alternative, async rendering, web development, frontend framework, core.js, shadow-less rendering">
+    <meta name="description"
+        content="core.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.">
+    <meta name="keywords"
+        content="JavaScript framework, client-side rendering, performance optimization, virtual DOM alternative, async rendering, web development, frontend framework, core.js, shadow-less rendering">
     <meta name="author" content="core.js Team">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://core.sbs/">
     <meta property="og:title" content="core.js - The Future of Client-Side Rendering">
-    <meta property="og:description" content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
+    <meta property="og:description"
+        content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
     <meta property="og:image" content="https://core.sbs/hero_bg.png">
     <meta property="og:image:alt" content="core.js Framework Visualization">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://core.sbs/">
     <meta property="twitter:title" content="core.js - The Future of Client-Side Rendering">
-    <meta property="twitter:description" content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
+    <meta property="twitter:description"
+        content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
     <meta property="twitter:image" content="https://core.sbs/hero_bg.png">
-    
+
     <!-- Additional SEO -->
     <meta name="theme-color" content="#0a0a0a">
     <meta name="msapplication-TileColor" content="#0a0a0a">
     <link rel="canonical" href="https://core.sbs/">
-    
+
     <!-- Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#6366f1',
+                            dark: '#4338ca',
+                            light: '#818cf8',
+                            glow: 'rgba(99, 102, 241, 0.5)',
+                        },
+                        accent: {
+                            DEFAULT: '#06b6d4',
+                            glow: 'rgba(6, 182, 212, 0.5)',
+                        },
+                        dark: {
+                            DEFAULT: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .glass {
+                @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl transition-all duration-300;
+            }
+            .glass:hover {
+                @apply -translate-y-1 scale-[1.005] border-white/20 shadow-primary/20;
+            }
+            .btn-premium {
+                @apply bg-gradient-to-br from-primary to-primary-dark text-white px-8 py-3 rounded-xl font-semibold tracking-wide transition-all duration-300 shadow-lg shadow-primary/25 hover:-translate-y-0.5 hover:shadow-primary/40 active:scale-95 text-center;
+            }
+            .nav-link-premium {
+                @apply text-slate-300 font-medium px-5 py-2 rounded-full transition-all duration-300 hover:text-white hover:bg-white/5;
+            }
+            .nav-link-premium.active {
+                @apply text-white bg-white/10;
+            }
+            .badge-premium {
+                @apply px-4 py-1.5 bg-primary/10 text-white border border-primary/30 backdrop-blur-sm rounded-full font-semibold tracking-wider text-xs uppercase;
+            }
+            .metric-box {
+                @apply glass p-10 text-center;
+            }
+        }
+        
+        body {
+            @apply bg-dark-darker text-white font-sans leading-relaxed overflow-x-hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 25%);
+            background-attachment: fixed;
+        }
+
+        /* Fix for native Select Dropdowns in Dark Mode */
+        select option {
+            @apply bg-dark-darker text-white;
+        }
+
+        /* Prevent white-on-white in some browsers */
+        select {
+            color-scheme: dark;
+        }
+
+        /* Responsive Navbar Helper */
+        #navbarNav.hidden {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            #navbarNav.hidden {
+                display: flex !important;
+            }
+        }
+    </style>
     <link rel="icon" href="core.svg">
-    
+
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -46,61 +150,58 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-premium fixed-top">
-        <div class="container">
-            <a class="navbar-brand p-0 d-flex align-items-center" href="#" target="#main" data-core-templates="home">
-                <div class="core-pocket" data-core-templates="core" data-core-core-source="core.svg"
-                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px var(--primary-glow));"></div>
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a class="flex items-center" href="#" target="#main" data-core-templates="home">
+                <div class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
+                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));"></div>
             </a>
-            <button class="navbar-toggler border-0 shadow-none text-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+
+            <button class="lg:hidden text-white p-2 focus:outline-none" type="button"
+                onclick="document.getElementById('navbarNav').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <!-- Home -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link-premium active" target="#main"
-                            data-core-templates="home">Home</a>
+
+            <div class="hidden lg:flex items-center space-x-2" id="navbarNav">
+                <ul class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-2">
+                    <li><a href="#" class="nav-link-premium active" target="#main" data-core-templates="home">Home</a>
                     </li>
-                    
-                    <!-- Demos -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link-premium dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown">Demos</a>
-                        <ul class="dropdown-menu dropdown-menu-dark glass border-0 shadow-lg mt-3">
-                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="other">Change Content</a></li>
-                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
-                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="stuff">Add Products</a></li>
-                            <li><a class="dropdown-item" href="#" target="#under" data-core-templates="EMPTY">Clear Products</a></li>
-                            <li>
-                                <hr class="dropdown-divider opacity-10">
-                            </li>
-                            <li><a class="dropdown-item" href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
+
+                    <li class="relative group">
+                        <a class="nav-link-premium flex items-center" href="#">
+                            Demos <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                        <ul class="absolute left-0 mt-2 w-48 glass hidden group-hover:block py-2 z-50">
+                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
+                                    data-core-templates="other">Change Content</a></li>
+                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
+                                    data-core-templates="stuff">Product Grid</a></li>
+                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
+                                    data-core-templates="stuff">Add Products</a></li>
+                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors text-red-400" href="#"
+                                    target="#under" data-core-templates="EMPTY">Clear Products</a></li>
+                            <li class="border-t border-white/10 my-1"></li>
+                            <li><a class="block px-4 py-2 hover:bg-white/10 transition-colors" href="#" target="#main"
+                                    data-core-templates="deep">Recursive Demo</a></li>
                         </ul>
                     </li>
-                    
-                    <!-- Account -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="user">Account</a>
+
+                    <li><a href="#" class="nav-link-premium" target="#main" data-core-templates="user">Account</a></li>
+                    <li><a href="#" class="nav-link-premium" target="#main" data-core-templates="news">Scammer News</a>
                     </li>
-                    
-                    <!-- Scammer News -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="news">Scammer News</a>
+                    <li><a href="#" class="nav-link-premium" target="#main" data-core-templates="deep">Silent Data</a>
                     </li>
-                    
-                    <!-- Silent Data -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="deep">Silent Data</a>
-                    </li>
-                    
-                    <li class="nav-item ms-lg-4">
+
+                    <li class="lg:ml-6">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank"
-                            class="btn-premium text-decoration-none">Star on GitHub</a>
+                            class="btn-premium whitespace-nowrap text-decoration-none">Star on GitHub</a>
                     </li>
                 </ul>
             </div>
@@ -108,7 +209,7 @@
     </nav>
 
     <!-- Main Viewhost -->
-    <div id="main" class="fade-in-up">
+    <div id="main" class="animate-fade-in-up">
         <div class="core-pocket" data-core-templates="home"></div>
     </div>
 
@@ -116,13 +217,21 @@
     <div id="under"></div>
 
     <!-- Toast Notification Container -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="coreToast" class="toast glass border-0 text-white" role="alert">
-            <div class="toast-header bg-transparent border-0 text-white border-bottom border-light border-opacity-10">
-                <strong class="me-auto">core.js Event</strong>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+    <div class="fixed bottom-0 right-0 p-6 z-[100] flex flex-col gap-4">
+        <div id="coreToast"
+            class="glass p-4 rounded-xl hidden flex items-start justify-between min-w-[300px] animate-fade-in-up">
+            <div>
+                <strong class="block text-primary-light text-sm font-bold uppercase tracking-wider mb-1">core.js
+                    Event</strong>
+                <div id="toastMessage" class="text-slate-200"></div>
             </div>
-            <div class="toast-body" id="toastMessage"></div>
+            <button type="button" class="text-white/50 hover:text-white"
+                onclick="this.parentElement.classList.add('hidden')">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
         </div>
     </div>
 
@@ -131,111 +240,127 @@
 
         <!-- HOME TEMPLATE -->
         <template name="home">
-            <section class="hero-overhaul">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <span class="badge-premium mb-4 d-inline-block">V2.0 Core Engine</span>
-                            <h1 class="hero-title">Experience the<br>Speed of Logic.</h1>
-                            <p class="lead text-muted mb-5 fs-5">A high-performance JS orchestration layer that
-                                eliminates virtual DOM overhead. Decoupled, asynchronous, and remarkably clean.</p>
-                            <div class="d-flex flex-wrap gap-4 mb-5">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="text-primary fs-3">●</div>
-                                    <div class="small fw-bold text-uppercase ls-wide">Async-Native</div>
+            <section class="min-h-[90vh] pt-32 pb-12 flex items-center relative">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col lg:flex-row items-center gap-12">
+                        <div class="lg:w-1/2">
+                            <span class="badge-premium mb-6 inline-block">V2.0 Core Engine</span>
+                            <h1
+                                class="text-6xl lg:text-7xl font-extrabold font-outfit leading-[1.1] mb-6 text-white tracking-tight">
+                                Experience the<br><span
+                                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-accent">Speed
+                                    of Logic.</span>
+                            </h1>
+                            <p class="text-xl text-slate-400 mb-10 leading-relaxed font-medium">A high-performance JS
+                                orchestration layer that eliminates virtual DOM overhead. Decoupled, asynchronous, and
+                                remarkably clean.</p>
+
+                            <div class="flex flex-wrap gap-6 mb-12">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_rgba(99,102,241,0.6)]">
+                                    </div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Async-Native
+                                    </div>
                                 </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="text-accent fs-3">●</div>
-                                    <div class="small fw-bold text-uppercase ls-wide">Zero Overload</div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-accent shadow-[0_0_12px_rgba(6,182,212,0.6)]">
+                                    </div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Zero
+                                        Overload</div>
                                 </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="text-white opacity-50 fs-3">●</div>
-                                    <div class="small fw-bold text-uppercase ls-wide">Recursive</div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-white/30"></div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Recursive
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex gap-3">
-                                <a href="#" target="#main" data-core-templates="stuff" class="btn-premium">View
-                                    Components</a>
+
+                            <div class="flex flex-wrap gap-4">
+                                <a href="#" target="#main" data-core-templates="stuff"
+                                    class="btn-premium text-decoration-none">View Components</a>
                                 <a href="#" onclick="showToast('Silent Background Sync Initialized', 'info')"
-                                    class="btn btn-outline-light border-0 py-3 px-4 fw-bold"
-                                    style="background: rgba(255,255,255,0.05);">Silent Sync Demo</a>
+                                    class="px-8 py-3 rounded-xl font-bold bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-white no-underline">Silent
+                                    Sync Demo</a>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-center position-relative">
-                            <div class="hero-visual animate-float">
-                                <img src="hero_bg.png" class="img-fluid rounded-4 shadow-lg"
-                                    style="mask-image: linear-gradient(to bottom, black, transparent);">
+                        <div class="lg:w-1/2 relative">
+                            <div class="animate-float relative z-10">
+                                <img src="hero_bg.png" class="rounded-3xl shadow-2xl border border-white/5 mx-auto"
+                                    style="mask-image: linear-gradient(to bottom, black 80%, transparent);">
+                                <div class="absolute -inset-4 bg-primary/20 blur-3xl -z-10 rounded-full animate-pulse">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div class="container mb-5">
-                <div class="row g-4">
-                    <div class="col-md-3">
-                        <div class="metric-box glass">
-                            <h2 class="text-gradient" id="cacheHits">0</h2>
-                            <div class="metric-label">Cache Integrity</div>
-                        </div>
+            <div class="container mx-auto px-4 mb-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                            id="cacheHits">0</h2>
+                        <div class="text-slate-300 font-semibold">Cache Integrity</div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="metric-box glass">
-                            <h2 class="text-gradient-primary" id="dataCalls">0</h2>
-                            <div class="metric-label">Backend Flow</div>
-                        </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent"
+                            id="dataCalls">0</h2>
+                        <div class="text-slate-300 font-semibold">Backend Flow</div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="metric-box glass">
-                            <h2 class="text-gradient" id="templates">0</h2>
-                            <div class="metric-label">Registered DOM</div>
-                        </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                            id="templates">0</h2>
+                        <div class="text-slate-300 font-semibold">Registered DOM</div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="metric-box glass">
-                            <h2 class="text-gradient-primary" id="clones">0</h2>
-                            <div class="metric-label">Clustered Logic</div>
-                        </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent"
+                            id="clones">0</h2>
+                        <div class="text-slate-300 font-semibold">Clustered Logic</div>
                     </div>
                 </div>
             </div>
 
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-8">
-                        <div class="glass p-5 h-100">
-                            <h2 class="fw-bold mb-4">The Logic Bridge</h2>
-                            <p class="fs-5 text-muted mb-5">core.js automatically manages the serialization of your
-                                state into the DOM, allowing for instant "resurrection" of UI components.</p>
+            <div class="container mx-auto px-4 py-20">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="lg:w-2/3">
+                        <div class="glass p-12 h-full">
+                            <h2 class="text-3xl font-bold mb-6 text-white">The Logic Bridge</h2>
+                            <p class="text-xl text-slate-400 mb-12">core.js automatically manages the serialization of
+                                your state into the DOM, allowing for instant "resurrection" of UI components.</p>
 
                             <div
-                                class="p-5 border-start border-primary border-4 bg-white bg-opacity-5 rounded-end-4 position-relative overflow-hidden">
+                                class="p-10 border-l-4 border-primary bg-white/5 rounded-r-3xl relative overflow-hidden">
                                 <div
-                                    class="position-absolute top-0 end-0 p-4 opacity-10 fw-bold display-1 line-height-1">
+                                    class="absolute top-0 right-0 p-4 opacity-5 font-bold text-9xl pointer-events-none text-white">
                                     "</div>
-                                <p class="h--dataRef-quote fs-4 fw-light italic mb-3 position-relative z-1"
+                                <p class="h--dataRef-quote text-2xl font-light italic mb-4 relative z-1 leading-relaxed text-white"
                                     data-h-data-ref="quote">Fetch in progress...</p>
-                                <cite class="h--quote-author text-primary fw-bold fst-normal position-relative z-1">—
+                                <cite class="h--quote-author text-primary-light font-bold not-italic relative z-1">—
                                     System Architect</cite>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="glass p-5 h-100">
-                            <h3 class="fw-bold mb-4">Form Engine</h3>
+                    <div class="lg:w-1/3">
+                        <div class="glass p-12 h-full">
+                            <h3 class="text-2xl font-bold mb-8 italic text-white">Form Engine</h3>
                             <div class="core-pocket" data-core-templates="default"
                                 data-default-core-source="https://zzzap.io/Forms/login">
-                                <!-- Fallback form content -->
-                                <div class="form-engine-fallback">
-                                    <div class="mb-3">
-                                        <label class="form-label small text-uppercase ls-wide">Username</label>
-                                        <input type="text" class="form-control bg-dark border-secondary text-white" placeholder="Enter username">
+                                <div class="space-y-6">
+                                    <div>
+                                        <label
+                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Username</label>
+                                        <input type="text"
+                                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                                            placeholder="Enter username">
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label small text-uppercase ls-wide">Password</label>
-                                        <input type="password" class="form-control bg-dark border-secondary text-white" placeholder="Enter password">
+                                    <div>
+                                        <label
+                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                                        <input type="password"
+                                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                                            placeholder="Enter password">
                                     </div>
-                                    <button class="btn btn-premium w-100">Sign In</button>
+                                    <button class="btn-premium w-full mt-4">Sign In</button>
                                 </div>
                             </div>
                         </div>
@@ -246,88 +371,108 @@
 
         <!-- ACCOUNT TEMPLATE -->
         <template name="user">
-            <div class="container py-5 mt-5">
-                <div class="glass p-5 mb-5 d-flex align-items-center gap-4">
-                    <img src="avatar.png"
-                        class="rounded-circle shadow-lg border border-3 border-white border-opacity-10" width="120"
-                        height="120" alt="Avatar">
-                    <div>
-                        <h1 class="display-5 fw-bold mb-1">Architect Account</h1>
-                        <p class="fs-5 text-muted mb-0">Senior Developer | core. Contributor</p>
+            <div class="container mx-auto px-4 py-32">
+                <div class="glass p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
+                    <img src="avatar.png" class="rounded-full shadow-2xl border-4 border-white/10 w-32 h-32"
+                        alt="Avatar">
+                    <div class="text-center md:text-left text-white">
+                        <h1 class="text-5xl font-bold mb-2">Architect Account</h1>
+                        <p class="text-xl text-slate-400">Senior Developer | <span
+                                class="text-primary-light">core.sbs</span> Contributor</p>
                     </div>
-                    <div class="ms-auto">
-                        <button class="btn btn-outline-light rounded-pill px-4">Edit Profile</button>
+                    <div class="md:ml-auto">
+                        <button
+                            class="px-6 py-2 border border-white/20 rounded-full hover:bg-white/5 transition-colors text-white">Edit
+                            Profile</button>
                     </div>
                 </div>
 
-                <div class="row g-4">
-                    <div class="col-lg-8">
-                        <div class="glass p-5">
-                            <h3 class="fw-bold mb-4">System Console</h3>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div
-                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-5">
-                                        <label class="small text-muted text-uppercase fw-bold mb-1">Sync Version</label>
-                                        <div class="fs-4 fw-bold text-primary">v2025.12.26</div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div class="glass p-12 space-y-12">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-8 text-white">System Console</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                        <label
+                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Sync
+                                            Version</label>
+                                        <div class="text-3xl font-bold text-primary-light font-mono">v2025.12.26</div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div
-                                        class="p-4 rounded-4 bg-white bg-opacity-5 border border-white border-opacity-5">
-                                        <label class="small text-muted text-uppercase fw-bold mb-1">Memory
+                                    <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                        <label
+                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Memory
                                             Pressure</label>
-                                        <div class="fs-4 fw-bold text-accent">Optimized</div>
+                                        <div class="text-3xl font-bold text-accent font-mono">Optimized</div>
                                     </div>
                                 </div>
                             </div>
-                            <hr class="my-5 opacity-10">
-                            <h4 class="fw-bold mb-4">Workspace Preferences</h4>
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <label class="form-label small text-muted text-uppercase fw-bold">Telemetry
-                                        Level</label>
-                                    <select class="form-select bg-dark border-secondary text-white py-3 rounded-3">
-                                        <option>Production (Stable)</option>
-                                        <option>Verbose Debugging</option>
-                                        <option>Full Trace</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small text-muted text-uppercase fw-bold">Render
-                                        Strategy</label>
-                                    <select class="form-select bg-dark border-secondary text-white py-3 rounded-3">
-                                        <option>Concurrent (Async)</option>
-                                        <option>Sequential (Safe)</option>
-                                    </select>
+
+                            <div class="h-px bg-white/5"></div>
+
+                            <div>
+                                <h4 class="text-xl font-bold mb-8 text-white">Workspace Preferences</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div class="space-y-4">
+                                        <label
+                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400">Telemetry
+                                            Level</label>
+                                        <select
+                                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-primary/50 transition-all">
+                                            <option>Production (Stable)</option>
+                                            <option>Verbose Debugging</option>
+                                            <option>Full Trace</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <label
+                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400">Render
+                                            Strategy</label>
+                                        <select
+                                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-primary/50 transition-all">
+                                            <option>Concurrent (Async)</option>
+                                            <option>Sequential (Safe)</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mt-5">
+
+                            <div class="pt-4">
                                 <button onclick="showToast('Profile settings archived', 'success')"
                                     class="btn-premium">Synchronize Profile</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="glass p-5 h-100">
-                            <h4 class="fw-bold mb-4">Registry Health</h4>
-                            <div class="mb-4">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="small text-muted">API Latency</span>
-                                    <span class="small text-primary fw-bold">12ms</span>
+                    <div class="lg:col-span-1">
+                        <div class="glass p-12 h-full flex flex-col">
+                            <h4 class="text-xl font-bold mb-8 text-white">Registry Health</h4>
+                            <div class="space-y-8 flex-grow">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-end">
+                                        <span class="text-sm text-slate-400">API Latency</span>
+                                        <span class="text-sm font-bold text-primary-light">12ms</span>
+                                    </div>
+                                    <div
+                                        class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden border border-white/5">
+                                        <div class="h-full bg-primary rounded-full transition-all duration-1000"
+                                            style="width: 85%"></div>
+                                    </div>
                                 </div>
-                                <div class="progress bg-white bg-opacity-10" style="height: 6px; border-radius: 10px;">
-                                    <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-end">
+                                        <span class="text-sm text-slate-400">Cache Utilization</span>
+                                        <span class="text-sm font-bold text-accent">94%</span>
+                                    </div>
+                                    <div
+                                        class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden border border-white/5">
+                                        <div class="h-full bg-accent rounded-full transition-all duration-1000"
+                                            style="width: 94%"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-4">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="small text-muted">Cache Utilization</span>
-                                    <span class="small text-accent fw-bold">94%</span>
-                                </div>
-                                <div class="progress bg-white bg-opacity-10" style="height: 6px; border-radius: 10px;">
-                                    <div class="progress-bar bg-info" style="width: 94%"></div>
-                                </div>
+                            <div
+                                class="mt-8 p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm">
+                                All systems operational. Shadow-less rendering active with zero overhead.
                             </div>
                         </div>
                     </div>
@@ -337,46 +482,68 @@
 
         <!-- NEWS TEMPLATE -->
         <template name="news">
-            <div class="container py-5 mt-5">
-                <div class="d-flex align-items-end justify-content-between mb-5">
+            <div class="container mx-auto px-4 py-32 text-white">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div>
-                        <h1 class="display-4 fw-bold">Scammer News</h1>
-                        <p class="text-muted fs-5 mb-0">Breaking updates from the underground network.</p>
+                        <h1 class="text-6xl font-extrabold mb-2">Scammer News</h1>
+                        <p class="text-xl text-slate-400">Breaking updates from the underground network.</p>
                     </div>
-                    <button onclick="core.pk.soc()" class="btn-premium py-2 px-4 shadow-none">Refresh Feed</button>
+                    <button onclick="
+                        // Clear the news data cache
+                        delete core.be.cacheCreateTs.data.news;
+                        // Re-render the news template
+                        core.pk.soc();
+                        // Show toast notification
+                        showToast('News feed refreshed!', 'success');
+                    " class="btn-premium">Refresh Feed</button>
                 </div>
 
-                <div class="row g-4">
-                    <div class="core-clone col-md-6 col-lg-4" data-core-data="news"
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="core-clone" data-core-data="news"
                         data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology,technology">
-                        <div class="glass h-100 p-0 overflow-hidden d-flex flex-column">
-                            <div class="p-4 flex-grow-1">
-                                <div class="d-flex align-items-center gap-3 mb-3">
-                                    <img src="https://www.google.com/s2/favicons?domain={{rec:source_url}}&sz=32" 
-                                         class="rounded-circle" style="width:32px;height:32px;" alt="Source favicon">
-                                    <div>
-                                        <span class="small text-muted">ID: #{{rec:article_id}}</span>
-                                        <span class="small text-primary d-block">{{rec:pubDate}} views</span>
+                        <div class="glass h-full flex flex-col overflow-hidden group">
+                            <div class="p-8 flex-grow">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <img src="https://www.google.com/s2/favicons?domain={{rec:source_url}}&sz=64"
+                                        class="w-10 h-10 rounded-xl bg-white/5 p-1" alt="Source favicon">
+                                    <div class="flex-grow">
+                                        <span
+                                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">ID:
+                                            #{{rec:article_id}}</span>
+                                        <span
+                                            class="block text-xs font-bold text-primary-light leading-none">{{rec:pubDate}}
+                                            views</span>
                                     </div>
                                 </div>
-                                <h4 class="fw-bold mb-3">{{rec:title:truncate:60}}</h4>
-                                <p class="text-muted mb-4 fs-6">{{rec:description:truncate:120}}</p>
-                                <div class="d-flex gap-2 mb-3">
-                                    <span class="badge bg-dark bg-opacity-50 text-white small">{{rec:category:upper}}</span>
-                                    <span class="badge bg-dark bg-opacity-50 text-white small">{{rec:country:upper}}</span>
+                                <h4
+                                    class="text-xl font-bold mb-4 line-clamp-2 group-hover:text-primary-light transition-colors">
+                                    {{rec:title}}</h4>
+                                <p class="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-6">{{rec:description}}
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-3 py-1 bg-white/5 rounded-md text-[10px] font-bold uppercase tracking-wider text-slate-400 border border-white/5">{{rec:category:upper}}</span>
+                                    <span
+                                        class="px-3 py-1 bg-white/5 rounded-md text-[10px] font-bold uppercase tracking-wider text-slate-400 border border-white/5">{{rec:country:upper}}</span>
                                 </div>
                             </div>
-                            <div class="p-4 border-top border-white border-opacity-5 mt-auto bg-white bg-opacity-5" style="color: #000000 !important;">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="https://www.google.com/s2/favicons?domain={{rec:source_url}}&sz=24" 
-                                             class="rounded-circle" style="width:24px;height:24px;" alt="Source favicon">
-                                        <div>
-                                            <span class="small fw-bold d-block" style="color: #000000 !important;">{{rec:source_name}}</span>
-                                            <span class="small opacity-75" style="color: #000000 !important;">{{rec:source_priority}} priority</span>
+                            <div class="px-8 py-6 border-t border-white/5 bg-white/5">
+                                <div class="flex items-center justify-between gap-4">
+                                    <div class="flex items-center gap-3 overflow-hidden">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center font-bold text-primary text-xs">
+                                            {{rec:source_name:truncate:1:upper}}</div>
+                                        <div class="overflow-hidden">
+                                            <span
+                                                class="block text-xs font-bold truncate text-white">{{rec:source_name}}</span>
+                                            <span
+                                                class="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">{{rec:source_priority}}
+                                                priority</span>
                                         </div>
                                     </div>
-                                    <a href="{{rec:link}}" target="_blank" class="small text-primary fw-bold" style="background-color: #1e3a8a; color: white !important; padding: 4px 8px; border-radius: 4px; text-decoration: none;">Read More →</a>
+                                    <a href="{{rec:link}}" target="_blank"
+                                        class="px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary-light text-xs font-bold rounded-lg transition-colors whitespace-nowrap no-underline">Read
+                                        More</a>
                                 </div>
                             </div>
                         </div>
@@ -387,98 +554,250 @@
 
         <!-- STUFF TEMPLATE -->
         <template name="stuff">
-            <div class="container py-5 mt-5">
-                <h2 class="display-5 fw-bold mb-5">Component Registry</h2>
-                <div class="row g-4 mb-5">
-                    <div class="col-12">
-                        <div class="glass overflow-hidden">
-                            <table class="table table-hover mb-0">
-                                <thead class="bg-white bg-opacity-5">
-                                    <tr>
-                                        <th class="ps-4 py-3">Dev ID</th>
-                                        <th class="py-3">Interface</th>
-                                        <th class="py-3">Sync Status</th>
-                                        <th class="text-end pe-4 py-3">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="core-clone border-white border-opacity-5 text-white"
-                                        data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
-                                        <td class="ps-4 py-3 text-muted">#{{aug:count}}</td>
-                                        <td class="py-3 fw-bold">{{rec:firstName}} {{rec:lastName}}</td>
-                                        <td class="py-3"><span
-                                                class="badge bg-success bg-opacity-10 text-success small px-3">ACTIVE</span>
-                                        </td>
-                                        <td class="text-end pe-4 py-3"><a href="#"
-                                                class="text-accent text-decoration-none small fw-bold">POCKET SOURCE</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="container mx-auto px-4 py-32 text-white">
+                <h2 class="text-5xl font-extrabold mb-12">Component Registry</h2>
+
+                <!-- Table View -->
+                <div class="glass overflow-hidden mb-16">
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr
+                                    class="bg-white/5 text-left border-b border-white/10 text-slate-400 uppercase text-[10px] font-bold tracking-widest">
+                                    <th class="px-8 py-6">Dev ID</th>
+                                    <th class="px-8 py-6">Interface</th>
+                                    <th class="px-8 py-6 text-center">Sync Status</th>
+                                    <th class="px-8 py-6 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="core-clone hover:bg-white/5 transition-colors group text-white"
+                                    data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
+                                    <td class="px-8 py-6 text-slate-500 font-mono text-sm">#{{aug:count}}</td>
+                                    <td class="px-8 py-6 font-bold">{{rec:firstName}} {{rec:lastName}}</td>
+                                    <td class="px-8 py-6 text-center">
+                                        <span
+                                            class="px-4 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold tracking-wider rounded-full border border-emerald-500/20">ACTIVE</span>
+                                    </td>
+                                    <td class="px-8 py-6 text-right">
+                                        <a href="#"
+                                            class="text-accent hover:text-accent/80 transition-colors text-xs font-bold uppercase tracking-widest no-underline">Pocket
+                                            Source</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="row g-4">
-                    <div class="core-clone col-lg-3 col-md-6" data-core-data="prods"
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="core-clone" data-core-data="prods"
                         data-core-source="https://dummyjson.com/products?limit=12">
-                        <div class="glass p-4 h-100 d-flex flex-column">
-                            <div class="bg-white bg-opacity-5 rounded-4 p-4 mb-4 text-center d-flex align-items-center justify-content-center"
-                                style="height: 160px;">
-                                <img {{rec:thumbnail:core_pk_attr:src}} class="img-fluid rounded-3"
-                                    style="max-height: 100%; object-fit: contain;">
+                        <div class="glass p-6 h-full flex flex-col group">
+                            <div
+                                class="bg-black/40 rounded-2xl p-6 mb-6 flex items-center justify-center aspect-square overflow-hidden border border-white/5 group-hover:border-primary/20 transition-colors">
+                                <img {{rec:thumbnail:core_pk_attr:src}}
+                                    class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                             </div>
-                            <h5 class="fw-bold mb-2">{{rec:title}}</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-4 mt-auto">
-                                <span class="fs-4 fw-bold text-primary">{{rec:price:money:$}}</span>
-                                <span
-                                    class="small text-danger fw-bold bg-danger bg-opacity-10 px-2 py-1 rounded">-{{rec:discountPercentage:decimal}}%</span>
+                            <h5 class="text-lg font-bold mb-2 leading-tight">{{rec:title}}</h5>
+                            <div class="flex justify-between items-center mb-6 mt-auto">
+                                <div class="text-2xl font-bold text-primary-light">{{rec:price:money:$}}</div>
+                                <div class="px-2 py-1 bg-rose-500/10 text-rose-400 text-xs font-bold rounded">
+                                    -{{rec:discountPercentage:decimal}}%
+                                </div>
                             </div>
                             <button onclick="showToast('Object added to local cache', 'info')"
-                                class="btn-premium w-100 py-2 fs-6">Buffer Data</button>
+                                class="btn-premium py-2 text-sm w-full">Buffer Data</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </template>
-
-        <!-- OTHER TEMPLATE -->
+        </template><!-- OTHER TEMPLATE -->
         <template name="other">
-            <div class="container py-5 mt-5">
-                <div class="glass p-5">
-                    <h1 class="display-4 fw-bold mb-4">Architecture Deep-Dive</h1>
-                    <div class="row g-5">
-                        <div class="col-lg-6 text-white fs-5">
-                            <p>core.js utilizes a <strong>Shadow-less Rendering</strong> approach. By treating the
-                                DOM itself as the state tree, we bypass the need for expensive diffing algorithms.</p>
-                            <p class="mb-5">Our cloner engine allows for nested, recursive component definitions that
-                                hydrate automatically upon data insertion.</p>
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <div
-                                        class="p-4 rounded-4 bg-white bg-opacity-5 text-center border border-white border-opacity-5">
-                                        <h2 class="text-white fw-bold mb-1">Low</h2>
-                                        <span class="small text-uppercase ls-wide text-primary">Reflows</span>
-                                    </div>
+            <div class="container mx-auto px-4 py-32 text-white">
+                <div class="glass p-16">
+                    <h1 class="text-6xl font-extrabold mb-12">Architecture Deep-Dive</h1>
+
+                    <!-- 2-COLUMN GRID: Text Left, Code Right -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+                        <!-- LEFT COLUMN: Feature Overview -->
+                        <div class="space-y-6 text-lg text-slate-300 leading-relaxed">
+                            <p><strong class="text-white">core.js</strong> delivers a <span
+                                    class="text-primary-light font-bold">Shadow-less Rendering</span> engine that treats
+                                the DOM
+                                as the state tree, eliminating virtual DOM diffing overhead.</p>
+
+                            <p>Its <span class="text-accent font-bold">Async-Native</span> architecture fetches data and
+                                templates in parallel using modern <code class="text-primary-light">async/await</code>
+                                patterns.
+                            </p>
+
+                            <p>The built-in <span class="text-primary-light font-bold">Cloner Engine</span> enables
+                                nested,
+                                recursive component definitions that hydrate automatically on data insertion.</p>
+
+                            <div class="my-8">
+                                <h3 class="text-2xl font-bold text-white mb-4">Lifecycle Hooks</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.preflight</code>
+                                            <p class="text-sm text-slate-400 mt-1">Modify fetch settings before a
+                                                request</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.postflight</code>
+                                            <p class="text-sm text-slate-400 mt-1">Transform response data after fetch
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.prepaint</code>
+                                            <p class="text-sm text-slate-400 mt-1">Adjust data before rendering</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.postpaint</code>
+                                            <p class="text-sm text-slate-400 mt-1">Run logic after template is rendered
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="p-6 bg-white/5 rounded-xl border border-white/10">
+                                <h4 class="text-xl font-bold text-white mb-3">Silent Calls</h4>
+                                <p class="text-slate-400">Use <code
+                                        class="text-primary-light">target="core_be_getData"</code>
+                                    to fetch data or templates without immediate UI updates.</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mt-8">
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
+                                    <h2 class="text-3xl font-extrabold text-white mb-1">Low</h2>
+                                    <span
+                                        class="text-xs font-bold uppercase tracking-widest text-primary-light">Reflows</span>
                                 </div>
-                                <div class="col-6">
-                                    <div
-                                        class="p-4 rounded-4 bg-white bg-opacity-5 text-center border border-white border-opacity-5">
-                                        <h2 class="text-white fw-bold mb-1">∞</h2>
-                                        <span class="small text-uppercase ls-wide text-accent">Scalability</span>
-                                    </div>
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
+                                    <h2 class="text-3xl font-extrabold text-white mb-1">∞</h2>
+                                    <span
+                                        class="text-xs font-bold uppercase tracking-widest text-accent">Scalability</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div
-                                class="p-4 bg-black bg-opacity-50 rounded-4 border border-white border-opacity-10 font-monospace">
-                                <pre class="text-primary-light mb-0"><code>&lt;div class="core-pocket" 
-     data-core-templates="user"
-     data-core-source="/api/v1/profile"&gt;
-&lt;/div&gt;</code></pre>
+
+                        <!-- RIGHT COLUMN: Code Examples -->
+                        <div class="space-y-6">
+
+                            <!-- Example 1: Basic Template -->
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Basic
+                                        Template
+                                    </div>
+                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">template</span> <span class="text-blue-400">name</span>=<span class="text-amber-200">"userCard"</span>&gt;
+  &lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"user-card"</span>&gt;
+    &lt;<span class="text-rose-400">h3</span>&gt;{{<span class="text-purple-400">rec:name</span>}}&lt;/<span class="text-rose-400">h3</span>&gt;
+    &lt;<span class="text-rose-400">p</span>&gt;{{<span class="text-purple-400">rec:email</span>}}&lt;/<span class="text-rose-400">p</span>&gt;
+  &lt;/<span class="text-rose-400">div</span>&gt;
+&lt;/<span class="text-rose-400">template</span>&gt;</code></pre>
+                                </div>
                             </div>
+
+                            <!-- Example 2: Pocket Usage -->
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Pocket
+                                        Rendering
+                                    </div>
+                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"core-pocket"</span>
+     <span class="text-blue-400">data-core-templates</span>=<span class="text-amber-200">"userCard"</span>
+     <span class="text-blue-400">data-core-source-users</span>=<span class="text-amber-200">"https://api.example.com/users"</span>&gt;
+&lt;/<span class="text-rose-400">div</span>&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Example 3: Silent Call -->
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Silent
+                                        Data
+                                        Fetch</div>
+                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">a</span> <span class="text-blue-400">href</span>=<span class="text-amber-200">"#"</span> 
+   <span class="text-blue-400">target</span>=<span class="text-amber-200">"core_be_getData"</span>
+   <span class="text-blue-400">data-core-data</span>=<span class="text-amber-200">"products"</span>
+   <span class="text-blue-400">data-core-source</span>=<span class="text-amber-200">"https://api.example.com/products"</span>&gt;
+  Load Data Silently
+&lt;/<span class="text-rose-400">a</span>&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Example 4: Custom Hook -->
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Custom
+                                        Hook
+                                        (JavaScript)</div>
+                                    <pre class="text-emerald-400"><code class="language-javascript"><span class="text-purple-400">core</span>.<span class="text-blue-400">ud</span>.<span class="text-amber-200">postflight</span> = (<span class="text-rose-400">dataRef</span>, <span class="text-rose-400">dataObj</span>, <span class="text-rose-400">type</span>) =&gt; {
+  <span class="text-purple-400">if</span> (type === <span class="text-amber-200">'data'</span> && dataRef === <span class="text-amber-200">'users'</span>) {
+    dataObj.users = dataObj.users.<span class="text-blue-400">map</span>(u =&gt; ({
+      ...u,
+      fullName: <span class="text-amber-200">`${u.firstName} ${u.lastName}`</span>
+    }));
+  }
+  <span class="text-purple-400">return</span> dataObj;
+};</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Example 5: Data Formatting -->
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Data
+                                        Formatting
+                                    </div>
+                                    <pre class="text-emerald-400"><code class="language-html"><span class="text-slate-500">&lt;!-- Format as money --&gt;</span>
+{{<span class="text-purple-400">rec:price:money:$</span>}}  <span class="text-slate-500">&lt;!-- Output: $1,234.56 --&gt;</span>
+
+<span class="text-slate-500">&lt;!-- Format as uppercase --&gt;</span>
+{{<span class="text-purple-400">rec:status:upper</span>}}   <span class="text-slate-500">&lt;!-- Output: ACTIVE --&gt;</span>
+
+<span class="text-slate-500">&lt;!-- Recursive cloning --&gt;</span>
+{{<span class="text-purple-400">rec:items:core_pk_cloner:itemTemplate</span>}}</code></pre>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -486,14 +805,19 @@
 
         <!-- RECURSIVE TEMPLATE -->
         <template name="deep">
-            <div class="container py-5 mt-5">
-                <h1 class="display-4 fw-bold mb-5" style="color: #ffffff !important;">Recursive Logic Chains</h1>
-                <div class="glass p-5">
-                    <div class="core-clone" data-core-data="recursive" data-core-source="https://dummyjson.com/products?limit=1">
-                        <div class="p-4 rounded-4 bg-white bg-opacity-5 mb-4 border-start border-primary border-4" style="color: #000000 !important;">
-                            <h4 class="fw-bold mb-2" style="color: #000000 !important;">{{rec:name:upper}}</h4>
-                            <p class="text-muted small mb-3" style="color: #000000 !important;">Syncing deep tree structure...</p>
-                            <div class="ps-4" style="color: #000000 !important;">{{rec:more:core_pk_cloner:colors}}</div>
+            <div class="container mx-auto px-4 py-32">
+                <h1 class="text-6xl font-extrabold mb-12 text-white">Recursive Logic Chains</h1>
+                <div class="glass p-12">
+                    <div class="core-clone space-y-4" data-core-data="pop"
+                        data-core-source="https://dummyjson.com/products?limit=1">
+                        <div class="p-6 rounded-2xl bg-white/5 border-l-4 border-primary text-slate-300">
+                            <span class="font-bold text-white">{{rec:name:upper}}</span> paid <span
+                                class="text-emerald-400">{{rec:paid:money:$}}</span> on <span
+                                class="italic">{{rec:ts:date:date}}</span> for a <span
+                                class="text-amber-400 font-bold">{{rec:stuff.food}}</span>.
+                            <div class="mt-6 border-t border-white/5 pt-6 text-slate-400">
+                                {{rec:more:core_pk_cloner:colors}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -501,13 +825,12 @@
         </template>
 
         <template name="colors">
-            <div class="mb-3">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-circle shadow-sm" style="width: 14px; height: 14px; background: {{rec:color}};">
-                    </div>
-                    <span class="fw-bold text-uppercase small ls-wide opacity-75" style="color: #000000 !important;">{{rec:color}}</span>
+            <div class="mb-6 pl-8 border-l border-white/10 group transition-all hover:border-primary/50 text-white">
+                <div class="flex items-center gap-4 mb-2">
+                    <span class="text-xs font-mono text-slate-500">0{{aug:index}}</span>
+                    <strong class="text-lg group-hover:text-primary-light transition-colors">{{rec:color}}</strong>
                 </div>
-                <div class="ms-2 mt-2 ps-3 border-start border-white border-opacity-10" style="color: #000000 !important;">
+                <div class="space-y-2">
                     {{rec:hues:core_pk_cloner:colors}}
                 </div>
             </div>
@@ -515,9 +838,73 @@
 
     </section>
 
+    <footer class="container mx-auto px-4 py-20 mt-20 border-t border-white/5 relative overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+            <div class="md:col-span-2">
+                <a class="flex items-center mb-6" href="#" target="#main" data-core-templates="home">
+                    <div class="core-pocket -ml-4" data-core-templates="core" data-core-core-source="core.svg"
+                        style="width: 120px; filter: brightness(1.2);"></div>
+                </a>
+                <p class="text-slate-400 max-w-sm mb-6 leading-relaxed">
+                    A high-performance JavaScript orchestration layer. Experience zero virtual DOM overhead and
+                    async-native rendering. Built for the future of web applications.
+                </p>
+                <div class="flex items-center gap-4">
+                    <span id="status-dot" class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="status-text"
+                        class="text-xs font-bold text-slate-500 uppercase tracking-widest leading-none">System
+                        Operational</span>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Platform</h4>
+                <ul class="space-y-4">
+                    <li><a href="#" target="#main" data-core-templates="home"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Dashboard</a>
+                    </li>
+                    <li><a href="#" target="#main" data-core-templates="stuff"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Components</a>
+                    </li>
+                    <li><a href="#" target="#main" data-core-templates="other"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Architecture</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Repository</h4>
+                <ul class="space-y-4">
+                    <li><a href="https://github.com/Sitezip/core.sbs" target="_blank"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">GitHub
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                </path>
+                            </svg></a></li>
+                    <li><a href="#"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Documentation</a>
+                    </li>
+                    <li><a href="#"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">License /
+                            MIT</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                &copy; 2025 CORE_ORCHESTRATOR // VERSION_2.0.4
+            </div>
+            <div class="flex gap-6">
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">SHADOW-LESS</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ASYNC-NATIVE</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">RECURSIVE</div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
     <script src="core.js"></script>
     <script>
         // CORE INITIALIZATION
@@ -539,7 +926,6 @@
                 // Active Link Management
                 document.querySelectorAll('.nav-link-premium').forEach(link => {
                     const templates = (link.dataset.coreTemplates || '').split(',');
-                    // Simple check if the clicked template is in the link
                     if (templates.includes(dataRef)) {
                         link.classList.add('active');
                     } else {
@@ -548,8 +934,8 @@
                 });
 
                 // Auto-close mobile menu
-                const bNavbar = bootstrap.Collapse.getInstance(document.getElementById('navbarNav'));
-                if (bNavbar) bNavbar.hide();
+                const navbarNav = document.getElementById('navbarNav');
+                if (navbarNav) navbarNav.classList.add('hidden');
             }
         }
 
@@ -559,11 +945,13 @@
             const toastMsg = document.getElementById('toastMessage');
             toastMsg.textContent = message;
 
-            // Color mapping
-            toastEl.className = `toast glass border-0 text-white animate-fadeIn`;
+            // Simple reveal
+            toastEl.classList.remove('hidden');
 
-            const toast = new bootstrap.Toast(toastEl);
-            toast.show();
+            // Auto hide after 3s
+            setTimeout(() => {
+                toastEl.classList.add('hidden');
+            }, 3000);
         }
 
         // METRICS TELEMETRY
@@ -577,13 +965,28 @@
                 cacheHits: document.getElementById('cacheHits'),
                 dataCalls: document.getElementById('dataCalls'),
                 templates: document.getElementById('templates'),
-                clones: document.getElementById('clones')
+                clones: document.getElementById('clones'),
+                statusDot: document.getElementById('status-dot'),
+                statusText: document.getElementById('status-text')
             };
 
             if (els.cacheHits) els.cacheHits.textContent = cacheHits;
             if (els.dataCalls) els.dataCalls.textContent = dataCalls;
             if (els.templates) els.templates.textContent = templates;
             if (els.clones) els.clones.textContent = clones;
+
+            // Legit System Status Check
+            if (els.statusDot && els.statusText) {
+                if (typeof core !== 'undefined' && core.be) {
+                    els.statusDot.className = "flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse";
+                    els.statusText.textContent = "System Operational";
+                    els.statusText.className = "text-xs font-bold text-emerald-500/80 uppercase tracking-widest leading-none";
+                } else {
+                    els.statusDot.className = "flex h-2 w-2 rounded-full bg-rose-500";
+                    els.statusText.textContent = "System Offline";
+                    els.statusText.className = "text-xs font-bold text-rose-500 uppercase tracking-widest leading-none";
+                }
+            }
         }
 
         // DATA SOURCE INTERCEPTORS
@@ -593,34 +996,59 @@
                     case 'prods': return dataObj.products;
                     case 'users': return dataObj.users;
                     case 'news': return dataObj.results; // newsdata.io returns results array
-                    case 'recursive': return [
+                    case 'pop': return [
                         {
-                            name: 'FRED paid $21.58 on 7/23/24 for a pizza.',
+                            name: 'FRED',
+                            paid: 21.58,
+                            ts: '2024-07-23',
+                            stuff: { food: 'pizza' },
                             more: [
                                 { color: 'blue' },
                                 { color: 'gold' }
                             ]
                         },
                         {
-                            name: 'JAKE paid $2.11 on 7/16/24 for a pear.',
+                            name: 'JAKE',
+                            paid: 2.11,
+                            ts: '2024-07-16',
+                            stuff: { food: 'pear' },
                             more: [
-                                { color: 'red' },
-                                { color: 'fire engine' },
-                                { color: 'candy apple' }
+                                {
+                                    color: 'red',
+                                    hues: [
+                                        { color: 'fire engine' },
+                                        { color: 'candy apple' }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            name: 'JAKER paid $6.87 on 7/23/24 for a banana.',
+                            name: 'JAKER',
+                            paid: 6.87,
+                            ts: '2024-07-23',
+                            stuff: { food: 'banana' },
                             more: [
-                                { color: 'yellow' },
-                                { color: 'orange' },
-                                { color: 'pink' },
-                                { color: 'bright' },
-                                { color: 'hot' },
-                                { color: 'magenta' },
-                                { color: 'dark' },
-                                { color: 'hot' },
-                                { color: 'magnetic' }
+                                {
+                                    color: 'yellow',
+                                    hues: [
+                                        { color: 'orange' },
+                                        { color: 'pink' }
+                                    ]
+                                },
+                                {
+                                    color: 'bright',
+                                    hues: [
+                                        { color: 'hot' },
+                                        { color: 'magenta' }
+                                    ]
+                                },
+                                {
+                                    color: 'dark',
+                                    hues: [
+                                        { color: 'hot' },
+                                        { color: 'magnetic' }
+                                    ]
+                                }
                             ]
                         }
                     ];
@@ -632,10 +1060,6 @@
         // INERTIA / TEST DATA
         core.be.getData('quote', 'https://dummyjson.com/quotes/random/');
         core.cr.setData('pip', { name: 'Core Engineer', title: 'Architect', id: 1 });
-        core.cr.setData('recursive', [
-            { name: 'Logic Chain Alpha', more: [{ color: 'cyan' }, { color: 'magenta', hues: [{ color: 'violet' }] }] },
-            { name: 'Logic Chain Beta', more: [{ color: 'lime', hues: [{ color: 'emerald' }] }] }
-        ]);
     </script>
 </body>
 
