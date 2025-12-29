@@ -88,59 +88,7 @@
             }
         }
     </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .glass {
-                @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl transition-all duration-300;
-            }
-            .glass:hover {
-                @apply -translate-y-1 scale-[1.005] border-white/20 shadow-primary/20;
-            }
-            .btn-premium {
-                @apply bg-gradient-to-br from-primary to-primary-dark text-white px-8 py-3 rounded-xl font-semibold tracking-wide transition-all duration-300 shadow-lg shadow-primary/25 hover:-translate-y-0.5 hover:shadow-primary/40 active:scale-95 text-center;
-            }
-            .nav-link-premium {
-                @apply text-slate-300 font-medium px-5 py-2 rounded-full transition-all duration-300 hover:text-white hover:bg-white/5;
-            }
-            .nav-link-premium.active {
-                @apply text-white bg-white/10;
-            }
-            .badge-premium {
-                @apply px-4 py-1.5 bg-primary/10 text-white border border-primary/30 backdrop-blur-sm rounded-full font-semibold tracking-wider text-xs uppercase;
-            }
-            .metric-box {
-                @apply glass p-10 text-center;
-            }
-        }
-        
-        body {
-            @apply bg-dark-darker text-white font-sans leading-relaxed overflow-x-hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 25%);
-            background-attachment: fixed;
-        }
-
-        /* Fix for native Select Dropdowns in Dark Mode */
-        select option {
-            @apply bg-dark-darker text-white;
-        }
-
-        /* Prevent white-on-white in some browsers */
-        select {
-            color-scheme: dark;
-        }
-
-        /* Responsive Navbar Helper */
-        #navbarNav.hidden {
-            display: none;
-        }
-        @media (min-width: 1024px) {
-            #navbarNav.hidden {
-                display: flex !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="core.css">
     <link rel="icon" href="core.svg">
 
     <!-- Preconnect for performance -->
@@ -238,6 +186,27 @@
 
     <!-- Component Registry (Templates) -->
     <section id="cr-data" style="display:none;">
+
+        <!-- FORM ENGINE DEFAULT TEMPLATE -->
+        <template name="default">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Email
+                        Address</label>
+                    <input type="email" required
+                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                        placeholder="engine@core.sbs">
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                    <input type="password"
+                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                        placeholder="Enter password">
+                </div>
+                <button class="btn-premium w-full mt-4">Sign In</button>
+            </div>
+        </template>
 
         <!-- HOME TEMPLATE -->
         <template name="home">
@@ -349,25 +318,8 @@
                     <div class="lg:w-1/3">
                         <div class="glass p-12 h-full">
                             <h3 class="text-2xl font-bold mb-8 italic text-white">Form Engine</h3>
-                            <div class="core-pocket" data-core-templates="default"
-                                data-default-core-source="https://zzzap.io/Forms/login">
-                                <div class="space-y-6">
-                                    <div>
-                                        <label
-                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Username</label>
-                                        <input type="text"
-                                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
-                                            placeholder="Enter username">
-                                    </div>
-                                    <div>
-                                        <label
-                                            class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
-                                        <input type="password"
-                                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
-                                            placeholder="Enter password">
-                                    </div>
-                                    <button class="btn-premium w-full mt-4">Sign In</button>
-                                </div>
+                            <div class="core-pocket" data-core-templates="default">
+                                <!-- Form will be hydrated from the template below -->
                             </div>
                         </div>
                     </div>
@@ -562,6 +514,29 @@
         <template name="stuff">
             <div class="container mx-auto px-4 py-32 text-white">
                 <h2 class="text-5xl font-extrabold mb-12">Component Registry</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                            id="cacheHits">0</h2>
+                        <div class="text-slate-300 font-semibold">Cache Integrity</div>
+                    </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent"
+                            id="dataCalls">0</h2>
+                        <div class="text-slate-300 font-semibold">Backend Flow</div>
+                    </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                            id="templates">0</h2>
+                        <div class="text-slate-300 font-semibold">Registered DOM</div>
+                    </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent"
+                            id="clones">0</h2>
+                        <div class="text-slate-300 font-semibold">Clustered Logic</div>
+                    </div>
+                </div>
 
                 <!-- Table View -->
                 <div class="glass overflow-hidden mb-16">
