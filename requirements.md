@@ -7,24 +7,24 @@ The goal is to modernize the `core.js` library to attract contributors familiar 
 The current implementation uses a "loading queue" mechanism relying on `setTimeout` loops and global counters (`core_be_count`, `core_pk_count`) to manage asynchronous operations. This should be replaced with modern `async/await` patterns.
 
 ### Requirements:
-- **Refactor `core.be` (Backend):**
-  - `getData` and `getTemplate` should return `Promises`.
-  - Remove reliance on global counters for flow control.
-  - Use `async/await` to handle `fetch` requests sequentially or concurrently where appropriate.
+- **Refactor `core.be` (Backend):** [DONE]
+  - `getData` and `getTemplate` should return `Promises`. [DONE]
+  - Remove reliance on global counters for flow control. [DONE]
+  - Use `async/await` to handle `fetch` requests sequentially or concurrently where appropriate. [DONE]
 
-- **Refactor `core.pk` (Pocket/DOM):**
-  - Convert `soc` (Start of Call), `getTemplate`, `getData`, and `eoc` (End of Call) to `async` functions.
-  - Replace recursive `setTimeout` polling with `await Promise.all([...])` to wait for data/templates to load.
-  - Ensure the lifecycle (`soc` -> `getTemplate` -> `getData` -> `eoc`) executes in a clear, linear, asynchronous flow.
+- **Refactor `core.pk` (Pocket/DOM):** [DONE]
+  - Convert `soc` (Start of Call), `getTemplate`, `getData`, and `eoc` (End of Call) to `async` functions. [DONE]
+  - Replace recursive `setTimeout` polling with `await Promise.all([...])` to wait for data/templates to load. [DONE]
+  - Ensure the lifecycle (`soc` -> `getTemplate` -> `getData` -> `eoc`) executes in a clear, linear, asynchronous flow. [DONE]
 
-- **Error Handling:**
-  - Use `try/catch` blocks within async functions for better error management compared to the current callback/flag approach.
+- **Error Handling:** [DONE]
+  - Use `try/catch` blocks within async functions for better error management compared to the current callback/flag approach. [DONE]
 
 ## 2. HTML & Attribute Modernization (React-Familiarity)
 To make the library more approachable for React developers, the HTML attribute syntax should be cleaned up. While we cannot use JSX, we can adopt a cleaner, "prop-like" syntax that reduces verbosity.
 
 ### Requirements:
-- **Attribute Renaming:**
+- **Attribute Renaming:** [PENDING]
   - Move away from verbose `data-core-*` attributes to cleaner, direct attributes.
   - **Mappings:**
     - `data-core-templates` -> `core-templates`
@@ -32,7 +32,7 @@ To make the library more approachable for React developers, the HTML attribute s
     - `data-core-data` -> `core-data`
     - `data-[name]-core-source` -> `core-source-[name]` (e.g., `core-source-default`)
 
-- **Class Names:**
+- **Class Names:** [PENDING]
   - Retain `class="core-pocket"` and `class="core-clone"` as they serve as clear component markers.
   - Consider supporting `className` as an alias for `class` in internal logic if helpful, though strictly `class` is correct for HTML.
 
@@ -55,8 +55,8 @@ To make the library more approachable for React developers, the HTML attribute s
   ```
 
 ## 3. Documentation & Code Quality
-- **Comments:** Update JSDoc comments to reflect the new async nature of functions.
-- **Cleanup:** Remove unused legacy variables related to the old queue system (`core_be_count`, `core_pk_count`, `stackTs`, `templateStart`, etc., if they become redundant).
+- **Comments:** [DONE] Update JSDoc comments to reflect the new async nature of functions.
+- **Cleanup:** [DONE] Remove unused legacy variables related to the old queue system (`core_be_count`, `core_pk_count`, `stackTs`, `templateStart`, etc., if they become redundant).
 
 ## 4. Backward Compatibility (Optional but Recommended)
 - Consider keeping support for `data-core-*` attributes for a transition period, or provide a clear migration path.
