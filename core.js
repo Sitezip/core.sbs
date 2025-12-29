@@ -1,4 +1,4 @@
-const core_version = '20251217.0'; // Fixed undefined bug
+const core_version = '20251229.0';
 const core = (() => {
     const template = document.createElement('template');
     const section = document.getElementById('cr-data') || template.cloneNode(true);
