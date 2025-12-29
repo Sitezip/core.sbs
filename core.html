@@ -106,32 +106,35 @@
                     style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));"></div>
             </a>
 
-            <button class="lg:hidden text-white p-2 focus:outline-none" type="button"
-                onclick="document.getElementById('navbarNav').classList.toggle('hidden')">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+            <button class="xl:hidden text-white p-2 hover:bg-white/5 rounded-xl transition-colors focus:outline-none"
+                type="button" onclick="document.getElementById('navbarNav').classList.toggle('hidden')">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M4 6h16M4 12h16m-16 6h16">
                     </path>
                 </svg>
             </button>
 
-            <div class="hidden lg:flex items-center space-x-2" id="navbarNav">
-                <ul class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-2">
-                    <li><a href="#" class="nav-link-premium active" target="#main" data-core-templates="home">Home</a>
+            <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-4 xl:mt-0" id="navbarNav">
+                <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
+                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium active" target="#main"
+                            data-core-templates="home">Home</a>
                     </li>
 
-                    <li class="relative group">
-                        <a class="nav-link-premium flex items-center" href="#">
-                            Demos <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="relative group w-full xl:w-auto">
+                        <a class="nav-link-premium flex items-center justify-between xl:justify-start" href="#">
+                            <span>Demos</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path>
+                                    d="M19 9l-7 7-7-7">
+                                </path>
                             </svg>
                         </a>
                         <!-- Invisible padding bridge to keep dropdown open -->
-                        <div class="absolute left-0 right-0 h-4 top-full"></div>
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
                         <ul
-                            class="absolute left-0 top-full mt-2 w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="other">Architecture</a></li>
+                            class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
                                     href="#" target="#main" data-core-templates="bridge">Logic Bridge</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
@@ -142,15 +145,22 @@
                         </ul>
                     </li>
 
-                    <li><a href="#" class="nav-link-premium" target="#main" data-core-templates="user">Account</a></li>
-                    <li><a href="#" class="nav-link-premium" target="#main" data-core-templates="news">Scammer News</a>
-                    </li>
-                    <li><a href="#" class="nav-link-premium" target="#main" data-core-templates="deep">Silent Data</a>
+                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="user">Account</a></li>
+                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="philosophy">Philosophy</a></li>
+                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="manual">Manual</a></li>
+                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
+                            data-core-templates="cheatsheet">Cheatsheet</a></li>
+                    <li class="w-full xl:w-auto">
+                        <a href="#" class="nav-link-premium" target="#main" data-core-templates="news">Scammer News</a>
                     </li>
 
-                    <li class="lg:ml-6">
+                    <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank"
-                            class="btn-premium whitespace-nowrap text-decoration-none">Star on GitHub</a>
+                            class="btn-premium whitespace-nowrap text-decoration-none w-full xl:w-auto block">Get
+                            Started</a>
                     </li>
                 </ul>
             </div>
@@ -289,15 +299,145 @@
                     </div>
                 </div>
             </div>
+            <!-- Architecture Deep-Dive (Inlined from information section) -->
+            <section class="container mx-auto px-4 py-16 md:py-20 text-white">
+                <div class="glass p-6 md:p-16">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-12">Architecture Deep-Dive</h1>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                        <div class="space-y-6 text-lg text-slate-300 leading-relaxed">
+                            <p><strong class="text-white">core.js</strong> delivers a <span
+                                    class="text-primary-light font-bold">Shadow-less Rendering</span> engine that treats
+                                the DOM as the state tree, eliminating virtual DOM diffing overhead.</p>
+
+                            <p>Its <span class="text-accent font-bold">Async-Native</span> architecture fetches data and
+                                templates in parallel using modern <code class="text-primary-light">async/await</code>
+                                patterns.</p>
+
+                            <p>The built-in <span class="text-primary-light font-bold">Cloner Engine</span> enables
+                                nested, recursive component definitions that hydrate automatically on data insertion.
+                            </p>
+
+                            <div class="my-8">
+                                <h3 class="text-2xl font-bold text-white mb-4">Lifecycle Hooks</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.preflight</code>
+                                            <p class="text-sm text-slate-400 mt-1">Modify fetch settings before a
+                                                request</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.postflight</code>
+                                            <p class="text-sm text-slate-400 mt-1">Transform response data after fetch
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.prepaint</code>
+                                            <p class="text-sm text-slate-400 mt-1">Adjust data before rendering</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.postpaint</code>
+                                            <p class="text-sm text-slate-400 mt-1">Run logic after template is rendered
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="p-6 bg-white/5 rounded-xl border border-white/10">
+                                <h4 class="text-xl font-bold text-white mb-3">Silent Calls</h4>
+                                <p class="text-slate-400">Use <code
+                                        class="text-primary-light">target="core_be_getData"</code>
+                                    to fetch data or templates without immediate UI updates.</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mt-8">
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
+                                    <h2 class="text-3xl font-extrabold text-white mb-1">Low</h2>
+                                    <span
+                                        class="text-xs font-bold uppercase tracking-widest text-primary-light">Reflows</span>
+                                </div>
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
+                                    <h2 class="text-3xl font-extrabold text-white mb-1">∞</h2>
+                                    <span
+                                        class="text-xs font-bold uppercase tracking-widest text-accent">Scalability</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Basic
+                                        Template</div>
+                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">template</span> <span class="text-blue-400">name</span>=<span class="text-amber-200">"userCard"</span>&gt;
+  &lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"user-card"</span>&gt;
+    &lt;<span class="text-rose-400">h3</span>&gt;{{<span class="text-purple-400">rec:name</span>}}&lt;/<span class="text-rose-400">h3</span>&gt;
+    &lt;<span class="text-rose-400">p</span>&gt;{{<span class="text-purple-400">rec:email</span>}}&lt;/<span class="text-rose-400">p</span>&gt;
+  &lt;/<span class="text-rose-400">div</span>&gt;
+&lt;/<span class="text-rose-400">template</span>&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Pocket
+                                        Rendering</div>
+                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"core-pocket"</span>
+     <span class="text-blue-400">data-core-templates</span>=<span class="text-amber-200">"userCard"</span>
+     <span class="text-blue-400">data-core-source-users</span>=<span class="text-amber-200">"https://api.example.com/users"</span>&gt;
+&lt;/<span class="text-rose-400">div</span>&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Data
+                                        Formatting</div>
+                                    <pre class="text-emerald-400"><code class="language-html"><span class="text-slate-500">&lt;!-- Format as money --&gt;</span>
+{{<span class="text-purple-400">rec:price:money:$</span>}}
+
+<span class="text-slate-500">&lt;!-- Recursive cloning --&gt;</span>
+{{<span class="text-purple-400">rec:items:core_pk_cloner:itemTemplate</span>}}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </template>
 
         <!-- LOGIC BRIDGE TEMPLATE -->
         <template name="bridge">
-            <div class="container mx-auto px-4 py-32">
+            <div class="container mx-auto px-4 py-16 md:py-32">
                 <div class="flex flex-col lg:flex-row gap-12">
                     <div class="lg:w-2/3">
-                        <div class="glass p-12 h-full">
-                            <h1 class="text-5xl font-extrabold mb-8 text-white leading-tight">The Logic Bridge</h1>
+                        <div class="glass p-6 md:p-12 h-full">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">The Logic
+                                Bridge</h1>
                             <p class="text-xl text-slate-400 mb-12 leading-relaxed">
                                 core.js automatically manages the serialization of your state directly into the DOM,
                                 allowing for instant <span class="text-primary-light font-bold">"resurrection"</span>
@@ -329,12 +469,12 @@
 
         <!-- ACCOUNT TEMPLATE -->
         <template name="user">
-            <div class="container mx-auto px-4 py-32">
-                <div class="glass p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
+            <div class="container mx-auto px-4 py-16 md:py-32">
+                <div class="glass p-6 md:p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
                     <img src="avatar.png" class="rounded-full shadow-2xl border-4 border-white/10 w-32 h-32"
                         alt="Avatar">
                     <div class="text-center md:text-left text-white">
-                        <h1 class="text-5xl font-bold mb-2">Architect Account</h1>
+                        <h1 class="text-3xl md:text-5xl font-bold mb-2">Architect Account</h1>
                         <p class="text-xl text-slate-400">Senior Developer | <span
                                 class="text-primary-light">core.sbs</span> Contributor</p>
                     </div>
@@ -440,11 +580,11 @@
 
         <!-- NEWS TEMPLATE -->
         <template name="news">
-            <div class="container mx-auto px-4 py-32 text-white">
+            <div class="container mx-auto px-4 py-16 md:py-32 text-white">
                 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div>
-                        <h1 class="text-6xl font-extrabold mb-2">Scammer News</h1>
-                        <p class="text-xl text-slate-400">Breaking updates from the underground network.</p>
+                        <h1 class="text-4xl md:text-6xl font-extrabold mb-2">Scammer News</h1>
+                        <p class="text-lg md:text-xl text-slate-400">Breaking updates from the underground network.</p>
                     </div>
                     <button onclick="
                         // Clear the news data cache
@@ -460,9 +600,9 @@
                     <div class="core-clone" data-core-data="news"
                         data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology,technology">
                         <div class="glass h-full flex flex-col overflow-hidden group">
-                            <div class="p-8 flex-grow">
+                            <div class="p-6 md:p-8 flex-grow">
                                 <div class="flex items-center gap-4 mb-6">
-                                    <img src="https://www.google.com/s2/favicons?domain={{rec:source_url}}&sz=64"
+                                    <img src="https://www.google.com/s2/favicons?domain={{rec:link}}&sz=64"
                                         class="w-10 h-10 rounded-xl bg-white/5 p-1" alt="Source favicon">
                                     <div class="flex-grow">
                                         <span
@@ -594,191 +734,189 @@
                 </div>
             </div>
         </template><!-- OTHER TEMPLATE -->
-        <template name="other">
-            <div class="container mx-auto px-4 py-32 text-white">
-                <div class="glass p-16">
-                    <h1 class="text-6xl font-extrabold mb-12">Architecture Deep-Dive</h1>
 
-                    <!-- 2-COLUMN GRID: Text Left, Code Right -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-                        <!-- LEFT COLUMN: Feature Overview -->
-                        <div class="space-y-6 text-lg text-slate-300 leading-relaxed">
-                            <p><strong class="text-white">core.js</strong> delivers a <span
-                                    class="text-primary-light font-bold">Shadow-less Rendering</span> engine that treats
-                                the DOM
-                                as the state tree, eliminating virtual DOM diffing overhead.</p>
+        <!-- MANUAL TEMPLATE (Renders core.md) -->
+        <template name="manual">
+            <div class="container mx-auto px-4 py-16 md:py-32 text-white">
+                <div class="glass p-6 md:p-16 space-y-12">
+                    <header class="border-b border-white/10 pb-12">
+                        <span class="badge-premium mb-4 inline-block">Official Documentation</span>
+                        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">C.O.R.E Manual</h1>
+                        <p class="text-2xl text-slate-400 italic">Create Once, Render Everywhere</p>
+                    </header>
 
-                            <p>Its <span class="text-accent font-bold">Async-Native</span> architecture fetches data and
-                                templates in parallel using modern <code class="text-primary-light">async/await</code>
-                                patterns.
-                            </p>
+                    <div class="prose prose-invert max-w-none space-y-8">
+                        <p class="text-xl text-slate-300 leading-relaxed">A lightweight, dependency-free JavaScript
+                            library for building dynamic, data-driven web interfaces using simple HTML attributes. Now
+                            modernized with async/await and cleaner syntax.</p>
 
-                            <p>The built-in <span class="text-primary-light font-bold">Cloner Engine</span> enables
-                                nested,
-                                recursive component definitions that hydrate automatically on data insertion.</p>
+                        <section class="space-y-4">
+                            <h2 class="text-3xl font-bold text-primary-light">Quick Start</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-4">
+                                    <h3 class="text-xl font-bold">1. Define a Template</h3>
+                                    <p class="text-slate-400">Create a <code>&lt;template&gt;</code> inside a hidden
+                                        section (default id <code>cr-data</code>).</p>
+                                    <div
+                                        class="bg-black p-6 rounded-2xl font-mono text-sm border border-white/5 shadow-inner">
+                                        <pre class="text-emerald-400"><code>&lt;template name="users"&gt;
+  &lt;div class="user-card"&gt;
+    &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+    &lt;p&gt;{{rec:email}}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-xl font-bold">2. Create a Pocket</h3>
+                                    <p class="text-slate-400">Place a "pocket" where you want the content to appear.</p>
+                                    <div
+                                        class="bg-black p-6 rounded-2xl font-mono text-sm border border-white/5 shadow-inner">
+                                        <pre class="text-emerald-400"><code>&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-core-source-users="api/users"&gt;
+&lt;/div&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
 
-                            <div class="my-8">
-                                <h3 class="text-2xl font-bold text-white mb-4">Lifecycle Hooks</h3>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start gap-3">
-                                        <span class="text-primary-light mt-1">→</span>
-                                        <div>
-                                            <code class="text-accent">core.ud.preflight</code>
-                                            <p class="text-sm text-slate-400 mt-1">Modify fetch settings before a
-                                                request</p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start gap-3">
-                                        <span class="text-primary-light mt-1">→</span>
-                                        <div>
-                                            <code class="text-accent">core.ud.postflight</code>
-                                            <p class="text-sm text-slate-400 mt-1">Transform response data after fetch
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start gap-3">
-                                        <span class="text-primary-light mt-1">→</span>
-                                        <div>
-                                            <code class="text-accent">core.ud.prepaint</code>
-                                            <p class="text-sm text-slate-400 mt-1">Adjust data before rendering</p>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start gap-3">
-                                        <span class="text-primary-light mt-1">→</span>
-                                        <div>
-                                            <code class="text-accent">core.ud.postpaint</code>
-                                            <p class="text-sm text-slate-400 mt-1">Run logic after template is rendered
-                                            </p>
-                                        </div>
-                                    </li>
+                        <section class="space-y-6 pt-8">
+                            <h2 class="text-3xl font-bold text-primary-light border-b border-white/5 pb-4">Attributes
+                                Reference</h2>
+                            <div class="overflow-hidden rounded-2xl border border-white/10">
+                                <table class="w-full text-left bg-white/5">
+                                    <thead>
+                                        <tr class="bg-white/10 text-white font-bold">
+                                            <th class="px-6 py-4">Attribute</th>
+                                            <th class="px-6 py-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-slate-300">
+                                        <tr class="border-b border-white/5">
+                                            <td class="px-6 py-4 font-mono text-accent">data-core-templates</td>
+                                            <td class="px-6 py-4">Comma-separated list of template names to load.</td>
+                                        </tr>
+                                        <tr class="border-b border-white/5">
+                                            <td class="px-6 py-4 font-mono text-accent">data-core-source</td>
+                                            <td class="px-6 py-4">Default data source URL for the element.</td>
+                                        </tr>
+                                        <tr class="border-b border-white/5">
+                                            <td class="px-6 py-4 font-mono text-accent">data-core-data</td>
+                                            <td class="px-6 py-4">Reference name for the data object.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 font-mono text-accent">data-core-source-[name]</td>
+                                            <td class="px-6 py-4">Specific data source for a named template.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="space-y-4 pt-8">
+                            <h2 class="text-3xl font-bold text-primary-light">Data Referencing</h2>
+                            <p class="text-slate-400">Syntax: <code>{{type:object-member:format-ref:clue}}</code></p>
+                            <div class="bg-black p-8 rounded-2xl font-mono text-base border border-white/5">
+                                <ul class="space-y-2">
+                                    <li><span class="text-slate-500">// Basic examples</span></li>
+                                    <li><span class="text-emerald-400">{{rec:firstName}}</span> <span
+                                            class="text-slate-500">-> John</span></li>
+                                    <li><span class="text-emerald-400">{{rec:balance:money:$}}</span> <span
+                                            class="text-slate-500">-> $1,234.56</span></li>
+                                    <li><span class="text-emerald-400">{{rec:status:upper}}</span> <span
+                                            class="text-slate-500">-> ACTIVE</span></li>
                                 </ul>
                             </div>
+                        </section>
+                    </div>
 
-                            <div class="p-6 bg-white/5 rounded-xl border border-white/10">
-                                <h4 class="text-xl font-bold text-white mb-3">Silent Calls</h4>
-                                <p class="text-slate-400">Use <code
-                                        class="text-primary-light">target="core_be_getData"</code>
-                                    to fetch data or templates without immediate UI updates.</p>
+                    <footer
+                        class="pt-12 border-t border-white/10 flex justify-between items-center text-slate-500 text-sm">
+                        <p>&copy; 2025 core.js Development Team</p>
+                        <a href="#" target="#main" data-core-templates="cheatsheet"
+                            class="text-primary-light hover:underline">View Cheatsheet &rarr;</a>
+                    </footer>
+                </div>
+            </div>
+        </template>
+
+        <!-- CHEATSHEET TEMPLATE (Renders core.txt equivalent) -->
+        <template name="cheatsheet">
+            <div class="container mx-auto px-4 py-16 md:py-32 text-white">
+                <div class="space-y-12">
+                    <header>
+                        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Core Cheatsheet</h1>
+                        <p class="text-xl text-slate-400 leading-relaxed">Quick logic snippets and implementation
+                            patterns for power users.</p>
+                    </header>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Navigation Patterns -->
+                        <div class="glass p-8 space-y-6">
+                            <h3 class="text-2xl font-bold flex items-center gap-3">
+                                <span
+                                    class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary-light">01</span>
+                                Navigation Links
+                            </h3>
+                            <div class="bg-black p-4 rounded-xl font-mono text-sm border border-white/5">
+                                <pre class="text-blue-300"><code>&lt;a href="#" 
+   target="#main" 
+   data-core-templates="other"&gt;Navigate&lt;/a&gt;</code></pre>
                             </div>
+                            <p class="text-sm text-slate-400 italic">Defining a specific viewhost (target) and template
+                                chain.</p>
+                        </div>
 
-                            <div class="grid grid-cols-2 gap-4 mt-8">
-                                <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
-                                    <h2 class="text-3xl font-extrabold text-white mb-1">Low</h2>
-                                    <span
-                                        class="text-xs font-bold uppercase tracking-widest text-primary-light">Reflows</span>
+                        <!-- Data Formatting -->
+                        <div class="glass p-8 space-y-6">
+                            <h3 class="text-2xl font-bold flex items-center gap-3">
+                                <span
+                                    class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center text-accent">02</span>
+                                Process Formatting
+                            </h3>
+                            <div class="space-y-3 font-mono text-sm bg-black p-4 rounded-xl border border-white/5">
+                                <p class="text-emerald-400">{{rec:email:emaillink:class="link"}}</p>
+                                <p class="text-emerald-400">{{rec:thumbnail:imgsrc:class="img"}}</p>
+                                <p class="text-emerald-400">{{rec:price:money:$}}</p>
+                                <p class="text-emerald-400">{{rec:name:upper}}</p>
+                            </div>
+                            <p class="text-sm text-slate-400 italic">Formatting tokens: money, date, upper, lower,
+                                linkify, imgsrc.</p>
+                        </div>
+
+                        <!-- Advanced Logic -->
+                        <div class="glass p-8 space-y-6 lg:col-span-2">
+                            <h3 class="text-2xl font-bold flex items-center gap-3">
+                                <span
+                                    class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center text-pink-400">03</span>
+                                Advanced Logic & Lifecycle
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <h4 class="text-white font-bold">JavaScript Hooks</h4>
+                                    <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
+                                        <pre class="text-rose-300"><code>core.ud.preflight = (ref, src, type) => {
+  return {dataRef: ref, dataSrc: src};
+}
+
+core.ud.postflight = (ref, obj, type) => {
+  return obj;
+}</code></pre>
+                                    </div>
                                 </div>
-                                <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
-                                    <h2 class="text-3xl font-extrabold text-white mb-1">∞</h2>
-                                    <span
-                                        class="text-xs font-bold uppercase tracking-widest text-accent">Scalability</span>
+                                <div class="space-y-4">
+                                    <h4 class="text-white font-bold">Recursive Cloning</h4>
+                                    <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
+                                        <pre class="text-purple-300"><code>// Recursive cloner pattern
+{{rec:items:core_pk_cloner:colors}}</code></pre>
+                                    </div>
+                                    <p class="text-xs text-slate-500 italic">Allows for infinite nesting of data
+                                        structures (e.g. tree views, threaded comments).</p>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- RIGHT COLUMN: Code Examples -->
-                        <div class="space-y-6">
-
-                            <!-- Example 1: Basic Template -->
-                            <div class="relative">
-                                <div
-                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
-                                </div>
-                                <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
-                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Basic
-                                        Template
-                                    </div>
-                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">template</span> <span class="text-blue-400">name</span>=<span class="text-amber-200">"userCard"</span>&gt;
-  &lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"user-card"</span>&gt;
-    &lt;<span class="text-rose-400">h3</span>&gt;{{<span class="text-purple-400">rec:name</span>}}&lt;/<span class="text-rose-400">h3</span>&gt;
-    &lt;<span class="text-rose-400">p</span>&gt;{{<span class="text-purple-400">rec:email</span>}}&lt;/<span class="text-rose-400">p</span>&gt;
-  &lt;/<span class="text-rose-400">div</span>&gt;
-&lt;/<span class="text-rose-400">template</span>&gt;</code></pre>
-                                </div>
-                            </div>
-
-                            <!-- Example 2: Pocket Usage -->
-                            <div class="relative">
-                                <div
-                                    class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
-                                </div>
-                                <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
-                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Pocket
-                                        Rendering
-                                    </div>
-                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"core-pocket"</span>
-     <span class="text-blue-400">data-core-templates</span>=<span class="text-amber-200">"userCard"</span>
-     <span class="text-blue-400">data-core-source-users</span>=<span class="text-amber-200">"https://api.example.com/users"</span>&gt;
-&lt;/<span class="text-rose-400">div</span>&gt;</code></pre>
-                                </div>
-                            </div>
-
-                            <!-- Example 3: Silent Call -->
-                            <div class="relative">
-                                <div
-                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
-                                </div>
-                                <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
-                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Silent
-                                        Data
-                                        Fetch</div>
-                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">a</span> <span class="text-blue-400">href</span>=<span class="text-amber-200">"#"</span> 
-   <span class="text-blue-400">target</span>=<span class="text-amber-200">"core_be_getData"</span>
-   <span class="text-blue-400">data-core-data</span>=<span class="text-amber-200">"products"</span>
-   <span class="text-blue-400">data-core-source</span>=<span class="text-amber-200">"https://api.example.com/products"</span>&gt;
-  Load Data Silently
-&lt;/<span class="text-rose-400">a</span>&gt;</code></pre>
-                                </div>
-                            </div>
-
-                            <!-- Example 4: Custom Hook -->
-                            <div class="relative">
-                                <div
-                                    class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
-                                </div>
-                                <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
-                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Custom
-                                        Hook
-                                        (JavaScript)</div>
-                                    <pre class="text-emerald-400"><code class="language-javascript"><span class="text-purple-400">core</span>.<span class="text-blue-400">ud</span>.<span class="text-amber-200">postflight</span> = (<span class="text-rose-400">dataRef</span>, <span class="text-rose-400">dataObj</span>, <span class="text-rose-400">type</span>) =&gt; {
-  <span class="text-purple-400">if</span> (type === <span class="text-amber-200">'data'</span> && dataRef === <span class="text-amber-200">'users'</span>) {
-    dataObj.users = dataObj.users.<span class="text-blue-400">map</span>(u =&gt; ({
-      ...u,
-      fullName: <span class="text-amber-200">`${u.firstName} ${u.lastName}`</span>
-    }));
-  }
-  <span class="text-purple-400">return</span> dataObj;
-};</code></pre>
-                                </div>
-                            </div>
-
-                            <!-- Example 5: Data Formatting -->
-                            <div class="relative">
-                                <div
-                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
-                                </div>
-                                <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
-                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Data
-                                        Formatting
-                                    </div>
-                                    <pre class="text-emerald-400"><code class="language-html"><span class="text-slate-500">&lt;!-- Format as money --&gt;</span>
-{{<span class="text-purple-400">rec:price:money:$</span>}}  <span class="text-slate-500">&lt;!-- Output: $1,234.56 --&gt;</span>
-
-<span class="text-slate-500">&lt;!-- Format as uppercase --&gt;</span>
-{{<span class="text-purple-400">rec:status:upper</span>}}   <span class="text-slate-500">&lt;!-- Output: ACTIVE --&gt;</span>
-
-<span class="text-slate-500">&lt;!-- Recursive cloning --&gt;</span>
-{{<span class="text-purple-400">rec:items:core_pk_cloner:itemTemplate</span>}}</code></pre>
-                                </div>
-                            </div>
-
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -838,6 +976,91 @@
                             FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
                             SOFTWARE.</p>
                     </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- PHILOSOPHY TEMPLATE -->
+        <template name="philosophy">
+            <div class="container mx-auto px-4 py-16 md:py-32 text-white">
+                <div class="glass p-6 md:p-16 space-y-12">
+                    <header class="border-b border-white/10 pb-12">
+                        <span class="badge-premium mb-4 inline-block font-outfit">The Manifest</span>
+                        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 font-outfit tracking-tight">core.js
+                            Philosophy</h1>
+                        <p class="text-xl text-slate-400">core.js is a small, honest UI runtime. It exists to ship real
+                            software, not to grow a framework ecosystem.</p>
+                    </header>
+
+                    <div class="space-y-12 text-slate-300">
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">Ship Early. Stay Honest.</h2>
+                            <p class="text-lg leading-relaxed">We ship usable software as soon as it’s real. Not
+                                perfect. Not overdesigned. Not wrapped in roadmap theater. If it exists, it runs. If it
+                                runs, it ships.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">No Regressions Is the Rule</h2>
+                            <p class="text-lg leading-relaxed">New ideas are welcome. Breaking working applications is
+                                not. If something breaks: it’s a bug, it gets fixed quickly, or it gets reverted.
+                                Stability is earned through discipline, not promises.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">Upstream First, Always</h2>
+                            <p class="text-lg leading-relaxed">Fixes belong in the core. Not in forks, not in wrappers,
+                                and not in project-specific hacks. If something requires a workaround, the core is
+                                wrong. We fix the core.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">Small Surface Area Over Clever Abstractions
+                            </h2>
+                            <p class="text-lg leading-relaxed">Every API has a cost. Every layer is a liability. We
+                                prefer fewer concepts, explicit behavior, and boring primitives that compose well. If it
+                                can’t be explained quickly, it doesn’t belong.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">Real Usage Is the Test Suite</h2>
+                            <p class="text-lg leading-relaxed">We don’t design in isolation. core.js is used to build
+                                real applications. Feedback comes from production, constraints, and mistakes—not
+                                hypotheticals.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">Opinionated, Not Bloated</h2>
+                            <p class="text-lg leading-relaxed">core.js is not everything for everyone. It does one job
+                                well and stays out of your way. If you want magic, indirection, or framework gravity,
+                                React already exists.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="text-3xl font-bold text-white mb-4">Respect the Runtime</h2>
+                            <p class="text-lg leading-relaxed">The browser is the platform. JavaScript is the contract.
+                                We don’t fight the environment. We work with it.</p>
+                        </section>
+
+                        <div class="bg-white/5 p-8 border border-white/10 mt-12 rounded-[1.5rem]">
+                            <h3 class="text-2xl font-bold text-white mb-4">What core.js Is Not</h3>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-400 font-mono text-sm">
+                                <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A dependency
+                                    magnet</li>
+                                <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A platform play
+                                </li>
+                                <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A social
+                                    experiment</li>
+                                <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A
+                                    rewrite-everything framework</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <footer class="pt-12 border-t border-white/10">
+                        <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Sharp. Small. Reliable.
+                        </p>
+                    </footer>
                 </div>
             </div>
         </template>
