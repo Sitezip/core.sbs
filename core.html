@@ -522,17 +522,17 @@
                                 <div
                                     class="absolute top-0 right-0 p-4 opacity-5 font-bold text-9xl pointer-events-none text-white">
                                     "</div>
-                                <p class="h--dataRef-quote text-2xl font-light italic mb-4 relative z-1 leading-relaxed text-white"
-                                    data-h-data-ref="quote">Fetch in progress...</p>
+                                <p class="h--dataRef text-2xl font-light italic mb-4 relative z-1 leading-relaxed text-white"
+                                    data-h-data-ref="quote.quote">Fetch in progress...</p>
                                 <cite class="text-primary-light font-bold not-italic relative z-1">— <span
-                                        class="h--dataRef-author" data-h-data-ref="quote">System Architect</span></cite>
+                                        class="h--dataRef" data-h-data-ref="quote.author">System Architect</span></cite>
                             </div>
 
                             <div id="core_pk_bridgePanel" class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
                                     <label
                                         class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Joke</label>
-                                    <p class="h--dataRef-joke text-slate-200 leading-relaxed" data-h-data-ref="joke">
+                                    <p class="h--dataRef text-slate-200 leading-relaxed" data-h-data-ref="joke">
                                         Fetch in progress...</p>
                                 </div>
 
@@ -542,23 +542,23 @@
                                     <div class="grid grid-cols-1 gap-3 text-sm">
                                         <div class="flex justify-between gap-4">
                                             <span class="text-slate-400 font-bold">Name</span>
-                                            <span class="h--dataRef-name text-slate-200 font-mono"
-                                                data-h-data-ref="pip"></span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.name"></span>
                                         </div>
                                         <div class="flex justify-between gap-4">
                                             <span class="text-slate-400 font-bold">Title</span>
-                                            <span class="h--dataRef-title text-slate-200 font-mono"
-                                                data-h-data-ref="pip"></span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.title"></span>
                                         </div>
                                         <div class="flex justify-between gap-4">
                                             <span class="text-slate-400 font-bold">Phone</span>
-                                            <span class="h--dataRef-phone text-slate-200 font-mono"
-                                                data-h-data-ref="pip"></span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.phone"></span>
                                         </div>
                                         <div class="flex justify-between gap-4">
                                             <span class="text-slate-400 font-bold">Vendor</span>
-                                            <span class="h--dataRef-stuff.vendor text-slate-200 font-mono"
-                                                data-h-data-ref="pip"></span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.stuff.vendor">under20bucks</span>
                                         </div>
                                     </div>
                                 </div>
@@ -2375,11 +2375,42 @@ core.ud.postflight = (ref, obj, type) => {
 
         function core_pk_bridge_render() {
             if (typeof core === 'undefined' || !core.cr) return;
+            
+            // Update JSON debug views
             core_pk_bridge_setJson('core_pk_bridgeQuoteJson', core.cr.getData('quote'));
             core_pk_bridge_setJson('core_pk_bridgeJokeJson', core.cr.getData('joke'));
             core_pk_bridge_setJson('core_pk_bridgePipJson', core.cr.getData('pip'));
             core_pk_bridge_setJson('core_pk_bridgePopJson', core.cr.getData('pop'));
 
+            // Update UI elements directly as fallback
+            const quoteData = core.cr.getData('quote') || {};
+            const jokeData = core.cr.getData('joke') || 'Loading...';
+            const pipData = core.cr.getData('pip') || {};
+            
+            // Update quote
+            const quoteEl = document.querySelector('[data-h-data-ref="quote.quote"]');
+            const authorEl = document.querySelector('[data-h-data-ref="quote.author"]');
+            if (quoteEl) quoteEl.textContent = quoteData.quote || 'No quote available';
+            if (authorEl) authorEl.textContent = quoteData.author || 'Unknown';
+            
+            // Update joke
+            const jokeEl = document.querySelector('[data-h-data-ref="joke"]');
+            if (jokeEl) jokeEl.textContent = jokeData;
+            
+            // Update pip data
+            if (pipData) {
+                const pipNameEl = document.querySelector('[data-h-data-ref="pip.name"]');
+                const pipTitleEl = document.querySelector('[data-h-data-ref="pip.title"]');
+                const pipPhoneEl = document.querySelector('[data-h-data-ref="pip.phone"]');
+                const pipVendorEl = document.querySelector('[data-h-data-ref="pip.stuff.vendor"]');
+                
+                if (pipNameEl) pipNameEl.textContent = pipData.name || '';
+                if (pipTitleEl) pipTitleEl.textContent = pipData.title || '';
+                if (pipPhoneEl) pipPhoneEl.textContent = pipData.phone || '';
+                if (pipVendorEl) pipVendorEl.textContent = pipData.stuff?.vendor || '';
+            }
+
+            // Use core's hydration if available
             if (core.hf && core.hf.hydrateByClass) {
                 core.hf.hydrateByClass('h--dataRef');
             }
@@ -2510,13 +2541,7 @@ core.ud.postflight = (ref, obj, type) => {
                             ts: '2024-07-16',
                             stuff: { food: 'pear' },
                             more: [
-                                {
-                                    color: 'red',
-                                    hues: [
-                                        { color: 'fire engine' },
-                                        { color: 'candy apple' }
-                                    ]
-                                }
+                                { color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }
                             ]
                         },
                         {
@@ -2554,11 +2579,57 @@ core.ud.postflight = (ref, obj, type) => {
             return dataObj;
         }
 
-        // Logic Bridge - Data Fetching and Storage
-        core.cr.getData('quote', 'https://dummyjson.com/quotes/random/');
-        core.cr.getData('joke', 'https://dadjokes.developersandbox.xyz/api/v1/random');
+        // Logic Bridge - Data Fetching and Storage with proper binding
+        // Set static data first
+        core.cr.setData('pip', { 
+            name: 'fRoDo', 
+            title: 'LoR', 
+            id: 33, 
+            phone: 8881231234, 
+            stuff: { vendor: 'under20bucks' } 
+        });
+        
+        // Initial render with default data
+        core.cr.setData('quote', {
+            quote: 'Loading quote...',
+            author: 'Loading...'
+        });
+        
+        core.cr.setData('joke', 'Loading joke...');
+        
+        // Trigger initial render
+        core_pk_bridge_render();
+        
+        // Fetch and set quote data
+        fetch('https://dummyjson.com/quotes/random/')
+            .then(res => res.json())
+            .then(data => {
+                core.cr.setData('quote', {
+                    quote: data.quote,
+                    author: data.author
+                });
+                core_pk_bridge_render();
+            })
+            .catch(() => {
+                core.cr.setData('quote', {
+                    quote: 'Failed to load quote. Please try again later.',
+                    author: 'Error'
+                });
+                core_pk_bridge_render();
+            });
 
-        core.cr.setData('pip', { name: 'fRoDo', title: 'LoR', id: 33, phone: 8881231234, stuff: { vendor: 'under20bucks' } });
+        // Fetch and set joke data
+        fetch('https://dadjokes.developersandbox.xyz/api/v1/random')
+            .then(res => res.json())
+            .then(data => {
+                core.cr.setData('joke', data.joke || 'No joke found');
+                core_pk_bridge_render();
+            })
+            .catch(() => {
+                core.cr.setData('joke', 'Failed to load joke. Please try again later.');
+                core_pk_bridge_render();
+            });
+        
         core.cr.setData('pop', [
             { name: 'fred', paid: 21.58, ts: 1721788872, phone: 8011231233, stuff: { food: 'pizza' }, more: [{ color: 'blue' }, { color: 'gold' }] },
             { name: 'jake', paid: 2.11, ts: 1721188872, phone: 8018760408, stuff: { food: 'pear' }, more: [{ color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }] },
