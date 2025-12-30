@@ -1,6 +1,6 @@
-# C.O.R.E.js (Component Oriented Rendering Engine)
+# core.sbs (Component Oriented Rendering Engine)
 
-C.O.R.E.js is a lightweight, client-side rendering and state management library designed to facilitate the decoupling of data, templates, and DOM logic. It leverages modern asynchronous patterns to provide a seamless "pocket-based" component architecture without the overhead of a virtual DOM.
+core.sbs is a lightweight, client-side rendering and state management library designed to facilitate the decoupling of data, templates, and DOM logic. It leverages modern asynchronous patterns to provide a seamless "pocket-based" component architecture without the overhead of a virtual DOM.
 
 ## Technical Overview
 
@@ -110,5 +110,5 @@ core.init();
 
 ## Security Considerations
 
-*   **Sanitization:** C.O.R.E.js provides `nohtml` and `removehtml` scrubbers. It is highly recommended to apply these to user-generated content before injection.
+*   **Sanitization:** core.sbs provides `nohtml` and `removehtml` scrubbers. It is highly recommended to apply these to user-generated content before injection.
 *   **Data Exposure:** Storage ID `1` (Static) exposes data in the DOM. Use Storage ID `0` (DOM) for sensitive state data that should not be visible in "View Source".
