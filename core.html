@@ -117,10 +117,10 @@
 
             <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-4 xl:mt-0" id="navbarNav">
                 <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
-                    <li class="w-full xl:w-auto"><a href="core.html" class="nav-link-premium">Home</a>
+                    <li class="w-full xl:w-auto"><a href="#" target="#main" data-core-templates="home" class="nav-link-premium">Home</a>
                     </li>
-                    <li class="w-full xl:w-auto"><a href="core.html#philosophy" class="nav-link-premium">About</a></li>
-                    <li class="w-full xl:w-auto"><a href="documentation.html" class="nav-link-premium">Docs</a></li>
+                    <li class="w-full xl:w-auto"><a href="#" target="#main" data-core-templates="philosophy" class="nav-link-premium">About</a></li>
+                    <li class="w-full xl:w-auto"><a href="#" target="#main" data-core-templates="docs" class="nav-link-premium">Docs</a></li>
                                         <li class="relative group w-full xl:w-auto">
                         <a class="nav-link-premium flex items-center justify-between xl:justify-start" href="#">
                             <span>Demos</span>
@@ -136,17 +136,17 @@
                             class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
 
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="core.html#bridge">Logic Bridge</a></li>
+                                    href="#" target="#main" data-core-templates="bridge">Logic Bridge</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="core.html#stuff">Product Grid</a></li>
+                                    href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="core.html#deep">Recursive Logic</a></li>
+                                    href="#" target="#main" data-core-templates="deep">Recursive Logic</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white font-bold text-primary-light"
-                                    href="core.html#user">Form Engine</a></li>
+                                    href="#" target="#main" data-core-templates="user">Form Engine</a></li>
                         </ul>
                     </li>
                     <li class="w-full xl:w-auto">
-                        <a href="core.html#news" class="nav-link-premium">Scammer News</a>
+                        <a href="#" target="#main" data-core-templates="news" class="nav-link-premium">Scammer News</a>
                     </li>
                     <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener"
@@ -420,10 +420,12 @@
             </div>
         </template>
 
+        <!-- Logic Bridge Template -->
+
         <template name="bridge">
             <div class="container mx-auto px-4 py-16 md:py-32">
                 <div class="flex flex-col lg:flex-row gap-12">
-                    <div class="lg:w-2/3">
+                    <div class="w-full">
                         <div class="glass p-6 md:p-12 h-full">
                             <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">The Logic
                                 Bridge</h1>
@@ -486,24 +488,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div class="bg-black/40 border border-white/10 rounded-xl p-4 overflow-x-auto">
-                                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">quote</div>
-                                                <pre id="core_pk_bridgeQuoteJson" class="text-[11px] text-emerald-400 font-mono"></pre>
-                                            </div>
-                                            <div class="bg-black/40 border border-white/10 rounded-xl p-4 overflow-x-auto">
-                                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">joke</div>
-                                                <pre id="core_pk_bridgeJokeJson" class="text-[11px] text-emerald-400 font-mono"></pre>
-                                            </div>
-                                            <div class="bg-black/40 border border-white/10 rounded-xl p-4 overflow-x-auto">
-                                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">pip</div>
-                                                <pre id="core_pk_bridgePipJson" class="text-[11px] text-emerald-400 font-mono"></pre>
-                                            </div>
-                                            <div class="bg-black/40 border border-white/10 rounded-xl p-4 overflow-x-auto">
-                                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">pop</div>
-                                                <pre id="core_pk_bridgePopJson" class="text-[11px] text-emerald-400 font-mono"></pre>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1304,6 +1288,408 @@ core.ud.postflight = (ref, obj, type) => {
                 </div>
             </div>
         </template>
+
+        <!-- Docs Template -->
+         <template name="docs">
+            <div class="container mt-20 mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <header class="mb-20 text-left">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 font-outfit bg-gradient-to-r from-primary via-accent to-accent-light bg-clip-text text-transparent leading-tight">
+            core.js Documentation
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed mb-12">
+            A revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Build dynamic, data-driven web interfaces with simple HTML attributes.
+        </p>
+    </header>
+    
+    <section id="introduction" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Introduction</h2>
+            <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                Core.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="glass p-6 text-center">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <h3 class="font-bold text-white mb-2">Lightning Fast</h3>
+                    <p class="text-slate-400 text-sm">Zero virtual DOM overhead with direct DOM manipulation</p>
+                </div>
+                <div class="glass p-6 text-center">
+                    <div class="text-3xl mb-3">🔧</div>
+                    <h3 class="font-bold text-white mb-2">Dependency Free</h3>
+                    <p class="text-slate-400 text-sm">No external dependencies required</p>
+                </div>
+                <div class="glass p-6 text-center">
+                    <div class="text-3xl mb-3">📱</div>
+                    <h3 class="font-bold text-white mb-2">Responsive</h3>
+                    <p class="text-slate-400 text-sm">Built for modern web applications</p>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-4 text-white">Installation</h3>
+            <div class="glass p-6">
+                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;!-- Production version -->
+&lt;script src="https://core.sbs/core.js">&lt;/script>
+
+&lt;!-- Specific version (recommended) -->
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js">&lt;/script></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="quick-start" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Quick Start</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
+                        <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+                        Define a Template
+                    </h3>
+                    <div class="glass p-6">
+                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="userCard">
+        &lt;div class="user-card">
+            &lt;h3>{{rec:name}}&lt;/h3>
+            &lt;p>{{rec:email}}&lt;/p>
+            &lt;img {{rec:avatar:core_pk_attr:src}} alt="User Avatar">
+        &lt;/div>
+    &lt;/template>
+&lt;/section></code></pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
+                        <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+                        Create a Pocket
+                    </h3>
+                    <div class="glass p-6">
+                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;div class="core-pocket" 
+     data-core-templates="userCard" 
+     data-core-source-userCard="https://api.example.com/users/1">
+&lt;/div></code></pre>
+                    </div>
+                </div>
+
+                <div class="glass p-6 bg-primary/5 border-primary/20">
+                    <h4 class="text-lg font-bold text-primary mb-2">🎉 That's it!</h4>
+                    <p class="text-slate-300">Core.js will automatically fetch the data and render your template. No additional JavaScript required!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="data-referencing" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Data Referencing</h2>
+            
+            <div class="glass p-6 mb-8 bg-primary/5 border-primary/20">
+                <p class="text-lg text-slate-300 mb-2"><strong class="text-primary">Syntax:</strong></p>
+                <code class="text-xl text-primary font-mono bg-dark-darker/50 px-4 py-2 rounded-lg block">{{type:object-member:format:clue}}</code>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-6 text-white">Examples</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Syntax</th>
+                            <th class="text-left">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary">{{rec:name}}</code></td>
+                            <td>Simple property access</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:balance:money:$}}</code></td>
+                            <td>Currency formatting with dollar sign</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:status:upper}}</code></td>
+                            <td>Uppercase transformation</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:email:emaillink}}</code></td>
+                            <td>Email link generation</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:url:urllink}}</code></td>
+                            <td>URL link generation</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:image:imgsrc}}</code></td>
+                            <td>Image source attribute</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:customer.address.city}}</code></td>
+                            <td>Nested property access</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:items:core_pk_cloner:item}}</code></td>
+                            <td>Array cloning with template</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="attributes" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Attributes</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Attribute</th>
+                            <th class="text-left">Description</th>
+                            <th class="text-left">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary">data-core-templates</code></td>
+                            <td>Template names to load</td>
+                            <td><code class="text-primary">data-core-templates="user,profile"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">data-core-source</code></td>
+                            <td>Default data source URL</td>
+                            <td><code class="text-primary">data-core-source="/api/user"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">data-core-source-[name]</code></td>
+                            <td>Template-specific source</td>
+                            <td><code class="text-primary">data-core-source-profile="/api/profile"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="custom-functions" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Custom Functions</h2>
+            
+            <div class="space-y-6">
+                <div class="glass p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Initialization</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>// Initialize Core.js
+core.ud.init = () => {
+    core.useRouting = false;
+    core.useDebugger = window.location.hostname === 'localhost';
+};</code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Lifecycle Hooks</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>// Before data fetch
+core.ud.preflight = (dataRef, dataSrc, type) => {
+    // Modify request settings
+    return { dataRef, dataSrc, type };
+};
+
+// After data fetch, before rendering
+core.ud.postflight = (dataRef, dataObj, type) => {
+    // Process data before rendering
+    return dataObj;
+};</code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Custom Formatters</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>core.ud.formatValue = (value, formatList, clue) => {
+    for (const format of formatList) {
+        switch (format) {
+            case 'uppercase': return String(value).toUpperCase();
+            case 'lowercase': return String(value).toLowerCase();
+            case 'truncate': 
+                const length = clue ? parseInt(clue) : 100;
+                return value.length > length ? value.substring(0, length) + '...' : value;
+        }
+    }
+    return value;
+};</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="api-reference" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">API Reference</h2>
+            
+            <h3 class="text-2xl font-bold mb-6 text-white">Core Methods</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Method</th>
+                            <th class="text-left">Description</th>
+                            <th class="text-left">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary">core.cr.setData(name, data)</code></td>
+                            <td>Store data in registry</td>
+                            <td><code class="text-primary">core.cr.setData('user', {name: 'John'})</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">core.cr.getData(name)</code></td>
+                            <td>Retrieve data from registry</td>
+                            <td><code class="text-primary">const user = core.cr.getData('user')</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">core.be.getData(ref, src)</code></td>
+                            <td>Fetch data from URL</td>
+                            <td><code class="text-primary">core.be.getData('users', '/api/users')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="examples" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Examples</h2>
+            
+            <div class="space-y-12">
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Basic User Card</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="users">
+        &lt;div class="user-card">
+            &lt;h3>{{rec:name}}&lt;/h3>
+            &lt;p>{{rec:email}}&lt;/p>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-core-source-users="api/v1/users">
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Product List with Formatting</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="productList">
+        &lt;div class="product">
+            &lt;h3>{{rec:title}}&lt;/h3>
+            &lt;p>{{rec:description}}&lt;/p>
+            &lt;div class="price">{{rec:price:money:$}}&lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="productList" 
+     data-core-source-productList="https://fakestoreapi.com/products">
+    Loading products...
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Recursive Data Cloning</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="colors">
+        &lt;div class="color-item">
+            &lt;span>{{rec:name:upper}}&lt;/span>
+            &lt;span>{{rec:value}}&lt;/span>
+            &lt;div>{{rec:children:core_pk_cloner:colors}}&lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-clone" 
+     data-core-source="https://api.example.com/colors">
+    &lt;div class="color-item">
+        &lt;span>{{rec:name:upper}}&lt;/span>
+        &lt;span>{{rec:value}}&lt;/span>
+        &lt;div>{{rec:children:core_pk_cloner:colors}}&lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Advanced Data Formatting</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="transaction">
+        &lt;div class="transaction">
+            &lt;span class="user">{{rec:name:upper}}&lt;/span>
+            paid 
+            &lt;span class="amount">{{rec:paid:money:$}}&lt;/span>
+            on 
+            &lt;span class="date">{{rec:ts:date:date}}&lt;/span>
+            for 
+            &lt;span class="item">{{rec:stuff.food}}&lt;/span>
+            &lt;div class="details">
+                {{rec:more:core_pk_cloner:details}}
+            &lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-clone" 
+     data-core-source="https://dummyjson.com/products?limit=1">
+    &lt;div class="transaction">
+        &lt;span class="user">{{rec:name:upper}}&lt;/span>
+        paid 
+        &lt;span class="amount">{{rec:paid:money:$}}&lt;/span>
+        on 
+        &lt;span class="date">{{rec:ts:date:date}}&lt;/span>
+        for 
+        &lt;span class="item">{{rec:stuff.food}}&lt;/span>
+        &lt;div class="details">
+            {{rec:more:core_pk_cloner:details}}
+        &lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Multiple Data Sources</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="userProfile">
+        &lt;h2>{{rec:name}}&lt;/h2>
+        &lt;p>{{rec:email}}&lt;/p>
+        &lt;div class="orders">
+            {{rec:orders:core_pk_cloner:orderItem}}
+        &lt;/div>
+    &lt;/template>
+    
+    &lt;template name="orderItem">
+        &lt;div class="order">
+            &lt;span>{{rec:product}}&lt;/span>
+            &lt;span>{{rec:price:money:$}}&lt;/span>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="userProfile" 
+     data-core-source-userProfile="api/v1/users/123"
+     data-core-source-orderItem="api/v1/orders">
+&lt;/div></code></pre>
+                </div>
+            </div>
+            
+            <div class="glass p-6 bg-primary/5 border-primary/20 mt-8">
+                <h4 class="text-lg font-bold text-primary mb-2">🚀 Try it yourself!</h4>
+                <p class="text-slate-300">Copy these code examples into your HTML file and watch Core.js work its magic!</p>
+            </div>
+        </div>
+    </section>
+</div>
+         </template>
 
         <!-- LICENSE TEMPLATE -->
         <template name="license">
