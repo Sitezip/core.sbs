@@ -844,12 +844,12 @@ const core = (() => {
                  *
                  * @returns {void}
                  */
-                eoc: () => {
+                pk_eol: () => {
                     core.hf.hydrateByClass();
                     setTimeout(() => { //setTimeout added in attempt to fix formatting bug 20240821
                         core.hf.formatByClass();
-                        if (typeof core.ud.eoc === "function") {
-                            core.ud.eoc();
+                        if (typeof core.ud.pk_eol === "function") {
+                            core.ud.pk_eol();
                         }
                     })
 
@@ -902,7 +902,7 @@ const core = (() => {
                  * 4. Renders templates.
                  * 5. Fetches data.
                  * 6. Renders data (clones).
-                 * 7. Calls `eoc` (End of Call).
+                 * 7. Calls `pk_eol` (End of Call).
                  * 
                  * @async
                  * @returns {Promise<void>}
@@ -927,7 +927,7 @@ const core = (() => {
                         console.error("core.js error in soc lifecycle", e);
                     }
 
-                    core.pk.eoc();
+                    core.pk.pk_eol();
                 },
                 /**
                  * Scans the DOM for `data-core-templates` attributes and fetches missing templates.
@@ -1028,6 +1028,7 @@ const core = (() => {
                         const records = core.cr.getData(dataRef) || [];
                         const cloned = clone.cloneNode(true);
                         const clonedClass = "core-cloned-" + dataRef.split('-').map(s => core.sv.scrubSimple('temp', s, ['alphaonly']).value).join('-');
+                        cloned.classList.add(clonedClass);
                         cloned.removeAttribute('core-source');
                         cloned.removeAttribute('data-core-source');
                         cloned.removeAttribute('core-data');
@@ -1436,7 +1437,7 @@ const core = (() => {
          * core.ud.postflight() called post all backend requests
          * core.ud.prepaint() called prior to each template insert
          * core.ud.postpaint() called post each template insert (and cloning)
-         * core.ud.eoc() called at end of process
+         * core.ud.pk_eol() called at end of process
          *
          * core.ud.formatValue() called after core.ux.formatValue()
         * */

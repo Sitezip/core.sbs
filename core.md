@@ -1,4 +1,4 @@
-# C.O.R.E
+# core.js
 *Create Once, Render Everywhere*
 
 A lightweight, dependency-free JavaScript library for building dynamic, data-driven web interfaces using simple HTML attributes. Now modernized with async/await and cleaner syntax.
@@ -74,7 +74,7 @@ Inject data directly into HTML attributes.
 Hook into the lifecycle to customize behavior.
 
 *   `core.ud.soc()` - Start of Call (before anything happens)
-*   `core.ud.eoc()` - End of Call (after everything is rendered)
+*   `core.ud.pk_eol()` - End of Call (after everything is rendered)
 *   `core.ud.preflight(dataRef, dataSrc, type)` - Modify fetch settings before request.
 *   `core.ud.postflight(dataRef, dataObj, type)` - Process data after fetch.
 *   `core.ud.prepaint(dataRef, dataObj, type)` - Before rendering a template/clone.
