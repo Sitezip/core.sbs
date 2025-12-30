@@ -142,15 +142,15 @@
                             <li class="border-t border-white/10 my-2 mx-2"></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
                                     href="#" target="#main" data-core-templates="deep">Recursive Demo</a></li>
+                            <li class="border-t border-white/10 my-2 mx-2"></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white font-bold text-primary-light"
+                                    href="#" target="#main" data-core-templates="user">My Account</a></li>
                         </ul>
                     </li>
 
                     <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="user">Account</a></li>
-                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
                             data-core-templates="philosophy">Philosophy</a></li>
-                    <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
-                            data-core-templates="manual">Manual</a></li>
+                    <li class="w-full xl:w-auto"><a href="documentation.html" class="nav-link-premium">Manual</a></li>
                     <li class="w-full xl:w-auto"><a href="#" class="nav-link-premium" target="#main"
                             data-core-templates="cheatsheet">Cheatsheet</a></li>
                     <li class="w-full xl:w-auto">
@@ -736,111 +736,417 @@
         </template><!-- OTHER TEMPLATE -->
 
 
-        <!-- MANUAL TEMPLATE (Renders core.md) -->
+        <!-- MANUAL TEMPLATE (Comprehensive Guide) -->
         <template name="manual">
             <div class="container mx-auto px-4 py-16 md:py-32 text-white">
-                <div class="glass p-6 md:p-16 space-y-12">
+                <div class="glass p-6 md:p-16 space-y-20">
                     <header class="border-b border-white/10 pb-12">
-                        <span class="badge-premium mb-4 inline-block">Official Documentation</span>
-                        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">C.O.R.E Manual</h1>
-                        <p class="text-2xl text-slate-400 italic">Create Once, Render Everywhere</p>
+                        <span class="badge-premium mb-4 inline-block">The Complete Engine Reference</span>
+                        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 font-outfit tracking-tight">core.js Manual
+                        </h1>
+                        <p class="text-2xl text-slate-400 italic">Create Once, Render Everywhere — Orchestration without
+                            Overhead.</p>
                     </header>
 
-                    <div class="prose prose-invert max-w-none space-y-8">
-                        <p class="text-xl text-slate-300 leading-relaxed">A lightweight, dependency-free JavaScript
-                            library for building dynamic, data-driven web interfaces using simple HTML attributes. Now
-                            modernized with async/await and cleaner syntax.</p>
+                    <!-- INSTALLATION -->
+                    <section id="installation" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-2xl font-black">00</span>
+                            Installation
+                        </h2>
+                        <p class="text-xl text-slate-300 leading-relaxed max-w-3xl">Choose your preferred CDN option. No build tools required.</p>
+                        
+                        <div class="glass p-8 space-y-6">
+                            <h3 class="text-xl font-bold text-slate-200">CDN Options</h3>
+                            <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
+                                <pre class="text-emerald-400 text-sm"><code>&lt;!-- Option A: Production version via CDN --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
 
-                        <section class="space-y-4">
-                            <h2 class="text-3xl font-bold text-primary-light">Quick Start</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div class="space-y-4">
-                                    <h3 class="text-xl font-bold">1. Define a Template</h3>
-                                    <p class="text-slate-400">Create a <code>&lt;template&gt;</code> inside a hidden
-                                        section (default id <code>cr-data</code>).</p>
-                                    <div
-                                        class="bg-black p-6 rounded-2xl font-mono text-sm border border-white/5 shadow-inner">
-                                        <pre class="text-emerald-400"><code>&lt;template name="users"&gt;
-  &lt;div class="user-card"&gt;
-    &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
-    &lt;p&gt;{{rec:email}}&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/template&gt;</code></pre>
-                                    </div>
+&lt;!-- Option B: Historical version via CDN (advised) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js"&gt;&lt;/script&gt;
+
+&lt;!-- Option C: Production --&gt;
+&lt;script src="https://core.sbs/core.js"&gt;&lt;/script&gt;</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <nav
+                        class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 no-underline">
+                        <a href="#quick-start"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Quick
+                            Start</a>
+                        <a href="#attributes"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Attributes</a>
+                        <a href="#referencing"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Referencing</a>
+                        <a href="#formatting"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Formatting</a>
+                        <a href="#hooks"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Lifecycle
+                            Hooks</a>
+                        <a href="#helpers"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Helper
+                            API</a>
+                        <a href="#expert"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Expert
+                            Mode</a>
+                    </nav>
+
+                    <!-- QUICK START -->
+                    <section id="quick-start" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-2xl font-black">01</span>
+                            Quick Start
+                        </h2>
+                        <p class="text-xl text-slate-300 leading-relaxed max-w-3xl">core.js is dependency-free. Just
+                            import the script and start defining pockets of logic in your HTML.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-6">
+                                <h3 class="text-xl font-bold text-slate-200">1. Define a Template</h3>
+                                <p class="text-slate-400">Templates and data live inside a hidden <code>cr-data</code>
+                                    section.</p>
+                                <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
+                                    <pre class="text-emerald-400"><code>&lt;section id="cr-data" style="display:none;"&gt;
+  &lt;template name="users"&gt;
+    &lt;div class="user-card"&gt;
+      &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+      &lt;p&gt;{{rec:email}}&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+&lt;/section&gt;</code></pre>
                                 </div>
-                                <div class="space-y-4">
-                                    <h3 class="text-xl font-bold">2. Create a Pocket</h3>
-                                    <p class="text-slate-400">Place a "pocket" where you want the content to appear.</p>
-                                    <div
-                                        class="bg-black p-6 rounded-2xl font-mono text-sm border border-white/5 shadow-inner">
-                                        <pre class="text-emerald-400"><code>&lt;div class="core-pocket" 
+                            </div>
+                            <div class="space-y-6">
+                                <h3 class="text-xl font-bold text-slate-200">2. Create a Pocket</h3>
+                                <p class="text-slate-400">Pockets are insertion points that fetch their own data.</p>
+                                <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
+                                    <pre class="text-emerald-400"><code>&lt;div class="core-pocket" 
      data-core-templates="users" 
-     data-core-source-users="api/users"&gt;
+     data-core-source-users="api/v1/users"&gt;
 &lt;/div&gt;</code></pre>
-                                    </div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
+                    </section>
 
-                        <section class="space-y-6 pt-8">
-                            <h2 class="text-3xl font-bold text-primary-light border-b border-white/5 pb-4">Attributes
-                                Reference</h2>
-                            <div class="overflow-hidden rounded-2xl border border-white/10">
-                                <table class="w-full text-left bg-white/5">
-                                    <thead>
-                                        <tr class="bg-white/10 text-white font-bold">
-                                            <th class="px-6 py-4">Attribute</th>
-                                            <th class="px-6 py-4">Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-slate-300">
-                                        <tr class="border-b border-white/5">
-                                            <td class="px-6 py-4 font-mono text-accent">data-core-templates</td>
-                                            <td class="px-6 py-4">Comma-separated list of template names to load.</td>
-                                        </tr>
-                                        <tr class="border-b border-white/5">
-                                            <td class="px-6 py-4 font-mono text-accent">data-core-source</td>
-                                            <td class="px-6 py-4">Default data source URL for the element.</td>
-                                        </tr>
-                                        <tr class="border-b border-white/5">
-                                            <td class="px-6 py-4 font-mono text-accent">data-core-data</td>
-                                            <td class="px-6 py-4">Reference name for the data object.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 font-mono text-accent">data-core-source-[name]</td>
-                                            <td class="px-6 py-4">Specific data source for a named template.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
+                    <!-- ATTRIBUTES REFERENCE -->
+                    <section id="attributes" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center text-accent text-2xl font-black">02</span>
+                            Attributes Reference
+                        </h2>
+                        <div class="glass overflow-hidden border border-white/10">
+                            <table class="w-full text-left">
+                                <thead
+                                    class="bg-white/5 border-b border-white/10 text-xs font-bold uppercase tracking-widest text-slate-500">
+                                    <tr>
+                                        <th class="px-8 py-6">Attribute</th>
+                                        <th class="px-8 py-6">Target</th>
+                                        <th class="px-8 py-6">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm divide-y divide-white/5">
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-core-templates</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Element /
+                                            Anchor</td>
+                                        <td class="px-8 py-6 text-slate-300">Comma-separated list of templates to
+                                            render.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-core-source</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Element /
+                                            Clone</td>
+                                        <td class="px-8 py-6 text-slate-300">URL or JSON string for the primary data
+                                            source.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-core-data</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Clone /
+                                            Silent</td>
+                                        <td class="px-8 py-6 text-slate-300">A custom reference name for the fetched
+                                            data.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-[name]-core-source</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Element /
+                                            Anchor</td>
+                                        <td class="px-8 py-6 text-slate-300">A specific data source for a named template
+                                            in the stack.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
 
-                        <section class="space-y-4 pt-8">
-                            <h2 class="text-3xl font-bold text-primary-light">Data Referencing</h2>
-                            <p class="text-slate-400">Syntax: <code>{{type:object-member:format-ref:clue}}</code></p>
-                            <div class="bg-black p-8 rounded-2xl font-mono text-base border border-white/5">
-                                <ul class="space-y-2">
-                                    <li><span class="text-slate-500">// Basic examples</span></li>
-                                    <li><span class="text-emerald-400">{{rec:firstName}}</span> <span
-                                            class="text-slate-500">-> John</span></li>
-                                    <li><span class="text-emerald-400">{{rec:balance:money:$}}</span> <span
-                                            class="text-slate-500">-> $1,234.56</span></li>
-                                    <li><span class="text-emerald-400">{{rec:status:upper}}</span> <span
-                                            class="text-slate-500">-> ACTIVE</span></li>
+                    <!-- DATA REFERENCING -->
+                    <section id="referencing" class="space-y-8 scroll-mt-32">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                            <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                                <span
+                                    class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-2xl font-black">03</span>
+                                Data Referencing
+                            </h2>
+                            <code
+                                class="text-xs bg-black/40 px-4 py-2 rounded-lg border border-white/5 font-mono text-slate-500">Syntax: {{type:ref:format:clue}}</code>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="glass p-8 space-y-6">
+                                <h3 class="text-xl font-bold text-white uppercase tracking-tighter">Token Types</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-4">
+                                        <div
+                                            class="bg-primary/10 text-primary-light px-2 py-1 rounded font-mono text-xs">
+                                            rec:</div>
+                                        <p class="text-sm text-slate-400 italic">Reference to a member of the current
+                                            record being cloned.</p>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div class="bg-accent/10 text-accent px-2 py-1 rounded font-mono text-xs">aug:
+                                        </div>
+                                        <p class="text-sm text-slate-400 italic">Augmented runtime values (index, count,
+                                            custom strings).</p>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div class="bg-white/10 text-white px-2 py-1 rounded font-mono text-xs">data:
+                                        </div>
+                                        <p class="text-sm text-slate-400 italic">Global reference to any cached data
+                                            source in the registry.</p>
+                                    </li>
                                 </ul>
                             </div>
-                        </section>
-                    </div>
+
+                            <div class="glass p-8 space-y-6 text-white font-mono text-sm overflow-x-auto">
+                                <h3 class="text-xl font-bold uppercase tracking-tighter">Advanced Digging</h3>
+                                <div class="space-y-3">
+                                    <p class="text-slate-500">// Deep object traversal</p>
+                                    <p class="text-emerald-400">{{rec:customer.shipping.address.city}}</p>
+                                    <p class="text-slate-500">// Array index and listing</p>
+                                    <p class="text-emerald-400">{{rec:tags.1}} <span class="text-slate-600">// Index
+                                            1</span></p>
+                            Formatting & Piping
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="glass p-8 space-y-4">
+                                <h4 class="font-bold text-white uppercase text-xs tracking-widest text-primary-light">
+                                    Standard</h4>
+                                <ul class="text-sm text-slate-400 space-y-2 font-mono">
+                                    <li>money:$</li>
+                                    <li>date / date-time</li>
+                                    <li>upper / lower</li>
+                                    <li>upperfirst</li>
+                                    <li>truncate:n</li>
+                                </ul>
+                            </div>
+                            <div class="glass p-8 space-y-4">
+                                <h4 class="font-bold text-white uppercase text-xs tracking-widest text-accent">
+                                    Structural</h4>
+                                <ul class="text-sm text-slate-400 space-y-2 font-mono">
+                                    <li>core_pk_cloner:name</li>
+                                    <li>core_pk_attr:attrName</li>
+                                    <li>linkify / urllink</li>
+                                    <li>emaillink</li>
+                                    <li>imgsrc</li>
+                                </ul>
+                            </div>
+                            <div class="glass p-8 space-y-4">
+                                <h4 class="font-bold text-white uppercase text-xs tracking-widest text-purple-400">
+                                    Piping (Expert)</h4>
+                                <p class="text-xs text-slate-400">Chain multiple formats using the pipe <code>|</code>
+                                    delimiter.</p>
+                                <div
+                                    class="bg-black/60 p-4 rounded-xl border border-white/10 font-mono text-[10px] text-emerald-400">
+                                    {{rec:detail:linkify|wrap:&bull;| }}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- LIFECYCLE HOOKS -->
+                    <section id="hooks" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-2xl font-black">05</span>
+                            Lifecycle Hooks
+                        </h2>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <p class="text-slate-400 italic leading-relaxed">The <code>core.ud</code> (User Defined)
+                                    registry allows you to intercept every stage of the orchestration.</p>
+                                <div class="glass p-8 font-mono text-sm space-y-4">
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.init()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Bootstrapping</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.soc()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Start of Call</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.preflight()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Fetch Request</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.postflight()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Data Receipt</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.prepaint()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Pre-rendering</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.pk_eol()</span>
+                                        <span class="text-slate-500 font-sans text-xs">End of Call</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass p-8 space-y-6">
+                                <h4 class="font-bold text-white uppercase text-xs tracking-widest">Augmentation Hooks
+                                </h4>
+                                <div class="space-y-6">
+                                    <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
+                                        <code
+                                            class="text-xs text-primary-light font-bold">core.ud.cloneValue(record, args)</code>
+                                        <p class="text-xs text-slate-400 leading-relaxed">Invoked by
+                                            <code>{{aug:value}}</code> during cloning to return custom dynamic values
+                                            based on the record.</p>
+                                    </div>
+                                    <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
+                                        <code
+                                            class="text-xs text-primary-light font-bold">core.ud.cloneString(record, args)</code>
+                                        <p class="text-xs text-slate-400 leading-relaxed">Invoked by
+                                            <code>{{aug:string}}</code>. Allows raw manipulation of the template string
+                                            before it's injected.</p>
+                                    </div>
+                                    <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
+                                        <code
+                                            class="text-xs text-primary-light font-bold">core.ud.getTemplate(name, templateStr)</code>
+                                        <p class="text-xs text-slate-400 leading-relaxed">Modify fetched templates
+
+&lt;!-- defining data/template silent request --&gt;
+&lt;a href="#" class="nav-link" target="core_be_getData" 
+   data-core-templates="silent" 
+   data-core-source-silent="https://dummyjson.com/products?limit=1"&gt;
+   Silent Data&lt;/a&gt;
+&lt;a href="#" class="nav-link" target="core_be_getTemplate" 
+   data-core-templates="author" 
+   data-core-source-author="/html/author.html"&gt;
+   Silent Template&lt;/a&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+                            Helper API (core.hf)
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                                <code class="text-xs text-emerald-400">copy(text)</code>
+                                <p class="text-[11px] text-slate-500">Copy to clipboard with invisible textarea
+                                    fallback.</p>
+                            </div>
+                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                                <code class="text-xs text-emerald-400">uuid()</code>
+                                <p class="text-[11px] text-slate-500">Generate a compliant v4-like unique identifier.
+                                </p>
+                            </div>
+                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                                <code class="text-xs text-emerald-400">sortObj(arr, key)</code>
+                                <p class="text-[11px] text-slate-500">High-performance object array sorting (ASC/DESC).
+                                </p>
+                            </div>
+                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                                <code class="text-xs text-emerald-400">digData(obj, ref)</code>
+                                <p class="text-[11px] text-slate-500">The engine's internal recursive digging logic.</p>
+                            </div>
+                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                                <code class="text-xs text-emerald-400">date(str, format)</code>
+                                <p class="text-[11px] text-slate-500">Versatile date formatter with TS/ISO/PERF tokens.
+                                </p>
+                            </div>
+                            <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- EXPERT MODE -->
+                    <section id="expert" class="space-y-8 scroll-mt-32">
+                        <div
+                            class="p-12 md:p-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-[3rem] border border-white/10 relative overflow-hidden group">
+                            <div
+                                class="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 blur-[100px] rounded-full group-hover:scale-150 transition-transform duration-1000">
+                            </div>
+                            <h2 class="text-4xl md:text-5xl font-black text-white mb-8">Expert Mode: Silent
+                                Orchestration</h2>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+                                <div class="space-y-6">
+                                    <p class="text-lg text-slate-300 leading-relaxed">Static anchor tags can trigger
+                                        background syncs without any UI flicker or state transition.</p>
+                                    <div
+                                        class="bg-black/80 p-8 rounded-3xl border border-white/10 font-mono text-sm space-y-4">
+                                        <p class="text-slate-500">// Silent Data Fetching</p>
+                                        <pre class="text-primary-light"><code>&lt;a href="#" 
+   target="core_be_getData" 
+   data-core-data="globalStore" 
+   data-core-source="api/data"&gt;
+   Background Sync
+&lt;/a&gt;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="space-y-8">
+                                    <div class="flex items-start gap-6">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-white">
+                                            1</div>
+                                        <div>
+                                            <h4
+                                                class="font-bold text-white mb-2 underline decoration-primary decoration-4 underline-offset-4">
+                                                Internal Memory Access</h4>
+                                            <p class="text-sm text-slate-400">Access `core.be.fetchLogFIFO` to view
+                                                every network request's history and configuration.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-6">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-white">
+                                            2</div>
+                                        <div>
+                                            <h4
+                                                class="font-bold text-white mb-2 underline decoration-accent decoration-4 underline-offset-4">
+                                                Direct Registry Storage</h4>
+                                            <p class="text-sm text-slate-400">Manually push data to specific storage
+                                                layers (DOM, dataset, or session) via `core.cr.setData`.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
                     <footer
-                        class="pt-12 border-t border-white/10 flex justify-between items-center text-slate-500 text-sm">
-                        <p>&copy; 2025 core.js Development Team</p>
-                        <a href="#" target="#main" data-core-templates="cheatsheet"
-                            class="text-primary-light hover:underline">View Cheatsheet &rarr;</a>
+                        class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs font-bold uppercase tracking-widest gap-4">
+                        <p>&copy; 2025 core.js Development Team // Licensed MIT</p>
+                        <div class="flex gap-8">
+                            <a href="#" target="#main" data-core-templates="cheatsheet"
+                                class="text-primary-light hover:text-white transition-colors no-underline">Quick
+                                Cheatsheet</a>
+                            <a href="#main" class="text-slate-500 hover:text-white transition-colors no-underline">Back
+                                to Dashboard &uarr;</a>
+                        </div>
                     </footer>
                 </div>
             </div>
         </template>
+
 
         <!-- CHEATSHEET TEMPLATE (Renders core.txt equivalent) -->
         <template name="cheatsheet">
@@ -1087,21 +1393,6 @@ core.ud.postflight = (ref, obj, type) => {
             </div>
 
             <div>
-                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Platform</h4>
-                <ul class="space-y-4">
-                    <li><a href="#" target="#main" data-core-templates="home"
-                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Dashboard</a>
-                    </li>
-                    <li><a href="#" target="#main" data-core-templates="stuff"
-                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Components</a>
-                    </li>
-                    <li><a href="#" target="#main" data-core-templates="other"
-                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Architecture</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
                 <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Repository</h4>
                 <ul class="space-y-4">
                     <li><a href="https://github.com/Sitezip/core.sbs" target="_blank"
@@ -1111,7 +1402,7 @@ core.ud.postflight = (ref, obj, type) => {
                                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                 </path>
                             </svg></a></li>
-                    <li><a href="#" target="#main" data-core-templates="other"
+                    <li><a href="documentation.html"
                             class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Documentation</a>
                     </li>
                     <li><a href="#" target="#main" data-core-templates="license"
@@ -1288,7 +1579,13 @@ core.ud.postflight = (ref, obj, type) => {
 
         // INERTIA / TEST DATA
         core.be.getData('quote', 'https://dummyjson.com/quotes/random/');
-        core.cr.setData('pip', { name: 'Core Engineer', title: 'Architect', id: 1 });
+        core.be.getData('joke', 'https://dadjokes.developersandbox.xyz/api/v1/random');
+        core.cr.setData('pip', { name: 'fRoDo', title: 'LoR', id: 33, phone: 8881231234, stuff: { vendor: 'under20bucks' } });
+        core.cr.setData('pop', [
+            { name: 'fred', paid: 21.58, ts: 1721788872, phone: 8011231233, stuff: { food: 'pizza' }, more: [{ color: 'blue' }, { color: 'gold' }] },
+            { name: 'jake', paid: 2.11, ts: 1721188872, phone: 8018760408, stuff: { food: 'pear' }, more: [{ color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }] },
+            { name: 'jaker', paid: 6.87, ts: 1721798872, phone: 8011231233, stuff: { food: 'banana' }, more: [{ color: 'yellow' }, { color: 'orange' }, { color: 'pink', hues: [{ color: 'bright' }, { color: 'hot' }] }, { color: 'magenta', hues: [{ color: 'dark' }, { color: 'hot' }, { color: 'magnetic' }] }] }
+        ]);
     </script>
 </body>
 

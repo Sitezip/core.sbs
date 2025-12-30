@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core.js Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#6366f1',
+                            dark: '#4338ca',
+                            light: '#818cf8',
+                            glow: 'rgba(99, 102, 241, 0.5)',
+                        },
+                        accent: {
+                            DEFAULT: '#06b6d4',
+                            glow: 'rgba(6, 182, 212, 0.5)',
+                        },
+                        dark: {
+                            DEFAULT: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="core.svg">
+    <link rel="stylesheet" href="core.css">
+    <script src="core.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #e2e8f0;
+            background-color: var(--dark-darker);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .status-light {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: blink 2s infinite;
+            box-shadow: 0 0 10px #22c55e;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        pre {
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 3rem 0 1.5rem;
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        h2 {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        h2:before {
+            content: '#';
+            position: absolute;
+            left: -1.5rem;
+            opacity: 0;
+            color: var(--primary);
+            transition: opacity 0.2s ease;
+        }
+        
+        h2:hover:before {
+            opacity: 1;
+        }
+        
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        
+        pre, code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            color: #e2e8f0;
+        }
+        
+        pre {
+            padding: 1.5rem;
+            overflow-x: auto;
+            position: relative;
+            margin: 2rem 0;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+        }
+        
+        pre:before {
+            display: none;
+        }
+        
+        pre:after {
+            display: none;
+        }
+        
+        code {
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+        
+        pre code {
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-size: 0.9em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            font-weight: 600;
+            color: var(--primary-light);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .note {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0.04) 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 0.75rem 0.75rem 0;
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .note:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--accent-light));
+        }
+        
+        .note p:first-child {
+            margin-top: 0;
+        }
+        
+        .note p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .note p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .glass {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #94a3b8;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #e2e8f0;
+        }
+        
+        /* Syntax highlighting */
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: #64748b;
+        }
+        
+        .token.punctuation {
+            color: #94a3b8;
+        }
+        
+        .token.property,
+        .token.tag,
+        .token.boolean,
+        .token.number,
+        .token.constant,
+        .token.symbol,
+        .token.deleted {
+            color: #f472b6;
+        }
+        
+        .token.selector,
+        .token.attr-name,
+        .token.string,
+        .token.char,
+        .token.builtin,
+        .token.inserted {
+            color: #7dd3fc;
+        }
+        
+        .token.operator,
+        .token.entity,
+        .token.url,
+        .language-css .token.string,
+        .style .token.string {
+            color: #fde68a;
+        }
+        
+        .token.atrule,
+        .token.attr-value,
+        .token.keyword {
+            color: #a78bfa;
+        }
+        
+        .token.function,
+        .token.class-name {
+            color: #60a5fa;
+        }
+        
+        .token.regex,
+        .token.important,
+        .token.variable {
+            color: #f59e0b;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                padding-top: 80px;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.5rem; }
+            
+            pre {
+                padding: 1rem;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+   <!-- Navbar -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a class="flex items-center" href="core.html">
+                <div class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
+                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));"></div>
+            </a>
+
+            <button class="xl:hidden text-white p-2 hover:bg-white/5 rounded-xl transition-colors focus:outline-none"
+                type="button" onclick="document.getElementById('navbarNav').classList.toggle('hidden')" title="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M4 6h16M4 12h16m-16 6h16">
+                    </path>
+                </svg>
+            </button>
+
+            <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-4 xl:mt-0" id="navbarNav">
+                <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
+                    <li class="w-full xl:w-auto"><a href="core.html" class="nav-link-premium">Home</a>
+                    </li>
+
+                    <li class="relative group w-full xl:w-auto">
+                        <a class="nav-link-premium flex items-center justify-between xl:justify-start" href="#">
+                            <span>Demos</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </a>
+                        <!-- Invisible padding bridge to keep dropdown open -->
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
+                        <ul
+                            class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="core.html#bridge">Logic Bridge</a></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="core.html#stuff">Product Grid</a></li>
+                            <li class="border-t border-white/10 my-2 mx-2"></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
+                                    href="core.html#deep">Recursive Demo</a></li>
+                            <li class="border-t border-white/10 my-2 mx-2"></li>
+                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white font-bold text-primary-light"
+                                    href="core.html#user">My Account</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="w-full xl:w-auto"><a href="core.html#philosophy" class="nav-link-premium">Philosophy</a></li>
+                    <li class="w-full xl:w-auto"><a href="documentation.html" class="nav-link-premium">Manual</a></li>
+                    <li class="w-full xl:w-auto"><a href="core.html#cheatsheet" class="nav-link-premium">Cheatsheet</a></li>
+                    <li class="w-full xl:w-auto">
+                        <a href="core.html#news" class="nav-link-premium">Scammer News</a>
+                    </li>
+
+                    <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
+                        <a href="https://github.com/Sitezip/core.sbs" target="_blank"
+                            class="btn-premium whitespace-nowrap text-decoration-none w-full xl:w-auto block">Get
+                            Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <header class="mb-20 text-left">
+        <div class="inline-flex items-center px-6 py-3 mb-8 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
+            <span class="status-light"></span>
+            <span class="text-sm font-bold text-primary uppercase tracking-wider">v2.0.0</span>
+            <span class="mx-3 text-slate-500">•</span>
+            <span class="text-sm text-slate-400">Latest Release</span>
+        </div>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 font-outfit bg-gradient-to-r from-primary via-accent to-accent-light bg-clip-text text-transparent leading-tight">
+            Core.js Documentation
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed mb-12">
+            A revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Build dynamic, data-driven web interfaces with simple HTML attributes.
+        </p>
+        <div class="flex flex-wrap gap-6">
+            <a href="#quick-start" class="btn-premium px-8 py-4 text-lg font-semibold shadow-2xl shadow-primary/30 hover:shadow-primary/40 transform hover:-translate-y-1 transition-all duration-300">
+                Get Started →
+            </a>
+            <a href="#examples" class="glass px-8 py-4 text-lg font-semibold text-white hover:bg-white/10 transform hover:-translate-y-1 transition-all duration-300">
+                View Examples
+            </a>
+        </div>
+    </header>
+    
+    <section id="introduction" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Introduction</h2>
+            <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                Core.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="glass p-6 text-center">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <h3 class="font-bold text-white mb-2">Lightning Fast</h3>
+                    <p class="text-slate-400 text-sm">Zero virtual DOM overhead with direct DOM manipulation</p>
+                </div>
+                <div class="glass p-6 text-center">
+                    <div class="text-3xl mb-3">🔧</div>
+                    <h3 class="font-bold text-white mb-2">Dependency Free</h3>
+                    <p class="text-slate-400 text-sm">No external dependencies required</p>
+                </div>
+                <div class="glass p-6 text-center">
+                    <div class="text-3xl mb-3">📱</div>
+                    <h3 class="font-bold text-white mb-2">Responsive</h3>
+                    <p class="text-slate-400 text-sm">Built for modern web applications</p>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-4 text-white">Installation</h3>
+            <div class="glass p-6">
+                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;!-- Production version -->
+&lt;script src="https://core.sbs/core.js">&lt;/script>
+
+&lt;!-- Specific version (recommended) -->
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js">&lt;/script></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="quick-start" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Quick Start</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
+                        <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+                        Define a Template
+                    </h3>
+                    <div class="glass p-6">
+                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="userCard">
+        &lt;div class="user-card">
+            &lt;h3>{{rec:name}}&lt;/h3>
+            &lt;p>{{rec:email}}&lt;/p>
+            &lt;img {{rec:avatar:core_pk_attr:src}} alt="User Avatar">
+        &lt;/div>
+    &lt;/template>
+&lt;/section></code></pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
+                        <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+                        Create a Pocket
+                    </h3>
+                    <div class="glass p-6">
+                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;div class="core-pocket" 
+     data-core-templates="userCard" 
+     data-core-source-userCard="https://api.example.com/users/1">
+&lt;/div></code></pre>
+                    </div>
+                </div>
+
+                <div class="glass p-6 bg-primary/5 border-primary/20">
+                    <h4 class="text-lg font-bold text-primary mb-2">🎉 That's it!</h4>
+                    <p class="text-slate-300">Core.js will automatically fetch the data and render your template. No additional JavaScript required!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="data-referencing" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Data Referencing</h2>
+            
+            <div class="glass p-6 mb-8 bg-primary/5 border-primary/20">
+                <p class="text-lg text-slate-300 mb-2"><strong class="text-primary">Syntax:</strong></p>
+                <code class="text-xl text-primary font-mono bg-dark-darker/50 px-4 py-2 rounded-lg block">{{type:object-member:format:clue}}</code>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-6 text-white">Examples</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Syntax</th>
+                            <th class="text-left">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary">{{rec:name}}</code></td>
+                            <td>Simple property access</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:balance:money:$}}</code></td>
+                            <td>Currency formatting with dollar sign</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:status:upper}}</code></td>
+                            <td>Uppercase transformation</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:email:emaillink}}</code></td>
+                            <td>Email link generation</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:url:urllink}}</code></td>
+                            <td>URL link generation</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:image:imgsrc}}</code></td>
+                            <td>Image source attribute</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:customer.address.city}}</code></td>
+                            <td>Nested property access</td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">{{rec:items:core_pk_cloner:item}}</code></td>
+                            <td>Array cloning with template</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="attributes" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Attributes</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Attribute</th>
+                            <th class="text-left">Description</th>
+                            <th class="text-left">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary">data-core-templates</code></td>
+                            <td>Template names to load</td>
+                            <td><code class="text-primary">data-core-templates="user,profile"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">data-core-source</code></td>
+                            <td>Default data source URL</td>
+                            <td><code class="text-primary">data-core-source="/api/user"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">data-core-source-[name]</code></td>
+                            <td>Template-specific source</td>
+                            <td><code class="text-primary">data-core-source-profile="/api/profile"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="custom-functions" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Custom Functions</h2>
+            
+            <div class="space-y-6">
+                <div class="glass p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Initialization</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>// Initialize Core.js
+core.ud.init = () => {
+    core.useRouting = false;
+    core.useDebugger = window.location.hostname === 'localhost';
+};</code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Lifecycle Hooks</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>// Before data fetch
+core.ud.preflight = (dataRef, dataSrc, type) => {
+    // Modify request settings
+    return { dataRef, dataSrc, type };
+};
+
+// After data fetch, before rendering
+core.ud.postflight = (dataRef, dataObj, type) => {
+    // Process data before rendering
+    return dataObj;
+};</code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Custom Formatters</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>core.ud.formatValue = (value, formatList, clue) => {
+    for (const format of formatList) {
+        switch (format) {
+            case 'uppercase': return String(value).toUpperCase();
+            case 'lowercase': return String(value).toLowerCase();
+            case 'truncate': 
+                const length = clue ? parseInt(clue) : 100;
+                return value.length > length ? value.substring(0, length) + '...' : value;
+        }
+    }
+    return value;
+};</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="api-reference" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">API Reference</h2>
+            
+            <h3 class="text-2xl font-bold mb-6 text-white">Core Methods</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Method</th>
+                            <th class="text-left">Description</th>
+                            <th class="text-left">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="text-primary">core.cr.setData(name, data)</code></td>
+                            <td>Store data in registry</td>
+                            <td><code class="text-primary">core.cr.setData('user', {name: 'John'})</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">core.cr.getData(name)</code></td>
+                            <td>Retrieve data from registry</td>
+                            <td><code class="text-primary">const user = core.cr.getData('user')</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="text-primary">core.be.getData(ref, src)</code></td>
+                            <td>Fetch data from URL</td>
+                            <td><code class="text-primary">core.be.getData('users', '/api/users')</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="examples" class="mb-20">
+        <div class="glass p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">Examples</h2>
+            
+            <div class="space-y-12">
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Basic User Card</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="users">
+        &lt;div class="user-card">
+            &lt;h3>{{rec:name}}&lt;/h3>
+            &lt;p>{{rec:email}}&lt;/p>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-core-source-users="api/v1/users">
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Product List with Formatting</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="productList">
+        &lt;div class="product">
+            &lt;h3>{{rec:title}}&lt;/h3>
+            &lt;p>{{rec:description}}&lt;/p>
+            &lt;div class="price">{{rec:price:money:$}}&lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="productList" 
+     data-core-source-productList="https://fakestoreapi.com/products">
+    Loading products...
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Recursive Data Cloning</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="colors">
+        &lt;div class="color-item">
+            &lt;span>{{rec:name:upper}}&lt;/span>
+            &lt;span>{{rec:value}}&lt;/span>
+            &lt;div>{{rec:children:core_pk_cloner:colors}}&lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-clone" 
+     data-core-source="https://api.example.com/colors">
+    &lt;div class="color-item">
+        &lt;span>{{rec:name:upper}}&lt;/span>
+        &lt;span>{{rec:value}}&lt;/span>
+        &lt;div>{{rec:children:core_pk_cloner:colors}}&lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Advanced Data Formatting</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="transaction">
+        &lt;div class="transaction">
+            &lt;span class="user">{{rec:name:upper}}&lt;/span>
+            paid 
+            &lt;span class="amount">{{rec:paid:money:$}}&lt;/span>
+            on 
+            &lt;span class="date">{{rec:ts:date:date}}&lt;/span>
+            for 
+            &lt;span class="item">{{rec:stuff.food}}&lt;/span>
+            &lt;div class="details">
+                {{rec:more:core_pk_cloner:details}}
+            &lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-clone" 
+     data-core-source="https://dummyjson.com/products?limit=1">
+    &lt;div class="transaction">
+        &lt;span class="user">{{rec:name:upper}}&lt;/span>
+        paid 
+        &lt;span class="amount">{{rec:paid:money:$}}&lt;/span>
+        on 
+        &lt;span class="date">{{rec:ts:date:date}}&lt;/span>
+        for 
+        &lt;span class="item">{{rec:stuff.food}}&lt;/span>
+        &lt;div class="details">
+            {{rec:more:core_pk_cloner:details}}
+        &lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+                </div>
+
+                <div class="glass p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-white">Multiple Data Sources</h3>
+                    <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="userProfile">
+        &lt;h2>{{rec:name}}&lt;/h2>
+        &lt;p>{{rec:email}}&lt;/p>
+        &lt;div class="orders">
+            {{rec:orders:core_pk_cloner:orderItem}}
+        &lt;/div>
+    &lt;/template>
+    
+    &lt;template name="orderItem">
+        &lt;div class="order">
+            &lt;span>{{rec:product}}&lt;/span>
+            &lt;span>{{rec:price:money:$}}&lt;/span>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="userProfile" 
+     data-core-source-userProfile="api/v1/users/123"
+     data-core-source-orderItem="api/v1/orders">
+&lt;/div></code></pre>
+                </div>
+            </div>
+            
+            <div class="glass p-6 bg-primary/5 border-primary/20 mt-8">
+                <h4 class="text-lg font-bold text-primary mb-2">🚀 Try it yourself!</h4>
+                <p class="text-slate-300">Copy these code examples into your HTML file and watch Core.js work its magic!</p>
+            </div>
+        </div>
+    </section>
+
+ <footer class="container mx-auto px-4 py-20 mt-20 border-t border-white/5 relative overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+            <div class="md:col-span-2">
+                <a class="flex items-center mb-6" href="#" target="#main" data-core-templates="home">
+                    <div class="core-pocket -ml-4" data-core-templates="core" data-core-core-source="core.svg"
+                        style="width: 120px; filter: brightness(1.2);"></div>
+                </a>
+                <p class="text-slate-400 max-w-sm mb-6 leading-relaxed">
+                    A high-performance JavaScript orchestration layer. Experience zero virtual DOM overhead and
+                    async-native rendering. Built for the future of web applications.
+                </p>
+                <div class="flex items-center gap-4">
+                    <span id="status-dot" class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="status-text"
+                        class="text-xs font-bold text-slate-500 uppercase tracking-widest leading-none">System
+                        Operational</span>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Repository</h4>
+                <ul class="space-y-4">
+                    <li><a href="https://github.com/Sitezip/core.sbs" target="_blank"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">GitHub
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                </path>
+                            </svg></a></li>
+                    <li><a href="documentation.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Documentation</a>
+                    </li>
+                    <li><a href="core.html#main" data-core-templates="license"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">License /
+                            MIT</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                &copy; 2025 CORE_ORCHESTRATOR // VERSION_2.0.4
+            </div>
+            <div class="flex gap-6">
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">SHADOW-LESS</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ASYNC-NATIVE</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">RECURSIVE</div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Copy button functionality
+    document.querySelectorAll('.copy-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.color = '#10b981';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Highlight active section in navigation
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY + 100;
+        
+        document.querySelectorAll('section[id]').forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('text-primary-light', 'font-medium');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('text-primary-light', 'font-medium');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+<!-- Component Registry (Templates) -->
+<section id="cr-data" style="display:none;">
+    <!-- CORE LOGO TEMPLATE -->
+    <template name="core">
+        <img src="core.svg" alt="CORE" style="width: 100%; height: auto;">
+    </template>
+</section>
