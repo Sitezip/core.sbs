@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core.js Documentation</title>
+    <title>core.js Documentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -362,7 +362,7 @@
     </style>
 </head>
    <!-- Navbar -->
-    <nav
+  <nav
         class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a class="flex items-center" href="core.html">
@@ -383,8 +383,9 @@
                 <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
                     <li class="w-full xl:w-auto"><a href="core.html" class="nav-link-premium">Home</a>
                     </li>
-
-                    <li class="relative group w-full xl:w-auto">
+                    <li class="w-full xl:w-auto"><a href="core.html#philosophy" class="nav-link-premium">About</a></li>
+                    <li class="w-full xl:w-auto"><a href="documentation.html" class="nav-link-premium">Docs</a></li>
+                                        <li class="relative group w-full xl:w-auto">
                         <a class="nav-link-premium flex items-center justify-between xl:justify-start" href="#">
                             <span>Demos</span>
                             <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -402,26 +403,18 @@
                                     href="core.html#bridge">Logic Bridge</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
                                     href="core.html#stuff">Product Grid</a></li>
-                            <li class="border-t border-white/10 my-2 mx-2"></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="core.html#deep">Recursive Demo</a></li>
-                            <li class="border-t border-white/10 my-2 mx-2"></li>
+                                    href="core.html#deep">Recursive Logic</a></li>
                             <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white font-bold text-primary-light"
-                                    href="core.html#user">My Account</a></li>
+                                    href="core.html#user">Form Engine</a></li>
                         </ul>
                     </li>
-
-                    <li class="w-full xl:w-auto"><a href="core.html#philosophy" class="nav-link-premium">Philosophy</a></li>
-                    <li class="w-full xl:w-auto"><a href="documentation.html" class="nav-link-premium">Manual</a></li>
-                    <li class="w-full xl:w-auto"><a href="core.html#cheatsheet" class="nav-link-premium">Cheatsheet</a></li>
                     <li class="w-full xl:w-auto">
                         <a href="core.html#news" class="nav-link-premium">Scammer News</a>
                     </li>
-
                     <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank"
-                            class="btn-premium whitespace-nowrap text-decoration-none w-full xl:w-auto block">Get
-                            Started</a>
+                            class="btn-premium whitespace-nowrap text-decoration-none w-full xl:w-auto block">GitHub</a>
                     </li>
                 </ul>
             </div>
@@ -437,7 +430,7 @@
             <span class="text-sm text-slate-400">Latest Release</span>
         </div>
         <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 font-outfit bg-gradient-to-r from-primary via-accent to-accent-light bg-clip-text text-transparent leading-tight">
-            Core.js Documentation
+            core.js Documentation
         </h1>
         <p class="text-xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed mb-12">
             A revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Build dynamic, data-driven web interfaces with simple HTML attributes.
