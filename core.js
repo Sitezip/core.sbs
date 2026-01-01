@@ -413,22 +413,48 @@ const core = (() => {
             let prevSortKey;
             return {
                 addClickListeners: () => {
-                    let links = document.getElementsByTagName('a') || [];
-                    for (const link of links) {
-                        core.hf.addClickListener(link);
+                    // Look for any element with core data attributes (not just anchors)
+                    const selectors = [
+                        '[data-core]',
+                        '[data-core-templates]',
+                        '[data-core-data]',
+                        '[core-templates]',
+                        '[core-data]'
+                    ];
+                    
+                    for (const selector of selectors) {
+                        const elements = document.querySelectorAll(selector) || [];
+                        for (const element of elements) {
+                            core.hf.addClickListener(element);
+                        }
                     }
                 },
                 addClickListener: (element) => {
-                    const dataRefs = element.getAttribute('data-core-templates') || element.getAttribute('core-templates') || element.getAttribute('data-core-data') || element.getAttribute('core-data') || element.dataset.coreTemplates || element.dataset.coreData;
-                    const target = (element.getAttribute('target') || core.ud.defaultClickTarget);
+                    // Support both old and new syntax
+                    const dataRefs = element.getAttribute('data-core') || 
+                                   element.getAttribute('data-core-templates') || 
+                                   element.getAttribute('core-templates') || 
+                                   element.getAttribute('data-core-data') || 
+                                   element.getAttribute('core-data') || 
+                                   element.dataset.core || 
+                                   element.dataset.coreTemplates || 
+                                   element.dataset.coreData;
+                    
+                    const target = element.getAttribute('data-target') || 
+                                 element.getAttribute('target') || 
+                                 core.ud.defaultClickTarget;
+                    
                     if (!dataRefs) return;
 
                     let dataSources = [];
                     const templates = dataRefs.split(',').map(s => String(s).trim()).filter(Boolean);
                     for (const template of templates) {
-                        const source = element.getAttribute('data-' + template + '-core-source') || element.getAttribute(template + '-source') ||
-                            element.getAttribute('data-core-source') || element.getAttribute('core-source') ||
-                            element.dataset[template + 'CoreSource'] || element.dataset.coreSource;
+                        const source = element.getAttribute('data-' + template + '-core-source') || 
+                                     element.getAttribute(template + '-source') ||
+                                     element.getAttribute('data-core-source') || 
+                                     element.getAttribute('core-source') ||
+                                     element.dataset[template + 'CoreSource'] || 
+                                     element.dataset.coreSource;
                         if (source) {
                             dataSources.push({ name: template, url: source });
                         }
