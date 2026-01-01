@@ -118,41 +118,35 @@
 
             <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-4 xl:mt-0" id="navbarNav">
                 <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
-                    <li class="w-full xl:w-auto"><a href="#" target="#main" data-core-templates="home"
-                            class="nav-link-premium">Home</a>
+                    <li class="w-full xl:w-auto"><button data-core="home" class="nav-link-premium">Home</button>
                     </li>
-                    <li class="w-full xl:w-auto"><a href="#" target="#main" data-core-templates="philosophy"
-                            class="nav-link-premium">About</a></li>
-                    <li class="w-full xl:w-auto"><a href="#" target="#main" data-core-templates="docs"
-                            class="nav-link-premium">Docs</a></li>
+                    <li class="w-full xl:w-auto"><button data-core="philosophy" class="nav-link-premium">About</button>
+                    </li>
+                    <li class="w-full xl:w-auto"><button data-core="docs" class="nav-link-premium">Docs</button>
+                    </li>
                     <li class="relative group w-full xl:w-auto">
-                        <a class="nav-link-premium flex items-center justify-between xl:justify-start" href="#">
+                        <button class="nav-link-premium flex items-center justify-between xl:justify-start" data-core="demos">
                             <span>Demos</span>
                             <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 9l-7 7-7-7">
                                 </path>
                             </svg>
-                        </a>
+                        </button>
                         <!-- Invisible padding bridge to keep dropdown open -->
                         <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
                         <ul
                             class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
 
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="bridge">Logic Bridge</a></li>
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="stuff">Product Grid</a></li>
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="counter">Realtime Data</a></li>
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white"
-                                    href="#" target="#main" data-core-templates="deep">Recursive Logic</a></li>
-                            <li><a class="block px-5 py-3 hover:bg-white/10 transition-colors rounded-lg mx-2 no-underline text-white font-bold text-primary-light"
-                                    href="#" target="#main" data-core-templates="user">Form Engine</a></li>
+                            <li><button data-core="bridge" class="nav-link-premium">Bridge</button></li>
+                            <li><button data-core="stuff" class="nav-link-premium">Product Grid</button></li>
+                            <li><button data-core="counter" class="nav-link-premium">Realtime Data</button></li>
+                            <li><button data-core="deep" class="nav-link-premium">Recursive Logic</button></li>
+                            <li><button data-core="user" class="nav-link-premium">Form Engine</button></li>
                         </ul>
                     </li>
                     <li class="w-full xl:w-auto">
-                        <a href="#" target="#main" data-core-templates="news" class="nav-link-premium">Scammer News</a>
+                        <button data-core="news" class="nav-link-premium">Scammer News</button>
                     </li>
                     <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener"
@@ -1161,14 +1155,14 @@
                                         <p class="text-xs text-slate-400 leading-relaxed">Modify fetched templates
 
                                             &lt;!-- defining data/template silent request --&gt;
-                                            &lt;a href="#" class="nav-link" target="core_be_getData"
-                                            data-core-templates="silent"
+                                            &lt;button class="nav-link" data-target="core_be_getData"
+                                            data-core="silent"
                                             data-core-source-silent="https://dummyjson.com/products?limit=1"&gt;
-                                            Silent Data&lt;/a&gt;
-                                            &lt;a href="#" class="nav-link" target="core_be_getTemplate"
-                                            data-core-templates="author"
+                                            Silent Data&lt;/button&gt;
+                                            &lt;button class="nav-link" data-target="core_be_getTemplate"
+                                            data-core="author"
                                             data-core-source-author="/html/author.html"&gt;
-                                            Silent Template&lt;/a&gt;</code></pre>
+                                            Silent Template&lt;/button&gt;</code></pre>
                                     </div>
                                 </div>
                             </div>
@@ -1294,9 +1288,8 @@
                             Navigation Links
                         </h3>
                         <div class="bg-black p-4 rounded-xl font-mono text-sm border border-white/5">
-                            <pre class="text-blue-300"><code>&lt;a href="#" 
-   target="#main" 
-   data-core-templates="other"&gt;Navigate&lt;/a&gt;</code></pre>
+                            <pre class="text-blue-300"><code>&lt;button data-core="other" 
+   data-target="#main"&gt;Navigate&lt;/button&gt;</code></pre>
                         </div>
                         <p class="text-sm text-slate-400 italic">Defining a specific viewhost (target) and template
                             chain.</p>
