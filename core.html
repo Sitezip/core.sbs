@@ -2612,15 +2612,21 @@ core.ud.postflight = (ref, obj, type) => {
             });
 
         // Fetch and set joke data
-        fetch('https://dadjokes.developersandbox.xyz/api/v1/random')
+        fetch('https://icanhazdadjoke.com/', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 core.cr.setData('joke', data.joke || 'No joke found');
-                core_pk_bridge_render();
+                // Small delay to ensure data is processed before rendering
+                setTimeout(() => core_pk_bridge_render(), 10);
             })
-            .catch(() => {
+            .catch(error => {
+                console.error('Joke API error:', error);
                 core.cr.setData('joke', 'Failed to load joke. Please try again later.');
-                core_pk_bridge_render();
+                setTimeout(() => core_pk_bridge_render(), 10);
             });
         
         core.cr.setData('pop', [
