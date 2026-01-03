@@ -37,13 +37,24 @@ const core = (() => {
             if (useDebugger) console.log('core.js loaded at ' + core.hf.date());
             core.cr.init();
             core.hf.addClickListeners();
-            setTimeout(() => {
-                if (typeof core.ud.init === 'function') {
-                    core.ud.init();
-                }
+            
+            // Defer non-critical initialization to reduce DOMContentLoaded time
+            if (typeof core.ud.init === 'function') {
+                core.ud.init();
+            }
+            
+            // Start pocket initialization asynchronously with fallback
+            const deferPockets = () => {
                 core.pk.init();
-            })
-
+            };
+            
+            if (typeof requestIdleCallback !== 'undefined') {
+                requestIdleCallback(deferPockets);
+            } else {
+                // Fallback for older browsers
+                setTimeout(deferPockets, 100);
+            }
+            
             core.be.getData('coreInternalCheck', '/module/install.json'); //check for local install
         },
         //backend functions
@@ -287,7 +298,9 @@ const core = (() => {
                     let templates = section.querySelectorAll('template[name]') || [];
                     for (const template of templates) {
                         const templateName = template.getAttribute('name');
-                        core.cr.setTemplate(templateName, core.cr.getTemplate(templateName));
+                        // Get template content directly without data injection during init
+                        const templateContent = String(unescape(template.textContent || template.innerHTML)).trim();
+                        core.cr.setTemplate(templateName, templateContent);
                         preloaded.push(templateName);
                     }
                     //setup keyword templates
@@ -379,6 +392,37 @@ const core = (() => {
                         //SESSION (Option C), elem is ignored
                         return core.hf.parseJSON(sessionStorage.getItem(name));
                     }
+                    
+                    // If data is not available but there are active promises, wait for them
+                    if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
+                        return new Promise((resolve) => {
+                            const checkData = () => {
+                                let data;
+                                // Check sessionStorage directly to avoid recursion
+                                if (storageId === 2 && sessionStorage.getItem(name)) {
+                                    data = core.hf.parseJSON(sessionStorage.getItem(name));
+                                } else if (storageId === 0 && elem._CORE_Data && elem._CORE_Data.hasOwnProperty(name)) {
+                                    data = elem._CORE_Data[name];
+                                } else if (storageId === 1 && elem.dataset.hasOwnProperty(name)) {
+                                    data = core.hf.parseJSON(elem.dataset[name]);
+                                }
+                                
+                                if (data !== undefined) {
+                                    resolve(data);
+                                } else if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
+                                    // If still active promises, wait a bit longer to reduce frequency
+                                    setTimeout(checkData, 50);
+                                } else {
+                                    // No more active promises, resolve with undefined
+                                    resolve(undefined);
+                                }
+                            };
+                            // Initial check after a short delay to allow immediate resolution for available data
+                            setTimeout(checkData, 5);
+                        });
+                    }
+                    
+                    return undefined;
                 },
                 delTemplate: (name) => {
                     let template = section.querySelector('[name=' + name + ']');
@@ -1006,9 +1050,20 @@ const core = (() => {
                             if (!template) continue;
                             //fill the pockets w/items
                             core.cb.prepaint(template, null, 'template');
-                            pocket.insertAdjacentHTML('beforeend', core.cr.getTemplate(template));
-                            core.cb.postpaint(template, null, 'template');
+                            // Get template content directly without data injection
+                            const templateEl = section.querySelector('[name=' + template + ']') || template;
+                            const templateContent = String(unescape(templateEl.textContent || templateEl.innerHTML)).trim();
+                            if (templateContent === undefined) return;
+                            if (typeof core.ud.getTemplate === 'function') {
+                                const processedContent = core.ud.getTemplate(template, templateContent) || templateContent;
+                                pocket.insertAdjacentHTML('beforeend', processedContent);
+                                core.cb.postpaint(template, processedContent, 'template');
+                            } else {
+                                pocket.insertAdjacentHTML('beforeend', templateContent);
+                                core.cb.postpaint(template, templateContent, 'template');
+                            }
                         }
+                        //show the pocket, filled
                         if (!pocket.getElementsByClassName('core-clone').length) {
                             pocket.style.display = '';
                         }
