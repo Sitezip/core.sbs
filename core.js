@@ -379,6 +379,36 @@ const core = (() => {
                         //SESSION (Option C), elem is ignored
                         return core.hf.parseJSON(sessionStorage.getItem(name));
                     }
+                    
+                    // If data is not available but there are active promises, wait for them
+                    if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
+                        return new Promise((resolve) => {
+                            const checkData = () => {
+                                let data;
+                                // Check sessionStorage directly to avoid recursion
+                                if (storageId === 2 && sessionStorage.getItem(name)) {
+                                    data = core.hf.parseJSON(sessionStorage.getItem(name));
+                                } else if (storageId === 0 && elem._CORE_Data && elem._CORE_Data.hasOwnProperty(name)) {
+                                    data = elem._CORE_Data[name];
+                                } else if (storageId === 1 && elem.dataset.hasOwnProperty(name)) {
+                                    data = core.hf.parseJSON(elem.dataset[name]);
+                                }
+                                
+                                if (data !== undefined) {
+                                    resolve(data);
+                                } else if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
+                                    // If still active promises, wait a bit and check again
+                                    setTimeout(checkData, 10);
+                                } else {
+                                    // No more active promises, resolve with undefined
+                                    resolve(undefined);
+                                }
+                            };
+                            checkData();
+                        });
+                    }
+                    
+                    return undefined;
                 },
                 delTemplate: (name) => {
                     let template = section.querySelector('[name=' + name + ']');
