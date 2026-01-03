@@ -280,9 +280,14 @@ const core = (() => {
                     }
                 },
                 postpaint: (dataRef, dataObj, type) => {
-                    // Only proceed if we have valid data and the template exists
-                    if (!dataObj || !dataRef) {
+                    // Check if template exists before proceeding
+                    if (!dataRef || !section.querySelector('[name=' + dataRef + ']')) {
                         if (useDebugger) console.log(`Skipping postpaint for missing template: ${dataRef}`);
+                        return;
+                    }
+                    // Only proceed if we have valid data
+                    if (!dataObj) {
+                        if (useDebugger) console.log(`Skipping postpaint for null data object: ${dataRef}`);
                         return;
                     }
                     if (typeof core.ud.postpaint === "function") {
