@@ -37,13 +37,24 @@ const core = (() => {
             if (useDebugger) console.log('core.js loaded at ' + core.hf.date());
             core.cr.init();
             core.hf.addClickListeners();
-            setTimeout(() => {
-                if (typeof core.ud.init === 'function') {
-                    core.ud.init();
-                }
+            
+            // Defer non-critical initialization to reduce DOMContentLoaded time
+            if (typeof core.ud.init === 'function') {
+                core.ud.init();
+            }
+            
+            // Start pocket initialization asynchronously with fallback
+            const deferPockets = () => {
                 core.pk.init();
-            })
-
+            };
+            
+            if (typeof requestIdleCallback !== 'undefined') {
+                requestIdleCallback(deferPockets);
+            } else {
+                // Fallback for older browsers
+                setTimeout(deferPockets, 100);
+            }
+            
             core.be.getData('coreInternalCheck', '/module/install.json'); //check for local install
         },
         //backend functions
@@ -287,7 +298,9 @@ const core = (() => {
                     let templates = section.querySelectorAll('template[name]') || [];
                     for (const template of templates) {
                         const templateName = template.getAttribute('name');
-                        core.cr.setTemplate(templateName, core.cr.getTemplate(templateName));
+                        // Get template content directly without data injection during init
+                        const templateContent = String(unescape(template.textContent || template.innerHTML)).trim();
+                        core.cr.setTemplate(templateName, templateContent);
                         preloaded.push(templateName);
                     }
                     //setup keyword templates
@@ -397,14 +410,15 @@ const core = (() => {
                                 if (data !== undefined) {
                                     resolve(data);
                                 } else if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
-                                    // If still active promises, wait a bit and check again
-                                    setTimeout(checkData, 10);
+                                    // If still active promises, wait a bit longer to reduce frequency
+                                    setTimeout(checkData, 50);
                                 } else {
                                     // No more active promises, resolve with undefined
                                     resolve(undefined);
                                 }
                             };
-                            checkData();
+                            // Initial check after a short delay to allow immediate resolution for available data
+                            setTimeout(checkData, 5);
                         });
                     }
                     
