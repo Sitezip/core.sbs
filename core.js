@@ -1036,8 +1036,9 @@ const core = (() => {
                             if (!template) continue;
                             //fill the pockets w/items
                             core.cb.prepaint(template, null, 'template');
-                            pocket.insertAdjacentHTML('beforeend', core.cr.getTemplate(template));
-                            core.cb.postpaint(template, null, 'template');
+                            const templateContent = core.cr.getTemplate(template);
+                            pocket.insertAdjacentHTML('beforeend', templateContent);
+                            core.cb.postpaint(template, templateContent, 'template');
                         }
                         if (!pocket.getElementsByClassName('core-clone').length) {
                             pocket.style.display = '';
