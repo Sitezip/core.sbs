@@ -280,8 +280,17 @@ const core = (() => {
                     }
                 },
                 postpaint: (dataRef, dataObj, type) => {
+                    // Only proceed if we have valid data and the template exists
+                    if (!dataObj || !dataRef) {
+                        if (useDebugger) console.log(`Skipping postpaint for missing template: ${dataRef}`);
+                        return;
+                    }
                     if (typeof core.ud.postpaint === "function") {
-                        core.ud.postpaint(dataRef, dataObj, type);
+                        try {
+                            core.ud.postpaint(dataRef, dataObj, type);
+                        } catch (e) {
+                            if (useDebugger) console.warn(`Error in postpaint for ${dataRef}:`, e);
+                        }
                     }
                 },
             }
