@@ -1068,10 +1068,10 @@ const core = (() => {
                             if (typeof core.ud.getTemplate === 'function') {
                                 const processedContent = core.ud.getTemplate(template, templateContent) || templateContent;
                                 pocket.insertAdjacentHTML('beforeend', processedContent);
-                                core.cb.postpaint(template, processedContent, 'template');
+                                core.cb.postpaint(template, null, 'template');
                             } else {
                                 pocket.insertAdjacentHTML('beforeend', templateContent);
-                                core.cb.postpaint(template, templateContent, 'template');
+                                core.cb.postpaint(template, null, 'template');
                             }
                         }
                         //show the pocket, filled
