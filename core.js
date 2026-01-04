@@ -3,7 +3,7 @@ const core = (() => {
     const template = document.createElement('template');
     const section = document.getElementById('cr-data') || template.cloneNode(true);
     const urlObj = new URL(window.location.href);
-    let baseUrl = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs';
+    let baseUrl = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@' + core_version;
     //Auto-detect if running locally to avoid 404 check on CDN
     if (document.currentScript && document.currentScript.src.startsWith(window.location.origin)) {
         baseUrl = window.location.origin;
