@@ -1,10 +1,12 @@
-const core_version = '20260104.0';
+const core_version = '20260104';
+let core_be_count = 0;
+let core_cr_count = 0;
+let core_pk_count = 0;
 const core = (() => {
     const template = document.createElement('template');
     const section = document.getElementById('cr-data') || template.cloneNode(true);
     const urlObj = new URL(window.location.href);
-    let baseUrl = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@' + core_version;
-    //Auto-detect if running locally to avoid 404 check on CDN
+    let baseUrl = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@' + core_version; //Auto-detect if running locally to avoid 404 check on CDN
     if (document.currentScript && document.currentScript.src.startsWith(window.location.origin)) {
         baseUrl = window.location.origin;
     }
@@ -471,23 +473,21 @@ const core = (() => {
             let prevSortKey;
             return {
                 addClickListeners: () => {
-                    // Look for any element with core data attributes (not just anchors)
-                    const selectors = [
-                        '[data-core]',
-                        '[data-core-templates]',
-                        '[data-core-data]',
-                        '[core-templates]',
-                        '[core-data]'
-                    ];
+                    // Event Delegation: Listen on document to handle dynamic content automatically
+                    document.addEventListener('click', (event) => {
+                        // Check if the clicked element or any parent matches our selectors
+                        const element = event.target.closest('[data-core], [data-core-templates], [data-core-data], [core-templates], [core-data]');
 
-                    for (const selector of selectors) {
-                        const elements = document.querySelectorAll(selector) || [];
-                        for (const element of elements) {
-                            core.hf.addClickListener(element);
+                        // If a matching element is found, handle the click
+                        if (element) {
+                            core.hf.handleClick(element, event);
                         }
-                    }
+                    });
                 },
-                addClickListener: (element) => {
+                handleClick: (element, event) => {
+                    // Stop default browser behavior (navigation)
+                    event.preventDefault();
+
                     // Support both old and new syntax
                     const dataRefs = element.getAttribute('data-core') ||
                         element.getAttribute('data-core-templates') ||
@@ -518,10 +518,8 @@ const core = (() => {
                         }
                     }
 
-                    element.addEventListener('click', (event) => {
-                        event.preventDefault();
-                        core.ux.insertPocket(target, dataRefs, dataSources);
-                    });
+                    // Trigger the Pocket loader
+                    core.ux.insertPocket(target, dataRefs, dataSources);
                 },
                 ccNumAuth: (ccNum) => {
                     // Remove spaces and non-digit characters
@@ -1131,10 +1129,7 @@ const core = (() => {
                         (clone.closest('.core-pocket') || clone.closest('.core-pocketed')).style.display = '';
                         clone.remove();
                     }
-                    let links = document.getElementsByTagName('a');
-                    for (const link of links) {
-                        core.hf.addClickListener(link);
-                    }
+
                 },
                 /**
                  * Hydrates HTML by using the classic pocket find/replace
