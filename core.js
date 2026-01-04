@@ -518,10 +518,7 @@ const core = (() => {
                         }
                     }
 
-                    const newElement = element.cloneNode(true);
-                    element.parentNode.replaceChild(newElement, element);
-
-                    newElement.addEventListener('click', (event) => {
+                    element.addEventListener('click', (event) => {
                         event.preventDefault();
                         core.ux.insertPocket(target, dataRefs, dataSources);
                     });
