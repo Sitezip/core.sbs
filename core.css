@@ -1,8 +1,9 @@
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4338ca;
-    --primary-light: #818cf8;
-    --primary-glow: rgba(99, 102, 241, 0.5);
+    /* Emerald/Green System */
+    --primary: #10b981;
+    --primary-dark: #047857;
+    --primary-light: #34d399;
+    --primary-glow: rgba(16, 185, 129, 0.5);
     --accent: #06b6d4;
     --accent-glow: rgba(6, 182, 212, 0.5);
     --dark: #0f172a;
@@ -16,7 +17,7 @@ body {
     line-height: 1.625;
     overflow-x: hidden;
     background-image:
-        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 25%),
+        radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 25%);
     background-attachment: fixed;
 }
@@ -35,7 +36,7 @@ body {
 
 .glass:hover {
     border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.2);
 }
 
 /* Premium Components */
@@ -44,20 +45,21 @@ body {
     color: #ffffff !important;
     padding: 0.75rem 2rem;
     border-radius: 1rem;
-    /* Slightly tighter but consistent */
     font-weight: 600;
     letter-spacing: 0.025em;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.25);
     text-align: center;
     border: none;
     cursor: pointer;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-premium:hover {
-    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.4);
 }
 
 .btn-premium:active {

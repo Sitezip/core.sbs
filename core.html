@@ -51,10 +51,10 @@
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#6366f1',
-                            dark: '#4338ca',
-                            light: '#818cf8',
-                            glow: 'rgba(99, 102, 241, 0.5)',
+                            DEFAULT: '#10b981',
+                            dark: '#047857',
+                            light: '#34d399',
+                            glow: 'rgba(16, 185, 129, 0.5)',
                         },
                         accent: {
                             DEFAULT: '#06b6d4',
@@ -103,7 +103,8 @@
         <div class="container mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center">
                 <div class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
-                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5)); pointer-events: none;"></div>
+                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5)); pointer-events: none;">
+                </div>
             </div>
 
             <button class="xl:hidden text-white p-2 hover:bg-white/5 rounded-xl transition-colors focus:outline-none"
@@ -210,24 +211,25 @@
 
         <!-- HOME TEMPLATE -->
         <template name="home">
-            <section class="min-h-[90vh] pt-32 pb-12 flex items-center relative">
+            <section class="min-h-[90vh] pt-24 md:pt-32 pb-12 flex items-center relative">
                 <div class="container mx-auto px-4">
                     <div class="flex flex-col lg:flex-row items-center gap-12">
                         <div class="lg:w-1/2">
                             <span class="badge-premium mb-6 inline-block">V2.0 Core Engine</span>
                             <h1
-                                class="text-6xl lg:text-7xl font-extrabold font-outfit leading-[1.1] mb-6 text-white tracking-tight">
+                                class="text-4xl md:text-6xl lg:text-7xl font-extrabold font-outfit leading-[1.1] mb-6 text-white tracking-tight">
                                 Experience the<br><span
                                     class="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-accent">Speed
                                     of Logic.</span>
                             </h1>
-                            <p class="text-xl text-slate-400 mb-10 leading-relaxed font-medium">A high-performance JS
+                            <p class="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed font-medium">A
+                                high-performance JS
                                 orchestration layer that eliminates virtual DOM overhead. Decoupled, asynchronous, and
                                 remarkably clean.</p>
 
-                            <div class="flex flex-wrap gap-6 mb-12">
+                            <div class="flex flex-wrap gap-4 md:gap-6 mb-12">
                                 <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_rgba(99,102,241,0.6)]">
+                                    <div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_rgba(16,185,129,0.6)]">
                                     </div>
                                     <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Async-Native
                                     </div>
@@ -245,13 +247,13 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap gap-6 mt-8">
+                            <div class="flex flex-wrap gap-4 md:gap-6 mt-4 md:mt-8">
                                 <a href="#" target="#main" data-core-templates="stuff"
-                                    class="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all hover:-translate-y-1 overflow-hidden no-underline">
+                                    class="group relative w-full md:w-auto text-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all hover:-translate-y-1 overflow-hidden no-underline">
                                     <div
                                         class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                     </div>
-                                    <span class="relative flex items-center gap-2">
+                                    <span class="relative flex justify-center items-center gap-2">
                                         View Components
                                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24">
@@ -262,7 +264,7 @@
                                 </a>
 
                                 <a href="#" onclick="showToast('Silent Background Sync Initialized', 'info')"
-                                    class="group px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 no-underline flex items-center gap-3">
+                                    class="group px-8 py-4 w-full md:w-auto text-center justify-center bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 no-underline flex items-center gap-3">
                                     <div
                                         class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
                                         <svg class="w-4 h-4 text-emerald-400 group-hover:rotate-180 transition-transform duration-700"
@@ -277,7 +279,7 @@
                             </div>
                         </div>
                         <div class="lg:w-1/2 relative">
-                            <div class="animate-float relative z-10">
+                            <div class="animate-float hidden sm:block relative z-10">
                                 <img src="hero_bg.png" class="rounded-3xl shadow-2xl border border-white/5 mx-auto"
                                     style="mask-image: linear-gradient(to bottom, black 80%, transparent);">
                                 <div class="absolute -inset-4 bg-primary/20 blur-3xl -z-10 rounded-full animate-pulse">
@@ -395,51 +397,57 @@
                         </div>
 
                         <div class="space-y-6">
-                            <div class="relative">
+                            <div class="relative max-w-full">
                                 <div
                                     class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
                                 </div>
                                 <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-xs md:text-sm shadow-2xl overflow-hidden">
                                     <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Basic
                                         Template</div>
-                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">template</span> <span class="text-blue-400">name</span>=<span class="text-amber-200">"userCard"</span>&gt;
+                                    <div class="overflow-x-auto">
+                                        <pre class="text-emerald-400 whitespace-pre-wrap break-all"><code class="language-html">&lt;<span class="text-rose-400">template</span> <span class="text-blue-400">name</span>=<span class="text-amber-200">"userCard"</span>&gt;
   &lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"user-card"</span>&gt;
     &lt;<span class="text-rose-400">h3</span>&gt;{{<span class="text-purple-400">rec:name</span>}}&lt;/<span class="text-rose-400">h3</span>&gt;
     &lt;<span class="text-rose-400">p</span>&gt;{{<span class="text-purple-400">rec:email</span>}}&lt;/<span class="text-rose-400">p</span>&gt;
   &lt;/<span class="text-rose-400">div</span>&gt;
 &lt;/<span class="text-rose-400">template</span>&gt;</code></pre>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="relative">
+                            <div class="relative max-w-full">
                                 <div
                                     class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
                                 </div>
                                 <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-xs md:text-sm shadow-2xl overflow-hidden">
                                     <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Pocket
                                         Rendering</div>
-                                    <pre class="text-emerald-400"><code class="language-html">&lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"core-pocket"</span>
+                                    <div class="overflow-x-auto">
+                                        <pre class="text-emerald-400 whitespace-pre-wrap break-all"><code class="language-html">&lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"core-pocket"</span>
      <span class="text-blue-400">data-core-templates</span>=<span class="text-amber-200">"userCard"</span>
      <span class="text-blue-400">data-core-source-users</span>=<span class="text-amber-200">"https://api.example.com/users"</span>&gt;
 &lt;/<span class="text-rose-400">div</span>&gt;</code></pre>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="relative">
+                            <div class="relative max-w-full">
                                 <div
                                     class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
                                 </div>
                                 <div
-                                    class="relative bg-black p-6 rounded-2xl font-mono text-sm overflow-x-auto shadow-2xl">
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-xs md:text-sm shadow-2xl overflow-hidden">
                                     <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Data
                                         Formatting</div>
-                                    <pre class="text-emerald-400"><code class="language-html"><span class="text-slate-500">&lt;!-- Format as money --&gt;</span>
+                                    <div class="overflow-x-auto">
+                                        <pre class="text-emerald-400 whitespace-pre-wrap break-all"><code class="language-html"><span class="text-slate-500">&lt;!-- Format as money --&gt;</span>
 {{<span class="text-purple-400">rec:price:money:$</span>}}
 
 <span class="text-slate-500">&lt;!-- Recursive cloning --&gt;</span>
 {{<span class="text-purple-400">rec:items:core_pk_cloner:itemTemplate</span>}}</code></pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -471,52 +479,54 @@
 
         <!-- COUNTER TEMPLATE -->
         <template name="counter">
-              <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="container mx-auto px-4 py-16 md:py-32">
                 <div class="flex flex-col lg:flex-row gap-12">
                     <div class="w-full">
                         <div class="">
-                    <h2 class="text-5xl font-bold mb-8 text-white">Real-Time State Demo</h2>
+                            <h2 class="text-5xl font-bold mb-8 text-white">Real-Time State Demo</h2>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        <!-- Counter Display -->
-                        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 text-center flex flex-col items-center my-auto h-full">
-                            <h3 class="text-lg font-bold text-white mb-4">Live Counter</h3>
-                            <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent mb-2 h--dataRef-counter"
-                                data-h-data-ref="counter">0</div>
-                            <div class="text-xs font-bold uppercase tracking-widest text-slate-400">Clicks Tracked</div>
-                        </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                <!-- Counter Display -->
+                                <div
+                                    class="p-6 rounded-2xl bg-white/5 border border-white/10 text-center flex flex-col items-center my-auto h-full">
+                                    <h3 class="text-lg font-bold text-white mb-4">Live Counter</h3>
+                                    <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent mb-2 h--dataRef-counter"
+                                        data-h-data-ref="counter">0</div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400">Clicks
+                                        Tracked</div>
+                                </div>
 
-                        <!-- Controls -->
-                        <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
-                            <h3 class="text-lg font-bold text-white mb-4">Controls</h3>
-                            <div class="space-y-4">
-                                <button type="button" onclick="incrementCounter()"
-                                    class="w-full px-4 py-3 rounded-xl bg-primary hover:bg-primary/80 transition-colors text-white font-bold">
-                                    Increment (+1)
-                                </button>
-                                <button type="button" onclick="decrementCounter()"
-                                    class="w-full px-4 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors text-white font-bold">
-                                    Decrement (-1)
-                                </button>
-                                <button type="button" onclick="resetCounter()"
-                                    class="w-full px-4 py-3 rounded-xl bg-slate-600 hover:bg-slate-700 transition-colors text-white font-bold">
-                                    Reset (0)
-                                </button>
+                                <!-- Controls -->
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
+                                    <h3 class="text-lg font-bold text-white mb-4">Controls</h3>
+                                    <div class="space-y-4">
+                                        <button type="button" onclick="incrementCounter()"
+                                            class="w-full px-4 py-3 rounded-xl bg-primary hover:bg-primary/80 transition-colors text-white font-bold">
+                                            Increment (+1)
+                                        </button>
+                                        <button type="button" onclick="decrementCounter()"
+                                            class="w-full px-4 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors text-white font-bold">
+                                            Decrement (-1)
+                                        </button>
+                                        <button type="button" onclick="resetCounter()"
+                                            class="w-full px-4 py-3 rounded-xl bg-slate-600 hover:bg-slate-700 transition-colors text-white font-bold">
+                                            Reset (0)
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>                       
-                    </div>
 
-                    <!-- Status Display -->
-                    <div class="mt-8 p-4 bg-black/40 rounded-xl border border-white/10">
-                        <div class="flex items-center justify-between">
-                            <div class="text-xs text-slate-500">
-                                Using core.js registry for real-time state management
+                            <!-- Status Display -->
+                            <div class="mt-8 p-4 bg-black/40 rounded-xl border border-white/10">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-xs text-slate-500">
+                                        Using core.js registry for real-time state management
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
             </div>
         </template>
 
@@ -1224,19 +1234,21 @@
     </section>
 
     <!-- EXPERT MODE -->
+    <!-- EXPERT MODE -->
     <section id="expert" class="space-y-8 scroll-mt-32">
         <div
-            class="p-12 md:p-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-[3rem] border border-white/10 relative overflow-hidden group">
+            class="p-6 md:p-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl md:rounded-[3rem] border border-white/10 relative overflow-hidden group">
             <div
                 class="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 blur-[100px] rounded-full group-hover:scale-150 transition-transform duration-1000">
             </div>
-            <h2 class="text-4xl md:text-5xl font-black text-white mb-8">Expert Mode: Silent
-                Orchestration</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-8 relative z-10">Expert Mode: Silent Orchestration
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 relative z-10">
                 <div class="space-y-6">
-                    <p class="text-lg text-slate-300 leading-relaxed">Static anchor tags can trigger
+                    <p class="text-base md:text-lg text-slate-300 leading-relaxed">Static anchor tags can trigger
                         background syncs without any UI flicker or state transition.</p>
-                    <div class="bg-black/80 p-8 rounded-3xl border border-white/10 font-mono text-sm space-y-4">
+                    <div
+                        class="bg-black/80 p-6 md:p-8 rounded-3xl border border-white/10 font-mono text-xs md:text-sm space-y-4 overflow-x-auto">
                         <p class="text-slate-500">// Silent Data Fetching</p>
                         <pre class="text-primary-light"><code>&lt;a href="#" 
    target="core_be_getData" 
@@ -1247,7 +1259,7 @@
                     </div>
                 </div>
                 <div class="space-y-8">
-                    <div class="flex items-start gap-6">
+                    <div class="flex items-start gap-4 md:gap-6">
                         <div
                             class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-white">
                             1</div>
@@ -1259,7 +1271,7 @@
                                 every network request's history and configuration.</p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-6">
+                    <div class="flex items-start gap-4 md:gap-6">
                         <div
                             class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-white">
                             2</div>
@@ -1277,9 +1289,9 @@
     </section>
 
     <footer
-        class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs font-bold uppercase tracking-widest gap-4">
+        class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs font-bold uppercase tracking-widest gap-4 text-center md:text-left">
         <p>&copy; 2025 core.js Development Team // Licensed MIT</p>
-        <div class="flex gap-8">
+        <div class="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
             <a href="#" target="#main" data-core-templates="cheatsheet"
                 class="text-primary-light hover:text-white transition-colors no-underline">Quick
                 Cheatsheet</a>
@@ -1407,13 +1419,13 @@ core.ud.postflight = (ref, obj, type) => {
 
     <!-- Docs Template -->
     <template name="docs">
-        <div class="container mt-20 mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="container mt-12 sm:mt-20 mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <header class="mb-20 text-left">
                 <h1
-                    class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 font-outfit bg-gradient-to-r from-primary via-accent to-accent-light bg-clip-text text-transparent leading-tight">
+                    class="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 font-outfit bg-gradient-to-r from-primary via-accent to-accent-light bg-clip-text text-transparent leading-tight">
                     core.js Documentation
                 </h1>
-                <p class="text-xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed mb-12">
+                <p class="text-xl sm:text-2xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed mb-12">
                     A lightweight, client-side rendering and state management library designed to facilitate the
                     decoupling of data, templates, and DOM logic through modern asynchronous patterns.
                 </p>
@@ -2391,7 +2403,7 @@ core.ud.postflight = (ref, obj, type) => {
 
         function core_pk_bridge_render() {
             if (typeof core === 'undefined' || !core.cr) return;
-            
+
             // Update JSON debug views
             core_pk_bridge_setJson('core_pk_bridgeQuoteJson', core.cr.getData('quote'));
             core_pk_bridge_setJson('core_pk_bridgeJokeJson', core.cr.getData('joke'));
@@ -2402,24 +2414,24 @@ core.ud.postflight = (ref, obj, type) => {
             const quoteData = core.cr.getData('quote') || {};
             const jokeData = core.cr.getData('joke') || 'Loading...';
             const pipData = core.cr.getData('pip') || {};
-            
+
             // Update quote
             const quoteEl = document.querySelector('[data-h-data-ref="quote.quote"]');
             const authorEl = document.querySelector('[data-h-data-ref="quote.author"]');
             if (quoteEl) quoteEl.textContent = quoteData.quote || 'No quote available';
             if (authorEl) authorEl.textContent = quoteData.author || 'Unknown';
-            
+
             // Update joke
             const jokeEl = document.querySelector('[data-h-data-ref="joke"]');
             if (jokeEl) jokeEl.textContent = jokeData;
-            
+
             // Update pip data
             if (pipData) {
                 const pipNameEl = document.querySelector('[data-h-data-ref="pip.name"]');
                 const pipTitleEl = document.querySelector('[data-h-data-ref="pip.title"]');
                 const pipPhoneEl = document.querySelector('[data-h-data-ref="pip.phone"]');
                 const pipVendorEl = document.querySelector('[data-h-data-ref="pip.stuff.vendor"]');
-                
+
                 if (pipNameEl) pipNameEl.textContent = pipData.name || '';
                 if (pipTitleEl) pipTitleEl.textContent = pipData.title || '';
                 if (pipPhoneEl) pipPhoneEl.textContent = pipData.phone || '';
@@ -2597,25 +2609,25 @@ core.ud.postflight = (ref, obj, type) => {
 
         // Logic Bridge - Data Fetching and Storage with proper binding
         // Set static data first
-        core.cr.setData('pip', { 
-            name: 'fRoDo', 
-            title: 'LoR', 
-            id: 33, 
-            phone: 8881231234, 
-            stuff: { vendor: 'under20bucks' } 
+        core.cr.setData('pip', {
+            name: 'fRoDo',
+            title: 'LoR',
+            id: 33,
+            phone: 8881231234,
+            stuff: { vendor: 'under20bucks' }
         });
-        
+
         // Initial render with default data
         core.cr.setData('quote', {
             quote: 'Loading quote...',
             author: 'Loading...'
         });
-        
+
         core.cr.setData('joke', 'Loading joke...');
-        
+
         // Trigger initial render
         core_pk_bridge_render();
-        
+
         // Fetch and set quote data
         fetch('https://dummyjson.com/quotes/random/')
             .then(res => res.json())
@@ -2651,7 +2663,7 @@ core.ud.postflight = (ref, obj, type) => {
                 core.cr.setData('joke', 'Failed to load joke. Please try again later.');
                 setTimeout(() => core_pk_bridge_render(), 10);
             });
-        
+
         core.cr.setData('pop', [
             { name: 'fred', paid: 21.58, ts: 1721788872, phone: 8011231233, stuff: { food: 'pizza' }, more: [{ color: 'blue' }, { color: 'gold' }] },
             { name: 'jake', paid: 2.11, ts: 1721188872, phone: 8018760408, stuff: { food: 'pear' }, more: [{ color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }] },
@@ -2694,7 +2706,7 @@ core.ud.postflight = (ref, obj, type) => {
                     core.be.setCacheTs('counter', 'data');
                 }
             }
-            
+
             // Wait for template to render, then set text
             setTimeout(() => {
                 const counterEl = document.querySelector('.h--dataRef-counter');
@@ -2722,13 +2734,13 @@ core.ud.postflight = (ref, obj, type) => {
             setInterval(updateMetrics, 1000);
         }
 
-    // Proactive Data Seeding
-    core.ud.prepaint = (dataRef, dataObj, type) => {
-        if (dataRef === 'counter' && !core.cr.getData('counter')) {
-            initCounter();
+        // Proactive Data Seeding
+        core.ud.prepaint = (dataRef, dataObj, type) => {
+            if (dataRef === 'counter' && !core.cr.getData('counter')) {
+                initCounter();
+            }
         }
-    }
-</script>
+    </script>
 </body>
 
 </html>
