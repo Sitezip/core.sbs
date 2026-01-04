@@ -280,21 +280,18 @@ const core = (() => {
                     }
                 },
                 postpaint: (dataRef, dataObj, type) => {
-                    // Check if template exists before proceeding
-                    if (!dataRef || !section.querySelector('[name=' + dataRef + ']')) {
-                        if (useDebugger) console.log(`Skipping postpaint for missing template: ${dataRef}`);
-                        return;
-                    }
-                    // Only proceed if we have valid data
-                    if (!dataObj) {
-                        if (useDebugger) console.log(`Skipping postpaint for null data object: ${dataRef}`);
+                    // Don't call postpaint if dataObj is null - maintains backwards compatibility
+                    if (dataObj === null || dataObj === undefined) {
                         return;
                     }
                     if (typeof core.ud.postpaint === "function") {
                         try {
                             core.ud.postpaint(dataRef, dataObj, type);
                         } catch (e) {
-                            if (useDebugger) console.warn(`Error in postpaint for ${dataRef}:`, e);
+                            // Only log errors if debugger is enabled and it's not just a null template issue
+                            if (useDebugger && e.message && !e.message.includes('null')) {
+                                console.warn(`Error in postpaint for ${dataRef}:`, e);
+                            }
                         }
                     }
                 },
