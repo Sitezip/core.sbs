@@ -1,4 +1,4 @@
-const core_version = '20260104';
+const core_version = '20260104.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
