@@ -445,25 +445,8 @@ const core = (() => {
                     core.cr.delTemplate(name);
                     //create new template
                     let newTemplate = template.cloneNode(true);
-                    newTemplate.setAttribute("name", name);
-                    newTemplate.textContent = escape(value);
-                    //append new template
-                    section.appendChild(newTemplate);
-                },
-                getTemplate: (name) => {
-                    let newTemplate = (section.querySelector('[name=' + name + ']') || template);
-                    newTemplate = String(unescape(newTemplate.textContent || newTemplate.innerHTML)).trim();
-                    if (newTemplate === undefined) return;
-                    if (typeof core.ud.getTemplate === 'function') {
-                        newTemplate = core.ud.getTemplate(name, newTemplate) || newTemplate;
-                    }
-                    //replace data values in the template
-                    return core.pk.injector(newTemplate);
-                },
             }
-        })(),
-        //helper functions
-        hf: (() => {
+        }
             let prevSortKey;
             return {
                 addClickListeners: () => {
