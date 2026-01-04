@@ -442,6 +442,12 @@ const core = (() => {
 
                     return undefined;
                 },
+                getTemplate: (name) => {
+                    let template = section.querySelector('[name=' + name + ']');
+                    if (template) {
+                        return String(unescape(template.innerHTML)).trim();
+                    }
+                },
                 delTemplate: (name) => {
                     let template = section.querySelector('[name=' + name + ']');
                     if (template) {
@@ -453,8 +459,15 @@ const core = (() => {
                     core.cr.delTemplate(name);
                     //create new template
                     let newTemplate = template.cloneNode(true);
+                    newTemplate.innerHTML = value;
+                    newTemplate.setAttribute('name', name);
+                    section.appendChild(newTemplate);
+                    return newTemplate;
                 }
             }
+        })(),
+        //helper functions
+        hf: (() => {
             let prevSortKey;
             return {
                 addClickListeners: () => {
