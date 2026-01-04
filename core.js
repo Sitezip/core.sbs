@@ -1,9 +1,13 @@
-const core_version = '20251229.0';
+const core_version = '20260104.0';
 const core = (() => {
     const template = document.createElement('template');
     const section = document.getElementById('cr-data') || template.cloneNode(true);
     const urlObj = new URL(window.location.href);
     let baseUrl = 'https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@' + core_version;
+    //Auto-detect if running locally to avoid 404 check on CDN
+    if (document.currentScript && document.currentScript.src.startsWith(window.location.origin)) {
+        baseUrl = window.location.origin;
+    }
     let useDebugger = false; //user setting
     let useRouting = false; //user setting
     let useLocking = true;  //true = pockets lock after complete, false = pockets will refresh every soc call
@@ -37,25 +41,29 @@ const core = (() => {
             if (useDebugger) console.log('core.js loaded at ' + core.hf.date());
             core.cr.init();
             core.hf.addClickListeners();
-            
+
             // Defer non-critical initialization to reduce DOMContentLoaded time
             if (typeof core.ud.init === 'function') {
                 core.ud.init();
             }
-            
+
             // Start pocket initialization asynchronously with fallback
             const deferPockets = () => {
                 core.pk.init();
             };
-            
+
             if (typeof requestIdleCallback !== 'undefined') {
                 requestIdleCallback(deferPockets);
             } else {
                 // Fallback for older browsers
                 setTimeout(deferPockets, 100);
             }
-            
-            core.be.getData('coreInternalCheck', '/module/install.json'); //check for local install
+
+            if (baseUrl === urlObj.origin) {
+                core.be.getData('coreInternalCheck', '/module/install.json'); //check for local install
+            } else {
+                core.be.getData('coreInternalObjects', baseUrl + '/core.json');
+            }
         },
         //backend functions
         be: (() => {
@@ -402,7 +410,7 @@ const core = (() => {
                         //SESSION (Option C), elem is ignored
                         return core.hf.parseJSON(sessionStorage.getItem(name));
                     }
-                    
+
                     // If data is not available but there are active promises, wait for them
                     if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
                         return new Promise((resolve) => {
@@ -416,7 +424,7 @@ const core = (() => {
                                 } else if (storageId === 1 && elem.dataset.hasOwnProperty(name)) {
                                     data = core.hf.parseJSON(elem.dataset[name]);
                                 }
-                                
+
                                 if (data !== undefined) {
                                     resolve(data);
                                 } else if (core.be && core.be.activePromises && core.be.activePromises.length > 0) {
@@ -431,8 +439,14 @@ const core = (() => {
                             setTimeout(checkData, 5);
                         });
                     }
-                    
+
                     return undefined;
+                },
+                getTemplate: (name) => {
+                    let template = section.querySelector('[name=' + name + ']');
+                    if (template) {
+                        return String(unescape(template.innerHTML)).trim();
+                    }
                 },
                 delTemplate: (name) => {
                     let template = section.querySelector('[name=' + name + ']');
@@ -445,21 +459,11 @@ const core = (() => {
                     core.cr.delTemplate(name);
                     //create new template
                     let newTemplate = template.cloneNode(true);
-                    newTemplate.setAttribute("name", name);
-                    newTemplate.textContent = escape(value);
-                    //append new template
+                    newTemplate.innerHTML = value;
+                    newTemplate.setAttribute('name', name);
                     section.appendChild(newTemplate);
-                },
-                getTemplate: (name) => {
-                    let newTemplate = (section.querySelector('[name=' + name + ']') || template);
-                    newTemplate = String(unescape(newTemplate.textContent || newTemplate.innerHTML)).trim();
-                    if (newTemplate === undefined) return;
-                    if (typeof core.ud.getTemplate === 'function') {
-                        newTemplate = core.ud.getTemplate(name, newTemplate) || newTemplate;
-                    }
-                    //replace data values in the template
-                    return core.pk.injector(newTemplate);
-                },
+                    return newTemplate;
+                }
             }
         })(),
         //helper functions
@@ -475,7 +479,7 @@ const core = (() => {
                         '[core-templates]',
                         '[core-data]'
                     ];
-                    
+
                     for (const selector of selectors) {
                         const elements = document.querySelectorAll(selector) || [];
                         for (const element of elements) {
@@ -485,30 +489,30 @@ const core = (() => {
                 },
                 addClickListener: (element) => {
                     // Support both old and new syntax
-                    const dataRefs = element.getAttribute('data-core') || 
-                                   element.getAttribute('data-core-templates') || 
-                                   element.getAttribute('core-templates') || 
-                                   element.getAttribute('data-core-data') || 
-                                   element.getAttribute('core-data') || 
-                                   element.dataset.core || 
-                                   element.dataset.coreTemplates || 
-                                   element.dataset.coreData;
-                    
-                    const target = element.getAttribute('data-target') || 
-                                 element.getAttribute('target') || 
-                                 core.ud.defaultClickTarget;
-                    
+                    const dataRefs = element.getAttribute('data-core') ||
+                        element.getAttribute('data-core-templates') ||
+                        element.getAttribute('core-templates') ||
+                        element.getAttribute('data-core-data') ||
+                        element.getAttribute('core-data') ||
+                        element.dataset.core ||
+                        element.dataset.coreTemplates ||
+                        element.dataset.coreData;
+
+                    const target = element.getAttribute('data-target') ||
+                        element.getAttribute('target') ||
+                        core.ud.defaultClickTarget;
+
                     if (!dataRefs) return;
 
                     let dataSources = [];
                     const templates = dataRefs.split(',').map(s => String(s).trim()).filter(Boolean);
                     for (const template of templates) {
-                        const source = element.getAttribute('data-' + template + '-core-source') || 
-                                     element.getAttribute(template + '-source') ||
-                                     element.getAttribute('data-core-source') || 
-                                     element.getAttribute('core-source') ||
-                                     element.dataset[template + 'CoreSource'] || 
-                                     element.dataset.coreSource;
+                        const source = element.getAttribute('data-' + template + '-core-source') ||
+                            element.getAttribute(template + '-source') ||
+                            element.getAttribute('data-core-source') ||
+                            element.getAttribute('core-source') ||
+                            element.dataset[template + 'CoreSource'] ||
+                            element.dataset.coreSource;
                         if (source) {
                             dataSources.push({ name: template, url: source });
                         }
