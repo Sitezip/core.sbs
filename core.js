@@ -1058,9 +1058,7 @@ const core = (() => {
                         for (const template of templates) {
                             if (!template) continue;
                             //fill the pockets w/items
-                            core.cb.prepaint(template, null, 'template');
                             pocket.insertAdjacentHTML('beforeend', core.cr.getTemplate(template));
-                            core.cb.postpaint(template, null, 'template');
                         }
                         //show the pocket, filled
                         if (!pocket.getElementsByClassName('core-clone').length) {
@@ -1513,7 +1511,7 @@ const core = (() => {
          * core.ud.preflight() called prior to all backend requests
          * core.ud.postflight() called post all backend requests
          * core.ud.prepaint() called prior to each template insert
-         * core.ud.postpaint() called post each template insert (and cloning)
+         * core.ud.postpaint() called post each data-driven cloning process
          * core.ud.pk_eol() called at end of process
          *
          * core.ud.formatValue() called after core.ux.formatValue()
