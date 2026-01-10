@@ -480,14 +480,14 @@ const core = (() => {
 
                         // If a matching element is found, handle the click
                         if (element) {
+                            // Only prevent default for core-managed elements
+                            event.preventDefault();
                             core.hf.handleClick(element, event);
                         }
+                        // Let normal links work without interference
                     });
                 },
                 handleClick: (element, event) => {
-                    // Stop default browser behavior (navigation)
-                    event.preventDefault();
-
                     // Support both old and new syntax
                     const dataRefs = element.getAttribute('data-core') ||
                         element.getAttribute('data-core-templates') ||
@@ -1221,7 +1221,7 @@ const core = (() => {
             regex.alphanum = /[^A-Za-z0-9]/g;
             regex.alphanumsp = /[^\w\s]/gi;
             regex.dblcurly = /[^{\{]+(?=}\})/g;
-            regex.urlref = /(https?:\/\/[^\s]+|www\.[^\s]+)/g
+            regex.urlref = /(https?:\/\/[^\s<]+|www\.[^\s<]+)/g
             regex.url = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
             return {
                 get regex() {
@@ -1296,6 +1296,10 @@ const core = (() => {
                             break
                         case 'linkify':
                             value = value.replace(regex.urlref, match => {
+                                // Skip if already in an HTML tag or already a link
+                                if (match.includes('<a href=') || match.includes('</a>')) {
+                                    return match;
+                                }
                                 let secure = match.includes('https:') ? 's' : ''
                                 let url = match.replace(/https?:\/\//, '')
                                 return `<a href="http${secure}://${url}" target="_blank">${url}</a>`
