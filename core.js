@@ -255,9 +255,10 @@ const core = (() => {
                     }
 
                     //log the request settings, final
-                    fetchLogFIFO[dataRef] = { ...defaultSettings, ...settings, ...{ FIFOtype: 'final', FIFOts: core.hf.date(null, 'ts') } };
+                    const finalSettings = { ...defaultSettings, ...settings, ...{ FIFOtype: 'final', FIFOts: core.hf.date(null, 'ts') } };
+                    fetchLogFIFO[dataRef] = finalSettings;
 
-                    return fetchLogFIFO[dataRef];
+                    return finalSettings;
                 },
                 postflight: (dataRef, dataObj, type) => {
                     //remove text hints from internal objects
