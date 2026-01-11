@@ -124,6 +124,61 @@
     core.ud.postflight = (dataRef, dataObj, type) => {
         switch(type){
             case 'data':
+                switch (dataRef) {
+                    case 'prods': return dataObj.products;
+                    case 'users': return dataObj.users;
+                    case 'news': return dataObj.results;
+                    case 'pop': return [
+                        {
+                            name: 'FRED',
+                            paid: 21.58,
+                            ts: '2024-07-23',
+                            stuff: { food: 'pizza' },
+                            more: [
+                                { color: 'blue' },
+                                { color: 'gold' }
+                            ]
+                        },
+                        {
+                            name: 'JAKE',
+                            paid: 2.11,
+                            ts: '2024-07-16',
+                            stuff: { food: 'pear' },
+                            more: [
+                                { color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }
+                            ]
+                        },
+                        {
+                            name: 'JAKER',
+                            paid: 6.87,
+                            ts: '2024-07-23',
+                            stuff: { food: 'banana' },
+                            more: [
+                                {
+                                    color: 'yellow',
+                                    hues: [
+                                        { color: 'orange' },
+                                        { color: 'pink' }
+                                    ]
+                                },
+                                {
+                                    color: 'bright',
+                                    hues: [
+                                        { color: 'hot' },
+                                        { color: 'magenta' }
+                                    ]
+                                },
+                                {
+                                    color: 'dark',
+                                    hues: [
+                                        { color: 'hot' },
+                                        { color: 'magnetic' }
+                                    ]
+                                }
+                            ]
+                        }
+                    ];
+                }
                 break;
             case 'template':
             default:
