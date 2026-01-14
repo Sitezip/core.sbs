@@ -481,28 +481,20 @@ const core = (() => {
                              button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
                              [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
                         );
-                        
-                        // DEBUG: Log all clicks to see what's being intercepted
-                        if (event.target.closest('a')) {
-                            const link = event.target.closest('a');
-                            console.log('CORE DEBUG: Link clicked:', {
-                                href: link.getAttribute('href'),
-                                outerHTML: link.outerHTML,
-                                hasCoreAttrs: !!(link.getAttribute('data-core') || link.getAttribute('data-core-templates') || link.getAttribute('data-core-data')),
-                                eventPhase: event.eventPhase,
-                                defaultPrevented: event.defaultPrevented
-                            });
-                        }
-                        
                         if (!element) return;
 
                         // If this is a normal anchor navigation, let the browser handle it.
                         // Only intercept when the link is effectively a "core action" (hash/empty href or explicit core target).
-                        if (element.tagName === 'A') {
-                            const hrefAttr = element.getAttribute('href');
-                            const hasCoreTarget = element.hasAttribute('data-target') || element.hasAttribute('target');
+                        // Check the ACTUAL clicked element, not the container
+                        const clickedLink = event.target.closest('a');
+                        if (clickedLink && clickedLink.tagName === 'A') {
+                            const hrefAttr = clickedLink.getAttribute('href');
+                            const hasCoreTarget = clickedLink.hasAttribute('data-target') || clickedLink.hasAttribute('target');
                             const isHashNav = !hrefAttr || hrefAttr === '#' || hrefAttr.startsWith('#');
-                            if (!hasCoreTarget && !isHashNav) {
+                            const isJavascript = hrefAttr && hrefAttr.startsWith('javascript:');
+                            
+                            // If it's a normal anchor navigation (not hash, not javascript, no core target), let it proceed
+                            if (!hasCoreTarget && !isHashNav && !isJavascript) {
                                 return; // Let normal anchor links navigate normally
                             }
                         }
