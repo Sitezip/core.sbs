@@ -14,57 +14,57 @@
         <priority>0.9</priority>
     </url>
 
-    <!-- Pretty Path Routes (Requires Server Rewrites for SEO) -->
+    <!-- Hash-based Pretty Paths (Guaranteed to work on all servers) -->
     <url>
-        <loc>https://core.sbs/_main/home</loc>
+        <loc>https://core.sbs/#/_main/home</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/philosophy</loc>
+        <loc>https://core.sbs/#/_main/philosophy</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/docs</loc>
+        <loc>https://core.sbs/#/_main/docs</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/bridge</loc>
+        <loc>https://core.sbs/#/_main/bridge</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/stuff</loc>
+        <loc>https://core.sbs/#/_main/stuff</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/counter</loc>
+        <loc>https://core.sbs/#/_main/counter</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/deep</loc>
+        <loc>https://core.sbs/#/_main/deep</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/user</loc>
+        <loc>https://core.sbs/#/_main/user</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://core.sbs/_main/news</loc>
+        <loc>https://core.sbs/#/_main/news</loc>
         <lastmod>2026-01-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
