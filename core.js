@@ -1,4 +1,4 @@
-const core_version = '20260113.0';
+const core_version = '20260114.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -1078,8 +1078,8 @@ const core = (() => {
                     let clones = document.getElementsByClassName('core-clone');
 
                     for (const clone of clones) {
-                        const dataRef = clone.getAttribute('core-data') || clone.getAttribute('data-core-data') || clone.dataset.coreData;
-                        const dataSrc = clone.getAttribute('core-source') || clone.getAttribute('data-core-source') || clone.dataset.coreSource;
+                        const dataRef = clone.getAttribute('data-core-data') || clone.getAttribute('core-data') || clone.dataset.coreData;
+                        const dataSrc = clone.getAttribute('data-core-source') || clone.getAttribute('core-source') || clone.dataset.coreSource;
 
                         if (core.be.checkCacheTs(dataRef, 'data') && core.cr.getData(dataRef)) {
                             continue;
@@ -1103,15 +1103,15 @@ const core = (() => {
                     // Use Array.from to create a static list since we modify the DOM
                     let clones = Array.from(document.getElementsByClassName('core-clone'));
                     for (const clone of clones) {
-                        const dataRef = clone.getAttribute('data-core-data') || clone.dataset.coreData;
+                        const dataRef = clone.getAttribute('data-core-data') || clone.getAttribute('core-data') || clone.dataset.coreData;
                         const records = core.cr.getData(dataRef) || [];
                         const cloned = clone.cloneNode(true);
                         const clonedClass = "core-cloned-" + dataRef.split('-').map(s => core.sv.scrubSimple('temp', s, ['alphaonly']).value).join('-');
                         cloned.classList.add(clonedClass);
-                        cloned.removeAttribute('core-source');
                         cloned.removeAttribute('data-core-source');
-                        cloned.removeAttribute('core-data');
+                        cloned.removeAttribute('core-source');
                         cloned.removeAttribute('data-core-data');
+                        cloned.removeAttribute('core-data');
                         cloned.removeAttribute('id');
                         core.cb.prepaint(dataRef, records, 'data');
                         clone.insertAdjacentHTML('beforebegin', core.pk.cloner(records, cloned.outerHTML));
