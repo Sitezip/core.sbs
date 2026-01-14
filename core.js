@@ -476,8 +476,21 @@ const core = (() => {
                 addClickListeners: () => {
                     // Event delegation: do not break normal links; only intercept core-managed elements.
                     document.addEventListener('click', (event) => {
-                        const element = event.target.closest('[data-core], [data-core-templates], [data-core-data], [core-templates], [core-data]');
+                        const element = event.target.closest(
+                            'a[data-core], a[data-core-templates], a[data-core-data], a[core-templates], a[core-data],\
+                             button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
+                             [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
+                        );
                         if (!element) return;
+
+                        // If this is a normal anchor navigation, let the browser handle it.
+                        // Only intercept when the link is effectively a "core action" (hash/empty href or explicit core target).
+                        if (element.tagName === 'A') {
+                            const hrefAttr = element.getAttribute('href');
+                            const hasCoreTarget = element.hasAttribute('data-target') || element.hasAttribute('target');
+                            const isHashNav = !hrefAttr || hrefAttr === '#' || hrefAttr.startsWith('#');
+                            if (!hasCoreTarget && !isHashNav) return;
+                        }
 
                         // Do not treat core-pocket containers as click targets.
                         // This prevents containers like:
