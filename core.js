@@ -479,6 +479,12 @@ const core = (() => {
                         const element = event.target.closest('[data-core], [data-core-templates], [data-core-data], [core-templates], [core-data]');
                         if (!element) return;
 
+                        // Do not treat core-pocket containers as click targets.
+                        // This prevents containers like:
+                        //   <header class="core-pocket" data-core-templates="header" ...>
+                        // from swallowing clicks on normal <a> links inside the injected template.
+                        if (element.classList && element.classList.contains('core-pocket')) return;
+
                         const dataRefs = element.getAttribute('data-core') ||
                             element.getAttribute('data-core-templates') ||
                             element.getAttribute('core-templates') ||
