@@ -489,7 +489,9 @@ const core = (() => {
                             const hrefAttr = element.getAttribute('href');
                             const hasCoreTarget = element.hasAttribute('data-target') || element.hasAttribute('target');
                             const isHashNav = !hrefAttr || hrefAttr === '#' || hrefAttr.startsWith('#');
-                            if (!hasCoreTarget && !isHashNav) return;
+                            if (!hasCoreTarget && !isHashNav) {
+                                return; // Let normal anchor links navigate normally
+                            }
                         }
 
                         // Do not treat core-pocket containers as click targets.
