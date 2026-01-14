@@ -1076,7 +1076,19 @@ const core = (() => {
                         for (const template of templates) {
                             if (!template) continue;
                             //fill the pockets w/items
-                            pocket.insertAdjacentHTML('beforeend', core.cr.getTemplate(template));
+                            core.cb.prepaint(template, null, 'template');
+                            // Get template content directly without data injection
+                            const templateEl = section.querySelector('[name=' + template + ']') || template;
+                            const templateContent = String(unescape(templateEl.textContent || templateEl.innerHTML)).trim();
+                            if (templateContent === undefined) return;
+                            if (typeof core.ud.getTemplate === 'function') {
+                                const processedContent = core.ud.getTemplate(template, templateContent) || templateContent;
+                                pocket.insertAdjacentHTML('beforeend', processedContent);
+                                core.cb.postpaint(template, processedContent, 'template');
+                            } else {
+                                pocket.insertAdjacentHTML('beforeend', templateContent);
+                                core.cb.postpaint(template, templateContent, 'template');
+                            }
                         }
                         //show the pocket, filled
                         if (!pocket.getElementsByClassName('core-clone').length) {
