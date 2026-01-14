@@ -1,4 +1,4 @@
-const core_version = '20260114.2';
+const core_version = '20260114.3';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -476,28 +476,37 @@ const core = (() => {
                 addClickListeners: () => {
                     // Event delegation: do not break normal links; only intercept core-managed elements.
                     document.addEventListener('click', (event) => {
+                        // First check if this is a normal anchor link without any core attributes
+                        const clickedLink = event.target.closest('a');
+                        if (clickedLink && clickedLink.tagName === 'A') {
+                            // Check if the link has ANY core attributes
+                            const hasCoreAttrs = clickedLink.hasAttribute('data-core') || 
+                                               clickedLink.hasAttribute('data-core-templates') || 
+                                               clickedLink.hasAttribute('data-core-data') || 
+                                               clickedLink.hasAttribute('core-templates') || 
+                                               clickedLink.hasAttribute('core-data');
+                            
+                            // If it's a normal link without core attributes, let it navigate normally
+                            if (!hasCoreAttrs) {
+                                const hrefAttr = clickedLink.getAttribute('href');
+                                const hasCoreTarget = clickedLink.hasAttribute('data-target') || clickedLink.hasAttribute('target');
+                                const isHashNav = !hrefAttr || hrefAttr === '#' || hrefAttr.startsWith('#');
+                                const isJavascript = hrefAttr && hrefAttr.startsWith('javascript:');
+                                
+                                // Allow normal navigation for regular links
+                                if (!hasCoreTarget && !isHashNav && !isJavascript) {
+                                    return; // Let normal anchor links navigate normally
+                                }
+                            }
+                        }
+
+                        // Now check for core-managed elements (buttons, links with core attrs, etc.)
                         const element = event.target.closest(
                             'a[data-core], a[data-core-templates], a[data-core-data], a[core-templates], a[core-data],\
                              button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
                              [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
                         );
                         if (!element) return;
-
-                        // If this is a normal anchor navigation, let the browser handle it.
-                        // Only intercept when the link is effectively a "core action" (hash/empty href or explicit core target).
-                        // Check the ACTUAL clicked element, not the container
-                        const clickedLink = event.target.closest('a');
-                        if (clickedLink && clickedLink.tagName === 'A') {
-                            const hrefAttr = clickedLink.getAttribute('href');
-                            const hasCoreTarget = clickedLink.hasAttribute('data-target') || clickedLink.hasAttribute('target');
-                            const isHashNav = !hrefAttr || hrefAttr === '#' || hrefAttr.startsWith('#');
-                            const isJavascript = hrefAttr && hrefAttr.startsWith('javascript:');
-                            
-                            // If it's a normal anchor navigation (not hash, not javascript, no core target), let it proceed
-                            if (!hasCoreTarget && !isHashNav && !isJavascript) {
-                                return; // Let normal anchor links navigate normally
-                            }
-                        }
 
                         // Do not treat core-pocket containers as click targets.
                         // This prevents containers like:
