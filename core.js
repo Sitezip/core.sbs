@@ -1,4 +1,4 @@
-const core_version = '20260114.0';
+const core_version = '20260114.1';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -477,7 +477,7 @@ const core = (() => {
                     // Event Delegation: Listen on document to handle dynamic content automatically
                     document.addEventListener('click', (event) => {
                         // Check if the clicked element or any parent matches our selectors
-                        const element = event.target.closest('[data-core], [data-core-templates], [data-core-data], [core-templates], [core-data]');
+                        const element = event.target.closest('[data-core], [data-core-templates], [data-core-data], [core-templates], [core-data], [data-*-core-source]');
 
                         // If a matching element is found, handle the click
                         if (element) {
