@@ -1,4 +1,4 @@
-const core_version = '20260114.0';
+const core_version = '20260113.0';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -474,19 +474,30 @@ const core = (() => {
             let prevSortKey;
             return {
                 addClickListeners: () => {
-                    // Event Delegation: Listen on document to handle dynamic content automatically
+                    // Event delegation: do not break normal links; only intercept core-managed elements.
                     document.addEventListener('click', (event) => {
-                        // Check if the clicked element or any parent matches our selectors
                         const element = event.target.closest('[data-core], [data-core-templates], [data-core-data], [core-templates], [core-data]');
+                        if (!element) return;
 
-                        // If a matching element is found, handle the click
-                        if (element) {
-                            // Only prevent default for core-managed elements
-                            event.preventDefault();
-                            core.hf.handleClick(element, event);
-                        }
-                        // Let normal links work without interference
+                        const dataRefs = element.getAttribute('data-core') ||
+                            element.getAttribute('data-core-templates') ||
+                            element.getAttribute('core-templates') ||
+                            element.getAttribute('data-core-data') ||
+                            element.getAttribute('core-data') ||
+                            element.dataset.core ||
+                            element.dataset.coreTemplates ||
+                            element.dataset.coreData;
+
+                        if (!dataRefs) return;
+
+                        event.preventDefault();
+                        core.hf.handleClick(element, event);
                     });
+                },
+                addClickListener: (element) => {
+                    // Backwards-compatible public API (no-op if element isn't core-managed)
+                    const fakeEvent = { preventDefault: () => { } };
+                    core.hf.handleClick(element, fakeEvent);
                 },
                 handleClick: (element, event) => {
                     // Support both old and new syntax
