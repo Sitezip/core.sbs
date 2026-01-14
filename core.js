@@ -481,6 +481,19 @@ const core = (() => {
                              button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
                              [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
                         );
+                        
+                        // DEBUG: Log all clicks to see what's being intercepted
+                        if (event.target.closest('a')) {
+                            const link = event.target.closest('a');
+                            console.log('CORE DEBUG: Link clicked:', {
+                                href: link.getAttribute('href'),
+                                outerHTML: link.outerHTML,
+                                hasCoreAttrs: !!(link.getAttribute('data-core') || link.getAttribute('data-core-templates') || link.getAttribute('data-core-data')),
+                                eventPhase: event.eventPhase,
+                                defaultPrevented: event.defaultPrevented
+                            });
+                        }
+                        
                         if (!element) return;
 
                         // If this is a normal anchor navigation, let the browser handle it.
@@ -511,6 +524,7 @@ const core = (() => {
 
                         if (!dataRefs) return;
 
+                        console.log('CORE DEBUG: About to preventDefault on:', element.outerHTML);
                         event.preventDefault();
                         core.hf.handleClick(element, event);
                     });
