@@ -90,6 +90,7 @@
     </script>
     <link rel="stylesheet" href="core.css">
     <link rel="icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,6 +104,7 @@
         <div class="container mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center">
                 <div class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
+                    data-core-routing="false"
                     style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5)); pointer-events: none;">
                 </div>
             </div>
@@ -119,11 +121,11 @@
 
             <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-0" id="navbarNav">
                 <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
-                    <li class="w-full xl:w-auto"><button data-core="home" class="nav-link-premium">Home</button>
+                    <li class="w-full xl:w-auto"><a href="#/_main/home" class="nav-link-premium">Home</a>
                     </li>
-                    <li class="w-full xl:w-auto"><button data-core="philosophy" class="nav-link-premium">About</button>
+                    <li class="w-full xl:w-auto"><a href="#/_main/philosophy" class="nav-link-premium">About</a>
                     </li>
-                    <li class="w-full xl:w-auto"><button data-core="docs" class="nav-link-premium">Docs</button>
+                    <li class="w-full xl:w-auto"><a href="#/_main/docs" class="nav-link-premium">Docs</a>
                     </li>
                     <li class="relative group w-full xl:w-auto">
                         <button class="nav-link-premium flex items-center justify-between xl:justify-start">
@@ -139,15 +141,15 @@
                         <ul
                             class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
 
-                            <li><button data-core="bridge" class="nav-link-premium">Bridge</button></li>
-                            <li><button data-core="stuff" class="nav-link-premium">Product Grid</button></li>
-                            <li><button data-core="counter" class="nav-link-premium">Realtime Data</button></li>
-                            <li><button data-core="deep" class="nav-link-premium">Recursive Logic</button></li>
-                            <li><button data-core="user" class="nav-link-premium">Form Engine</button></li>
+                            <li><a href="#/_main/bridge" class="nav-link-premium">Bridge</a></li>
+                            <li><a href="#/_main/stuff" class="nav-link-premium">Product Grid</a></li>
+                            <li><a href="#/_main/counter" class="nav-link-premium">Realtime Data</a></li>
+                            <li><a href="#/_main/deep" class="nav-link-premium">Recursive Logic</a></li>
+                            <li><a href="#/_main/user" class="nav-link-premium">Form Engine</a></li>
                         </ul>
                     </li>
                     <li class="w-full xl:w-auto">
-                        <button data-core="news" class="nav-link-premium">Scammer News</button>
+                        <a href="#/_main/news" class="nav-link-premium">Scammer News</a>
                     </li>
                     <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
                         <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener"
@@ -235,13 +237,16 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_12px_rgba(34,197,190,0.6)]">
+                                    <div
+                                        class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_12px_rgba(34,197,190,0.6)]">
                                     </div>
                                     <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Zero
                                         Overload</div>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]"></div>
+                                    <div
+                                        class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]">
+                                    </div>
                                     <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Recursive
                                     </div>
                                 </div>
@@ -464,7 +469,8 @@
                         <h2 class="text-3xl font-extrabold text-white mb-1">Low</h2>
                         <span class="text-xs font-bold uppercase tracking-widest text-primary-light">Reflows</span>
                     </div>
-                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center my-auto flex justify-center h-full">
+                    <div
+                        class="p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center my-auto flex justify-center h-full">
                         <div class="flex flex-col items-center my-auto h-full justify-center text-center">
                             <h2 class="text-6xl font-extrabold text-white mb-1 flex -mt-4">∞</h2>
                             <span class="text-xs font-bold uppercase tracking-widest text-accent">Scalability</span>
@@ -479,50 +485,51 @@
 
         <!-- COUNTER TEMPLATE -->
         <template name="counter">
-              <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="container mx-auto px-4 py-16 md:py-32">
                 <div class="flex flex-col lg:flex-row gap-12">
                     <div class="w-full">
                         <div class="pt-8 sm:pt-0">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Real-Time State Demo</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                                <!-- Counter Display -->
-                                <div
-                                    class="p-6 rounded-2xl bg-white/5 border border-white/10 text-center flex flex-col items-center my-auto h-full">
-                                    <h3 class="text-lg font-bold text-white mb-4">Live Counter</h3>
-                                    <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent mb-2 h--dataRef-counter"
-                                        data-h-data-ref="counter">0</div>
-                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-400">Clicks
-                                        Tracked</div>
-                                </div>
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Real-Time
+                                State Demo</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                    <!-- Counter Display -->
+                                    <div
+                                        class="p-6 rounded-2xl bg-white/5 border border-white/10 text-center flex flex-col items-center my-auto h-full">
+                                        <h3 class="text-lg font-bold text-white mb-4">Live Counter</h3>
+                                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent mb-2 h--dataRef-counter"
+                                            data-h-data-ref="counter">0</div>
+                                        <div class="text-xs font-bold uppercase tracking-widest text-slate-400">Clicks
+                                            Tracked</div>
+                                    </div>
 
-                                <!-- Controls -->
-                                <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
-                                    <h3 class="text-lg font-bold text-white mb-4">Controls</h3>
-                                    <div class="space-y-4">
-                                        <button type="button" onclick="incrementCounter()"
-                                            class="w-full px-4 py-3 rounded-xl bg-primary hover:bg-primary/80 transition-colors text-white font-bold">
-                                            Increment (+1)
-                                        </button>
-                                        <button type="button" onclick="decrementCounter()"
-                                            class="w-full px-4 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors text-white font-bold">
-                                            Decrement (-1)
-                                        </button>
-                                        <button type="button" onclick="resetCounter()"
-                                            class="w-full px-4 py-3 rounded-xl bg-slate-600 hover:bg-slate-700 transition-colors text-white font-bold">
-                                            Reset (0)
-                                        </button>
+                                    <!-- Controls -->
+                                    <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
+                                        <h3 class="text-lg font-bold text-white mb-4">Controls</h3>
+                                        <div class="space-y-4">
+                                            <button type="button" onclick="incrementCounter()"
+                                                class="w-full px-4 py-3 rounded-xl bg-primary hover:bg-primary/80 transition-colors text-white font-bold">
+                                                Increment (+1)
+                                            </button>
+                                            <button type="button" onclick="decrementCounter()"
+                                                class="w-full px-4 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors text-white font-bold">
+                                                Decrement (-1)
+                                            </button>
+                                            <button type="button" onclick="resetCounter()"
+                                                class="w-full px-4 py-3 rounded-xl bg-slate-600 hover:bg-slate-700 transition-colors text-white font-bold">
+                                                Reset (0)
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Status Display -->
-                            <div class="mt-8 p-4 bg-black/40 rounded-xl border border-white/10">
-                                <div class="flex items-center justify-between">
-                                    <div class="text-xs text-slate-500">
-                                        Using core.js registry for real-time state management
+                                <!-- Status Display -->
+                                <div class="mt-8 p-4 bg-black/40 rounded-xl border border-white/10">
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-xs text-slate-500">
+                                            Using core.js registry for real-time state management
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -731,8 +738,10 @@
                 <div class="flex flex-col lg:flex-row gap-12">
                     <div class="w-full">
                         <div class="pt-8 sm:pt-0">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Scammer News</h1>
-                            <p class="text-lg md:text-xl text-slate-400">Breaking updates from the underground network.</p>
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Scammer News
+                            </h1>
+                            <p class="text-lg md:text-xl text-slate-400">Breaking updates from the underground network.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -803,11 +812,12 @@
 
         <!-- STUFF TEMPLATE -->
         <template name="stuff">
-              <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="container mx-auto px-4 py-16 md:py-32">
                 <div class="flex flex-col lg:flex-row gap-12">
                     <div class="w-full">
                         <div class="pt-8 sm:pt-0">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Component Registry</h1>
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Component
+                                Registry</h1>
                         </div>
                     </div>
                 </div>
@@ -1393,18 +1403,23 @@ core.ud.postflight = (ref, obj, type) => {
 
     <!-- RECURSIVE TEMPLATE -->
     <template name="deep">
-          <div class="container mx-auto px-4 py-16 md:py-32">
-                <div class="flex flex-col lg:flex-row gap-12">
-                    <div class="w-full">
-                        <div class="pt-8 sm:pt-0">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Recursive Logic Chains</h1>
-                            <p class="text-slate-400 mb-8">Infinite nesting with recursive data patterns</p>
-                            <p class="text-slate-500 mb-8">Create infinitely nested data structures with recursive templates and logic chains. Perfect for tree views, nested comments, hierarchical data displays like org charts, file explorers, nested menus, collapsible content, interactive dashboards, dynamic content hierarchies, nested UI components, complex nested data visualizations, and deeply nested logical expressions.</p>
-                            </div>
-                            </div>
-                            </div>
+        <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="w-full">
+                    <div class="pt-8 sm:pt-0">
+                        <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Recursive Logic
+                            Chains</h1>
+                        <p class="text-slate-400 mb-8">Infinite nesting with recursive data patterns</p>
+                        <p class="text-slate-500 mb-8">Create infinitely nested data structures with recursive templates
+                            and logic chains. Perfect for tree views, nested comments, hierarchical data displays like
+                            org charts, file explorers, nested menus, collapsible content, interactive dashboards,
+                            dynamic content hierarchies, nested UI components, complex nested data visualizations, and
+                            deeply nested logical expressions.</p>
+                    </div>
+                </div>
+            </div>
 
-                            
+
             <div class="glass p-12">
                 <div class="core-clone space-y-4" data-core-data="pop"
                     data-core-source="https://dummyjson.com/products?limit=1">
@@ -2741,7 +2756,7 @@ core.ud.postflight = (ref, obj, type) => {
                 core.cr.storageIdDefault = 0;
             }
 
-            core.useRouting = false;
+            core.useRouting = true;
             core.useDebugger = true;
 
             // Initialize Demo State
