@@ -1,4 +1,4 @@
-const core_version = '20260114.2';
+const core_version = '20260114.3';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -20,6 +20,11 @@ const core = (() => {
             core.init();
         });
     }
+
+    window.addEventListener('hashchange', () => {
+        if (useRouting) core.pk.init();
+    });
+
     return {
         get section() {
             return section;
@@ -478,21 +483,24 @@ const core = (() => {
                     document.addEventListener('click', (event) => {
                         // First check if this is a normal anchor link without any core attributes
                         const clickedLink = event.target.closest('a');
-                        if (clickedLink && clickedLink.tagName === 'A') {
-                            // Check if the link has ANY core attributes
-                            const hasCoreAttrs = clickedLink.hasAttribute('data-core') || 
-                                               clickedLink.hasAttribute('data-core-templates') || 
-                                               clickedLink.hasAttribute('data-core-data') || 
-                                               clickedLink.hasAttribute('core-templates') || 
-                                               clickedLink.hasAttribute('core-data');
-                            
-                            // If it's a normal link without core attributes, let it navigate normally
-                            if (!hasCoreAttrs) {
-                                const hrefAttr = clickedLink.getAttribute('href');
+                        let element = null;
+
+                        if (clickedLink) {
+                            const href = clickedLink.getAttribute('href');
+                            const isCorePath = href && href.includes('/_');
+                            const hasCoreAttrs = clickedLink.hasAttribute('data-core') ||
+                                clickedLink.hasAttribute('data-core-templates') ||
+                                clickedLink.hasAttribute('data-core-data') ||
+                                clickedLink.hasAttribute('core-templates') ||
+                                clickedLink.hasAttribute('core-data');
+
+                            if (isCorePath || hasCoreAttrs) {
+                                element = clickedLink;
+                            } else {
                                 const hasCoreTarget = clickedLink.hasAttribute('data-target') || clickedLink.hasAttribute('target');
-                                const isHashNav = !hrefAttr || hrefAttr === '#' || hrefAttr.startsWith('#');
-                                const isJavascript = hrefAttr && hrefAttr.startsWith('javascript:');
-                                
+                                const isHashNav = !href || href === '#' || href.startsWith('#');
+                                const isJavascript = href && href.startsWith('javascript:');
+
                                 // Allow normal navigation for regular links
                                 if (!hasCoreTarget && !isHashNav && !isJavascript) {
                                     return; // Let normal anchor links navigate normally
@@ -500,18 +508,16 @@ const core = (() => {
                             }
                         }
 
-                        // Now check for core-managed elements (buttons, links with core attrs, etc.)
-                        const element = event.target.closest(
-                            'a[data-core], a[data-core-templates], a[data-core-data], a[core-templates], a[core-data],\
-                             button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
-                             [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
-                        );
+                        if (!element) {
+                            element = event.target.closest(
+                                'button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
+                                 [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
+                            );
+                        }
+
                         if (!element) return;
 
                         // Do not treat core-pocket containers as click targets.
-                        // This prevents containers like:
-                        //   <header class="core-pocket" data-core-templates="header" ...>
-                        // from swallowing clicks on normal <a> links inside the injected template.
                         if (element.classList && element.classList.contains('core-pocket')) return;
 
                         const dataRefs = element.getAttribute('data-core') ||
@@ -536,6 +542,25 @@ const core = (() => {
                     core.hf.handleClick(element, fakeEvent);
                 },
                 handleClick: (element, event) => {
+                    const href = element.getAttribute('href');
+
+                    // Handle "Pretty Path" links (catch /_, #/_, /#/_ etc)
+                    if (href && href.includes('/_')) {
+                        const directive = core.hf.parseRoute(href);
+                        if (directive && directive.length) {
+                            for (const settings of directive) {
+                                let nameList = [];
+                                let dataSources = [];
+                                for (const item of settings.l) {
+                                    nameList.push(item.n);
+                                    if (item.u) dataSources.push({ name: item.n, url: item.u });
+                                }
+                                core.ux.insertPocket(settings.t, nameList.join(','), dataSources);
+                            }
+                            return;
+                        }
+                    }
+
                     // Support both old and new syntax
                     const dataRefs = element.getAttribute('data-core') ||
                         element.getAttribute('data-core-templates') ||
@@ -764,6 +789,67 @@ const core = (() => {
                     }
                     window.history.replaceState(state, title, base);
                 },
+                parseRoute: (urlStr) => {
+                    const url = new URL(urlStr || window.location.href, window.location.origin);
+                    const hash = url.hash.replace('#', '');
+
+                    // 1. Check for legacy JSON format in hash first
+                    if (hash.includes(escape('"t"')) && hash.includes(escape('"l"'))) {
+                        try {
+                            return core.hf.parseJSON(unescape(hash));
+                        } catch (e) {
+                            if (useDebugger) console.warn('core.js: Failed to parse legacy route hash');
+                        }
+                    }
+
+                    // 2. Parse new "Pretty Path" format
+                    let routeStr = url.pathname;
+                    if (!routeStr.includes('/_') && url.hash.includes('/_')) {
+                        routeStr = url.hash.replace('#', '');
+                    }
+
+                    if (!routeStr.includes('/_')) return [];
+
+                    const segments = routeStr.split('/').filter(Boolean);
+                    const directive = [];
+                    let currentTarget = null;
+                    let currentItems = [];
+
+                    for (const segment of segments) {
+                        if (segment.startsWith('_')) {
+                            if (currentTarget) {
+                                directive.push({ t: '#' + currentTarget, l: currentItems });
+                            }
+                            currentTarget = segment.substring(1);
+                            currentItems = [];
+                        } else if (currentTarget) {
+                            const parts = segment.split(':');
+                            const name = parts[0];
+                            const source = parts.slice(1).join(':');
+                            const item = { n: name };
+                            if (source) item.u = decodeURIComponent(source);
+                            currentItems.push(item);
+                        }
+                    }
+                    if (currentTarget) {
+                        directive.push({ t: '#' + currentTarget, l: currentItems });
+                    }
+                    return directive;
+                },
+                buildRoute: (directive) => {
+                    let route = '';
+                    for (const settings of (directive || [])) {
+                        const target = settings.t.replace('#', '');
+                        route += `/_${target}`;
+                        for (const item of settings.l) {
+                            route += `/${item.n}`;
+                            if (item.u) {
+                                route += `:${encodeURIComponent(item.u)}`;
+                            }
+                        }
+                    }
+                    return route;
+                },
                 /**
                  * Sorts an array of objects by key.
                  *
@@ -944,22 +1030,22 @@ const core = (() => {
                 },
                 init: () => {
                     //check to use routing info for pocket setup
-                    const hash = core.hf.getRoute('hash');
-                    if (useRouting && hash && hash.includes(escape('"t"')) && hash.includes(escape('"l"')) && hash.includes(escape('"n"'))) {
-                        //build the UX according to the incoming hash directive
-                        const directive = core.hf.parseJSON(unescape(core.hf.getRoute('hash').split('#').join('')));
-                        for (const settings of directive) {
-                            let nameList = [];
-                            let dataSources = [];
-                            for (const item of settings.l) {
-                                nameList.push(item.n);
-                                if (item.hasOwnProperty('u')) {
-                                    dataSources.push({ name: item.n, url: item.u });
+                    if (useRouting) {
+                        const directive = core.hf.parseRoute();
+                        if (directive && directive.length) {
+                            for (const settings of directive) {
+                                let nameList = [];
+                                let dataSources = [];
+                                for (const item of settings.l) {
+                                    nameList.push(item.n);
+                                    if (item.hasOwnProperty('u')) {
+                                        dataSources.push({ name: item.n, url: item.u });
+                                    }
                                 }
+                                const target = settings.t;
+                                const dataRefs = nameList.join(',');
+                                core.ux.insertPocket(target, dataRefs, dataSources, false);
                             }
-                            const target = settings.t;
-                            const dataRefs = nameList.join(','); //string
-                            core.ux.insertPocket(target, dataRefs, dataSources, false);
                         }
                     }
                     core.pk.soc();
@@ -985,7 +1071,12 @@ const core = (() => {
                     for (const pocket of pockets) {
                         //get the parent
                         const parent = pocket.parentNode;
-                        const target = '#' + parent.id;
+                        const targetId = parent ? parent.id : null;
+
+                        // Skip pockets without a target ID or explicitly excluded from routing
+                        if (!targetId || pocket.dataset.coreRouting === 'false') continue;
+
+                        const target = '#' + targetId;
                         //get the items
                         const lists = [];
                         const templatesStr = pocket.getAttribute('data-core-templates') || pocket.dataset.coreTemplates || '';
@@ -1007,7 +1098,15 @@ const core = (() => {
 
                     }
                     //update the URL
-                    if (useRouting) core.hf.setRoute(core.hf.getRoute('origin') + core.hf.getRoute('pathname') + core.hf.getRoute('search'), null, '#' + escape(JSON.stringify(directive)))
+                    if (useRouting) {
+                        const newPath = core.hf.buildRoute(directive);
+                        const search = core.hf.getRoute('search');
+
+                        if (newPath) {
+                            // Always use hash for Pretty Paths to protect relative assets (images/css)
+                            core.hf.setRoute(core.hf.getRoute('origin') + core.hf.getRoute('pathname'), null, '#' + newPath + search);
+                        }
+                    }
                     if (useDebugger) console.log('core.js completed in ' + (core.hf.date(null, 'perf') - stackTs).toFixed(1) + 'ms');
                     //reset functional variables
                     stackTs = 0;
@@ -1737,7 +1836,13 @@ const core = (() => {
 
                     if (isSilent) return;
 
-                    let section = (document.querySelector(target) || document.getElementById(target.replace('#', '')));
+                    let section;
+                    try {
+                        section = (document.querySelector(target) || document.getElementById(target.replace('#', '')));
+                    } catch (e) {
+                        if (useDebugger) console.warn(`core.js: Invalid target selector "${target}"`);
+                        return;
+                    }
 
                     if (section) {
                         section.innerHTML = '';

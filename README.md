@@ -76,8 +76,32 @@ Developers can extend the engine's behavior by defining hooks in the `core.ud` (
 
 ### Global Settings
 *   `core.useDebugger`: Enables verbose console logging.
-*   `core.useRouting`: Enables URL hash-based state persistence.
+*   `core.useRouting`: Enables modern "Pretty Path" URL routing (e.g., `/#/_main/home`).
 *   `core.baseUrl`: Defines the root path for dynamic module imports.
+
+---
+
+## Modern Routing (Pretty Paths)
+
+`core.js` now features a robust routing engine that maps the browser URL directly to your DOM structure.
+
+### Features
+*   **Human Readable**: Replaces clunky JSON hashes with clean paths like `/#/_main/docs`.
+*   **SPA Navigation**: Standard `<a>` tags are intercepted for instant, no-reload view swaps.
+*   **Deep Linking**: Share URLs that automatically reconstruct the exact state of multiple pockets.
+*   **Backward Compatible**: Automatically detects and supports legacy JSON routing formats.
+
+### Example
+```html
+<!-- Navigation -->
+<a href="#/_main/home">Home</a>
+<a href="#/_main/news">News</a>
+
+<!-- Resulting URL -->
+https://example.com/#/_main/news
+```
+
+For detailed specifications, see [core.md](./core.md).
 
 ---
 
