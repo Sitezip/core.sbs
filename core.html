@@ -926,7 +926,7 @@
                         <div class="glass p-8 space-y-6">
                             <h3 class="text-xl font-bold text-slate-200">CDN Options</h3>
                             <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
-                                <pre class="text-emerald-400 text-sm"><code>&lt;!-- Option A: Production version via CDN --&gt;
+                                <pre class="text-emerald-400 text-sm overflow-x-auto"><code>&lt;!-- Option A: Production version via CDN --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
 
 &lt;!-- Option B: Historical version via CDN (advised) --&gt;
@@ -976,7 +976,7 @@
                                 <p class="text-slate-400">Templates and data live inside a hidden <code>cr-data</code>
                                     section.</p>
                                 <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
-                                    <pre class="text-emerald-400"><code>&lt;section id="cr-data" style="display:none;"&gt;
+                                    <pre class="text-emerald-400 overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;"&gt;
   &lt;template name="users"&gt;
     &lt;div class="user-card"&gt;
       &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
@@ -990,7 +990,7 @@
                                 <h3 class="text-xl font-bold text-slate-200">2. Create a Pocket</h3>
                                 <p class="text-slate-400">Pockets are insertion points that fetch their own data.</p>
                                 <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
-                                    <pre class="text-emerald-400"><code>&lt;div class="core-pocket" 
+                                    <pre class="text-emerald-400 overflow-x-auto"><code>&lt;div class="core-pocket" 
      data-core-templates="users" 
      data-core-source-users="api/v1/users"&gt;
 &lt;/div&gt;</code></pre>
@@ -1059,7 +1059,7 @@
                                 Data Referencing
                             </h2>
                             <code
-                                class="text-xs bg-black/40 px-4 py-2 rounded-lg border border-white/5 font-mono text-slate-500">Syntax: {{type:ref:format:clue}}</code>
+                                class="text-xs bg-black/40 px-4 py-2 rounded-lg border border-white/5 font-mono text-slate-500 block overflow-x-auto whitespace-nowrap">Syntax: {{type:ref:format:clue}}</code>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -1133,7 +1133,7 @@
                                                 delimiter.
                                             </p>
                                             <div
-                                                class="bg-black/60 p-4 rounded-xl border border-white/10 font-mono text-[10px] text-emerald-400">
+                                                class="bg-black/60 p-4 rounded-xl border border-white/10 font-mono text-[10px] text-emerald-400 overflow-x-auto whitespace-nowrap">
                                                 {{rec:detail:linkify|wrap:&bull;| }}
                                             </div>
                                         </div>
@@ -1186,7 +1186,7 @@
                                 <div class="space-y-6">
                                     <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
                                         <code
-                                            class="text-xs text-primary-light font-bold">core.ud.cloneValue(record, args)</code>
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.cloneValue(record, args)</code>
                                         <p class="text-xs text-slate-400 leading-relaxed">Invoked by
                                             <code>{{aug:value}}</code> during cloning to return custom dynamic values
                                             based on the record.
@@ -1194,7 +1194,7 @@
                                     </div>
                                     <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
                                         <code
-                                            class="text-xs text-primary-light font-bold">core.ud.cloneString(record, args)</code>
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.cloneString(record, args)</code>
                                         <p class="text-xs text-slate-400 leading-relaxed">Invoked by
                                             <code>{{aug:string}}</code>. Allows raw manipulation of the template string
                                             before it's injected.
@@ -1202,7 +1202,7 @@
                                     </div>
                                     <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
                                         <code
-                                            class="text-xs text-primary-light font-bold">core.ud.getTemplate(name, templateStr)</code>
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.getTemplate(name, templateStr)</code>
                                         <p class="text-xs text-slate-400 leading-relaxed">Modify fetched templates
 
                                             &lt;!-- defining data/template silent request --&gt;
@@ -1268,7 +1268,7 @@
                     <div
                         class="bg-black/80 p-6 md:p-8 rounded-3xl border border-white/10 font-mono text-xs md:text-sm space-y-4 overflow-x-auto">
                         <p class="text-slate-500">// Silent Data Fetching</p>
-                        <pre class="text-primary-light"><code>&lt;a href="#" 
+                        <pre class="text-primary-light overflow-x-auto"><code>&lt;a href="#" 
    target="core_be_getData" 
    data-core-data="globalStore" 
    data-core-source="api/data"&gt;
@@ -1341,7 +1341,7 @@
                             Navigation Links
                         </h3>
                         <div class="bg-black p-4 rounded-xl font-mono text-sm border border-white/5">
-                            <pre class="text-blue-300"><code>&lt;button data-core="other" 
+                            <pre class="text-blue-300 overflow-x-auto"><code>&lt;button data-core="other" 
    data-target="#main"&gt;Navigate&lt;/button&gt;</code></pre>
                         </div>
                         <p class="text-sm text-slate-400 italic">Defining a specific viewhost (target) and template
@@ -1376,7 +1376,7 @@
                             <div class="space-y-4">
                                 <h4 class="text-white font-bold">JavaScript Hooks</h4>
                                 <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
-                                    <pre class="text-rose-300"><code>core.ud.preflight = (ref, src, type) => {
+                                    <pre class="text-rose-300 overflow-x-auto"><code>core.ud.preflight = (ref, src, type) => {
   return {dataRef: ref, dataSrc: src};
 }
 
@@ -1388,7 +1388,7 @@ core.ud.postflight = (ref, obj, type) => {
                             <div class="space-y-4">
                                 <h4 class="text-white font-bold">Recursive Cloning</h4>
                                 <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
-                                    <pre class="text-purple-300"><code>// Recursive cloner pattern
+                                    <pre class="text-purple-300 overflow-x-auto"><code>// Recursive cloner pattern
 {{rec:items:core_pk_cloner:colors}}</code></pre>
                                 </div>
                                 <p class="text-xs text-slate-500 italic">Allows for infinite nesting of data
@@ -1759,7 +1759,7 @@ core.ud.postflight = (ref, obj, type) => {
                                 <div class="space-y-2 text-slate-300">
                                     <p><strong class="text-white">Double Curly Syntax:</strong></p>
                                     <code
-                                        class="text-primary block bg-dark-darker/50 p-2 rounded">{{type:source:reference:format}}</code>
+                                        class="text-primary block bg-dark-darker/50 p-2 rounded overflow-x-auto whitespace-nowrap">{{type:source:reference:format}}</code>
                                     <div class="mt-3 space-y-1 text-sm">
                                         <div><code class="text-accent">data:</code> - Global registry lookup</div>
                                         <div><code class="text-accent">rec:</code> - Current record lookup</div>
@@ -1896,7 +1896,7 @@ core.ud.postflight = (ref, obj, type) => {
                     <div class="glass p-6 mb-8 bg-primary/5 border-primary/20">
                         <p class="text-lg text-slate-300 mb-2"><strong class="text-primary">Syntax:</strong></p>
                         <code
-                            class="text-xl text-primary font-mono bg-dark-darker/50 px-4 py-2 rounded-lg block">{{type:object-member:format:clue}}</code>
+                            class="text-xl text-primary font-mono bg-dark-darker/50 px-4 py-2 rounded-lg block overflow-x-auto whitespace-nowrap">{{type:object-member:format:clue}}</code>
                     </div>
 
                     <h3 class="text-2xl font-bold mb-6 text-white">Common Examples</h3>
@@ -2343,14 +2343,14 @@ core.ud.postflight = (ref, obj, type) => {
             <div>
                 <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Repository</h4>
                 <ul class="space-y-4">
-                    <li><a href="https://github.com/Sitezip/core.js" target="_blank" rel="noopener noreferrer"
+                    <li><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer"
                             class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">GitHub
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
                                 </path>
                             </svg></a></li>
-                    <li><a href="documentation.html"
+                    <li><a href="#" target="#main" data-core-templates="docs"
                             class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Documentation</a>
                     </li>
                     <li><a href="#" target="#main" data-core-templates="license"
