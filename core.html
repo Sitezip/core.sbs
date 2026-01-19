@@ -2373,17 +2373,15 @@ core.ud.postflight = (ref, obj, type) => {
     </footer>
 
     <!-- Scripts -->
-    <script src="core.js"></script>
+    <script src="core.js?t=1737243827"></script>
     <script>
-        // CORE INITIALIZATION
-        core.ud.init = () => {
-            core.useRouting = false;
-            core.useDebugger = true;
+        // USER CONFIGURATION - Override default settings
+        core.useRouting = true; // User can set this to true or false
+        core.useDebugger = true;
 
-            // Start metrics update loop
-            setInterval(updateMetrics, 1000);
-            updateMetrics();
-        }
+        // NAVIGATION & UX HOOKS
+        setInterval(updateMetrics, 1000);
+        updateMetrics();
 
         // NAVIGATION & UX HOOKS
         core.ud.postpaint = (dataRef, dataObj, type) => {
@@ -2756,7 +2754,6 @@ core.ud.postflight = (ref, obj, type) => {
                 core.cr.storageIdDefault = 0;
             }
 
-            core.useRouting = true;
             core.useDebugger = true;
 
             // Initialize Demo State

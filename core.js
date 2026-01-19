@@ -11,7 +11,7 @@ const core = (() => {
         baseUrl = window.location.origin;
     }
     let useDebugger = false; //user setting
-    let useRouting = false; //user setting
+    let useRouting = false; //user setting - DISABLED FOR TESTING
     let useLocking = true;  //true = pockets lock after complete, false = pockets will refresh every soc call
     if (document.readyState === 'complete') {
         setTimeout(() => { core.init() });
@@ -481,44 +481,69 @@ const core = (() => {
                 addClickListeners: () => {
                     // Event delegation: do not break normal links; only intercept core-managed elements.
                     document.addEventListener('click', (event) => {
+                        console.log('DEBUG: Click event detected on:', event.target);
                         // First check if this is a normal anchor link without any core attributes
                         const clickedLink = event.target.closest('a');
+                        console.log('DEBUG: clickedLink:', clickedLink);
                         let element = null;
 
                         if (clickedLink) {
+                            console.log('DEBUG: Processing clickedLink');
                             const href = clickedLink.getAttribute('href');
+                            console.log('DEBUG: Clicked link href:', href);
                             const isCorePath = href && href.includes('/_');
+                            console.log('DEBUG: isCorePath:', isCorePath, 'useRouting:', useRouting);
                             const hasCoreAttrs = clickedLink.hasAttribute('data-core') ||
                                 clickedLink.hasAttribute('data-core-templates') ||
                                 clickedLink.hasAttribute('data-core-data') ||
                                 clickedLink.hasAttribute('core-templates') ||
                                 clickedLink.hasAttribute('core-data');
 
+                            console.log('DEBUG: hasCoreAttrs:', hasCoreAttrs);
+
                             if (isCorePath || hasCoreAttrs) {
+                                console.log('DEBUG: Setting element to clickedLink');
                                 element = clickedLink;
                             } else {
+                                console.log('DEBUG: Not a core path or has core attrs, checking other conditions');
                                 const hasCoreTarget = clickedLink.hasAttribute('data-target') || clickedLink.hasAttribute('target');
                                 const isHashNav = !href || href === '#' || href.startsWith('#');
                                 const isJavascript = href && href.startsWith('javascript:');
 
+                                console.log('DEBUG: hasCoreTarget:', hasCoreTarget, 'isHashNav:', isHashNav, 'isJavascript:', isJavascript);
+
                                 // Allow normal navigation for regular links
                                 if (!hasCoreTarget && !isHashNav && !isJavascript) {
+                                    console.log('DEBUG: Allowing normal navigation, returning');
                                     return; // Let normal anchor links navigate normally
                                 }
                             }
+                        } else {
+                            console.log('DEBUG: No clickedLink found');
                         }
 
                         if (!element) {
+                            console.log('DEBUG: No element found, checking for buttons');
                             element = event.target.closest(
                                 'button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
                                  [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
                             );
                         }
 
-                        if (!element) return;
+                        console.log('DEBUG: Final element:', element);
+
+                        if (!element) {
+                            console.log('DEBUG: No element found, returning');
+                            return;
+                        }
 
                         // Do not treat core-pocket containers as click targets.
-                        if (element.classList && element.classList.contains('core-pocket')) return;
+                        if (element.classList && element.classList.contains('core-pocket')) {
+                            console.log('DEBUG: Element is core-pocket, returning');
+                            return;
+                        }
+
+                        console.log('DEBUG: About to check dataRefs');
 
                         const dataRefs = element.getAttribute('data-core') ||
                             element.getAttribute('data-core-templates') ||
@@ -529,7 +554,35 @@ const core = (() => {
                             element.dataset.coreTemplates ||
                             element.dataset.coreData;
 
-                        if (!dataRefs) return;
+                        console.log('DEBUG: dataRefs:', dataRefs);
+
+                        if (!dataRefs) {
+                            console.log('DEBUG: No dataRefs found, checking for routing link');
+                            // Check if this is a routing link that should be processed
+                            const elementHref = element.getAttribute('href');
+                            console.log('DEBUG: elementHref:', elementHref);
+                            if (elementHref && elementHref.includes('/_')) {
+                                console.log('DEBUG: Processing routing link via fallback:', elementHref);
+                                event.preventDefault();
+                                const directive = core.hf.parseRoute(elementHref);
+                                console.log('DEBUG: Parsed directive:', directive);
+                                if (directive && directive.length) {
+                                    for (const settings of directive) {
+                                        let nameList = [];
+                                        let dataSources = [];
+                                        for (const item of settings.l) {
+                                            nameList.push(item.n);
+                                            if (item.u) dataSources.push({ name: item.n, url: item.u });
+                                        }
+                                        console.log('DEBUG: Calling insertPocket with target:', settings.t, 'templates:', nameList.join(','));
+                                        core.ux.insertPocket(settings.t, nameList.join(','), dataSources);
+                                    }
+                                }
+                                return;
+                            }
+                            console.log('DEBUG: Not a routing link, returning');
+                            return;
+                        }
 
                         console.log('CORE DEBUG: About to preventDefault on:', element.outerHTML);
                         event.preventDefault();
@@ -575,7 +628,32 @@ const core = (() => {
                         element.getAttribute('target') ||
                         core.ud.defaultClickTarget;
 
-                    if (!dataRefs) return;
+                    if (!dataRefs) {
+                        console.log('DEBUG: No dataRefs found, checking for routing link');
+                        // Check if this is a routing link that should be processed
+                        const elementHref = element.getAttribute('href');
+                        console.log('DEBUG: elementHref:', elementHref);
+                        if (elementHref && elementHref.includes('/_')) {
+                            console.log('DEBUG: Processing routing link via fallback:', elementHref);
+                            const directive = core.hf.parseRoute(elementHref);
+                            console.log('DEBUG: Parsed directive:', directive);
+                            if (directive && directive.length) {
+                                for (const settings of directive) {
+                                    let nameList = [];
+                                    let dataSources = [];
+                                    for (const item of settings.l) {
+                                        nameList.push(item.n);
+                                        if (item.u) dataSources.push({ name: item.n, url: item.u });
+                                    }
+                                    console.log('DEBUG: Calling insertPocket with target:', settings.t, 'templates:', nameList.join(','));
+                                    core.ux.insertPocket(settings.t, nameList.join(','), dataSources);
+                                }
+                            }
+                            return;
+                        }
+                        console.log('DEBUG: Not a routing link, returning');
+                        return;
+                    }
 
                     let dataSources = [];
                     const templates = dataRefs.split(',').map(s => String(s).trim()).filter(Boolean);
