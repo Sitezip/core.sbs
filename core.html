@@ -103,10 +103,10 @@
         class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center">
-                <div class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
+                <a href="#/_main/home" class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
                     data-core-routing="false"
-                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5)); pointer-events: none;">
-                </div>
+                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));">
+                </a>
             </div>
 
             <button class="xl:hidden text-white p-2 hover:bg-white/5 rounded-xl transition-colors focus:outline-none"
@@ -253,13 +253,13 @@
                             </div>
 
                             <div class="flex flex-wrap gap-4 md:gap-6 mt-4 md:mt-8">
-                                <a href="#" target="#main" data-core-templates="stuff"
+                                <a href="#/_main/docs" target="_top"
                                     class="group relative my-auto w-full md:w-auto text-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all hover:-translate-y-1 overflow-hidden no-underline">
                                     <div
                                         class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                     </div>
                                     <span class="relative flex justify-center items-center gap-2">
-                                        View Components
+                                        Get Started
                                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -268,18 +268,17 @@
                                     </span>
                                 </a>
 
-                                <a href="#" onclick="showToast('Silent Background Sync Initialized', 'info')"
+                                <a href="#architecture-overview" onclick="document.getElementById('architecture-overview').scrollIntoView({behavior: 'smooth'}); return false;"
                                     class="group px-8 py-4 w-full md:w-auto text-center justify-center bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 no-underline flex items-center gap-3">
                                     <div
                                         class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
                                         <svg class="w-4 h-4 text-emerald-400 group-hover:rotate-180 transition-transform duration-700"
                                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
-                                            </path>
+                                                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                                         </svg>
                                     </div>
-                                    <span>Silent Sync Demo</span>
+                                    <span>Learn More</span>
                                 </a>
                             </div>
                         </div>
@@ -343,7 +342,7 @@
             </div>
 
             <!-- Architecture Deep-Dive (Inlined from information section) -->
-            <section class="container mx-auto -mt-16 px-4 py-16 md:py-20 text-white pb-10">
+            <section id="architecture-overview" class="container mx-auto -mt-16 px-4 py-16 md:py-20 text-white pb-10">
                 <div class="">
                     <h1 class="text-4xl md:text-6xl font-extrabold mb-12">Architecture Overview</h1>
 

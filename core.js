@@ -11,7 +11,7 @@ const core = (() => {
         baseUrl = window.location.origin;
     }
     let useDebugger = false; //user setting
-    let useRouting = false; //user setting - DISABLED FOR TESTING
+    let useRouting = true; //user setting - ENABLED FOR PROPER SPA FUNCTIONALITY
     let useLocking = true;  //true = pockets lock after complete, false = pockets will refresh every soc call
     if (document.readyState === 'complete') {
         setTimeout(() => { core.init() });
@@ -865,7 +865,7 @@ const core = (() => {
                     if (append) {
                         base += append;
                     }
-                    window.history.replaceState(state, title, base);
+                    window.history.pushState(state, title, base);
                 },
                 parseRoute: (urlStr) => {
                     const url = new URL(urlStr || window.location.href, window.location.origin);
