@@ -1,4 +1,4 @@
-const core_version = '20260119';
+const core_version = '20260125.1';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -10,7 +10,7 @@ const core = (() => {
     if (document.currentScript && document.currentScript.src.startsWith(window.location.origin)) {
         baseUrl = window.location.origin;
     }
-    let useDebugger = false; //user setting
+    let useDebugger = true; //user setting - ENABLED FOR DEBUGGING
     let useRouting = true; //user setting - ENABLED FOR PROPER SPA FUNCTIONALITY
     let useLocking = true;  //true = pockets lock after complete, false = pockets will refresh every soc call
     if (document.readyState === 'complete') {
@@ -22,8 +22,39 @@ const core = (() => {
     }
 
     window.addEventListener('hashchange', () => {
-        if (useRouting) core.pk.init();
+        if (useRouting) {
+            console.log('core.js: Hash change detected, reinitializing pockets');
+            console.log('core.js: Current hash:', window.location.hash);
+            // Force complete reinitialization
+            core.pk.init();
+        }
     });
+
+    // For hash-based routing, we need to handle back/forward differently
+    // Monitor for hash changes that might come from browser navigation
+    let lastHandledHash = window.location.hash;
+
+    window.addEventListener('popstate', (event) => {
+        if (useRouting) {
+            console.log('core.js: Popstate detected, current hash:', window.location.hash);
+            console.log('core.js: Event state:', event.state);
+            // Force complete reinitialization on popstate
+            setTimeout(() => {
+                console.log('core.js: Force reinitializing pockets after popstate');
+                core.pk.init();
+                lastHandledHash = window.location.hash;
+            }, 10);
+        }
+    });
+
+    // Additional monitoring for hash changes from browser navigation
+    setInterval(() => {
+        if (useRouting && window.location.hash !== lastHandledHash) {
+            console.log('core.js: Hash change detected via monitoring, from', lastHandledHash, 'to', window.location.hash);
+            core.pk.init();
+            lastHandledHash = window.location.hash;
+        }
+    }, 50);
 
     return {
         get section() {
@@ -481,110 +512,51 @@ const core = (() => {
                 addClickListeners: () => {
                     // Event delegation: do not break normal links; only intercept core-managed elements.
                     document.addEventListener('click', (event) => {
-                        console.log('DEBUG: Click event detected on:', event.target);
                         // First check if this is a normal anchor link without any core attributes
                         const clickedLink = event.target.closest('a');
-                        console.log('DEBUG: clickedLink:', clickedLink);
                         let element = null;
 
                         if (clickedLink) {
-                            console.log('DEBUG: Processing clickedLink');
                             const href = clickedLink.getAttribute('href');
-                            console.log('DEBUG: Clicked link href:', href);
+                            // Check if this is a core routing link that should be intercepted
                             const isCorePath = href && href.includes('/_');
-                            console.log('DEBUG: isCorePath:', isCorePath, 'useRouting:', useRouting);
                             const hasCoreAttrs = clickedLink.hasAttribute('data-core') ||
                                 clickedLink.hasAttribute('data-core-templates') ||
                                 clickedLink.hasAttribute('data-core-data') ||
                                 clickedLink.hasAttribute('core-templates') ||
                                 clickedLink.hasAttribute('core-data');
 
-                            console.log('DEBUG: hasCoreAttrs:', hasCoreAttrs);
-
                             if (isCorePath || hasCoreAttrs) {
-                                console.log('DEBUG: Setting element to clickedLink');
                                 element = clickedLink;
                             } else {
-                                console.log('DEBUG: Not a core path or has core attrs, checking other conditions');
                                 const hasCoreTarget = clickedLink.hasAttribute('data-target') || clickedLink.hasAttribute('target');
-                                const isHashNav = !href || href === '#' || href.startsWith('#');
+                                const isSimpleHash = !href || href === '#';
                                 const isJavascript = href && href.startsWith('javascript:');
 
-                                console.log('DEBUG: hasCoreTarget:', hasCoreTarget, 'isHashNav:', isHashNav, 'isJavascript:', isJavascript);
-
-                                // Allow normal navigation for regular links
-                                if (!hasCoreTarget && !isHashNav && !isJavascript) {
-                                    console.log('DEBUG: Allowing normal navigation, returning');
+                                // Allow normal navigation for regular links that aren't core routes
+                                if (!hasCoreTarget && !isSimpleHash && !isJavascript) {
                                     return; // Let normal anchor links navigate normally
                                 }
                             }
-                        } else {
-                            console.log('DEBUG: No clickedLink found');
                         }
 
                         if (!element) {
-                            console.log('DEBUG: No element found, checking for buttons');
                             element = event.target.closest(
                                 'button[data-core], button[data-core-templates], button[data-core-data], button[core-templates], button[core-data],\
                                  [role="button"][data-core], [role="button"][data-core-templates], [role="button"][data-core-data], [role="button"][core-templates], [role="button"][core-data]'
                             );
                         }
 
-                        console.log('DEBUG: Final element:', element);
-
                         if (!element) {
-                            console.log('DEBUG: No element found, returning');
                             return;
                         }
 
                         // Do not treat core-pocket containers as click targets.
                         if (element.classList && element.classList.contains('core-pocket')) {
-                            console.log('DEBUG: Element is core-pocket, returning');
                             return;
                         }
 
-                        console.log('DEBUG: About to check dataRefs');
-
-                        const dataRefs = element.getAttribute('data-core') ||
-                            element.getAttribute('data-core-templates') ||
-                            element.getAttribute('core-templates') ||
-                            element.getAttribute('data-core-data') ||
-                            element.getAttribute('core-data') ||
-                            element.dataset.core ||
-                            element.dataset.coreTemplates ||
-                            element.dataset.coreData;
-
-                        console.log('DEBUG: dataRefs:', dataRefs);
-
-                        if (!dataRefs) {
-                            console.log('DEBUG: No dataRefs found, checking for routing link');
-                            // Check if this is a routing link that should be processed
-                            const elementHref = element.getAttribute('href');
-                            console.log('DEBUG: elementHref:', elementHref);
-                            if (elementHref && elementHref.includes('/_')) {
-                                console.log('DEBUG: Processing routing link via fallback:', elementHref);
-                                event.preventDefault();
-                                const directive = core.hf.parseRoute(elementHref);
-                                console.log('DEBUG: Parsed directive:', directive);
-                                if (directive && directive.length) {
-                                    for (const settings of directive) {
-                                        let nameList = [];
-                                        let dataSources = [];
-                                        for (const item of settings.l) {
-                                            nameList.push(item.n);
-                                            if (item.u) dataSources.push({ name: item.n, url: item.u });
-                                        }
-                                        console.log('DEBUG: Calling insertPocket with target:', settings.t, 'templates:', nameList.join(','));
-                                        core.ux.insertPocket(settings.t, nameList.join(','), dataSources);
-                                    }
-                                }
-                                return;
-                            }
-                            console.log('DEBUG: Not a routing link, returning');
-                            return;
-                        }
-
-                        console.log('CORE DEBUG: About to preventDefault on:', element.outerHTML);
+                        // Intercept the click for all core-managed elements
                         event.preventDefault();
                         core.hf.handleClick(element, event);
                     });
@@ -601,6 +573,10 @@ const core = (() => {
                     if (href && href.includes('/_')) {
                         const directive = core.hf.parseRoute(href);
                         if (directive && directive.length) {
+                            // Update browser history for proper back/forward functionality
+                            if (useRouting) {
+                                core.hf.setRoute(href);
+                            }
                             for (const settings of directive) {
                                 let nameList = [];
                                 let dataSources = [];
@@ -629,15 +605,15 @@ const core = (() => {
                         core.ud.defaultClickTarget;
 
                     if (!dataRefs) {
-                        console.log('DEBUG: No dataRefs found, checking for routing link');
                         // Check if this is a routing link that should be processed
                         const elementHref = element.getAttribute('href');
-                        console.log('DEBUG: elementHref:', elementHref);
                         if (elementHref && elementHref.includes('/_')) {
-                            console.log('DEBUG: Processing routing link via fallback:', elementHref);
                             const directive = core.hf.parseRoute(elementHref);
-                            console.log('DEBUG: Parsed directive:', directive);
                             if (directive && directive.length) {
+                                // Update browser history for proper back/forward functionality
+                                if (useRouting) {
+                                    core.hf.setRoute(elementHref);
+                                }
                                 for (const settings of directive) {
                                     let nameList = [];
                                     let dataSources = [];
@@ -645,13 +621,11 @@ const core = (() => {
                                         nameList.push(item.n);
                                         if (item.u) dataSources.push({ name: item.n, url: item.u });
                                     }
-                                    console.log('DEBUG: Calling insertPocket with target:', settings.t, 'templates:', nameList.join(','));
                                     core.ux.insertPocket(settings.t, nameList.join(','), dataSources);
                                 }
+                                return;
                             }
-                            return;
                         }
-                        console.log('DEBUG: Not a routing link, returning');
                         return;
                     }
 
@@ -858,14 +832,52 @@ const core = (() => {
                     const urlObj = new URL(window.location.href);
                     return urlObj[which || 'href'];
                 },
-                setRoute: (base, title, append, info) => {
+                setRoute: (base, title, append, info, replace = false) => {
                     base = base || core.hf.getRoute();
                     title = title || core.ud.defaultPageTitle;
-                    const state = { additionalInformation: (info || core.ud.defaultPageStatusUpdate) };
+                    const state = {
+                        additionalInformation: (info || core.ud.defaultPageStatusUpdate),
+                        timestamp: Date.now(),
+                        route: base + (append || '')
+                    };
                     if (append) {
                         base += append;
                     }
-                    window.history.pushState(state, title, base);
+
+                    // Handle different input formats for base
+                    let hashUrl;
+                    if (base.startsWith('#')) {
+                        // Already a hash (e.g., "#/_main/home")
+                        hashUrl = base;
+                    } else if (base.includes('/_')) {
+                        // Contains a "Pretty Path" trigger (could be a full URL or a path)
+                        hashUrl = '#' + base.substring(base.indexOf('/_'));
+                    } else if (base.startsWith('/')) {
+                        // Simple path (e.g., "/home")
+                        hashUrl = '#/' + base.substring(1);
+                    } else {
+                        // Fallback for other formats
+                        try {
+                            const u = new URL(base, window.location.origin);
+                            hashUrl = '#/' + u.pathname.replace(/^\//, '') + u.search + u.hash;
+                        } catch (e) {
+                            hashUrl = '#/' + base;
+                        }
+                    }
+
+                    // Avoid redundant history updates if the hash is already what we want
+                    if (window.location.hash === hashUrl && !replace) {
+                        return;
+                    }
+
+                    if (replace) {
+                        window.history.replaceState(state, title, hashUrl);
+                    } else {
+                        window.history.pushState(state, title, hashUrl);
+                    }
+
+                    lastHandledHash = hashUrl; // Update tracking
+                    window.lastHash = hashUrl; // Keep for compatibility
                 },
                 parseRoute: (urlStr) => {
                     const url = new URL(urlStr || window.location.href, window.location.origin);
@@ -874,7 +886,8 @@ const core = (() => {
                     // 1. Check for legacy JSON format in hash first
                     if (hash.includes(escape('"t"')) && hash.includes(escape('"l"'))) {
                         try {
-                            return core.hf.parseJSON(unescape(hash));
+                            const result = core.hf.parseJSON(unescape(hash));
+                            return result;
                         } catch (e) {
                             if (useDebugger) console.warn('core.js: Failed to parse legacy route hash');
                         }
@@ -885,8 +898,12 @@ const core = (() => {
                     if (!routeStr.includes('/_') && url.hash.includes('/_')) {
                         routeStr = url.hash.replace('#', '');
                     }
+                    console.log('core.hf.parseRoute(): Route string to parse:', routeStr);
 
-                    if (!routeStr.includes('/_')) return [];
+                    if (!routeStr.includes('/_')) {
+                        console.log('core.hf.parseRoute(): No /_ found in route, returning empty array');
+                        return [];
+                    }
 
                     const segments = routeStr.split('/').filter(Boolean);
                     const directive = [];
@@ -912,6 +929,7 @@ const core = (() => {
                     if (currentTarget) {
                         directive.push({ t: '#' + currentTarget, l: currentItems });
                     }
+                    console.log('core.hf.parseRoute(): Final directive:', directive);
                     return directive;
                 },
                 buildRoute: (directive) => {
@@ -1107,11 +1125,18 @@ const core = (() => {
                     timeout = (+value || 2000);
                 },
                 init: () => {
+                    console.log('core.pk.init() called');
                     //check to use routing info for pocket setup
                     if (useRouting) {
+                        console.log('core.pk.init(): useRouting is true, parsing route');
+                        console.log('core.pk.init(): Current window.location.href:', window.location.href);
+                        console.log('core.pk.init(): Current window.location.hash:', window.location.hash);
                         const directive = core.hf.parseRoute();
+                        console.log('core.pk.init(): Parsed directive:', directive);
                         if (directive && directive.length) {
+                            console.log('core.pk.init(): Processing', directive.length, 'directive(s)');
                             for (const settings of directive) {
+                                console.log('core.pk.init(): Processing settings:', settings);
                                 let nameList = [];
                                 let dataSources = [];
                                 for (const item of settings.l) {
@@ -1122,8 +1147,11 @@ const core = (() => {
                                 }
                                 const target = settings.t;
                                 const dataRefs = nameList.join(',');
+                                console.log('core.pk.init(): Inserting pocket - target:', target, 'dataRefs:', dataRefs, 'dataSources:', dataSources);
                                 core.ux.insertPocket(target, dataRefs, dataSources, false);
                             }
+                        } else {
+                            console.log('core.pk.init(): No directive found, calling core.pk.soc()');
                         }
                     }
                     core.pk.soc();
@@ -1181,8 +1209,8 @@ const core = (() => {
                         const search = core.hf.getRoute('search');
 
                         if (newPath) {
-                            // Always use hash for Pretty Paths to protect relative assets (images/css)
-                            core.hf.setRoute(core.hf.getRoute('origin') + core.hf.getRoute('pathname'), null, '#' + newPath + search);
+                            // Use replaceState for URL sync in EOL to avoid redundant history entries
+                            core.hf.setRoute(newPath + search, null, null, null, true);
                         }
                     }
                     if (useDebugger) console.log('core.js completed in ' + (core.hf.date(null, 'perf') - stackTs).toFixed(1) + 'ms');
