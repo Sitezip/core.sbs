@@ -1,0 +1,279 @@
+{
+  "Core.js Basic Pocket": {
+    "prefix": "cpk",
+    "body": [
+      "<div class=\"core-pocket\" data-core-templates=\"${1:templateName}\"></div>"
+    ],
+    "description": "Basic core.js pocket element"
+  },
+  "Core.js Pocket with Data Source": {
+    "prefix": "cpkd",
+    "body": [
+      "<div class=\"core-pocket\" ",
+      "     data-core-templates=\"${1:templateName}\" ",
+      "     data-core-source-${1:templateName}=\"${2:https://api.example.com/data}\">",
+      "</div>"
+    ],
+    "description": "Pocket with data source URL"
+  },
+  "Core.js Pocket with Template": {
+    "prefix": "cpkt",
+    "body": [
+      "<div class=\"core-pocket\" ",
+      "     data-core-templates=\"${1:templateName}\"",
+      "     data-core-source-${1:templateName}=\"${2:/api/endpoint}\">",
+      "</div>"
+    ],
+    "description": "Pocket with template and data source"
+  },
+  "Core.js Pocket with ID": {
+    "prefix": "cpkid",
+    "body": [
+      "<div id=\"${1:pocketId}\" class=\"core-pocket\" ",
+      "     data-core-templates=\"${2:templateName}\">",
+      "</div>"
+    ],
+    "description": "Pocket with ID attribute"
+  },
+  "Core.js Pocket (No Routing)": {
+    "prefix": "cpknr",
+    "body": [
+      "<div class=\"core-pocket\" ",
+      "     data-core-templates=\"${1:templateName}\" ",
+      "     data-core-routing=\"false\">",
+      "</div>"
+    ],
+    "description": "Pocket excluded from routing"
+  },
+  "Core.js Basic Template": {
+    "prefix": "ctpl",
+    "body": [
+      "<template name=\"${1:templateName}\">",
+      "    ${2:<div>$3</div>}",
+      "</template>"
+    ],
+    "description": "Basic template element"
+  },
+  "Core.js Template with Data": {
+    "prefix": "ctpld",
+    "body": [
+      "<template name=\"${1:templateName}\">",
+      "    <div>",
+      "        <h2>{{data:${1:templateName}:${2:title}}}</h2>",
+      "        <p>{{data:${1:templateName}:${3:description}}}</p>",
+      "        $0",
+      "    </div>",
+      "</template>"
+    ],
+    "description": "Template with data references"
+  },
+  "Core.js Template with Clone": {
+    "prefix": "ctplc",
+    "body": [
+      "<template name=\"${1:templateName}\">",
+      "    <div>",
+      "        <h2>{{data:${1:templateName}:${2:title}}}</h2>",
+      "        <div class=\"core-clone\" data-core-data=\"${1:templateName}:${3:items}\">",
+      "            <p>{{rec:${4:name}}}</p>",
+      "        </div>",
+      "    </div>",
+      "</template>"
+    ],
+    "description": "Template with clone element"
+  },
+  "Core.js Full Template": {
+    "prefix": "ctplf",
+    "body": [
+      "<template name=\"${1:templateName}\">",
+      "    <div class=\"${2:container}\">",
+      "        <header>",
+      "            <h1>{{data:${1:templateName}:${3:title}}}</h1>",
+      "        </header>",
+      "        <main>",
+      "            <div class=\"core-clone\" data-core-data=\"${1:templateName}:${4:items}\">",
+      "                <div class=\"${5:item}\">",
+      "                    <h3>{{rec:${6:name}}}</h3>",
+      "                    <p>{{rec:${7:description}}}</p>",
+      "                </div>",
+      "            </div>",
+      "        </main>",
+      "        $0",
+      "    </div>",
+      "</template>"
+    ],
+    "description": "Full template with header and clone"
+  },
+  "Core.js Basic Clone": {
+    "prefix": "ccl",
+    "body": [
+      "<div class=\"core-clone\" data-core-data=\"${1:dataRef}:${2:arrayField}\">",
+      "    ${3:<p>{{rec:${4:field}}}</p>}",
+      "</div>"
+    ],
+    "description": "Basic clone element"
+  },
+  "Core.js Clone with Records": {
+    "prefix": "cclr",
+    "body": [
+      "<div class=\"core-clone\" data-core-data=\"${1:dataRef}:${2:items}\">",
+      "    <div class=\"${3:item-card}\">",
+      "        <h3>{{rec:${4:title}}}</h3>",
+      "        <p>{{rec:${5:description}}}</p>",
+      "        <span>{{rec:${6:date}:date:m/d/Y}}</span>",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Clone with record references"
+  },
+  "Core.js Nested Clone": {
+    "prefix": "cclnest",
+    "body": [
+      "<div class=\"core-clone\" data-core-data=\"${1:dataRef}:${2:items}\">",
+      "    <div>",
+      "        <h4>{{rec:${3:name}}}</h4>",
+      "        {{rec:${4:children}:core_pk_cloner:${5:childTemplate}}}",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Nested clone with recursive cloner"
+  },
+  "Core.js Clone with Augmented Data": {
+    "prefix": "cclaug",
+    "body": [
+      "<div class=\"core-clone\" data-core-data=\"${1:dataRef}:${2:items}\">",
+      "    <div class=\"${3:item}\">",
+      "        <span class=\"index\">{{aug:index}}</span>",
+      "        <span class=\"total\">{{aug:count}}</span>",
+      "        <h3>{{rec:${4:title}}}</h3>",
+      "        $0",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Clone with augmented data (index, count)"
+  },
+  "Core.js Data Reference": {
+    "prefix": "cdata",
+    "body": "{{data:${1:dataRef}:${2:field}}}",
+    "description": "Data reference directive"
+  },
+  "Core.js Record Reference": {
+    "prefix": "crec",
+    "body": "{{rec:${1:fieldName}}}",
+    "description": "Record reference directive"
+  },
+  "Core.js Augmented Data": {
+    "prefix": "caug",
+    "body": "{{aug:${1|index,count,first,last|}}}",
+    "description": "Augmented data directive"
+  },
+  "Core.js Attribute Injection": {
+    "prefix": "cattr",
+    "body": "{{rec:${1:fieldName}:core_pk_attr:${2:src}}}",
+    "description": "Inject data into HTML attribute"
+  },
+  "Core.js Recursive Cloner": {
+    "prefix": "ccloner",
+    "body": "{{rec:${1:childrenField}:core_pk_cloner:${2:templateName}}}",
+    "description": "Recursive cloner directive"
+  },
+  "Core.js Formatted Data": {
+    "prefix": "cformat",
+    "body": "{{data:${1:dataRef}:${2:field}:${3|date,money,upper,lower,title,nohtml|}}}",
+    "description": "Formatted data reference"
+  },
+  "Core.js Formatted Record": {
+    "prefix": "crecformat",
+    "body": "{{rec:${1:field}:${2|date,money,upper,lower,title,nohtml|}}}",
+    "description": "Formatted record reference"
+  },
+  "Core.js Date Format": {
+    "prefix": "cdateformat",
+    "body": "{{rec:${1:dateField}:date:${2:m/d/Y}}}",
+    "description": "Date formatting directive"
+  },
+  "Core.js Money Format": {
+    "prefix": "cmoneyformat",
+    "body": "{{rec:${1:priceField}:money:${2:$}}}",
+    "description": "Money formatting directive"
+  },
+  "Core.js Anchor Get Data": {
+    "prefix": "caget",
+    "body": [
+      "<a href=\"#\" target=\"core_be_getData\" ",
+      "   data-core-data=\"${1:dataRef}\" ",
+      "   data-core-source=\"${2:/api/endpoint}\">",
+      "    ${3:Load Data}",
+      "</a>"
+    ],
+    "description": "Anchor tag to silently load data"
+  },
+  "Core.js Anchor Get Template": {
+    "prefix": "catpl",
+    "body": [
+      "<a href=\"#\" target=\"core_be_getTemplate\" ",
+      "   data-core-data=\"${1:templateName}\" ",
+      "   data-core-source=\"${2:/templates/template.html}\">",
+      "    ${3:Load Template}",
+      "</a>"
+    ],
+    "description": "Anchor tag to silently load template"
+  },
+  "Core.js Anchor Reinit": {
+    "prefix": "capk",
+    "body": "<a href=\"#\" target=\"core_pk_init\">${1:Refresh}</a>",
+    "description": "Anchor tag to reinitialize pockets"
+  },
+  "Core.js Complete Example": {
+    "prefix": "cexample",
+    "body": [
+      "<!-- Pocket -->",
+      "<div class=\"core-pocket\" ",
+      "     data-core-templates=\"${1:users}\" ",
+      "     data-core-source-${1:users}=\"${2:https://api.example.com/users}\">",
+      "</div>",
+      "",
+      "<!-- Template -->",
+      "<template name=\"${1:users}\">",
+      "    <div class=\"${3:user-list}\">",
+      "        <h2>{{data:${1:users}:${4:title}}}</h2>",
+      "        <div class=\"core-clone\" data-core-data=\"${1:users}:${5:items}\">",
+      "            <div class=\"${6:user-card}\">",
+      "                <h3>{{rec:${7:name}}}</h3>",
+      "                <p>{{rec:${8:email}}}</p>",
+      "            </div>",
+      "        </div>",
+      "    </div>",
+      "</template>"
+    ],
+    "description": "Complete pocket and template example"
+  },
+  "Core.js Form with Validation": {
+    "prefix": "cform",
+    "body": [
+      "<form id=\"${1:myForm}\">",
+      "    <input type=\"text\" name=\"${2:username}\" required>",
+      "    <input type=\"email\" name=\"${3:email}\" required>",
+      "    <button type=\"submit\">${4:Submit}</button>",
+      "</form>",
+      "",
+      "<script>",
+      "document.getElementById('${1:myForm}').addEventListener('submit', async (e) => {",
+      "    e.preventDefault();",
+      "    const formData = new FormData(e.target);",
+      "    const result = core.sv.scrub([",
+      "        { name: '${2:username}', value: formData.get('${2:username}'), req: true },",
+      "        { name: '${3:email}', value: formData.get('${3:email}'), req: true, email: true }",
+      "    ]);",
+      "    ",
+      "    if (result.success) {",
+      "        await core.be.getData('${5:response}', '${6:/api/submit}', {",
+      "            method: 'POST',",
+      "            data: result.data",
+      "        });",
+      "    }",
+      "});",
+      "</script>"
+    ],
+    "description": "Form with core.js validation"
+  }
+}

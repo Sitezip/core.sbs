@@ -1,0 +1,164 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "core.js Template Directives",
+  "scopeName": "source.corejs.embedded",
+  "injectionSelector": "L:text.html, L:source.js",
+  "patterns": [
+    {
+      "include": "#corejs-directive"
+    }
+  ],
+  "repository": {
+    "corejs-directive": {
+      "patterns": [
+        {
+          "name": "meta.embedded.block.corejs",
+          "begin": "\\{\\{",
+          "end": "\\}\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.template.begin.corejs"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.template.end.corejs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#directive-content"
+            }
+          ]
+        }
+      ]
+    },
+    "directive-content": {
+      "patterns": [
+        {
+          "name": "meta.directive.data.corejs",
+          "match": "(data)(:)([^:}]+)(:)([^:}]+)(?:(:)([^}]+))?",
+          "captures": {
+            "1": {
+              "name": "keyword.control.directive.type.corejs"
+            },
+            "2": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "3": {
+              "name": "variable.other.dataref.corejs"
+            },
+            "4": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "5": {
+              "name": "variable.other.field.corejs"
+            },
+            "6": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "7": {
+              "name": "entity.name.function.formatter.corejs"
+            }
+          }
+        },
+        {
+          "name": "meta.directive.rec.corejs",
+          "match": "(rec)(:)([^:}]+)(?:(:)(date|money|upper|lower|title|nohtml|removehtml)(?:(:)([^}]+))?)?",
+          "captures": {
+            "1": {
+              "name": "keyword.control.directive.type.corejs"
+            },
+            "2": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "3": {
+              "name": "variable.other.field.corejs"
+            },
+            "4": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "5": {
+              "name": "entity.name.function.formatter.corejs"
+            },
+            "6": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "7": {
+              "name": "string.other.format-pattern.corejs"
+            }
+          }
+        },
+        {
+          "name": "meta.directive.rec.attr.corejs",
+          "match": "(rec)(:)([^:}]+)(:)(core_pk_attr)(:)([^}]+)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.directive.type.corejs"
+            },
+            "2": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "3": {
+              "name": "variable.other.field.corejs"
+            },
+            "4": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "5": {
+              "name": "support.function.special.corejs"
+            },
+            "6": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "7": {
+              "name": "entity.other.attribute-name.html"
+            }
+          }
+        },
+        {
+          "name": "meta.directive.rec.cloner.corejs",
+          "match": "(rec)(:)([^:}]+)(:)(core_pk_cloner)(:)([^}]+)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.directive.type.corejs"
+            },
+            "2": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "3": {
+              "name": "variable.other.field.corejs"
+            },
+            "4": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "5": {
+              "name": "support.function.special.corejs"
+            },
+            "6": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "7": {
+              "name": "entity.name.tag.template.corejs"
+            }
+          }
+        },
+        {
+          "name": "meta.directive.aug.corejs",
+          "match": "(aug)(:)(index|count|first|last)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.directive.type.corejs"
+            },
+            "2": {
+              "name": "punctuation.separator.colon.corejs"
+            },
+            "3": {
+              "name": "constant.language.augmented.corejs"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

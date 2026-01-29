@@ -1,0 +1,303 @@
+{
+  "Core.js Init Hook": {
+    "prefix": "cudinit",
+    "body": [
+      "core.ud.init = () => {",
+      "    ${1:// Initialization code}",
+      "    $0",
+      "};"
+    ],
+    "description": "User-defined initialization hook"
+  },
+  "Core.js Start of Call Hook": {
+    "prefix": "cudsoc",
+    "body": [
+      "core.ud.soc = () => {",
+      "    ${1:// Runs before rendering lifecycle}",
+      "    $0",
+      "};"
+    ],
+    "description": "Start of call lifecycle hook"
+  },
+  "Core.js End of Call Hook": {
+    "prefix": "cudeoc",
+    "body": [
+      "core.ud.eoc = () => {",
+      "    ${1:// Runs after rendering complete}",
+      "    $0",
+      "};"
+    ],
+    "description": "End of call lifecycle hook"
+  },
+  "Core.js Preflight Hook": {
+    "prefix": "cudpre",
+    "body": [
+      "core.ud.preflight = (dataRef, dataSrc, type) => {",
+      "    ${1:// Modify fetch settings before request}",
+      "    return {",
+      "        ${2:// Return modified settings}",
+      "    };",
+      "};"
+    ],
+    "description": "Preflight hook for modifying fetch requests"
+  },
+  "Core.js Postflight Hook": {
+    "prefix": "cudpost",
+    "body": [
+      "core.ud.postflight = (dataRef, dataObj, type) => {",
+      "    ${1:// Process data after fetch}",
+      "    return ${2:dataObj};",
+      "};"
+    ],
+    "description": "Postflight hook for processing fetched data"
+  },
+  "Core.js Prepaint Hook": {
+    "prefix": "cudprepaint",
+    "body": [
+      "core.ud.prepaint = (dataRef, dataObj, type) => {",
+      "    ${1:// Before rendering template/clone}",
+      "    $0",
+      "};"
+    ],
+    "description": "Prepaint hook before rendering"
+  },
+  "Core.js Postpaint Hook": {
+    "prefix": "cudpostpaint",
+    "body": [
+      "core.ud.postpaint = (dataRef, dataObj, type) => {",
+      "    ${1:// After rendering}",
+      "    $0",
+      "};"
+    ],
+    "description": "Postpaint hook after rendering"
+  },
+  "Core.js Get Data": {
+    "prefix": "cbeget",
+    "body": "core.be.getData('${1:dataRef}', '${2:/api/endpoint}');",
+    "description": "Fetch data from API"
+  },
+  "Core.js Get Data with Settings": {
+    "prefix": "cbegetset",
+    "body": [
+      "core.be.getData('${1:dataRef}', '${2:/api/endpoint}', {",
+      "    method: '${3:GET}',",
+      "    ${4:// Additional settings}",
+      "});"
+    ],
+    "description": "Fetch data with custom settings"
+  },
+  "Core.js Get Template": {
+    "prefix": "cbetpl",
+    "body": "core.be.getTemplate('${1:templateName}', '${2:/templates/template.html}');",
+    "description": "Fetch template from URL"
+  },
+  "Core.js POST Data": {
+    "prefix": "cbepost",
+    "body": [
+      "core.be.getData('${1:dataRef}', '${2:/api/endpoint}', {",
+      "    method: 'POST',",
+      "    data: {",
+      "        ${3:key}: ${4:value}",
+      "    }",
+      "});"
+    ],
+    "description": "POST data to API"
+  },
+  "Core.js Initialize Pockets": {
+    "prefix": "cpkinit",
+    "body": "core.pk.init();",
+    "description": "Initialize or reinitialize pockets"
+  },
+  "Core.js Set Data": {
+    "prefix": "ccrset",
+    "body": "core.cr.setData('${1:dataRef}', ${2:dataObject});",
+    "description": "Set data in registry"
+  },
+  "Core.js Get Data from Registry": {
+    "prefix": "ccrget",
+    "body": "const ${1:data} = core.cr.getData('${2:dataRef}');",
+    "description": "Get data from registry"
+  },
+  "Core.js Get Template from Registry": {
+    "prefix": "ccrgettpl",
+    "body": "const ${1:template} = core.cr.getTemplate('${2:templateName}');",
+    "description": "Get template from registry"
+  },
+  "Core.js Dig Data": {
+    "prefix": "chfdig",
+    "body": "core.hf.digData(${1:object}, '${2:path.to.property}')",
+    "description": "Deep object property access"
+  },
+  "Core.js Date Format": {
+    "prefix": "chfdate",
+    "body": "core.hf.date(${1:dateString}, '${2:m/d/Y}')",
+    "description": "Format date with custom pattern"
+  },
+  "Core.js Hydrate by Class": {
+    "prefix": "chfhydrate",
+    "body": "core.hf.hydrateByClass();",
+    "description": "Hydrate elements by class directives"
+  },
+  "Core.js Format by Class": {
+    "prefix": "chfformat",
+    "body": "core.hf.formatByClass();",
+    "description": "Format elements by class directives"
+  },
+  "Core.js Parse JSON": {
+    "prefix": "chfparse",
+    "body": "const ${1:data} = core.hf.parseJSON('${2:jsonString}');",
+    "description": "Safely parse JSON string"
+  },
+  "Core.js Scrub Array": {
+    "prefix": "csvscrub",
+    "body": [
+      "const result = core.sv.scrub([",
+      "    { name: '${1:fieldName}', value: ${2:value}, req: ${3:true} }",
+      "]);"
+    ],
+    "description": "Validate and scrub input data"
+  },
+  "Core.js Format Value": {
+    "prefix": "csvformat",
+    "body": "const ${1:formatted} = core.sv.format(${2:value}, '${3|date,money,upper,lower,title,nohtml|}');",
+    "description": "Format value with specified formatter"
+  },
+  "Core.js Await All": {
+    "prefix": "cbeawait",
+    "body": "await core.be.awaitAll();",
+    "description": "Wait for all backend requests to complete"
+  },
+  "Core.js Enable Routing": {
+    "prefix": "crouting",
+    "body": [
+      "core.ud.init = () => {",
+      "    core.useRouting = true;",
+      "};"
+    ],
+    "description": "Enable pretty path routing"
+  },
+  "Core.js Enable Debugger": {
+    "prefix": "cdebug",
+    "body": [
+      "core.ud.init = () => {",
+      "    core.useDebugger = true;",
+      "};"
+    ],
+    "description": "Enable debug logging"
+  },
+  "Core.js Full Init Setup": {
+    "prefix": "cinit",
+    "body": [
+      "core.ud.init = () => {",
+      "    core.useRouting = ${1:true};",
+      "    core.useDebugger = ${2:true};",
+      "    ${3:// Additional initialization}",
+      "};",
+      "",
+      "core.ud.soc = () => {",
+      "    ${4:// Start of call logic}",
+      "};",
+      "",
+      "core.ud.eoc = () => {",
+      "    ${5:// End of call logic}",
+      "};"
+    ],
+    "description": "Complete initialization setup"
+  },
+  "Core.js Form Handler": {
+    "prefix": "cformhandler",
+    "body": [
+      "document.getElementById('${1:formId}').addEventListener('submit', async (e) => {",
+      "    e.preventDefault();",
+      "    const formData = new FormData(e.target);",
+      "    ",
+      "    const result = core.sv.scrub([",
+      "        { name: '${2:field}', value: formData.get('${2:field}'), req: true }",
+      "    ]);",
+      "    ",
+      "    if (result.success) {",
+      "        await core.be.getData('${3:response}', '${4:/api/endpoint}', {",
+      "            method: 'POST',",
+      "            data: result.data",
+      "        });",
+      "        ${5:// Handle success}",
+      "    } else {",
+      "        ${6:// Handle validation errors}",
+      "    }",
+      "});"
+    ],
+    "description": "Complete form submission handler"
+  },
+  "Core.js Click Handler": {
+    "prefix": "cclick",
+    "body": [
+      "document.getElementById('${1:elementId}').addEventListener('click', async (e) => {",
+      "    e.preventDefault();",
+      "    ${2:// Click handler logic}",
+      "    $0",
+      "});"
+    ],
+    "description": "Click event handler"
+  },
+  "Core.js Async Function": {
+    "prefix": "casync",
+    "body": [
+      "const ${1:functionName} = async () => {",
+      "    await core.be.awaitAll();",
+      "    ${2:// Async logic}",
+      "    $0",
+      "};"
+    ],
+    "description": "Async function with backend await"
+  },
+  "Core.js Cache Expire": {
+    "prefix": "ccache",
+    "body": [
+      "core.be.cacheExpire = {",
+      "    type: '${1|data,template|}',",
+      "    name: '${2:dataRef}',",
+      "    seconds: ${3:3600}",
+      "};"
+    ],
+    "description": "Set cache expiration for data or template"
+  },
+  "Core.js Custom Validation": {
+    "prefix": "cvalidate",
+    "body": [
+      "const ${1:validationResult} = core.sv.scrub([",
+      "    { name: '${2:email}', value: ${3:emailValue}, req: true, email: true },",
+      "    { name: '${4:password}', value: ${5:passwordValue}, req: true, min: 8 },",
+      "    { name: '${6:age}', value: ${7:ageValue}, req: true, min: 18, max: 120 }",
+      "]);",
+      "",
+      "if (${1:validationResult}.success) {",
+      "    ${8:// Validation passed}",
+      "} else {",
+      "    console.error(${1:validationResult}.errors);",
+      "}"
+    ],
+    "description": "Custom validation with multiple rules"
+  },
+  "Core.js Console Log": {
+    "prefix": "clg",
+    "body": "console.log('${1:message}', ${2:variable});",
+    "description": "Console log"
+  },
+  "Core.js Console Error": {
+    "prefix": "cle",
+    "body": "console.error('${1:error}', ${2:error});",
+    "description": "Console error"
+  },
+  "Core.js Try Catch": {
+    "prefix": "ctry",
+    "body": [
+      "try {",
+      "    ${1:// Try block}",
+      "} catch (error) {",
+      "    console.error('${2:Error message}:', error);",
+      "    ${3:// Error handling}",
+      "}"
+    ],
+    "description": "Try-catch block"
+  }
+}
