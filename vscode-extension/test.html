@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snippet Test</title>
+</head>
+<body>
+    <!-- Test snippets below -->
+    
+    <!-- Test cpk: Basic pocket -->
+    <div class="core-pocket" data-core-templates="templateName"></div>
+    
+    <!-- Test cpkd: Pocket with data source -->
+    <div class="core-pocket" 
+         data-core-templates="users" 
+         data-core-source-users="https://api.example.com/data">
+    </div>
+    
+    <!-- Test ctpl: Basic template -->
+    <template name="testTemplate">
+        <div></div>
+    </template>
+    
+    <!-- Test ctplc: Template with clone -->
+    <template name="users">
+        <div>
+            <h2>{{data:users:title}}</h2>
+            <div class="core-clone" data-core-data="users:items">
+                <p>{{rec:name}}</p>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Test directives -->
+    <p>{{data:dataRef:field}}</p>
+    <p>{{rec:fieldName}}</p>
+    <p>{{aug:index}}</p>
+    
+</body>
+</html>

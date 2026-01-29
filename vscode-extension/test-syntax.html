@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>core.js Syntax Highlighting Test</title>
+</head>
+<body>
+    <!-- Test Data Directives -->
+    <h1>{{data:users:title}}</h1>
+    <p>{{data:users:description}}</p>
+    <span>{{data:quote:text:upper}}</span>
+    <time>{{data:event:date:date:m/d/Y}}</time>
+    <span>{{data:product:price:money:$}}</span>
+    
+    <!-- Test Record Directives -->
+    <div class="core-clone" data-core-data="users:items">
+        <h2>{{rec:name}}</h2>
+        <p>{{rec:email}}</p>
+        <span>{{rec:status:upper}}</span>
+        <time>{{rec:createdAt:date:Y-m-d}}</time>
+        <span>{{rec:balance:money:$}}</span>
+        <p>{{rec:bio:nohtml}}</p>
+    </div>
+    
+    <!-- Test Augmented Directives -->
+    <div class="core-clone" data-core-data="items:list">
+        <span>Item {{aug:index}} of {{aug:count}}</span>
+        <span>{{aug:first}}</span>
+        <span>{{aug:last}}</span>
+    </div>
+    
+    <!-- Test Special Functions -->
+    <div class="core-clone" data-core-data="products:items">
+        <img {{rec:imageUrl:core_pk_attr:src}} alt="Product">
+        <a {{rec:url:core_pk_attr:href}}>Link</a>
+        {{rec:children:core_pk_cloner:childTemplate}}
+    </div>
+    
+    <!-- Test Complex Nested -->
+    <template name="userCard">
+        <div class="card">
+            <h3>{{data:userCard:name}}</h3>
+            <div class="core-clone" data-core-data="userCard:posts">
+                <article>
+                    <h4>{{rec:title}}</h4>
+                    <time>{{rec:publishedAt:date:F j, Y}}</time>
+                    <p>{{rec:excerpt:removehtml}}</p>
+                    <span>{{rec:views:money:}} views</span>
+                    {{rec:comments:core_pk_cloner:commentTemplate}}
+                </article>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Test All Formatters -->
+    <div>
+        {{rec:field:date:m/d/Y}}
+        {{rec:field:money:$}}
+        {{rec:field:upper}}
+        {{rec:field:lower}}
+        {{rec:field:title}}
+        {{rec:field:nohtml}}
+        {{rec:field:removehtml}}
+    </div>
+</body>
+</html>

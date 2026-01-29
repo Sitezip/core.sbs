@@ -1,0 +1,6 @@
+.vscode/**
+.vscode-test/**
+.gitignore
+SPEC.md
+SNIPPETS.md
+*.vsix

@@ -1,0 +1,94 @@
+{
+  "name": "core.js Dark",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#0f172a",
+    "editor.foreground": "#e2e8f0",
+    "editorCursor.foreground": "#10b981",
+    "editor.lineHighlightBackground": "#1e293b",
+    "editorLineNumber.foreground": "#475569",
+    "editorLineNumber.activeForeground": "#10b981",
+    "editor.selectionBackground": "#334155",
+    "editor.inactiveSelectionBackground": "#1e293b"
+  },
+  "tokenColors": [
+    {
+      "name": "core.js Template Brackets",
+      "scope": [
+        "punctuation.definition.template.begin.corejs",
+        "punctuation.definition.template.end.corejs"
+      ],
+      "settings": {
+        "foreground": "#10b981",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "core.js Directive Type (data, rec, aug)",
+      "scope": "keyword.control.directive.type.corejs",
+      "settings": {
+        "foreground": "#06b6d4",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "core.js Colons",
+      "scope": "punctuation.separator.colon.corejs",
+      "settings": {
+        "foreground": "#64748b"
+      }
+    },
+    {
+      "name": "core.js Data Reference",
+      "scope": "variable.other.dataref.corejs",
+      "settings": {
+        "foreground": "#f59e0b"
+      }
+    },
+    {
+      "name": "core.js Field Name",
+      "scope": "variable.other.field.corejs",
+      "settings": {
+        "foreground": "#fbbf24"
+      }
+    },
+    {
+      "name": "core.js Formatter (date, money, etc)",
+      "scope": "entity.name.function.formatter.corejs",
+      "settings": {
+        "foreground": "#a78bfa",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "core.js Format Pattern",
+      "scope": "string.other.format-pattern.corejs",
+      "settings": {
+        "foreground": "#c084fc"
+      }
+    },
+    {
+      "name": "core.js Special Functions (core_pk_attr, core_pk_cloner)",
+      "scope": "support.function.special.corejs",
+      "settings": {
+        "foreground": "#ec4899",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "core.js Augmented Constants",
+      "scope": "constant.language.augmented.corejs",
+      "settings": {
+        "foreground": "#34d399",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "core.js Template Name",
+      "scope": "entity.name.tag.template.corejs",
+      "settings": {
+        "foreground": "#fb923c"
+      }
+    }
+  ]
+}
