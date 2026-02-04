@@ -2,6 +2,10 @@
 
 Accelerate your core.js development with intelligent code snippets. This extension provides comprehensive snippet support for the core.js framework (Component Oriented Rendering Engine).
 
+## Installation
+
+Download the latest `.vsix` file from [GitHub Releases](https://github.com/Sitezip/core.sbs/releases) and install it in VS Code via `Extensions: Install from VSIX`.
+
 ## Features
 
 - **Pocket Snippets**: Quickly create core-pocket elements with data sources
