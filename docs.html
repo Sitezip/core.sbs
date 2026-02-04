@@ -211,6 +211,9 @@
         <a href="#example-api">API Integration</a>
         <a href="#example-routing">Routing</a>
         <a href="#example-recursive">Recursive Cloning</a>
+        
+        <div class="section-title">Tools</div>
+        <a href="#vscode-extension">VS Code Extension</a>
     </nav>
     
     <main class="content">
@@ -1182,6 +1185,122 @@ core.ud.init = () => {
             </div>
         </section>
         
+        <section id="vscode-extension" class="mb-20">
+            <h2 class="text-3xl font-bold">VS Code Extension</h2>
+            
+            <p class="mb-6">Accelerate your core.js development with our official VS Code extension featuring intelligent code snippets and syntax highlighting.</p>
+            
+            <h3>Features</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 text-slate-300">
+                <li>100+ code snippets for pockets, templates, clones, and directives</li>
+                <li>Lifecycle hook templates with correct signatures</li>
+                <li>API call snippets for backend and registry operations</li>
+                <li>Helper function shortcuts</li>
+                <li>Complete working examples</li>
+                <li>Syntax highlighting for core.js templates</li>
+            </ul>
+            
+            <h3>Installation (Local)</h3>
+            <p class="mb-4">The extension is currently available for local installation. Follow these steps:</p>
+            
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6 space-y-4">
+                <div>
+                    <h4 class="font-semibold mb-2">1. Install vsce</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code>npm install -g @vscode/vsce</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-2">2. Navigate to extension directory</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code>cd vscode-extension</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-2">3. Package the extension</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code>vsce package</code></pre>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-2">This creates a <code>.vsix</code> file</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-2">4. Install in VS Code</h4>
+                    <ul class="text-sm text-slate-300 space-y-1 ml-4">
+                        <li>• Open VS Code</li>
+                        <li>• Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac)</li>
+                        <li>• Type "Extensions: Install from VSIX"</li>
+                        <li>• Select the generated <code>.vsix</code> file</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-2">5. Reload VS Code</h4>
+                    <p class="text-sm text-slate-300">Press <code>Ctrl+Shift+P</code> → "Developer: Reload Window"</p>
+                </div>
+            </div>
+            
+            <h3>Common Snippets</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                    <h4 class="font-semibold text-emerald-400 mb-3">HTML Snippets</h4>
+                    <table class="w-full text-sm">
+                        <tbody class="space-y-2">
+                            <tr><td class="py-1"><code>cpk</code></td><td class="py-1 text-slate-400">Basic pocket</td></tr>
+                            <tr><td class="py-1"><code>cpkd</code></td><td class="py-1 text-slate-400">Pocket with data source</td></tr>
+                            <tr><td class="py-1"><code>ctpl</code></td><td class="py-1 text-slate-400">Basic template</td></tr>
+                            <tr><td class="py-1"><code>ctplc</code></td><td class="py-1 text-slate-400">Template with clone</td></tr>
+                            <tr><td class="py-1"><code>ccl</code></td><td class="py-1 text-slate-400">Basic clone</td></tr>
+                            <tr><td class="py-1"><code>crec</code></td><td class="py-1 text-slate-400">Record reference</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                    <h4 class="font-semibold text-emerald-400 mb-3">JavaScript Snippets</h4>
+                    <table class="w-full text-sm">
+                        <tbody class="space-y-2">
+                            <tr><td class="py-1"><code>cudinit</code></td><td class="py-1 text-slate-400">Init hook</td></tr>
+                            <tr><td class="py-1"><code>cudsoc</code></td><td class="py-1 text-slate-400">Start of call hook</td></tr>
+                            <tr><td class="py-1"><code>cbeget</code></td><td class="py-1 text-slate-400">Get data from API</td></tr>
+                            <tr><td class="py-1"><code>cpkinit</code></td><td class="py-1 text-slate-400">Initialize pockets</td></tr>
+                            <tr><td class="py-1"><code>ccrset</code></td><td class="py-1 text-slate-400">Set data in registry</td></tr>
+                            <tr><td class="py-1"><code>csvscrub</code></td><td class="py-1 text-slate-400">Validate data</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <h3>Usage Example</h3>
+            <p class="mb-4">Type a snippet prefix and press <code>Tab</code> or <code>Enter</code> to expand:</p>
+            
+            <div class="code-block mb-6">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;!-- Type: cpkd + Tab --&gt;
+&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-core-source-users="https://api.example.com/users"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+                <p class="text-blue-300"><strong>💡 Pro Tip:</strong> Press <code>Ctrl+Space</code> to trigger IntelliSense and see all available snippets.</p>
+            </div>
+            
+            <h3>Verify Installation</h3>
+            <ol class="list-decimal list-inside space-y-2 text-slate-300">
+                <li>Open an HTML file in VS Code</li>
+                <li>Type <code>cpk</code> and press Tab</li>
+                <li>The pocket snippet should expand automatically</li>
+            </ol>
+        </section>
+        
         <section class="mb-20">
             <h2 class="text-3xl font-bold">Additional Resources</h2>
             
@@ -1198,6 +1317,11 @@ core.ud.init = () => {
                     <a href="https://core.sbs" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300">
                         https://core.sbs
                     </a>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-2">VS Code Extension</h4>
+                    <p class="text-slate-400">Located in <code>/vscode-extension</code> directory</p>
                 </div>
                 
                 <div>
