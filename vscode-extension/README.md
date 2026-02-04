@@ -6,6 +6,10 @@ Accelerate your core.js development with intelligent code snippets. This extensi
 
 Download the latest `.vsix` file from [GitHub Releases](https://github.com/Sitezip/core.sbs/releases) and install it in VS Code via `Extensions: Install from VSIX`.
 
+## Quick Start
+
+Type a snippet prefix and press `Tab` or `Enter` to expand. For example, type `cpk` in an HTML file to create a core-pocket element.
+
 ## Features
 
 - **Pocket Snippets**: Quickly create core-pocket elements with data sources
