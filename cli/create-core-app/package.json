@@ -1,0 +1,23 @@
+{
+  "name": "@core-js/create-core-app",
+  "version": "1.0.0",
+  "description": "Scaffold a new core.js application",
+  "bin": {
+    "create-core-app": "./bin/create-core-app.js"
+  },
+  "keywords": [
+    "core.js",
+    "scaffold",
+    "cli",
+    "create-app"
+  ],
+  "author": "core.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sitezip/core.sbs"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

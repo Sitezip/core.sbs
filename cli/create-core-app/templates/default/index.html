@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to core.js</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app">
+        <!-- Welcome Pocket -->
+        <div class="core-pocket" data-core-templates="welcome"></div>
+        
+        <!-- Live Stats Pocket -->
+        <div class="core-pocket" data-core-templates="stats"></div>
+        
+        <!-- Demo Sections -->
+        <div class="core-pocket" data-core-templates="demos"></div>
+    </div>
+    
+    <!-- Template Registry -->
+    <section id="cr-data" class="template-registry">
+        
+        <!-- Welcome Template -->
+        <template name="welcome">
+            <div class="welcome-hero">
+                <div class="logo-container">
+                    <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#gradient)" stroke-width="8"/>
+                        <text x="100" y="115" text-anchor="middle" font-size="60" font-weight="bold" fill="url(#gradient)">C</text>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="welcome-title">🎉 Your core.js App is Running!</h1>
+                <p class="welcome-subtitle">Everything is working perfectly. Start building something amazing.</p>
+                
+                <div class="quick-links">
+                    <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View Docs</a>
+                    <a href="https://github.com/Sitezip/core.sbs/releases" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Get VS Code Extension</a>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Stats Template -->
+        <template name="stats">
+            <div class="stats-container">
+                <h2>Live Framework Stats</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-value" id="cacheHits">0</div>
+                        <div class="stat-label">Cache Hits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🌐</div>
+                        <div class="stat-value" id="dataCalls">0</div>
+                        <div class="stat-label">Data Calls</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📄</div>
+                        <div class="stat-value" id="templates">0</div>
+                        <div class="stat-label">Templates</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔄</div>
+                        <div class="stat-value" id="clones">0</div>
+                        <div class="stat-label">Clones</div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Demos Template -->
+        <template name="demos">
+            <div class="demos-container">
+                <h2>Interactive Demos</h2>
+                
+                <!-- Counter Demo -->
+                <div class="demo-card">
+                    <h3>✨ Reactivity Demo</h3>
+                    <p>Click the button to see data binding in action</p>
+                    <div class="counter-demo">
+                        <button onclick="incrementCounter()" class="btn btn-primary">Click Me!</button>
+                        <div class="counter-display">
+                            <span class="counter-label">Count:</span>
+                            <span class="counter-value" id="counterValue">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Fetch Demo -->
+                <div class="demo-card">
+                    <h3>🌐 Data Fetching Demo</h3>
+                    <p>Fetch and display data from an API</p>
+                    <button onclick="fetchDemoData()" class="btn btn-secondary">Fetch Random User</button>
+                    <div class="core-pocket" data-core-templates="userData" id="userDataPocket"></div>
+                </div>
+                
+                <!-- Routing Demo -->
+                <div class="demo-card">
+                    <h3>🧭 Routing Demo</h3>
+                    <p>Navigate between views without page reload</p>
+                    <div class="routing-links">
+                        <a href="#/_main/welcome" class="route-link">Home</a>
+                        <a href="#/_main/about" class="route-link">About</a>
+                        <a href="#/_main/contact" class="route-link">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Getting Started -->
+                <div class="demo-card getting-started">
+                    <h3>🚀 Getting Started</h3>
+                    <p>Edit <code>index.html</code> to start building your app</p>
+                    <ul class="checklist">
+                        <li>✅ core.js loaded and running</li>
+                        <li>✅ Templates rendering correctly</li>
+                        <li>✅ Data binding working</li>
+                        <li>✅ Routing enabled</li>
+                    </ul>
+                    <div class="next-steps">
+                        <h4>Next Steps:</h4>
+                        <ol>
+                            <li>Read the <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer">documentation</a></li>
+                            <li>Install the <a href="https://github.com/Sitezip/core.sbs/releases" target="_blank" rel="noopener noreferrer">VS Code extension</a></li>
+                            <li>Generate components with <code>npx @core-js/gen form</code></li>
+                            <li>Build something awesome!</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- User Data Template -->
+        <template name="userData">
+            <div class="user-card">
+                <div class="user-avatar">
+                    <img src="{{data:userData:picture:large}}" alt="User avatar">
+                </div>
+                <div class="user-info">
+                    <h4>{{data:userData:name:first}} {{data:userData:name:last}}</h4>
+                    <p>{{data:userData:email}}</p>
+                    <p>{{data:userData:location:city}}, {{data:userData:location:country}}</p>
+                </div>
+            </div>
+        </template>
+        
+    </section>
+    
+    <!-- Core.js Framework -->
+    <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+    
+    <!-- Component Loader -->
+    <script src="core-components.js"></script>
+    
+    <!-- Application Logic -->
+    <script>
+        // Initialize core.js
+        core.ud.init = () => {
+            core.useRouting = true;
+            core.useDebugger = true;
+        };
+        
+        // Counter state
+        let counter = 0;
+        
+        // Increment counter
+        function incrementCounter() {
+            counter++;
+            document.getElementById('counterValue').textContent = counter;
+        }
+        
+        // Fetch demo data
+        async function fetchDemoData() {
+            await core.be.getData('userData', 'https://randomuser.me/api/', {
+                transform: (data) => data.results[0]
+            });
+        }
+        
+        // Update stats
+        function updateStats() {
+            const cacheHits = Object.keys(core.be.cacheCreateTs.data || {}).length;
+            const dataCalls = Object.keys(core.be.fetchLogFIFO || {}).length;
+            const templates = document.querySelectorAll('#cr-data template').length;
+            const clones = document.querySelectorAll('.core-cloned').length;
+            
+            document.getElementById('cacheHits').textContent = cacheHits;
+            document.getElementById('dataCalls').textContent = dataCalls;
+            document.getElementById('templates').textContent = templates;
+            document.getElementById('clones').textContent = clones;
+        }
+        
+        // Update stats every second
+        setInterval(updateStats, 1000);
+        updateStats();
+    </script>
+</body>
+</html>
