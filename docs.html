@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>core.js Documentation - Complete API Reference</title>
+    <link rel="icon" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        code, pre { font-family: 'JetBrains Mono', monospace; }
+        .sidebar {
+            position: fixed; top: 0; left: 0; bottom: 0; width: 280px;
+            overflow-y: auto; background: #0f172a;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .content { margin-left: 280px; padding: 2rem; max-width: 1200px; }
+        .sidebar a {
+            display: block; padding: 0.5rem 1rem; color: #94a3b8;
+            text-decoration: none; transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            color: #10b981; background: rgba(16, 185, 129, 0.1);
+            border-left-color: #10b981;
+        }
+        .sidebar .section-title {
+            padding: 1rem 1rem 0.5rem; font-size: 0.75rem;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #64748b;
+        }
+        pre {
+            background: #1e293b; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.5rem; padding: 1rem; overflow-x: auto;
+            max-width: 100%;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        code {
+            background: #1e293b; padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem; font-size: 0.9em;
+            word-break: break-word;
+        }
+        pre code { 
+            background: transparent; padding: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .copy-btn {
+            position: absolute; top: 0.5rem; right: 0.5rem;
+            background: #10b981; color: white; border: none;
+            padding: 0.25rem 0.75rem; border-radius: 0.25rem;
+            cursor: pointer; font-size: 0.75rem; opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .code-block { position: relative; }
+        .code-block:hover .copy-btn { opacity: 1; }
+        .badge {
+            display: inline-block; padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem; font-size: 0.75rem;
+            font-weight: 600; text-transform: uppercase;
+        }
+        .badge-method { background: #10b981; color: white; }
+        .badge-property { background: #3b82f6; color: white; }
+        .badge-async { background: #f59e0b; color: white; }
+        h2 {
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 0.5rem; margin-top: 3rem;
+        }
+        h3 { margin-top: 2rem; color: #10b981; }
+        .param-table { 
+            width: 100%; 
+            margin: 1rem 0;
+            display: block;
+            overflow-x: auto;
+        }
+        .param-table th {
+            text-align: left; padding: 0.5rem;
+            background: #1e293b; border-bottom: 2px solid #10b981;
+            white-space: nowrap;
+        }
+        .param-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .param-table tbody, .param-table thead {
+            display: table;
+            width: 100%;
+        }
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .mobile-menu-btn:hover {
+            background: #059669;
+        }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 60;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -280px;
+                width: 280px;
+                transition: left 0.3s ease;
+                z-index: 70;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .sidebar-overlay.active {
+                display: block;
+            }
+            .content {
+                margin-left: 0;
+                padding: 4rem 1rem 2rem 1rem;
+            }
+            .code-block {
+                margin: 1rem 0;
+            }
+            h1, h2, h3 {
+                word-wrap: break-word;
+            }
+            .copy-btn {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200">
+    
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+    
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <nav class="sidebar" id="sidebar">
+        <div class="p-4 border-b border-white/10">
+            <h1 class="text-xl font-bold text-white">core.js Docs</h1>
+            <p class="text-xs text-slate-400 mt-1">Complete API Reference</p>
+        </div>
+        
+        <div class="section-title">Getting Started</div>
+        <a href="#introduction">Introduction</a>
+        <a href="#installation">Installation</a>
+        <a href="#quick-start">Quick Start</a>
+        <a href="#architecture">Architecture</a>
+        
+        <div class="section-title">Core Concepts</div>
+        <a href="#pockets">Pockets</a>
+        <a href="#templates">Templates</a>
+        <a href="#data-binding">Data Binding</a>
+        <a href="#lifecycle">Lifecycle</a>
+        <a href="#routing">Routing</a>
+        
+        <div class="section-title">API Reference</div>
+        <a href="#core-init">core.init()</a>
+        <a href="#core-be">core.be - Backend</a>
+        <a href="#core-cr">core.cr - Registry</a>
+        <a href="#core-pk">core.pk - Pockets</a>
+        <a href="#core-hf">core.hf - Helpers</a>
+        <a href="#core-sv">core.sv - Validation</a>
+        <a href="#core-ux">core.ux - UX</a>
+        <a href="#core-ud">core.ud - User Defined</a>
+        
+        <div class="section-title">Advanced</div>
+        <a href="#hooks">Lifecycle Hooks</a>
+        <a href="#formatters">Formatters</a>
+        <a href="#validation">Validation</a>
+        <a href="#caching">Caching</a>
+        <a href="#storage">Storage Tiers</a>
+        
+        <div class="section-title">Examples</div>
+        <a href="#example-basic">Basic Usage</a>
+        <a href="#example-forms">Forms</a>
+        <a href="#example-api">API Integration</a>
+        <a href="#example-routing">Routing</a>
+        <a href="#example-recursive">Recursive Cloning</a>
+    </nav>
+    
+    <main class="content">
+        
+        <section id="introduction">
+            <h1 class="text-4xl font-bold mb-4">core.js Documentation</h1>
+            <p class="text-lg text-slate-300 mb-6">A lightweight, dependency-free JavaScript framework for building dynamic, data-driven web interfaces using simple HTML attributes.</p>
+            
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-3">Key Features</h3>
+                <ul class="space-y-2">
+                    <li>✅ <strong>Zero Dependencies</strong> - Pure vanilla JavaScript</li>
+                    <li>✅ <strong>Async-Native</strong> - Built on modern async/await patterns</li>
+                    <li>✅ <strong>Pocket-Based</strong> - Component architecture without virtual DOM</li>
+                    <li>✅ <strong>Template Engine</strong> - Powerful data binding with <code>{{rec:field}}</code> syntax</li>
+                    <li>✅ <strong>Smart Routing</strong> - SPA navigation with clean URLs</li>
+                    <li>✅ <strong>Flexible Storage</strong> - DOM, Data Attributes, or Session Storage</li>
+                    <li>✅ <strong>Built-in Validation</strong> - Comprehensive scrubbing and formatting</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="installation">
+            <h2 class="text-3xl font-bold">Installation</h2>
+            
+            <h3>CDN (Recommended)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;!-- Latest version --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+
+&lt;!-- Specific version (recommended for production) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20260125.1/core.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+            
+            <h3>Self-Hosted</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;script src="/path/to/core.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="quick-start">
+            <h2 class="text-3xl font-bold">Quick Start</h2>
+            
+            <h3>1. Create a Template</h3>
+            <p class="mb-4">Templates are defined in a hidden section with <code>id="cr-data"</code>:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="users"&gt;
+        &lt;div class="core-clone" data-core-data="users"&gt;
+            &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+            &lt;p&gt;{{rec:email}}&lt;/p&gt;
+            &lt;p&gt;Balance: {{rec:balance:money:$}}&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            
+            <h3>2. Create a Pocket</h3>
+            <p class="mb-4">Pockets are containers where templates are rendered:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-users-core-source="https://api.example.com/users"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>3. Initialize</h3>
+            <p class="mb-4">core.js initializes automatically on DOMContentLoaded, but you can also call it manually:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.init();</code></pre>
+            </div>
+        </section>
+        
+        <section id="architecture">
+            <h2 class="text-3xl font-bold">Architecture Overview</h2>
+            
+            <p class="mb-4">core.js follows a lifecycle-driven approach with distinct phases:</p>
+            
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6">
+                <h4 class="font-semibold mb-3">Rendering Lifecycle</h4>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li><strong>SOC (Start of Call)</strong> - Initialization begins</li>
+                    <li><strong>getTemplate()</strong> - Fetch missing templates</li>
+                    <li><strong>addTemplate()</strong> - Inject templates into pockets</li>
+                    <li><strong>getData()</strong> - Fetch missing data</li>
+                    <li><strong>addData()</strong> - Clone and populate with data</li>
+                    <li><strong>EOL (End of Lifecycle)</strong> - Hydration, formatting, cleanup</li>
+                </ol>
+            </div>
+            
+            <h3>Core Modules</h3>
+            <table class="param-table">
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>core.be</code></td><td>Backend operations (fetch, cache)</td></tr>
+                    <tr><td><code>core.cr</code></td><td>Registry (data/template storage)</td></tr>
+                    <tr><td><code>core.pk</code></td><td>Pocket lifecycle management</td></tr>
+                    <tr><td><code>core.hf</code></td><td>Helper functions (date, sorting, etc.)</td></tr>
+                    <tr><td><code>core.sv</code></td><td>Validation and scrubbing</td></tr>
+                    <tr><td><code>core.ux</code></td><td>User experience utilities</td></tr>
+                    <tr><td><code>core.ud</code></td><td>User-defined hooks and settings</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="pockets">
+            <h2 class="text-3xl font-bold">Pockets</h2>
+            
+            <p class="mb-4">Pockets are container elements that act as dynamic insertion points for components.</p>
+            
+            <h3>Basic Pocket</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-pocket" data-core-templates="myTemplate"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Pocket with Data Source</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-pocket" 
+     data-core-templates="products" 
+     data-products-core-source="/api/products"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Multiple Templates</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-pocket" 
+     data-core-templates="header,content,footer"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="templates">
+            <h2 class="text-3xl font-bold">Templates</h2>
+            
+            <p class="mb-4">Templates use double curly brace syntax for data binding.</p>
+            
+            <h3>Template Syntax</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>{{type:source:reference:format:clue}}</code></pre>
+            </div>
+            
+            <h3>Template Types</h3>
+            <table class="param-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>rec</code> or <code>#</code></td><td>Current record data</td><td><code>{{rec:name}}</code></td></tr>
+                    <tr><td><code>data</code> or <code>@</code></td><td>Global registry data</td><td><code>{{data:config:apiKey}}</code></td></tr>
+                    <tr><td><code>aug</code> or <code>!</code></td><td>Augmented metadata</td><td><code>{{aug:index}}</code></td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Complete Example</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;template name="userCard"&gt;
+    &lt;div class="core-clone" data-core-data="users"&gt;
+        &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+        &lt;p&gt;{{rec:address.city}}&lt;/p&gt;
+        &lt;p&gt;{{rec:email:lower}}&lt;/p&gt;
+        &lt;p&gt;{{rec:balance:money:$}}&lt;/p&gt;
+        &lt;span&gt;Item {{aug:count}}&lt;/span&gt;
+        &lt;img {{rec:avatar:core_pk_attr:src}} alt="Avatar"&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="data-binding">
+            <h2 class="text-3xl font-bold">Data Binding</h2>
+            
+            <h3>Clone Elements</h3>
+            <p class="mb-4">Elements with <code>core-clone</code> class are duplicated for each record:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-clone" data-core-data="products"&gt;
+    &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+    &lt;p&gt;{{rec:price:money:$}}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Nested Data Access</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>{{rec:user.profile.name}}
+{{rec:address.billing.street}}
+{{rec:settings.theme.colors.0}}
+{{rec:tags.[n]}}</code></pre>
+            </div>
+        </section>
+        
+        <section id="lifecycle">
+            <h2 class="text-3xl font-bold">Lifecycle</h2>
+            
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6">
+                <pre class="text-sm"><code>core.init()
+  └─> core.cr.init()
+  └─> core.pk.init()
+      └─> core.pk.soc()
+          ├─> core.be.awaitAll()
+          ├─> core.ud.soc()
+          ├─> core.pk.getTemplate()
+          ├─> core.pk.addTemplate()
+          ├─> core.pk.getData()
+          ├─> core.pk.addData()
+          └─> core.pk.pk_eol()
+              ├─> core.hf.hydrateByClass()
+              ├─> core.hf.formatByClass()
+              └─> core.ud.pk_eol()</code></pre>
+            </div>
+        </section>
+        
+        <section id="routing">
+            <h2 class="text-3xl font-bold">Routing</h2>
+            
+            <h3>Enable Routing</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.ud.init = () => {
+    core.useRouting = true;
+};</code></pre>
+            </div>
+            
+            <h3>Pretty Path Format</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;a href="#/_main/home"&gt;Home&lt;/a&gt;
+&lt;a href="#/_main/dashboard/_sidebar/menu"&gt;Dashboard&lt;/a&gt;
+&lt;a href="#/_main/profile:https%3A%2F%2Fapi.com%2Fuser%2F123"&gt;Profile&lt;/a&gt;</code></pre>
+            </div>
+            
+            <h3>Programmatic Navigation</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.hf.setRoute('#/_main/about');
+const currentRoute = core.hf.getRoute();</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-init">
+            <h2 class="text-3xl font-bold">core.init()</h2>
+            <p class="mb-4"><span class="badge badge-method">Method</span></p>
+            <p class="mb-4">Initializes the core.js framework. Called automatically on DOMContentLoaded.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.init();</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-be">
+            <h2 class="text-3xl font-bold">core.be - Backend</h2>
+            
+            <h3>core.be.getData()</h3>
+            <p class="mb-4"><span class="badge badge-async">Async</span> <span class="badge badge-method">Method</span></p>
+            <p class="mb-4">Fetches JSON data from a source and stores it in the registry.</p>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>dataRef</code></td><td>string</td><td>Unique identifier</td></tr>
+                    <tr><td><code>dataSrc</code></td><td>string</td><td>URL to fetch from</td></tr>
+                    <tr><td><code>settings</code></td><td>object</td><td>Optional config</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>await core.be.getData('users', '/api/users');
+
+await core.be.getData('users', '/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: { filter: 'active' }
+});</code></pre>
+            </div>
+            
+            <h3>core.be.getTemplate()</h3>
+            <p class="mb-4"><span class="badge badge-async">Async</span> <span class="badge badge-method">Method</span></p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>await core.be.getTemplate('header', '/templates/header.html');</code></pre>
+            </div>
+            
+            <h3>core.be.awaitAll()</h3>
+            <p class="mb-4"><span class="badge badge-async">Async</span> <span class="badge badge-method">Method</span></p>
+            <p class="mb-4">Waits for all active backend requests to complete.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.be.getData('users', '/api/users');
+core.be.getData('products', '/api/products');
+await core.be.awaitAll();</code></pre>
+            </div>
+            
+            <h3>Cache Configuration</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.be.cacheExpireDefault = 3600;
+
+core.be.cacheExpire = {
+    type: 'data',
+    name: 'users',
+    seconds: 300
+};</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-cr">
+            <h2 class="text-3xl font-bold">core.cr - Registry</h2>
+            
+            <h3>Storage Tiers</h3>
+            <table class="param-table">
+                <thead>
+                    <tr><th>ID</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>0</code></td><td>DOM</td><td>Memory-only</td></tr>
+                    <tr><td><code>1</code></td><td>Static</td><td>data-* attributes (default)</td></tr>
+                    <tr><td><code>2</code></td><td>Session</td><td>sessionStorage</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>core.cr.setData() / getData()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.cr.setData('users', usersArray);
+core.cr.setData('token', 'abc123', null, 2);
+
+const users = core.cr.getData('users');
+const token = core.cr.getData('token', null, 2);</code></pre>
+            </div>
+            
+            <h3>core.cr.setTemplate() / getTemplate()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.cr.setTemplate('myTemplate', '&lt;div&gt;{{rec:name}}&lt;/div&gt;');
+const template = core.cr.getTemplate('myTemplate');</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-pk">
+            <h2 class="text-3xl font-bold">core.pk - Pockets</h2>
+            
+            <h3>core.pk.soc()</h3>
+            <p class="mb-4"><span class="badge badge-async">Async</span> <span class="badge badge-method">Method</span></p>
+            <p class="mb-4">Start of Call - initiates the rendering lifecycle.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>await core.pk.soc();</code></pre>
+            </div>
+            
+            <h3>core.pk.cloner()</h3>
+            <p class="mb-4">Clones a template for each record in an array.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>const records = [
+    { name: 'John', age: 30 },
+    { name: 'Jane', age: 25 }
+];
+const template = '&lt;div&gt;{{rec:name}} is {{rec:age}}&lt;/div&gt;';
+const html = core.pk.cloner(records, template);</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-hf">
+            <h2 class="text-3xl font-bold">core.hf - Helper Functions</h2>
+            
+            <h3>core.hf.date()</h3>
+            <p class="mb-4">Robust date formatting with custom tokens.</p>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Token</th><th>Output</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>YYYY</code></td><td>4-digit year</td></tr>
+                    <tr><td><code>MM</code></td><td>Month (01-12)</td></tr>
+                    <tr><td><code>DD</code></td><td>Day (01-31)</td></tr>
+                    <tr><td><code>HH</code></td><td>Hour (00-23)</td></tr>
+                    <tr><td><code>:MM</code></td><td>:Minutes</td></tr>
+                    <tr><td><code>P</code></td><td>AM/PM</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.hf.date();
+core.hf.date(null, 'YYYY-MM-DD');
+core.hf.date(1738627200, 'M/D/YY H:MM P');</code></pre>
+            </div>
+            
+            <h3>core.hf.digData()</h3>
+            <p class="mb-4">Deep-seek values in nested objects.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>const user = {
+    name: 'John',
+    address: { billing: { street: '123 Main' } },
+    tags: ['admin', 'user']
+};
+
+core.hf.digData(user, 'name');
+core.hf.digData(user, 'address.billing.street');
+core.hf.digData(user, 'tags.0');
+core.hf.digData(user, 'tags.[n]');</code></pre>
+            </div>
+            
+            <h3>core.hf.sortObj()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>const users = [
+    { name: 'Charlie', age: 30 },
+    { name: 'Alice', age: 25 }
+];
+core.hf.sortObj(users, 'name');
+core.hf.sortObj(users, 'age', 'numeric', 'DESC');</code></pre>
+            </div>
+            
+            <h3>core.hf.uuid()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>const id = core.hf.uuid();
+const prefixed = core.hf.uuid('user-');</code></pre>
+            </div>
+            
+            <h3>core.hf.hydrateByClass()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;span class="h-users-name"&gt;&lt;/span&gt;
+&lt;span class="h-users-email"&gt;&lt;/span&gt;
+
+&lt;script&gt;
+core.hf.hydrateByClass();
+&lt;/script&gt;</code></pre>
+            </div>
+            
+            <h3>core.hf.formatByClass()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;span class="f-money" data-f-clue="$"&gt;1234.56&lt;/span&gt;
+&lt;span class="f-upper"&gt;hello&lt;/span&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-sv">
+            <h2 class="text-3xl font-bold">core.sv - Validation</h2>
+            
+            <h3>core.sv.scrub()</h3>
+            <p class="mb-4">Validates and transforms an array of input objects.</p>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Scrub</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>req</code></td><td>Required field</td></tr>
+                    <tr><td><code>email</code></td><td>Valid email</td></tr>
+                    <tr><td><code>url</code></td><td>Valid URL</td></tr>
+                    <tr><td><code>num</code></td><td>Numeric value</td></tr>
+                    <tr><td><code>min:n</code></td><td>Minimum length</td></tr>
+                    <tr><td><code>max:n</code></td><td>Maximum length</td></tr>
+                    <tr><td><code>match:field</code></td><td>Match another field</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>const result = core.sv.scrub([
+    { name: 'email', value: 'user@example.com', scrubs: ['req', 'email'] },
+    { name: 'password', value: 'secret123', scrubs: ['req', 'min:8'] },
+    { name: 'age', value: '25', scrubs: ['req', 'num', 'gte:18'] }
+]);
+
+if (result.success) {
+    console.log('Valid!', result.scrubs);
+} else {
+    console.log('Errors:', result.errors);
+}</code></pre>
+            </div>
+            
+            <h3>core.sv.format()</h3>
+            <table class="param-table">
+                <thead>
+                    <tr><th>Format</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>upper</code></td><td>Uppercase</td></tr>
+                    <tr><td><code>lower</code></td><td>Lowercase</td></tr>
+                    <tr><td><code>money</code></td><td>Currency</td></tr>
+                    <tr><td><code>date</code></td><td>Date format</td></tr>
+                    <tr><td><code>phone</code></td><td>Phone format</td></tr>
+                    <tr><td><code>nohtml</code></td><td>Strip HTML</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.sv.format('hello', 'upper');
+core.sv.format(1234.56, 'money...$');
+core.sv.format('5551234567', 'phone');</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-ux">
+            <h2 class="text-3xl font-bold">core.ux - User Experience</h2>
+            
+            <h3>core.ux.insertPocket()</h3>
+            <p class="mb-4">Dynamically inserts a pocket into the DOM.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.ux.insertPocket('#main', 'home');
+
+core.ux.insertPocket('#main', 'products', [
+    { name: 'products', url: '/api/products' }
+]);
+
+core.ux.insertPocket('#main', 'header,content,footer');</code></pre>
+            </div>
+            
+            <h3>core.ux.formatValue()</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.ux.formatValue('hello', 'upper');
+core.ux.formatValue('  hello  ', 'trim|upper');
+core.ux.formatValue(1234.56, ['money*$']);</code></pre>
+            </div>
+        </section>
+        
+        <section id="core-ud">
+            <h2 class="text-3xl font-bold">core.ud - User Defined</h2>
+            
+            <h3>Configuration</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.ud.defaultDelta = 'N/A';
+core.ud.defaultDateFormat = 'YYYY-MM-DD';
+core.ud.defaultLoadingTemplate = '&lt;div class="spinner"&gt;&lt;/div&gt;';</code></pre>
+            </div>
+        </section>
+        
+        <section id="hooks">
+            <h2 class="text-3xl font-bold">Lifecycle Hooks</h2>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Hook</th><th>When Called</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>core.ud.init()</code></td><td>On framework initialization</td></tr>
+                    <tr><td><code>core.ud.soc()</code></td><td>Start of rendering cycle</td></tr>
+                    <tr><td><code>core.ud.pk_eol()</code></td><td>End of rendering cycle</td></tr>
+                    <tr><td><code>core.ud.preflight()</code></td><td>Before backend requests</td></tr>
+                    <tr><td><code>core.ud.postflight()</code></td><td>After backend responses</td></tr>
+                    <tr><td><code>core.ud.prepaint()</code></td><td>Before template injection</td></tr>
+                    <tr><td><code>core.ud.postpaint()</code></td><td>After data cloning</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core.ud.init = () => {
+    core.useRouting = true;
+    console.log('Framework initialized');
+};
+
+core.ud.soc = () => {
+    console.log('Rendering started');
+};
+
+core.ud.preflight = (dataRef, dataSrc, type) => {
+    return {
+        headers: { 'Authorization': 'Bearer ' + token }
+    };
+};
+
+core.ud.postflight = (dataRef, dataObj, type) => {
+    if (dataRef === 'users') {
+        dataObj = dataObj.filter(u => u.active);
+    }
+    return dataObj;
+};
+
+core.ud.postpaint = (dataRef, dataObj, type) => {
+    console.log(`Rendered ${dataRef}`);
+};</code></pre>
+            </div>
+        </section>
+        
+        <section id="formatters">
+            <h2 class="text-3xl font-bold">Formatters Reference</h2>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Formatter</th><th>Input</th><th>Output</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>upper</code></td><td>"hello"</td><td>"HELLO"</td></tr>
+                    <tr><td><code>lower</code></td><td>"HELLO"</td><td>"hello"</td></tr>
+                    <tr><td><code>upperfirst</code></td><td>"hello"</td><td>"Hello"</td></tr>
+                    <tr><td><code>money</code></td><td>1234.56</td><td>"$1234.56"</td></tr>
+                    <tr><td><code>date</code></td><td>timestamp</td><td>"2/3/26"</td></tr>
+                    <tr><td><code>phone</code></td><td>"5551234567"</td><td>"(555) 123-4567"</td></tr>
+                    <tr><td><code>truncate</code></td><td>"Long text"</td><td>"Long..."</td></tr>
+                    <tr><td><code>nohtml</code></td><td>"&lt;b&gt;text&lt;/b&gt;"</td><td>"text"</td></tr>
+                    <tr><td><code>linkify</code></td><td>"example.com"</td><td>"&lt;a&gt;...&lt;/a&gt;"</td></tr>
+                    <tr><td><code>boolean</code></td><td>"true"</td><td>true</td></tr>
+                    <tr><td><code>number</code></td><td>"123.45"</td><td>123.45</td></tr>
+                    <tr><td><code>padleft</code></td><td>"5"</td><td>"005"</td></tr>
+                    <tr><td><code>padright</code></td><td>"5"</td><td>"500"</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="validation">
+            <h2 class="text-3xl font-bold">Validation Rules</h2>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Rule</th><th>Usage</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>req</code></td><td>['req']</td><td>Field is required</td></tr>
+                    <tr><td><code>email</code></td><td>['email']</td><td>Valid email format</td></tr>
+                    <tr><td><code>url</code></td><td>['url']</td><td>Valid URL format</td></tr>
+                    <tr><td><code>num</code></td><td>['num']</td><td>Must be numeric</td></tr>
+                    <tr><td><code>alpha</code></td><td>['alpha']</td><td>Letters only</td></tr>
+                    <tr><td><code>alphanum</code></td><td>['alphanum']</td><td>Letters and numbers</td></tr>
+                    <tr><td><code>min</code></td><td>['min:8']</td><td>Minimum length</td></tr>
+                    <tr><td><code>max</code></td><td>['max:100']</td><td>Maximum length</td></tr>
+                    <tr><td><code>gte</code></td><td>['gte:18']</td><td>Greater than or equal</td></tr>
+                    <tr><td><code>lte</code></td><td>['lte:100']</td><td>Less than or equal</td></tr>
+                    <tr><td><code>match</code></td><td>['match:password']</td><td>Must match field</td></tr>
+                    <tr><td><code>ccnum</code></td><td>['ccnum']</td><td>Valid credit card</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="caching">
+            <h2 class="text-3xl font-bold">Caching</h2>
+            
+            <p class="mb-4">core.js implements TTL-based caching for both data and templates.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>// Set default cache expiration (seconds)
+core.be.cacheExpireDefault = 3600; // 1 hour
+
+// Set cache for specific data
+core.be.cacheExpire = {
+    type: 'data',
+    name: 'users',
+    seconds: 300 // 5 minutes
+};
+
+// Set cache for template
+core.be.cacheExpire = {
+    type: 'template',
+    name: 'header',
+    seconds: 86400 // 24 hours
+};
+
+// Check cache timestamp
+const isValid = core.be.checkCacheTs('users', 'data');</code></pre>
+            </div>
+        </section>
+        
+        <section id="storage">
+            <h2 class="text-3xl font-bold">Storage Tiers</h2>
+            
+            <p class="mb-4">Choose the appropriate storage tier based on your needs:</p>
+            
+            <table class="param-table">
+                <thead>
+                    <tr><th>Tier</th><th>Persistence</th><th>Visibility</th><th>Use Case</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>0 - DOM</code></td>
+                        <td>Page only</td>
+                        <td>Hidden</td>
+                        <td>Sensitive data, temporary state</td>
+                    </tr>
+                    <tr>
+                        <td><code>1 - Static</code></td>
+                        <td>Page only</td>
+                        <td>Visible in HTML</td>
+                        <td>Public data, debugging (default)</td>
+                    </tr>
+                    <tr>
+                        <td><code>2 - Session</code></td>
+                        <td>Tab session</td>
+                        <td>Hidden</td>
+                        <td>User session, auth tokens</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>// DOM storage (memory only)
+core.cr.setData('tempState', { count: 0 }, element, 0);
+
+// Static storage (default, visible in HTML)
+core.cr.setData('users', usersArray, null, 1);
+
+// Session storage (persists across page loads)
+core.cr.setData('authToken', 'abc123', null, 2);</code></pre>
+            </div>
+        </section>
+        
+        <section id="example-basic">
+            <h2 class="text-3xl font-bold">Example: Basic Usage</h2>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="main"&gt;
+        &lt;div class="core-pocket" data-core-templates="users"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;section id="cr-data" style="display:none;"&gt;
+        &lt;template name="users"&gt;
+            &lt;div class="core-clone" data-core-data="users"&gt;
+                &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+                &lt;p&gt;{{rec:email}}&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+    &lt;/section&gt;
+
+    &lt;script&gt;
+        core.ud.init = () => {
+            const users = [
+                { name: 'John Doe', email: 'john@example.com' },
+                { name: 'Jane Smith', email: 'jane@example.com' }
+            ];
+            core.cr.setData('users', users);
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="example-forms">
+            <h2 class="text-3xl font-bold">Example: Form Validation</h2>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;form id="signupForm"&gt;
+    &lt;input type="text" name="username" placeholder="Username"&gt;
+    &lt;input type="email" name="email" placeholder="Email"&gt;
+    &lt;input type="password" name="password" placeholder="Password"&gt;
+    &lt;input type="password" name="confirmPassword" placeholder="Confirm"&gt;
+    &lt;button type="submit"&gt;Sign Up&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.getElementById('signupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const result = core.sv.scrub([
+        {
+            name: 'username',
+            value: formData.get('username'),
+            scrubs: ['req', 'alphanum', 'min:3', 'max:20']
+        },
+        {
+            name: 'email',
+            value: formData.get('email'),
+            scrubs: ['req', 'email']
+        },
+        {
+            name: 'password',
+            value: formData.get('password'),
+            scrubs: ['req', 'min:8']
+        },
+        {
+            name: 'confirmPassword',
+            value: formData.get('confirmPassword'),
+            scrubs: ['req', 'match:password']
+        }
+    ]);
+    
+    if (result.success) {
+        console.log('Form valid!', result.scrubs);
+        // Submit to server
+    } else {
+        console.log('Validation errors:', result.errors);
+        // Show errors to user
+    }
+});
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="example-api">
+            <h2 class="text-3xl font-bold">Example: API Integration</h2>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-pocket" 
+     data-core-templates="products" 
+     data-products-core-source="https://api.example.com/products"&gt;
+&lt;/div&gt;
+
+&lt;template name="products"&gt;
+    &lt;div class="core-clone" data-core-data="products"&gt;
+        &lt;img {{rec:image:core_pk_attr:src}} alt="{{rec:name}}"&gt;
+        &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+        &lt;p&gt;{{rec:description:truncate:100}}&lt;/p&gt;
+        &lt;p class="price"&gt;{{rec:price:money:$}}&lt;/p&gt;
+        &lt;button onclick="addToCart('{{rec:id}}')"&gt;Add to Cart&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+core.ud.preflight = (dataRef, dataSrc, type) => {
+    if (dataRef === 'products') {
+        return {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+    }
+};
+
+core.ud.postflight = (dataRef, dataObj, type) => {
+    if (dataRef === 'products') {
+        // Filter out inactive products
+        return dataObj.filter(p => p.active);
+    }
+    return dataObj;
+};
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="example-routing">
+            <h2 class="text-3xl font-bold">Example: SPA Routing</h2>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;nav&gt;
+    &lt;a href="#/_main/home"&gt;Home&lt;/a&gt;
+    &lt;a href="#/_main/about"&gt;About&lt;/a&gt;
+    &lt;a href="#/_main/products"&gt;Products&lt;/a&gt;
+    &lt;a href="#/_main/contact"&gt;Contact&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;div id="main"&gt;
+    &lt;div class="core-pocket" data-core-templates="home"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="home"&gt;
+        &lt;h1&gt;Welcome Home&lt;/h1&gt;
+    &lt;/template&gt;
+    
+    &lt;template name="about"&gt;
+        &lt;h1&gt;About Us&lt;/h1&gt;
+    &lt;/template&gt;
+    
+    &lt;template name="products"&gt;
+        &lt;h1&gt;Our Products&lt;/h1&gt;
+        &lt;div class="core-clone" data-core-data="products"&gt;
+            &lt;div&gt;{{rec:name}} - {{rec:price:money:$}}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+    
+    &lt;template name="contact"&gt;
+        &lt;h1&gt;Contact Us&lt;/h1&gt;
+    &lt;/template&gt;
+&lt;/section&gt;
+
+&lt;script&gt;
+core.ud.init = () => {
+    core.useRouting = true;
+};
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section id="example-recursive">
+            <h2 class="text-3xl font-bold">Example: Recursive Cloning</h2>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;div class="core-pocket" data-core-templates="users"&gt;&lt;/div&gt;
+
+&lt;template name="users"&gt;
+    &lt;div class="core-clone" data-core-data="users"&gt;
+        &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+        &lt;p&gt;{{rec:email}}&lt;/p&gt;
+        
+        &lt;!-- Recursive: render posts for each user --&gt;
+        &lt;div class="posts"&gt;
+            {{rec:posts:core_pk_cloner:postTemplate}}
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;template name="postTemplate"&gt;
+    &lt;div class="post"&gt;
+        &lt;h4&gt;{{rec:title}}&lt;/h4&gt;
+        &lt;p&gt;{{rec:content:truncate:200}}&lt;/p&gt;
+        &lt;span&gt;{{rec:date:date:M/D/YY}}&lt;/span&gt;
+        
+        &lt;!-- Nested recursive: render comments for each post --&gt;
+        &lt;div class="comments"&gt;
+            {{rec:comments:core_pk_cloner:commentTemplate}}
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;template name="commentTemplate"&gt;
+    &lt;div class="comment"&gt;
+        &lt;strong&gt;{{rec:author}}&lt;/strong&gt;: {{rec:text}}
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+core.ud.init = () => {
+    const users = [
+        {
+            name: 'John Doe',
+            email: 'john@example.com',
+            posts: [
+                {
+                    title: 'First Post',
+                    content: 'This is my first post...',
+                    date: 1738627200,
+                    comments: [
+                        { author: 'Jane', text: 'Great post!' },
+                        { author: 'Bob', text: 'Thanks for sharing!' }
+                    ]
+                }
+            ]
+        }
+    ];
+    core.cr.setData('users', users);
+};
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+        
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold">Additional Resources</h2>
+            
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 space-y-4">
+                <div>
+                    <h4 class="font-semibold text-lg mb-2">GitHub Repository</h4>
+                    <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300">
+                        https://github.com/Sitezip/core.sbs
+                    </a>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-2">Official Website</h4>
+                    <a href="https://core.sbs" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300">
+                        https://core.sbs
+                    </a>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-2">Version</h4>
+                    <p class="text-slate-400">Current: 20260125.1</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <script>
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+        }
+        
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        sidebarOverlay.addEventListener('click', closeMobileMenu);
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active link
+                    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile menu on link click
+                    closeMobileMenu();
+                }
+            });
+        });
+        
+        // Highlight active section on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
