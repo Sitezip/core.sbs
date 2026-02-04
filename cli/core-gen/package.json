@@ -1,0 +1,23 @@
+{
+  "name": "@core-js/gen",
+  "version": "1.0.0",
+  "description": "Generate pre-built components for core.js applications",
+  "bin": {
+    "core-gen": "./bin/core-gen.js"
+  },
+  "keywords": [
+    "core.js",
+    "generator",
+    "components",
+    "cli"
+  ],
+  "author": "core.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sitezip/core.sbs"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
