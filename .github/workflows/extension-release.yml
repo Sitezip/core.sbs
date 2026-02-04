@@ -5,9 +5,13 @@ on:
     branches:
       - main
       - master
+      - 20260119
     paths:
       - 'vscode-extension/**'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-and-release:
