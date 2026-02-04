@@ -1,0 +1,91 @@
+name: Build and Release VS Code Extension
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'vscode-extension/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+      
+      - name: Package extension
+        run: |
+          cd vscode-extension
+          vsce package
+      
+      - name: Get version from package.json
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./vscode-extension/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extension version: $VERSION"
+      
+      - name: Check if release exists
+        id: check-release
+        run: |
+          if gh release view "v${{ steps.package-version.outputs.version }}" &>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Create Release
+        if: steps.check-release.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.package-version.outputs.version }}
+          name: VS Code Extension v${{ steps.package-version.outputs.version }}
+          body: |
+            ## core.js VS Code Extension v${{ steps.package-version.outputs.version }}
+            
+            ### Installation
+            1. Download `corejs-snippets-${{ steps.package-version.outputs.version }}.vsix`
+            2. Open VS Code
+            3. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
+            4. Type "Extensions: Install from VSIX"
+            5. Select the downloaded file
+            6. Reload VS Code
+            
+            ### Features
+            - 100+ code snippets for core.js development
+            - Syntax highlighting for core.js templates
+            - Lifecycle hook templates
+            - API call shortcuts
+            
+            See the [extension README](https://github.com/${{ github.repository }}/tree/main/vscode-extension) for full documentation.
+          files: |
+            vscode-extension/*.vsix
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload to existing release
+        if: steps.check-release.outputs.exists == 'true'
+        run: |
+          gh release upload "v${{ steps.package-version.outputs.version }}" \
+            vscode-extension/*.vsix \
+            --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

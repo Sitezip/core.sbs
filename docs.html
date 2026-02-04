@@ -1200,50 +1200,65 @@ core.ud.init = () => {
                 <li>Syntax highlighting for core.js templates</li>
             </ul>
             
-            <h3>Installation (Local)</h3>
-            <p class="mb-4">The extension is currently available for local installation. Follow these steps:</p>
+            <h3>Installation</h3>
             
-            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6 space-y-4">
-                <div>
-                    <h4 class="font-semibold mb-2">1. Install vsce</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                        <pre><code>npm install -g @vscode/vsce</code></pre>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-2">2. Navigate to extension directory</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                        <pre><code>cd vscode-extension</code></pre>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-2">3. Package the extension</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                        <pre><code>vsce package</code></pre>
-                    </div>
-                    <p class="text-sm text-slate-400 mt-2">This creates a <code>.vsix</code> file</p>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-2">4. Install in VS Code</h4>
-                    <ul class="text-sm text-slate-300 space-y-1 ml-4">
-                        <li>• Open VS Code</li>
-                        <li>• Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac)</li>
-                        <li>• Type "Extensions: Install from VSIX"</li>
-                        <li>• Select the generated <code>.vsix</code> file</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-2">5. Reload VS Code</h4>
-                    <p class="text-sm text-slate-300">Press <code>Ctrl+Shift+P</code> → "Developer: Reload Window"</p>
-                </div>
+            <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-6 mb-6">
+                <h4 class="font-semibold text-emerald-300 mb-3">📦 Recommended: Download from GitHub Releases</h4>
+                <ol class="text-sm text-slate-300 space-y-2 ml-4">
+                    <li>1. Go to <a href="https://github.com/Sitezip/core.sbs/releases" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300">GitHub Releases</a></li>
+                    <li>2. Download the latest <code>corejs-snippets-*.vsix</code> file</li>
+                    <li>3. Open VS Code</li>
+                    <li>4. Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac)</li>
+                    <li>5. Type "Extensions: Install from VSIX"</li>
+                    <li>6. Select the downloaded <code>.vsix</code> file</li>
+                    <li>7. Reload VS Code (<code>Ctrl+Shift+P</code> → "Developer: Reload Window")</li>
+                </ol>
             </div>
+            
+            <details class="mb-6">
+                <summary class="cursor-pointer font-semibold text-slate-300 hover:text-white mb-4">Alternative: Build from Source</summary>
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 space-y-4">
+                    <div>
+                        <h4 class="font-semibold mb-2">1. Install vsce</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre><code>npm install -g @vscode/vsce</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-2">2. Navigate to extension directory</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre><code>cd vscode-extension</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-2">3. Package the extension</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre><code>vsce package</code></pre>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-2">This creates a <code>.vsix</code> file</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-2">4. Install in VS Code</h4>
+                        <ul class="text-sm text-slate-300 space-y-1 ml-4">
+                            <li>• Open VS Code</li>
+                            <li>• Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac)</li>
+                            <li>• Type "Extensions: Install from VSIX"</li>
+                            <li>• Select the generated <code>.vsix</code> file</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-2">5. Reload VS Code</h4>
+                        <p class="text-sm text-slate-300">Press <code>Ctrl+Shift+P</code> → "Developer: Reload Window"</p>
+                    </div>
+                </div>
+            </details>
             
             <h3>Common Snippets</h3>
             
