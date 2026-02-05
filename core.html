@@ -125,37 +125,57 @@
                     </li>
                     <li class="w-full xl:w-auto"><a href="#/_main/philosophy" class="nav-link-premium">About</a>
                     </li>
-                    <li class="w-full xl:w-auto"><a href="#/_main/docs" class="nav-link-premium">Docs</a>
+                    
+                    <!-- Resources Dropdown -->
+                    <li class="relative group w-full xl:w-auto">
+                        <button class="nav-link-premium flex items-center justify-between xl:justify-start">
+                            <span>Resources</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
+                        <ul class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+                            <li><a href="#/_main/docs" class="nav-link-premium">Quick Start</a></li>
+                            <li><a href="docs.html" class="nav-link-premium">Full API Docs</a></li>
+                            <li><a href="playground.html" class="nav-link-premium">🎮 Playground</a></li>
+                        </ul>
                     </li>
-                    <li class="w-full xl:w-auto"><a href="docs.html" class="nav-link-premium">Full API Docs</a>
-                    </li>
+                    
+                    <!-- Demos Dropdown -->
                     <li class="relative group w-full xl:w-auto">
                         <button class="nav-link-premium flex items-center justify-between xl:justify-start">
                             <span>Demos</span>
                             <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7">
-                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <!-- Invisible padding bridge to keep dropdown open -->
                         <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
-                        <ul
-                            class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
-
+                        <ul class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
                             <li><a href="#/_main/bridge" class="nav-link-premium">Bridge</a></li>
                             <li><a href="#/_main/stuff" class="nav-link-premium">Product Grid</a></li>
                             <li><a href="#/_main/counter" class="nav-link-premium">Realtime Data</a></li>
                             <li><a href="#/_main/deep" class="nav-link-premium">Recursive Logic</a></li>
                             <li><a href="#/_main/user" class="nav-link-premium">Form Engine</a></li>
+                            <li><a href="#/_main/news" class="nav-link-premium">Scammer News</a></li>
                         </ul>
                     </li>
-                    <li class="w-full xl:w-auto">
-                        <a href="#/_main/news" class="nav-link-premium">Scammer News</a>
-                    </li>
-                    <li class="xl:ml-4 w-full xl:w-auto pt-4 xl:pt-0">
-                        <a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener"
-                            class="btn-premium whitespace-nowrap text-decoration-none w-full xl:w-auto block">GitHub</a>
+                    
+                    <!-- Community Dropdown -->
+                    <li class="relative group w-full xl:w-auto">
+                        <button class="nav-link-premium flex items-center justify-between xl:justify-start">
+                            <span>Community</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
+                        <ul class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+                            <li><a href="CHANGELOG.md" class="nav-link-premium">Changelog</a></li>
+                            <li><a href="ROADMAP.md" class="nav-link-premium">Roadmap</a></li>
+                            <li><a href="https://github.com/Sitezip/core.sbs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="nav-link-premium">Contributing</a></li>
+                            <li><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="nav-link-premium">GitHub</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -2499,37 +2519,62 @@ core.ud.postflight = (ref, obj, type) => {
     </template>
     </section>
     <footer class="container mx-auto px-4 py-20 mt-20 border-t border-white/5 relative overflow-hidden">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10 p-2">
-            <div class="md:col-span-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10 p-2">
+            <!-- About Column -->
+            <div>
                 <a class="flex items-center mb-6" href="#" target="#main" data-core-templates="home">
                     <div class="core-pocket -ml-4" data-core-templates="core" data-core-core-source="core.svg"
                         style="width: 120px; filter: brightness(1.2);"></div>
                 </a>
-                <p class="text-slate-400 max-w-sm mb-6 leading-relaxed">
-                    A high-performance JavaScript orchestration layer. Experience zero virtual DOM overhead and
-                    async-native rendering. Built for the future of web applications.
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                    A high-performance JavaScript orchestration layer. Zero virtual DOM overhead, async-native rendering.
                 </p>
             </div>
 
+            <!-- Resources Column -->
             <div>
-                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Repository</h4>
-                <ul class="space-y-4">
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Resources</h4>
+                <ul class="space-y-3">
+                    <li><a href="#/_main/docs"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Quick Start</a></li>
+                    <li><a href="docs.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Full API Docs</a></li>
+                    <li><a href="playground.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Playground</a></li>
+                </ul>
+            </div>
+
+            <!-- Community Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Community</h4>
+                <ul class="space-y-3">
                     <li><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer"
                             class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">GitHub
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                             </svg></a></li>
-                    <li><a href="docs.html"
-                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Full API Documentation</a>
-                    </li>
-                    <li><a href="#" target="#main" data-core-templates="docs"
-                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Quick Start Guide</a>
-                    </li>
+                    <li><a href="https://github.com/Sitezip/core.sbs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">Contributing
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg></a></li>
+                    <li><a href="CHANGELOG.md"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Changelog</a></li>
+                    <li><a href="ROADMAP.md"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Roadmap</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Legal</h4>
+                <ul class="space-y-3">
                     <li><a href="#" target="#main" data-core-templates="license"
-                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">License /
-                            MIT</a></li>
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">MIT License</a></li>
+                    <li><a href="#/_main/philosophy"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Philosophy</a></li>
                 </ul>
             </div>
         </div>

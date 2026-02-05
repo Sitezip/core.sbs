@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>core.js Playground - Try it Live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+    <link rel="icon" href="favicon.png">
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .CodeMirror {
+            height: 100%;
+            font-size: 14px;
+        }
+        .editor-container {
+            height: calc(100vh - 200px);
+        }
+        .preview-frame {
+            background: white;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                        core.js Playground
+                    </h1>
+                    <p class="text-slate-400">Try core.js live in your browser - no installation required</p>
+                </div>
+                <a href="index.html" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-lg font-semibold transition-colors">
+                    ← Back to Docs
+                </a>
+            </div>
+
+            <!-- Example Selector -->
+            <div class="flex gap-2 flex-wrap">
+                <button onclick="loadExample('basic')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Basic Example
+                </button>
+                <button onclick="loadExample('counter')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Counter
+                </button>
+                <button onclick="loadExample('form')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Form Validation
+                </button>
+                <button onclick="loadExample('api')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Data Loading
+                </button>
+                <button onclick="loadExample('clone')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Clone/Loop
+                </button>
+                <button onclick="runCode()" class="ml-auto px-6 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-lg font-bold transition-colors">
+                    ▶ Run Code
+                </button>
+            </div>
+        </div>
+
+        <!-- Editor and Preview -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 editor-container">
+            <!-- Code Editor -->
+            <div class="bg-slate-800 rounded-lg overflow-hidden">
+                <div class="bg-slate-900 px-4 py-2 font-semibold text-sm border-b border-slate-700">
+                    HTML + JavaScript
+                </div>
+                <textarea id="code-editor"></textarea>
+            </div>
+
+            <!-- Live Preview -->
+            <div class="bg-white rounded-lg overflow-hidden">
+                <div class="bg-slate-900 px-4 py-2 font-semibold text-sm border-b border-slate-700 text-white">
+                    Live Preview
+                </div>
+                <iframe id="preview" class="preview-frame"></iframe>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="mt-4 p-4 bg-slate-800 rounded-lg text-sm text-slate-300">
+            <strong class="text-white">💡 Tips:</strong>
+            <ul class="mt-2 space-y-1 ml-4">
+                <li>• Edit the code and click "Run Code" to see changes</li>
+                <li>• core.js is automatically included via CDN</li>
+                <li>• Try the example buttons to see different patterns</li>
+                <li>• Open browser console (F12) to see debug output</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Initialize CodeMirror
+        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'htmlmixed',
+            theme: 'dracula',
+            lineNumbers: true,
+            autoCloseTags: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            indentUnit: 4,
+            tabSize: 4,
+            lineWrapping: true
+        });
+
+        // Example code snippets
+        const examples = {
+            basic: `<!-- Basic Pocket and Template -->
+<div class="core-pocket" data-core-templates="hello"></div>
+
+<section id="cr-data" style="display:none;">
+    <template name="hello">
+        <div style="padding: 2rem; text-align: center;">
+            <h1 style="font-size: 2rem; font-weight: bold; color: #10b981;">
+                Hello, core.js! 👋
+            </h1>
+            <p style="color: #64748b; margin-top: 1rem;">
+                You're running core.js in the playground!
+            </p>
+        </div>
+    </template>
+</section>
+
+<script>
+    setTimeout(() => core.init(), 0);
+<\/script>`,
+
+            counter: `<!-- Interactive Counter -->
+<div class="core-pocket" data-core-templates="counter"></div>
+
+<section id="cr-data" style="display:none;">
+    <template name="counter">
+        <div style="padding: 2rem; text-align: center;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">
+                Counter Demo
+            </h2>
+            <div style="font-size: 3rem; font-weight: bold; color: #10b981; margin: 2rem 0;">
+                <span id="count">0</span>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button onclick="increment()" style="padding: 0.75rem 1.5rem; background: #10b981; color: white; border: none; border-radius: 0.5rem; font-weight: bold; cursor: pointer;">
+                    Increment
+                </button>
+                <button onclick="decrement()" style="padding: 0.75rem 1.5rem; background: #ef4444; color: white; border: none; border-radius: 0.5rem; font-weight: bold; cursor: pointer;">
+                    Decrement
+                </button>
+                <button onclick="reset()" style="padding: 0.75rem 1.5rem; background: #64748b; color: white; border: none; border-radius: 0.5rem; font-weight: bold; cursor: pointer;">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </template>
+</section>
+
+<script>
+    let count = 0;
+    
+    function increment() {
+        count++;
+        updateCount();
+    }
+    
+    function decrement() {
+        count--;
+        updateCount();
+    }
+    
+    function reset() {
+        count = 0;
+        updateCount();
+    }
+    
+    function updateCount() {
+        document.getElementById('count').textContent = count;
+    }
+    
+    core.init();
+<\/script>`,
+
+            form: `<!-- Form with Validation -->
+<div class="core-pocket" data-core-templates="contactForm"></div>
+
+<section id="cr-data" style="display:none;">
+    <template name="contactForm">
+        <div style="padding: 2rem; max-width: 500px; margin: 0 auto;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">
+                Contact Form
+            </h2>
+            <form id="myForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Name</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Message</label>
+                    <textarea name="message" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; min-height: 100px;"></textarea>
+                </div>
+                <button type="submit" style="padding: 0.75rem; background: #10b981; color: white; border: none; border-radius: 0.5rem; font-weight: bold; cursor: pointer;">
+                    Submit
+                </button>
+            </form>
+            <div id="result" style="margin-top: 1rem;"></div>
+        </div>
+    </template>
+</section>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        const result = core.sv.scrub([
+            { name: 'name', value: formData.get('name'), req: true },
+            { name: 'email', value: formData.get('email'), req: true, email: true },
+            { name: 'message', value: formData.get('message'), req: true, min: 10 }
+        ]);
+        
+        const resultDiv = document.getElementById('result');
+        if (result.success) {
+            resultDiv.innerHTML = '<div style="padding: 1rem; background: #dcfce7; color: #166534; border-radius: 0.5rem;">✓ Form validated successfully!</div>';
+            console.log('Form data:', result.data);
+        } else {
+            resultDiv.innerHTML = '<div style="padding: 1rem; background: #fee2e2; color: #991b1b; border-radius: 0.5rem;">✗ Validation errors: ' + result.errors.join(', ') + '</div>';
+        }
+    });
+    
+    core.init();
+<\/script>`,
+
+            api: `<!-- Data Loading Example -->
+<div class="core-pocket" data-core-templates="users"></div>
+
+<section id="cr-data" style="display:none;">
+    <template name="users">
+        <div style="padding: 2rem;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">
+                User List
+            </h2>
+            <div class="core-clone" data-core-data="users" style="display: grid; gap: 1rem;">
+                <div style="padding: 1rem; background: #f1f5f9; border-radius: 0.5rem; display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: #10b981; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.25rem;">
+                        {{rec:initials}}
+                    </div>
+                    <div>
+                        <div style="font-weight: bold; color: #1e293b;">
+                            {{rec:name}}
+                        </div>
+                        <div style="color: #64748b; font-size: 0.875rem;">
+                            {{rec:email}}
+                        </div>
+                        <div style="color: #10b981; font-size: 0.75rem; margin-top: 0.25rem;">
+                            {{rec:role}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</section>
+
+<script>
+    // Simulate async data loading
+    core.cr.setData('users', [
+        { name: 'Alice Johnson', email: 'alice@example.com', role: 'Developer', initials: 'AJ' },
+        { name: 'Bob Smith', email: 'bob@example.com', role: 'Designer', initials: 'BS' },
+        { name: 'Carol White', email: 'carol@example.com', role: 'Manager', initials: 'CW' },
+        { name: 'David Brown', email: 'david@example.com', role: 'Developer', initials: 'DB' },
+        { name: 'Eve Davis', email: 'eve@example.com', role: 'Analyst', initials: 'ED' }
+    ]);
+    
+    core.init();
+<\/script>`,
+
+            clone: `<!-- Clone/Loop Example -->
+<div class="core-pocket" data-core-templates="products"></div>
+
+<section id="cr-data" style="display:none;">
+    <template name="products">
+        <div style="padding: 2rem;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">
+                Product List
+            </h2>
+            <div class="core-clone" data-core-data="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                <div style="padding: 1rem; background: #f1f5f9; border-radius: 0.5rem;">
+                    <div style="font-weight: bold; color: #1e293b; margin-bottom: 0.5rem;">
+                        {{rec:name}}
+                    </div>
+                    <div style="color: #10b981; font-weight: bold; font-size: 1.25rem; margin-bottom: 0.5rem;">
+                        {{rec:price:money:$}}
+                    </div>
+                    <div style="color: #64748b; font-size: 0.875rem;">
+                        Stock: {{rec:stock}}
+                    </div>
+                    <div style="margin-top: 0.5rem; padding: 0.25rem 0.5rem; background: #10b981; color: white; display: inline-block; border-radius: 0.25rem; font-size: 0.75rem;">
+                        Item #{{aug:index}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</section>
+
+<script>
+    core.cr.setData('products', [
+        { name: 'Laptop', price: 999.99, stock: 15 },
+        { name: 'Mouse', price: 29.99, stock: 50 },
+        { name: 'Keyboard', price: 79.99, stock: 30 },
+        { name: 'Monitor', price: 299.99, stock: 20 },
+        { name: 'Webcam', price: 89.99, stock: 25 }
+    ]);
+    
+    core.init();
+<\/script>`
+        };
+
+        // Load example
+        function loadExample(name) {
+            editor.setValue(examples[name]);
+            runCode();
+        }
+
+        // Run code in iframe
+        function runCode() {
+            const code = editor.getValue();
+            const iframe = document.getElementById('preview');
+            
+            // Extract script blocks from user code
+            let scriptContent = '';
+            const htmlOnly = code.replace(/<script>([\s\S]*?)<\/script>/gi, (match, inner) => {
+                scriptContent += inner + '\n';
+                return '';
+            });
+            
+            const fullHTML = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body { margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+</style>
+</head>
+<body>
+${htmlOnly}
+<script src="/core.js"><\/script>
+<script>
+console.log('[Playground] Waiting for core.js...');
+// Wait for core.js to load before running user code
+(function checkCore() {
+    if (typeof core !== 'undefined') {
+        console.log('[Playground] core.js loaded, running user code...');
+        // Disable routing in iframe context (about:srcdoc breaks URL parsing)
+        core.useRouting = false;
+        core.useDebugger = false;
+        try {
+            // Execute user code in global scope so functions are accessible to onclick handlers
+            (0, eval)(\`${scriptContent.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`);
+            console.log('[Playground] User code executed successfully');
+            // Give core.js time to process async operations
+            setTimeout(() => {
+                console.log('[Playground] Checking if pockets rendered...');
+                const pockets = document.querySelectorAll('.core-pocket');
+                pockets.forEach(p => {
+                    if (!p.innerHTML.trim()) {
+                        console.warn('[Playground] Empty pocket detected:', p);
+                    }
+                });
+            }, 1000);
+        } catch(e) {
+            console.error('[Playground] Error in user code:', e);
+        }
+    } else {
+        setTimeout(checkCore, 50);
+    }
+})();
+<\/script>
+</body>
+</html>`;
+            
+            iframe.srcdoc = fullHTML;
+        }
+
+        // Load basic example on start
+        loadExample('basic');
+    </script>
+</body>
+</html>
