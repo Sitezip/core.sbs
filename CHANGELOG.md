@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [20260125.1] - 2026-01-25
 
+### Fixed
+- Playground rendering issues
+- Template initialization edge cases
+
+## [20260125] - 2026-01-25
+
 ### Added
 - CLI Tools ecosystem
   - `create-core-app`: Project scaffolding with interactive setup
@@ -34,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Clone element memory leaks
 - Route parsing edge cases
 
-## [20251212.0] - 2025-12-12
+## [20251212] - 2025-12-12
 
 ### Added
 - Initial public release
@@ -58,5 +64,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CDN delivery
 
 [Unreleased]: https://github.com/Sitezip/core.sbs/compare/20260125.1...HEAD
-[20260125.1]: https://github.com/Sitezip/core.sbs/compare/20251212.0...20260125.1
-[20251212.0]: https://github.com/Sitezip/core.sbs/releases/tag/20251212.0
+[20260125.1]: https://github.com/Sitezip/core.sbs/compare/20260125...20260125.1
+[20260125]: https://github.com/Sitezip/core.sbs/compare/20251212...20260125
+[20251212]: https://github.com/Sitezip/core.sbs/releases/tag/20251212
