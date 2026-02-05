@@ -35,38 +35,155 @@ core-gen form --validation
 ```bash
 core-gen form --name=contact
 ```
-
-Generates a simple form with name, email, and message fields.
+Simple form with name, email, and message fields.
 
 **Form with Validation**
 ```bash
 core-gen form --validation --name=contact
 ```
-
-Generates a form with core.js validation, error messages, and success feedback.
+Form with core.js validation, error messages, and success feedback.
 
 ### Tables
 
-**Basic Table**
+**Data Table**
 ```bash
 core-gen table --name=users
 ```
-
-Generates a data table with edit/delete actions.
-
-**Coming Soon:**
-- `--sortable` - Sortable columns
-- `--paginated` - Pagination controls
-- `--filterable` - Search/filter functionality
+Data table with edit/delete actions, status badges, and hover effects.
 
 ### Modals
 
-**Basic Modal**
+**Modal Dialog**
 ```bash
 core-gen modal --name=confirm
 ```
+Modal dialog with header, body, footer, and overlay.
 
-Generates a modal dialog with header, body, and footer.
+### Cards
+
+**Basic Card**
+```bash
+core-gen card --name=product
+```
+Card with header, body, and footer sections.
+
+**Pricing Card**
+```bash
+core-gen card --pricing --name=pro
+```
+Pricing card with plan name, price, features list, and CTA button.
+
+### Navigation
+
+**Navigation Bar**
+```bash
+core-gen navbar --name=main
+```
+Responsive navbar with mobile toggle and dropdown support.
+
+**Breadcrumb**
+```bash
+core-gen breadcrumb --name=page
+```
+Breadcrumb navigation with separators.
+
+**Footer**
+```bash
+core-gen footer --name=site
+```
+Multi-column footer with links and copyright.
+
+### Alerts & Notifications
+
+**Alert**
+```bash
+core-gen alert --name=success
+```
+Alert message with icon, close button, and variants (info, success, warning, error).
+
+**Toast Notification**
+```bash
+core-gen toast --name=notification
+```
+Auto-dismissing toast notifications with animation.
+
+### UI Elements
+
+**Button**
+```bash
+core-gen button --name=submit
+```
+Button with multiple variants (primary, secondary, success, danger, outline).
+
+**Badge**
+```bash
+core-gen badge --name=status
+```
+Small badge with color variants.
+
+**Avatar**
+```bash
+core-gen avatar --name=user
+```
+Circular avatar with size variants.
+
+**Spinner**
+```bash
+core-gen spinner --name=loading
+```
+Animated loading spinner.
+
+**Progress Bar**
+```bash
+core-gen progressbar --name=upload
+```
+Progress bar with percentage display.
+
+**Skeleton Loader**
+```bash
+core-gen skeleton --name=content
+```
+Animated skeleton loader for content placeholders.
+
+### Interactive Components
+
+**Tabs**
+```bash
+core-gen tabs --name=content
+```
+Tabbed interface with multiple panels.
+
+**Accordion**
+```bash
+core-gen accordion --name=faq
+```
+Collapsible accordion with multiple sections.
+
+**Dropdown**
+```bash
+core-gen dropdown --name=menu
+```
+Dropdown menu with dividers and close-on-outside-click.
+
+**Tooltip**
+```bash
+core-gen tooltip --name=help
+```
+Hover tooltip with arrow pointer.
+
+### Utility Components
+
+**Search Bar**
+```bash
+core-gen search --name=site
+```
+Search input with search button.
+
+**Pagination**
+```bash
+core-gen pagination --name=results
+```
+Pagination controls with first/previous/next/last buttons.
 
 ## Options
 

@@ -8,9 +8,9 @@ Scaffold a new core.js application with zero configuration.
 
 ```bash
 npx @core-js/create-core-app my-app
-cd my-app
-# Open index.html in your browser
 ```
+
+The dev server will automatically start after scaffolding!
 
 ### Local Testing (before publishing)
 
@@ -18,8 +18,17 @@ From the root of the core.sbs repository:
 
 ```bash
 node cli/create-core-app/bin/create-core-app.js my-app
+# Dev server starts automatically at http://localhost:3000
+```
+
+### Skip Auto-Start
+
+If you don't want the dev server to start automatically:
+
+```bash
+npx @core-js/create-core-app my-app --no-server
 cd my-app
-# Open index.html in your browser
+npx @core-js/dev
 ```
 
 Or link it globally for testing:

@@ -299,5 +299,153 @@
       "}"
     ],
     "description": "Try-catch block"
+  },
+  "Core.js Load Component": {
+    "prefix": "cloadcomp",
+    "body": "await loadComponent('${1:componentName}');",
+    "description": "Load a generated component"
+  },
+  "Core.js Load Multiple Components": {
+    "prefix": "cloadcomps",
+    "body": [
+      "await loadComponents([",
+      "    '${1:component1}',",
+      "    '${2:component2}',",
+      "    '${3:component3}'",
+      "]);"
+    ],
+    "description": "Load multiple components"
+  },
+  "Core.js Check Component Loaded": {
+    "prefix": "ccheckcomp",
+    "body": "if (isComponentLoaded('${1:componentName}')) {",
+    "description": "Check if component is loaded"
+  },
+  "Core.js Toast Notification": {
+    "prefix": "ctoast",
+    "body": "show${1:My}Toast('${2:Message}', '${3|info,success,warning,error|}');",
+    "description": "Show toast notification"
+  },
+  "Core.js Toggle Dropdown": {
+    "prefix": "cdropdown",
+    "body": "toggleDropdown('${1:dropdownId}');",
+    "description": "Toggle dropdown menu"
+  },
+  "Core.js Switch Tab": {
+    "prefix": "ctab",
+    "body": "switchTab('${1:tabId}');",
+    "description": "Switch to a tab"
+  },
+  "Core.js Toggle Accordion": {
+    "prefix": "caccordion",
+    "body": "toggleAccordion(this);",
+    "description": "Toggle accordion section"
+  },
+  "Core.js Fetch with Error Handling": {
+    "prefix": "cfetch",
+    "body": [
+      "try {",
+      "    await core.be.getData('${1:dataRef}', '${2:/api/endpoint}');",
+      "    await core.be.awaitAll();",
+      "    ${3:// Success handling}",
+      "} catch (error) {",
+      "    console.error('Failed to fetch data:', error);",
+      "    ${4:// Error handling}",
+      "}"
+    ],
+    "description": "Fetch data with error handling"
+  },
+  "Core.js Debounce Function": {
+    "prefix": "cdebounce",
+    "body": [
+      "let ${1:timer};",
+      "function ${2:debounced}(${3:value}) {",
+      "    clearTimeout(${1:timer});",
+      "    ${1:timer} = setTimeout(() => {",
+      "        ${4:// Debounced logic}",
+      "    }, ${5:300});",
+      "}"
+    ],
+    "description": "Debounce function for search/input"
+  },
+  "Core.js Modal Toggle": {
+    "prefix": "cmodal",
+    "body": [
+      "function toggle${1:My}Modal() {",
+      "    const modal = document.getElementById('${2:modalId}');",
+      "    modal.classList.toggle('active');",
+      "}"
+    ],
+    "description": "Toggle modal visibility"
+  },
+  "Core.js Pagination Handler": {
+    "prefix": "cpagination",
+    "body": [
+      "let currentPage = 1;",
+      "let totalPages = ${1:10};",
+      "",
+      "function goToPage(page) {",
+      "    if (page < 1 || page > totalPages) return;",
+      "    currentPage = page;",
+      "    ${2:// Load page data}",
+      "}"
+    ],
+    "description": "Pagination handler"
+  },
+  "Core.js Search Handler": {
+    "prefix": "csearch",
+    "body": [
+      "function handleSearch(query) {",
+      "    if (!query || query.length < ${1:2}) return;",
+      "    ",
+      "    core.be.getData('${2:searchResults}', '${3:/api/search}', {",
+      "        method: 'GET',",
+      "        params: { q: query }",
+      "    });",
+      "}"
+    ],
+    "description": "Search handler with API call"
+  },
+  "Core.js Infinite Scroll": {
+    "prefix": "cinfinite",
+    "body": [
+      "let page = 1;",
+      "let loading = false;",
+      "",
+      "window.addEventListener('scroll', async () => {",
+      "    if (loading) return;",
+      "    ",
+      "    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;",
+      "    ",
+      "    if (scrollTop + clientHeight >= scrollHeight - ${1:100}) {",
+      "        loading = true;",
+      "        page++;",
+      "        await core.be.getData('${2:dataRef}', `${3:/api/items}?page=${page}`);",
+      "        await core.be.awaitAll();",
+      "        loading = false;",
+      "    }",
+      "});"
+    ],
+    "description": "Infinite scroll implementation"
+  },
+  "Core.js Local Storage Get": {
+    "prefix": "clsget",
+    "body": "const ${1:data} = JSON.parse(localStorage.getItem('${2:key}') || '${3:null}');",
+    "description": "Get data from localStorage"
+  },
+  "Core.js Local Storage Set": {
+    "prefix": "clsset",
+    "body": "localStorage.setItem('${1:key}', JSON.stringify(${2:data}));",
+    "description": "Set data in localStorage"
+  },
+  "Core.js Session Storage Get": {
+    "prefix": "cssget",
+    "body": "const ${1:data} = JSON.parse(sessionStorage.getItem('${2:key}') || '${3:null}');",
+    "description": "Get data from sessionStorage"
+  },
+  "Core.js Session Storage Set": {
+    "prefix": "cssset",
+    "body": "sessionStorage.setItem('${1:key}', JSON.stringify(${2:data}));",
+    "description": "Set data in sessionStorage"
   }
 }

@@ -33,9 +33,28 @@ Components:
   form              Generate a form component
   table             Generate a table component
   modal             Generate a modal component
+  card              Generate a card component
+  alert             Generate an alert component
+  navbar            Generate a navigation bar
+  badge             Generate a badge component
+  button            Generate a button component
+  breadcrumb        Generate a breadcrumb component
+  tabs              Generate a tabs component
+  accordion         Generate an accordion component
+  pagination        Generate a pagination component
+  spinner           Generate a loading spinner
+  avatar            Generate an avatar component
+  progressbar       Generate a progress bar
+  dropdown          Generate a dropdown menu
+  toast             Generate a toast notification
+  tooltip           Generate a tooltip component
+  search            Generate a search bar
+  footer            Generate a footer component
+  skeleton          Generate a skeleton loader
 
 Options:
   --validation      Add validation to forms
+  --pricing         Generate pricing card variant
   --sortable        Make table sortable
   --paginated       Add pagination to table
   --name=<name>     Custom component name (default: "my")
@@ -44,13 +63,16 @@ Options:
 
 Examples:
   core-gen form --validation --name=contact
-  core-gen form --validation --name=contact --inject
-  core-gen form --validation --name=contact --inject --file=app.html
-  core-gen table --sortable --name=users
-  core-gen modal --name=confirm
+  core-gen card --pricing --name=pro
+  core-gen table --name=users
+  core-gen navbar --name=main
+  core-gen alert --name=success
 `);
     process.exit(0);
 }
+
+// Parse additional flags
+const hasPricing = flags.includes('--pricing');
 
 // Determine template file
 let templateFile;
@@ -59,14 +81,36 @@ switch (componentType) {
         templateFile = hasValidation ? 'validation.html' : 'basic.html';
         break;
     case 'table':
-        templateFile = 'basic.html'; // TODO: Add sortable/paginated variants
+        templateFile = 'basic.html';
         break;
     case 'modal':
         templateFile = 'basic.html';
         break;
+    case 'card':
+        templateFile = hasPricing ? 'pricing.html' : 'basic.html';
+        break;
+    case 'alert':
+    case 'navbar':
+    case 'badge':
+    case 'button':
+    case 'breadcrumb':
+    case 'tabs':
+    case 'accordion':
+    case 'pagination':
+    case 'spinner':
+    case 'avatar':
+    case 'progressbar':
+    case 'dropdown':
+    case 'toast':
+    case 'tooltip':
+    case 'search':
+    case 'footer':
+    case 'skeleton':
+        templateFile = 'basic.html';
+        break;
     default:
         console.error(`❌ Error: Unknown component type "${componentType}"`);
-        console.log('Available types: form, table, modal');
+        console.log('Run "core-gen --help" to see available component types');
         process.exit(1);
 }
 

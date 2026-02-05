@@ -2,7 +2,7 @@
   "name": "corejs-snippets",
   "displayName": "core.js Snippets",
   "description": "Code snippets for the core.js framework - Component Oriented Rendering Engine",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "publisher": "corejs",
   "icon": "icon.png",
   "engines": {

@@ -1,15 +1,15 @@
 {
-  "name": "@core-js/create-core-app",
+  "name": "@core-js/dev",
   "version": "1.0.0",
-  "description": "Scaffold a new core.js application",
+  "description": "Development server for core.js applications with hot reload",
   "bin": {
-    "create-core-app": "./bin/create-core-app.js"
+    "core-dev": "./bin/core-dev.js"
   },
   "keywords": [
     "core.js",
-    "scaffold",
-    "create-app",
-    "boilerplate"
+    "dev-server",
+    "hot-reload",
+    "development"
   ],
   "author": "core.js team",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "@core-js/dev": "^1.0.0"
+    "chokidar": "^3.5.3",
+    "ws": "^8.14.2"
   }
 }
