@@ -75,6 +75,13 @@ body {
     text-decoration: none;
 }
 
+@media (min-width: 1280px) {
+    .nav-link-premium {
+        font-size: 1.125rem;
+        padding: 0.875rem 1.75rem;
+    }
+}
+
 .nav-link-premium:hover {
     color: #ffffff !important;
     background-color: rgba(255, 255, 255, 0.05);
