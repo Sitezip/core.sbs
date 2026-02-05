@@ -275,5 +275,197 @@
       "</script>"
     ],
     "description": "Form with core.js validation"
+  },
+  "Core.js Component Loader Script": {
+    "prefix": "ccomploader",
+    "body": [
+      "<script src=\"core-components.js\"></script>",
+      "<script>",
+      "// Load components on page load",
+      "document.addEventListener('DOMContentLoaded', async () => {",
+      "    await loadComponent('${1:componentName}');",
+      "});",
+      "</script>"
+    ],
+    "description": "Component loader script tag"
+  },
+  "Core.js Card Component": {
+    "prefix": "ccard",
+    "body": [
+      "<div class=\"card\">",
+      "    <div class=\"card-header\">",
+      "        <h3>${1:Title}</h3>",
+      "    </div>",
+      "    <div class=\"card-body\">",
+      "        <p>${2:Content}</p>",
+      "    </div>",
+      "    <div class=\"card-footer\">",
+      "        <button class=\"btn btn-primary\">${3:Action}</button>",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Card component structure"
+  },
+  "Core.js Alert Component": {
+    "prefix": "calert",
+    "body": [
+      "<div class=\"alert alert-${1|info,success,warning,error|}\">",
+      "    <div class=\"alert-icon\">${2:ℹ️}</div>",
+      "    <div class=\"alert-content\">",
+      "        <strong>${3:Title}:</strong> ${4:Message}",
+      "    </div>",
+      "    <button class=\"alert-close\" onclick=\"this.closest('.alert').remove()\">×</button>",
+      "</div>"
+    ],
+    "description": "Alert message component"
+  },
+  "Core.js Modal Component": {
+    "prefix": "cmodalhtml",
+    "body": [
+      "<div class=\"modal\" id=\"${1:myModal}\">",
+      "    <div class=\"modal-overlay\" onclick=\"document.getElementById('${1:myModal}').classList.remove('active')\"></div>",
+      "    <div class=\"modal-content\">",
+      "        <div class=\"modal-header\">",
+      "            <h2>${2:Modal Title}</h2>",
+      "            <button class=\"modal-close\" onclick=\"document.getElementById('${1:myModal}').classList.remove('active')\">×</button>",
+      "        </div>",
+      "        <div class=\"modal-body\">",
+      "            ${3:<p>Modal content</p>}",
+      "        </div>",
+      "        <div class=\"modal-footer\">",
+      "            <button onclick=\"document.getElementById('${1:myModal}').classList.remove('active')\">${4:Close}</button>",
+      "        </div>",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Modal dialog component"
+  },
+  "Core.js Tabs Component": {
+    "prefix": "ctabs",
+    "body": [
+      "<div class=\"tabs\">",
+      "    <div class=\"tab-list\">",
+      "        <button class=\"tab-button active\" onclick=\"switchTab('${1:tab1}')\">${2:Tab 1}</button>",
+      "        <button class=\"tab-button\" onclick=\"switchTab('${3:tab2}')\">${4:Tab 2}</button>",
+      "    </div>",
+      "    <div class=\"tab-content\">",
+      "        <div id=\"${1:tab1}\" class=\"tab-panel active\">",
+      "            ${5:<p>Tab 1 content</p>}",
+      "        </div>",
+      "        <div id=\"${3:tab2}\" class=\"tab-panel\">",
+      "            ${6:<p>Tab 2 content</p>}",
+      "        </div>",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Tabs component"
+  },
+  "Core.js Navbar Component": {
+    "prefix": "cnav",
+    "body": [
+      "<nav class=\"navbar\">",
+      "    <div class=\"navbar-container\">",
+      "        <div class=\"navbar-brand\">",
+      "            <a href=\"/\">${1:Brand}</a>",
+      "        </div>",
+      "        <div class=\"navbar-menu\">",
+      "            <a href=\"#home\" class=\"nav-link\">${2:Home}</a>",
+      "            <a href=\"#about\" class=\"nav-link\">${3:About}</a>",
+      "            <a href=\"#contact\" class=\"nav-link\">${4:Contact}</a>",
+      "        </div>",
+      "    </div>",
+      "</nav>"
+    ],
+    "description": "Navigation bar component"
+  },
+  "Core.js Dropdown Component": {
+    "prefix": "cdropdownhtml",
+    "body": [
+      "<div class=\"dropdown\">",
+      "    <button class=\"dropdown-toggle\" onclick=\"toggleDropdown('${1:menuId}')\">",
+      "        ${2:Select Option}",
+      "        <span class=\"dropdown-arrow\">▼</span>",
+      "    </button>",
+      "    <div class=\"dropdown-menu\" id=\"${1:menuId}\">",
+      "        <a href=\"#\" class=\"dropdown-item\">${3:Option 1}</a>",
+      "        <a href=\"#\" class=\"dropdown-item\">${4:Option 2}</a>",
+      "    </div>",
+      "</div>"
+    ],
+    "description": "Dropdown menu component"
+  },
+  "Core.js Progress Bar": {
+    "prefix": "cprogress",
+    "body": [
+      "<div class=\"progress-container\">",
+      "    <div class=\"progress-bar\">",
+      "        <div class=\"progress-fill\" style=\"width: ${1:60}%\"></div>",
+      "    </div>",
+      "    <span class=\"progress-text\">${1:60}%</span>",
+      "</div>"
+    ],
+    "description": "Progress bar component"
+  },
+  "Core.js Spinner": {
+    "prefix": "cspinner",
+    "body": [
+      "<div class=\"spinner-container\">",
+      "    <div class=\"spinner\"></div>",
+      "    <p class=\"spinner-text\">${1:Loading...}</p>",
+      "</div>"
+    ],
+    "description": "Loading spinner component"
+  },
+  "Core.js Badge": {
+    "prefix": "cbadge",
+    "body": "<span class=\"badge badge-${1|primary,success,warning,error,info,gray|}\">${2:Badge}</span>",
+    "description": "Badge component"
+  },
+  "Core.js Avatar": {
+    "prefix": "cavatar",
+    "body": [
+      "<div class=\"avatar ${1|avatar-sm,avatar-lg,avatar-xl|}\">",
+      "    <img src=\"${2:https://via.placeholder.com/150}\" alt=\"${3:User avatar}\">",
+      "</div>"
+    ],
+    "description": "Avatar component"
+  },
+  "Core.js Breadcrumb": {
+    "prefix": "cbreadcrumb",
+    "body": [
+      "<nav class=\"breadcrumb\">",
+      "    <a href=\"/\" class=\"breadcrumb-item\">${1:Home}</a>",
+      "    <span class=\"breadcrumb-separator\">/</span>",
+      "    <a href=\"/${2:products}\" class=\"breadcrumb-item\">${3:Products}</a>",
+      "    <span class=\"breadcrumb-separator\">/</span>",
+      "    <span class=\"breadcrumb-item active\">${4:Item}</span>",
+      "</nav>"
+    ],
+    "description": "Breadcrumb navigation"
+  },
+  "Core.js Search Bar": {
+    "prefix": "csearchbar",
+    "body": [
+      "<div class=\"search-bar\">",
+      "    <input type=\"text\" class=\"search-input\" placeholder=\"${1:Search...}\" onkeyup=\"handleSearch(this.value)\">",
+      "    <button class=\"search-button\">🔍</button>",
+      "</div>"
+    ],
+    "description": "Search bar component"
+  },
+  "Core.js Data Section": {
+    "prefix": "cdata-section",
+    "body": [
+      "<section id=\"cr-data\">",
+      "    <!-- Templates go here -->",
+      "    $0",
+      "</section>"
+    ],
+    "description": "cr-data section for templates"
+  },
+  "Core.js CDN Script": {
+    "prefix": "ccdn",
+    "body": "<script src=\"https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js\"></script>",
+    "description": "core.js CDN script tag"
   }
 }

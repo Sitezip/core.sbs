@@ -1,3 +1,5 @@
 
 /.vscode
 core.todo
+/notes
+node_modules
