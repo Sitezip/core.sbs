@@ -148,6 +148,14 @@ if (fs.existsSync(outputPath)) {
 // Write file
 fs.writeFileSync(outputPath, template);
 
+// Display generated code
+console.log(`\n${'='.repeat(60)}`);
+console.log('📋 GENERATED CODE (ready to copy):');
+console.log('='.repeat(60));
+console.log(template);
+console.log('='.repeat(60));
+console.log(`\n✓ Code saved to: components/${outputFile}\n`);
+
 // Auto-inject into HTML file if requested
 if (shouldInject) {
     const htmlPath = path.join(process.cwd(), injectFile);
