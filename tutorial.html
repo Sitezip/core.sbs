@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Build a Todo App with core.js - Interactive Tutorial</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <meta name="description"
+        content="Learn core.js by building a real todo app. Step-by-step tutorial covering pockets, templates, data binding, and state management.">
+    <meta name="keywords"
+        content="core.js tutorial, JavaScript framework tutorial, todo app, learn core.js, web development tutorial">
+    <meta name="author" content="core.js Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://core.sbs/tutorial.html">
+    <meta property="og:title" content="Build a Todo App with core.js">
+    <meta property="og:description"
+        content="Learn core.js by building a real todo app. Step-by-step tutorial.">
+    <meta property="og:image" content="https://core.sbs/hero_bg.png">
+
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="canonical" href="https://core.sbs/tutorial.html">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#10b981',
+                            dark: '#047857',
+                            light: '#34d399',
+                            glow: 'rgba(16, 185, 129, 0.5)',
+                        },
+                        accent: {
+                            DEFAULT: '#06b6d4',
+                            glow: 'rgba(6, 182, 212, 0.5)',
+                        },
+                        dark: {
+                            DEFAULT: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="core.css">
+    <link rel="icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="core.html" class="flex items-center" style="width: 140px;">
+                <img src="core.svg" alt="core.js" style="width: 100%; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));">
+            </a>
+
+            <button class="xl:hidden text-white p-2 hover:bg-white/5 rounded-xl transition-colors focus:outline-none"
+                type="button" onclick="document.getElementById('navbarNav').classList.toggle('hidden')"
+                title="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M4 6h16M4 12h16m-16 6h16">
+                    </path>
+                </svg>
+            </button>
+
+            <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-0" id="navbarNav">
+                <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
+                    <li class="w-full xl:w-auto"><a href="core.html" class="nav-link-premium">Home</a>
+                    </li>
+                    <li class="w-full xl:w-auto"><a href="tutorial.html" class="nav-link-premium active">Tutorial</a>
+                    </li>
+                    <li class="w-full xl:w-auto"><a href="docs.html" class="nav-link-premium">Docs</a>
+                    </li>
+                    <li class="w-full xl:w-auto"><a href="playground.html" class="nav-link-premium">Playground</a>
+                    </li>
+                    <li class="w-full xl:w-auto"><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="nav-link-premium">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-32 pb-20 min-h-screen">
+        <div class="container mx-auto px-4 max-w-7xl">
+            
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <span class="badge-premium mb-6 inline-block">Interactive Tutorial</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold font-outfit leading-[1.1] mb-6 text-white tracking-tight">
+                    Build a <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-accent">Todo App</span><br>with core.js
+                </h1>
+                <p class="text-lg md:text-xl text-slate-400 mb-8 leading-relaxed font-medium max-w-3xl mx-auto">
+                    Learn core.js by building a real application from scratch. No build tools, no npm, no dependencies - just one CDN link and you're ready to go.
+                </p>
+            </div>
+
+            <!-- Live Demo Section -->
+            <div class="mb-16">
+                <div class="glass p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-3xl font-bold text-white">✨ Live Demo</h2>
+                        <span class="text-xs font-bold uppercase tracking-widest text-primary-light">Try it now</span>
+                    </div>
+                    <p class="text-slate-300 mb-6">This is what you'll build. Try adding, checking, and deleting todos:</p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Todo App -->
+                        <div class="lg:col-span-2">
+                            <div class="core-pocket" data-core-templates="todoApp"></div>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                            <h4 class="text-lg font-bold text-white mb-4">📊 App Stats</h4>
+                            <div class="space-y-4">
+                                <div class="text-center">
+                                    <div id="totalCount" class="text-4xl font-bold text-primary-light">0</div>
+                                    <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Total Todos</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="doneCount" class="text-4xl font-bold text-accent">0</div>
+                                    <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Completed</div>
+                                </div>
+                                <div class="text-center">
+                                    <div id="remainingCount" class="text-4xl font-bold text-slate-400">0</div>
+                                    <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Remaining</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How To Build It -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-white mb-8">📚 How To Build It</h2>
+                <p class="text-slate-300 mb-8 text-lg">Follow these steps to build your own todo app from scratch:</p>
+                
+                <div class="space-y-6">
+                    
+                    <!-- Step 0: CDN Setup -->
+                    <div class="glass p-6 border-2 border-primary/30">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light font-bold text-lg">0</div>
+                            <h3 class="text-2xl font-bold text-white">Start with Basic HTML + CDN</h3>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            <strong>This is the foundation.</strong> Create a new HTML file with this complete structure. core.js works entirely through a CDN link - no npm, no build tools, no installation:
+                        </p>
+                        <div class="relative bg-black/40 p-4 rounded-lg font-mono text-sm text-emerald-400 overflow-x-auto mb-4">
+                            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;!-- Content will go here --&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Load core.js from CDN --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                        <p class="text-slate-400 text-sm">
+                            💡 Save this as <code class="text-primary-light bg-black/40 px-2 py-1 rounded">todo.html</code> and open it in your browser to test.
+                        </p>
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div class="glass p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light font-bold text-lg">1</div>
+                            <h3 class="text-2xl font-bold text-white">Add a Pocket</h3>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            A <code class="text-primary-light bg-black/40 px-2 py-1 rounded">core-pocket</code> is where core.js injects content. Replace the comment with this:
+                        </p>
+                        <div class="relative bg-black/40 p-4 rounded-lg font-mono text-sm text-emerald-400 overflow-x-auto">
+                            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;!-- The pocket - core.js will fill this --&gt;
+    &lt;div class="core-pocket" data-core-templates="todoApp"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light font-bold text-lg">2</div>
+                            <h3 class="text-2xl font-bold text-white">Add the Template</h3>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            Templates go in a hidden <code class="text-primary-light bg-black/40 px-2 py-1 rounded">&lt;section id="cr-data"&gt;</code>. Add this BEFORE the core.js script tag:
+                        </p>
+                        <div class="relative bg-black/40 p-4 rounded-lg font-mono text-sm text-emerald-400 overflow-x-auto">
+                            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;div class="core-pocket" data-core-templates="todoApp"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Templates (hidden) --&gt;
+  &lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="todoApp"&gt;
+      &lt;form onsubmit="addTodo(event)" class="flex gap-2 mb-4"&gt;
+        &lt;input type="text" id="todoInput" placeholder="What needs to be done?"
+               class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded text-white"&gt;
+        &lt;button type="submit" class="px-6 py-2 bg-emerald-500 rounded"&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      
+      &lt;div class="core-clone" data-core-data="todos"&gt;
+        &lt;div class="flex items-center gap-3 p-4 bg-slate-800 rounded mb-2"&gt;
+          &lt;input type="checkbox" onchange="toggleTodo({{rec:id}})" 
+                 {{rec:done:core_pk_checked}} class="w-5 h-5"&gt;
+          &lt;span class="flex-1 {{rec:done:core_pk_strikethrough}}"&gt;{{rec:text}}&lt;/span&gt;
+          &lt;button onclick="deleteTodo({{rec:id}})" class="text-red-400"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+  &lt;/section&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light font-bold text-lg">3</div>
+                            <h3 class="text-2xl font-bold text-white">Initialize with Data</h3>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            Add a script tag AFTER core.js to set up your data and initialize:
+                        </p>
+                        <div class="relative bg-black/40 p-4 rounded-lg font-mono text-sm text-emerald-400 overflow-x-auto">
+                            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;div class="core-pocket" data-core-templates="todoApp"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="todoApp"&gt;
+      &lt;form onsubmit="addTodo(event)" class="flex gap-2 mb-4"&gt;
+        &lt;input type="text" id="todoInput" placeholder="What needs to be done?"
+               class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded text-white"&gt;
+        &lt;button type="submit" class="px-6 py-2 bg-emerald-500 rounded"&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;div class="core-clone" data-core-data="todos"&gt;
+        &lt;div class="flex items-center gap-3 p-4 bg-slate-800 rounded mb-2"&gt;
+          &lt;input type="checkbox" onchange="toggleTodo({{rec:id}})" 
+                 {{rec:done:core_pk_checked}} class="w-5 h-5"&gt;
+          &lt;span class="flex-1 {{rec:done:core_pk_strikethrough}}"&gt;{{rec:text}}&lt;/span&gt;
+          &lt;button onclick="deleteTodo({{rec:id}})" class="text-red-400"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+  &lt;/section&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+  
+  &lt;script&gt;
+    let todos = [
+      { id: 1, text: 'Learn core.js', done: false },
+      { id: 2, text: 'Build an app', done: false }
+    ];
+
+    core.cr.setData('todos', todos);
+    core.init();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="glass p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light font-bold text-lg">4</div>
+                            <h3 class="text-2xl font-bold text-white">Add Functions</h3>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            Add the functions for add, toggle, and delete. Put these BEFORE <code class="text-primary-light bg-black/40 px-2 py-1 rounded">core.init()</code>:
+                        </p>
+                        <div class="relative bg-black/40 p-4 rounded-lg font-mono text-xs text-emerald-400 overflow-x-auto max-h-96">
+                            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all z-10">Copy</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;div class="core-pocket" data-core-templates="todoApp"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="todoApp"&gt;
+      &lt;form onsubmit="addTodo(event)" class="flex gap-2 mb-4"&gt;
+        &lt;input type="text" id="todoInput" placeholder="What needs to be done?"
+               class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded text-white"&gt;
+        &lt;button type="submit" class="px-6 py-2 bg-emerald-500 rounded"&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;div class="core-clone" data-core-data="todos"&gt;
+        &lt;div class="flex items-center gap-3 p-4 bg-slate-800 rounded mb-2"&gt;
+          &lt;input type="checkbox" onchange="toggleTodo({{rec:id}})" 
+                 {{rec:done:core_pk_checked}} class="w-5 h-5"&gt;
+          &lt;span class="flex-1 {{rec:done:core_pk_strikethrough}}"&gt;{{rec:text}}&lt;/span&gt;
+          &lt;button onclick="deleteTodo({{rec:id}})" class="text-red-400"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+  &lt;/section&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+  
+  &lt;script&gt;
+    let todos = [
+      { id: 1, text: 'Learn core.js', done: false },
+      { id: 2, text: 'Build an app', done: false }
+    ];
+
+    function addTodo(event) {
+      event.preventDefault();
+      const input = document.getElementById('todoInput');
+      const text = input.value.trim();
+      if (text) {
+        todos.push({ id: Date.now(), text, done: false });
+        input.value = '';
+        updateTodos();
+      }
+    }
+
+    function toggleTodo(id) {
+      const todo = todos.find(t => t.id === id);
+      if (todo) {
+        todo.done = !todo.done;
+        updateTodos();
+      }
+    }
+
+    function deleteTodo(id) {
+      todos = todos.filter(t => t.id !== id);
+      updateTodos();
+    }
+
+    function updateTodos() {
+      core.cr.setData('todos', todos);
+      core.pk.soc();
+    }
+
+    core.cr.setData('todos', todos);
+    core.init();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Custom Formatters -->
+                    <div class="glass p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light font-bold text-lg">5</div>
+                            <h3 class="text-2xl font-bold text-white">Add Custom Formatters</h3>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            To make checkboxes and strikethrough work, add this formatter BEFORE <code class="text-primary-light bg-black/40 px-2 py-1 rounded">core.init()</code>. This is the COMPLETE working file:
+                        </p>
+                        <div class="relative bg-black/40 p-4 rounded-lg font-mono text-xs text-emerald-400 overflow-x-auto max-h-96">
+                            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all z-10">Copy</button>
+                            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;div class="core-pocket" data-core-templates="todoApp"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="todoApp"&gt;
+      &lt;form onsubmit="addTodo(event)" class="flex gap-2 mb-4"&gt;
+        &lt;input type="text" id="todoInput" placeholder="What needs to be done?"
+               class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded text-white"&gt;
+        &lt;button type="submit" class="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 rounded font-semibold"&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;div class="core-clone" data-core-data="todos"&gt;
+        &lt;div class="flex items-center gap-3 p-4 bg-slate-800 rounded hover:bg-slate-700 transition-colors mb-2"&gt;
+          &lt;input type="checkbox" onchange="toggleTodo({{rec:id}})" 
+                 {{rec:done:core_pk_checked}} class="w-5 h-5 cursor-pointer" style="accent-color: #10b981;"&gt;
+          &lt;span class="flex-1 {{rec:done:core_pk_strikethrough}}"&gt;{{rec:text}}&lt;/span&gt;
+          &lt;button onclick="deleteTodo({{rec:id}})" 
+                  class="px-3 py-1 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+  &lt;/section&gt;
+
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+  
+  &lt;script&gt;
+    let todos = [
+      { id: 1, text: 'Learn core.js', done: false },
+      { id: 2, text: 'Build an app', done: false }
+    ];
+
+    function addTodo(event) {
+      event.preventDefault();
+      const input = document.getElementById('todoInput');
+      const text = input.value.trim();
+      if (text) {
+        todos.push({ id: Date.now(), text, done: false });
+        input.value = '';
+        updateTodos();
+      }
+    }
+
+    function toggleTodo(id) {
+      const todo = todos.find(t => t.id === id);
+      if (todo) {
+        todo.done = !todo.done;
+        updateTodos();
+      }
+    }
+
+    function deleteTodo(id) {
+      todos = todos.filter(t => t.id !== id);
+      updateTodos();
+    }
+
+    function updateTodos() {
+      core.cr.setData('todos', todos);
+      core.pk.soc();
+    }
+
+    // Custom formatters
+    core.ud.format = function(value, formatStr) {
+      if (formatStr === 'core_pk_checked') return value ? 'checked' : '';
+      if (formatStr === 'core_pk_strikethrough') return value ? 'line-through opacity-50' : '';
+      return value;
+    };
+
+    core.cr.setData('todos', todos);
+    core.init();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+
+                    <!-- Full Code -->
+                    <div class="mb-16">
+                        <h2 class="text-3xl font-bold text-white mb-8">📄 Complete Code</h2>
+                        <div class="glass p-6">
+                            <p class="text-slate-300 mb-4">Copy this entire file and save it as <code class="text-primary-light bg-black/40 px-2 py-1 rounded">todo.html</code> - it's a complete, working todo app:</p>
+                            <div class="relative bg-black/40 p-4 rounded-lg font-mono text-xs text-emerald-400 overflow-x-auto max-h-96">
+                                <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)" class="absolute top-2 right-2 px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all z-10">Copy All</button>
+                                <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Todo App - core.js&lt;/title&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-900 text-white p-8"&gt;
+  
+  &lt;!-- Pocket --&gt;
+  &lt;div class="max-w-2xl mx-auto"&gt;
+    &lt;h1 class="text-4xl font-bold mb-8"&gt;My Todo App&lt;/h1&gt;
+    &lt;div class="core-pocket" data-core-templates="todoApp"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Templates --&gt;
+  &lt;section id="cr-data" style="display:none;"&gt;
+    &lt;template name="todoApp"&gt;
+      &lt;form onsubmit="addTodo(event)" class="flex gap-2 mb-4"&gt;
+        &lt;input type="text" id="todoInput" placeholder="What needs to be done?"
+               class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded text-white"&gt;
+        &lt;button type="submit" class="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 rounded font-semibold"&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      
+      &lt;div class="space-y-2"&gt;
+        &lt;div class="core-clone" data-core-data="todos"&gt;
+          &lt;div class="flex items-center gap-3 p-4 bg-slate-800 rounded hover:bg-slate-700 transition-colors"&gt;
+            &lt;input type="checkbox" onchange="toggleTodo({{rec:id}})" 
+                   {{rec:done:core_pk_checked}} class="w-5 h-5 cursor-pointer" style="accent-color: #10b981;"&gt;
+            &lt;span class="flex-1 {{rec:done:core_pk_strikethrough}}"&gt;{{rec:text}}&lt;/span&gt;
+            &lt;button onclick="deleteTodo({{rec:id}})" 
+                    class="px-3 py-1 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded"&gt;Delete&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+  &lt;/section&gt;
+
+  &lt;!-- Load core.js from CDN --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+
+  &lt;!-- App Logic --&gt;
+  &lt;script&gt;
+    let todos = [
+      { id: 1, text: 'Learn core.js', done: false },
+      { id: 2, text: 'Build a todo app', done: false }
+    ];
+
+    function addTodo(event) {
+      event.preventDefault();
+      const input = document.getElementById('todoInput');
+      const text = input.value.trim();
+      if (text) {
+        todos.push({ id: Date.now(), text, done: false });
+        input.value = '';
+        updateTodos();
+      }
+    }
+
+    function toggleTodo(id) {
+      const todo = todos.find(t => t.id === id);
+      if (todo) {
+        todo.done = !todo.done;
+        updateTodos();
+      }
+    }
+
+    function deleteTodo(id) {
+      todos = todos.filter(t => t.id !== id);
+      updateTodos();
+    }
+
+    function updateTodos() {
+      core.cr.setData('todos', todos);
+      core.pk.soc();
+    }
+
+    // Custom formatters for checkbox and strikethrough
+    core.ud.format = function(value, formatStr) {
+      if (formatStr === 'core_pk_checked') return value ? 'checked' : '';
+      if (formatStr === 'core_pk_strikethrough') return value ? 'line-through opacity-50' : '';
+      return value;
+    };
+
+    // Initialize
+    core.cr.setData('todos', todos);
+    core.init();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-4">
+                        💡 <strong>To run:</strong> Save this file and open it in your browser. That's it! No build step, no npm install, nothing else needed.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Concepts -->
+            <div class="glass p-8 mb-16">
+                <h2 class="text-3xl font-bold text-white mb-6">🎯 Key Concepts You Just Learned</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex gap-4">
+                        <div class="text-3xl">📦</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary-light mb-2">Pockets</h3>
+                            <p class="text-slate-300">Containers that hold dynamic content. Just add <code class="text-primary-light bg-black/40 px-2 py-1 rounded text-sm">core-pocket</code> class.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">📝</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary-light mb-2">Templates</h3>
+                            <p class="text-slate-300">Reusable HTML patterns with data binding using <code class="text-primary-light bg-black/40 px-2 py-1 rounded text-sm">{{rec:field}}</code> syntax.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">🔄</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary-light mb-2">Clone</h3>
+                            <p class="text-slate-300">Automatically loops through arrays. No manual iteration needed.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">💾</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary-light mb-2">State Management</h3>
+                            <p class="text-slate-300">Use <code class="text-primary-light bg-black/40 px-2 py-1 rounded text-sm">core.cr.setData()</code> to update state and trigger re-renders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="glass p-8 border-2 border-primary/30 mb-16">
+                <div class="flex items-start gap-6">
+                    <div class="text-5xl">🚀</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white">You're Ready to Build!</h3>
+                        <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                            You've just built a working todo app with core.js. You now understand the fundamentals: pockets, templates, data binding, and state management.
+                        </p>
+                        
+                        <h4 class="text-xl font-bold text-white mb-3">📚 Learn More</h4>
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <a href="docs.html" class="btn-premium">
+                                Read Full Docs
+                            </a>
+                            <a href="playground.html" class="px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/20 transition-all">
+                                Try Playground
+                            </a>
+                            <a href="core.html" class="px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/20 transition-all">
+                                View Demos
+                            </a>
+                        </div>
+
+                        <h4 class="text-xl font-bold text-white mb-3">🛠️ CLI Tools</h4>
+                        <p class="text-slate-300 mb-4">Scaffold new projects instantly with our CLI tools:</p>
+                        <div class="space-y-3">
+                            <div class="bg-black/40 p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <code class="text-primary-light font-bold">create-core-app</code>
+                                    <button onclick="navigator.clipboard.writeText('npx create-core-app my-app')" class="px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                                </div>
+                                <pre class="text-emerald-400 text-sm">npx create-core-app my-app</pre>
+                                <p class="text-slate-400 text-sm mt-2">Create a new core.js project with templates and examples</p>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <code class="text-primary-light font-bold">core-gen</code>
+                                    <button onclick="navigator.clipboard.writeText('npx core-gen component MyComponent')" class="px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                                </div>
+                                <pre class="text-emerald-400 text-sm">npx core-gen component MyComponent</pre>
+                                <p class="text-slate-400 text-sm mt-2">Generate components, templates, and boilerplate code</p>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <code class="text-primary-light font-bold">core-dev</code>
+                                    <button onclick="navigator.clipboard.writeText('npx core-dev')" class="px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                                </div>
+                                <pre class="text-emerald-400 text-sm">npx core-dev</pre>
+                                <p class="text-slate-400 text-sm mt-2">Development server with hot reload and debugging tools</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Templates Section (Hidden) -->
+    <section id="cr-data" style="display:none;">
+        
+        <!-- Todo App Template -->
+        <template name="todoApp">
+            <div class="space-y-4">
+                
+                <!-- Input Form -->
+                <form onsubmit="addTodo(event)" class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="todoInput"
+                        placeholder="What needs to be done?"
+                        class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:border-primary/50 outline-none transition-all"
+                        required
+                    >
+                    <button type="submit" class="btn-premium whitespace-nowrap">
+                        + Add
+                    </button>
+                </form>
+
+                <!-- Todo List -->
+                <div class="space-y-2">
+                    <div class="core-clone" data-core-data="todos">
+                        <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all group">
+                            <input 
+                                type="checkbox" 
+                                onchange="toggleTodo({{rec:id}})"
+                                {{rec:done:core_pk_checked}}
+                                class="w-5 h-5 cursor-pointer"
+                                style="accent-color: #10b981;"
+                            >
+                            <span class="flex-1 text-white {{rec:done:core_pk_strikethrough}}">{{rec:text}}</span>
+                            <button 
+                                onclick="deleteTodo({{rec:id}})"
+                                class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 transition-all px-3 py-1 rounded-lg hover:bg-red-500/10"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-12 text-slate-400" style="display:none;">
+                    <div class="text-6xl mb-4">📝</div>
+                    <p class="text-lg">No todos yet. Add one above to get started!</p>
+                </div>
+
+            </div>
+        </template>
+
+    </section>
+
+    <!-- Load core.js -->
+    <script src="core.js"></script>
+
+    <!-- App Logic -->
+    <script>
+        let todos = [
+            { id: 1, text: 'Learn core.js basics', done: true },
+            { id: 2, text: 'Build a todo app', done: false },
+            { id: 3, text: 'Deploy to production', done: false }
+        ];
+
+        function addTodo(event) {
+            event.preventDefault();
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                todos.push({
+                    id: Date.now(),
+                    text: text,
+                    done: false
+                });
+                input.value = '';
+                updateTodos();
+            }
+        }
+
+        function toggleTodo(id) {
+            const todo = todos.find(t => t.id === id);
+            if (todo) {
+                todo.done = !todo.done;
+                updateTodos();
+            }
+        }
+
+        function deleteTodo(id) {
+            todos = todos.filter(t => t.id !== id);
+            updateTodos();
+        }
+
+        function updateTodos() {
+            core.cr.setData('todos', todos);
+            core.pk.soc();
+            updateStats();
+            updateEmptyState();
+        }
+
+        function updateStats() {
+            const total = todos.length;
+            const done = todos.filter(t => t.done).length;
+            const remaining = total - done;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('doneCount').textContent = done;
+            document.getElementById('remainingCount').textContent = remaining;
+        }
+
+        function updateEmptyState() {
+            const emptyState = document.getElementById('emptyState');
+            if (emptyState) {
+                emptyState.style.display = todos.length === 0 ? 'block' : 'none';
+            }
+        }
+
+        core.ud.format = function(value, formatStr) {
+            if (formatStr === 'core_pk_checked') {
+                return value ? 'checked' : '';
+            }
+            if (formatStr === 'core_pk_strikethrough') {
+                return value ? 'line-through opacity-50' : '';
+            }
+            return value;
+        };
+
+        core.cr.setData('todos', todos);
+        core.init();
+        
+        setTimeout(() => {
+            updateStats();
+            updateEmptyState();
+        }, 100);
+    </script>
+
+    <!-- Footer -->
+    <footer class="container mx-auto px-4 py-20 mt-20 border-t border-white/5 relative overflow-hidden" style="max-width: none;">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10 p-2">
+            <!-- About Column -->
+            <div>
+                <a class="flex items-center mb-6" href="core.html">
+                    <img src="core.svg" alt="core.js" style="width: 120px; filter: brightness(1.2);">
+                </a>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                    A high-performance JavaScript orchestration layer. Zero virtual DOM overhead, async-native rendering.
+                </p>
+            </div>
+
+            <!-- Resources Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Resources</h4>
+                <ul class="space-y-3">
+                    <li><a href="tutorial.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Tutorial</a></li>
+                    <li><a href="docs.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Full API Docs</a></li>
+                    <li><a href="playground.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Playground</a></li>
+                </ul>
+            </div>
+
+            <!-- Community Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Community</h4>
+                <ul class="space-y-3">
+                    <li><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">GitHub
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg></a></li>
+                    <li><a href="https://github.com/Sitezip/core.sbs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">Contributing
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg></a></li>
+                    <li><a href="./CHANGELOG.md"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Changelog</a></li>
+                    <li><a href="./ROADMAP.md"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Roadmap</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Legal</h4>
+                <ul class="space-y-3">
+                    <li><a href="core.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">MIT License</a></li>
+                    <li><a href="core.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Philosophy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                &copy; 2025 CORE_ORCHESTRATOR // VERSION_2.0.4
+            </div>
+            <div class="flex gap-6">
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">SHADOW-LESS</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ASYNC-NATIVE</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">RECURSIVE</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
