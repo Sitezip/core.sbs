@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,22 +20,27 @@
             color: white;
             font-family: system-ui, -apple-system, sans-serif;
         }
+
         .CodeMirror {
             height: 100%;
             font-size: 14px;
             padding: 0;
         }
+
         .CodeMirror-scroll {
             overflow-y: auto !important;
             overflow-x: auto !important;
             padding-bottom: 20px;
         }
+
         .CodeMirror-lines {
             padding: 10px 0;
         }
+
         .editor-container {
             height: calc(100vh - 200px);
         }
+
         .preview-frame {
             background: white;
             border: none;
@@ -42,105 +48,126 @@
             height: 100%;
             overflow: auto;
         }
+
         .preview-container {
             height: 100%;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
+
         .preview-container iframe {
             flex: 1;
             min-height: 0;
         }
     </style>
 </head>
-<body class="p-4">
-    <div class="max-w-7xl mx-auto">
-        <!-- Header -->
-        <div class="mb-6">
-            <div class="flex items-center justify-between mb-4">
-                <div>
-                    <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                        core.js Playground
-                    </h1>
-                    <p class="text-slate-400">Try core.js live in your browser - no installation required</p>
-                </div>
-                <a href="index.html" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-lg font-semibold transition-colors">
-                    ← Back to Docs
-                </a>
-            </div>
-
-            <!-- Example Selector -->
-            <div class="flex gap-2 flex-wrap">
-                <button onclick="loadExample('basic')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
-                    Basic Example
-                </button>
-                <button onclick="loadExample('counter')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
-                    Counter
-                </button>
-                <button onclick="loadExample('form')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
-                    Form Validation
-                </button>
-                <button onclick="loadExample('api')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
-                    Data Loading
-                </button>
-                <button onclick="loadExample('clone')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
-                    Clone/Loop
-                </button>
-                <button onclick="runCode()" class="ml-auto px-6 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-lg font-bold transition-colors">
-                    ▶ Run Code
-                </button>
-            </div>
+<!-- Navbar -->
+<nav
+    class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-white/10 py-4 transition-all duration-300">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="./core.html" class="flex items-center" style="width: 140px;">
+                <img src="core.svg" alt="core.js"
+                    style="width: 100%; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));">
+            </a>
         </div>
 
-        <!-- Editor and Preview -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 editor-container">
-            <!-- Code Editor -->
-            <div class="bg-slate-800 rounded-lg overflow-hidden">
-                <div class="bg-slate-900 px-4 py-2 font-semibold text-sm border-b border-slate-700">
-                    HTML + JavaScript
-                </div>
-                <textarea id="code-editor"></textarea>
-            </div>
+        <div class="flex items-center gap-4">
+            <a href="./docs.html" class="px-4 py-2 text-slate-300 hover:text-white transition-colors">← Back to Docs</a>
+            <a href="./core.html" class="px-4 py-2 text-slate-300 hover:text-white transition-colors">← Back to Home</a>
+        </div>
+    </div>
+</nav>
 
-            <!-- Live Preview -->
-            <div class="bg-white rounded-lg overflow-hidden preview-container">
-                <div class="bg-slate-900 px-4 py-2 font-semibold text-sm border-b border-slate-700 text-white">
-                    Live Preview
-                </div>
-                <iframe id="preview" class="preview-frame"></iframe>
-            </div>
+<div class="max-w-7xl mx-auto pt-24 px-4">
+    <!-- Header -->
+    <div class="mb-6">
+        <div class="mb-4">
+            <h1
+                class="text-4xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                core.js Playground
+            </h1>
+            <p class="text-slate-400">Try core.js live in your browser - no installation required</p>
         </div>
 
-        <!-- Tips -->
-        <div class="mt-4 p-4 bg-slate-800 rounded-lg text-sm text-slate-300">
-            <strong class="text-white">💡 Tips:</strong>
-            <ul class="mt-2 space-y-1 ml-4">
-                <li>• Edit the code and click "Run Code" to see changes</li>
-                <li>• core.js is automatically included via CDN</li>
-                <li>• Try the example buttons to see different patterns</li>
-                <li>• Open browser console (F12) to see debug output</li>
-            </ul>
+        <!-- Example Selector -->
+        <div class="flex gap-2 flex-wrap">
+            <button onclick="loadExample('basic')"
+                class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                Basic Example
+            </button>
+            <button onclick="loadExample('counter')"
+                class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                Counter
+            </button>
+            <button onclick="loadExample('form')"
+                class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                Form Validation
+            </button>
+            <button onclick="loadExample('api')"
+                class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                Data Loading
+            </button>
+            <button onclick="loadExample('clone')"
+                class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                Clone/Loop
+            </button>
+            <button onclick="runCode()"
+                class="ml-auto px-6 py-2 bg-emerald-500 hover:bg-emerald-600 rounded-lg font-bold transition-colors">
+                ▶ Run Code
+            </button>
         </div>
     </div>
 
-    <script>
-        // Initialize CodeMirror
-        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
-            mode: 'htmlmixed',
-            theme: 'dracula',
-            lineNumbers: true,
-            autoCloseTags: true,
-            autoCloseBrackets: true,
-            matchBrackets: true,
-            indentUnit: 4,
-            tabSize: 4,
-            lineWrapping: true
-        });
+    <!-- Editor and Preview -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 editor-container">
+        <!-- Code Editor -->
+        <div class="bg-slate-800 rounded-lg overflow-hidden">
+            <div class="bg-slate-900 px-4 py-2 font-semibold text-sm border-b border-slate-700">
+                HTML + JavaScript
+            </div>
+            <textarea id="code-editor"></textarea>
+        </div>
 
-        // Example code snippets
-        const examples = {
-            basic: `<!-- Basic Pocket and Template -->
+        <!-- Live Preview -->
+        <div class="bg-white rounded-lg overflow-hidden preview-container">
+            <div class="bg-slate-900 px-4 py-2 font-semibold text-sm border-b border-slate-700 text-white">
+                Live Preview
+            </div>
+            <iframe id="preview" class="preview-frame"></iframe>
+        </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="mt-4 p-4 bg-slate-800 rounded-lg text-sm text-slate-300">
+        <strong class="text-white">💡 Tips:</strong>
+        <ul class="mt-2 space-y-1 ml-4">
+            <li>• Edit the code and click "Run Code" to see changes</li>
+            <li>• core.js is automatically included via CDN</li>
+            <li>• Try the example buttons to see different patterns</li>
+            <li>• Open browser console (F12) to see debug output</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // Initialize CodeMirror
+    const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+        mode: 'htmlmixed',
+        theme: 'dracula',
+        lineNumbers: true,
+        autoCloseTags: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        indentUnit: 4,
+        tabSize: 4,
+        lineWrapping: true
+    });
+
+    // Example code snippets
+    const examples = {
+        basic: `<!-- Basic Pocket and Template -->
 <div class="core-pocket" data-core-templates="hello"></div>
 
 <section id="cr-data" style="display:none;">
@@ -160,7 +187,7 @@
     setTimeout(() => core.init(), 0);
 <\/script>`,
 
-            counter: `<!-- Interactive Counter -->
+        counter: `<!-- Interactive Counter -->
 <div class="core-pocket" data-core-templates="counter"></div>
 
 <section id="cr-data" style="display:none;">
@@ -212,7 +239,7 @@
     core.init();
 <\/script>`,
 
-            form: `<!-- Form with Validation -->
+        form: `<!-- Form with Validation -->
 <div class="core-pocket" data-core-templates="contactForm"></div>
 
 <section id="cr-data" style="display:none;">
@@ -266,7 +293,7 @@
     core.init();
 <\/script>`,
 
-            api: `<!-- Data Loading Example -->
+        api: `<!-- Data Loading Example -->
 <div class="core-pocket" data-core-templates="users"></div>
 
 <section id="cr-data" style="display:none;">
@@ -310,7 +337,7 @@
     core.init();
 <\/script>`,
 
-            clone: `<!-- Clone/Loop Example -->
+        clone: `<!-- Clone/Loop Example -->
 <div class="core-pocket" data-core-templates="products"></div>
 
 <section id="cr-data" style="display:none;">
@@ -350,27 +377,27 @@
     
     core.init();
 <\/script>`
-        };
+    };
 
-        // Load example
-        function loadExample(name) {
-            editor.setValue(examples[name]);
-            runCode();
-        }
+    // Load example
+    function loadExample(name) {
+        editor.setValue(examples[name]);
+        runCode();
+    }
 
-        // Run code in iframe
-        function runCode() {
-            const code = editor.getValue();
-            const iframe = document.getElementById('preview');
-            
-            // Extract script blocks from user code
-            let scriptContent = '';
-            const htmlOnly = code.replace(/<script>([\s\S]*?)<\/script>/gi, (match, inner) => {
-                scriptContent += inner + '\n';
-                return '';
-            });
-            
-            const fullHTML = `<!DOCTYPE html>
+    // Run code in iframe
+    function runCode() {
+        const code = editor.getValue();
+        const iframe = document.getElementById('preview');
+
+        // Extract script blocks from user code
+        let scriptContent = '';
+        const htmlOnly = code.replace(/<script>([\s\S]*?)<\/script>/gi, (match, inner) => {
+            scriptContent += inner + '\n';
+            return '';
+        });
+
+        const fullHTML = `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -414,12 +441,13 @@ console.log('[Playground] Waiting for core.js...');
 <\/script>
 </body>
 </html>`;
-            
-            iframe.srcdoc = fullHTML;
-        }
 
-        // Load basic example on start
-        loadExample('basic');
-    </script>
+        iframe.srcdoc = fullHTML;
+    }
+
+    // Load basic example on start
+    loadExample('basic');
+</script>
 </body>
+
 </html>
