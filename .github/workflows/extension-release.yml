@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - master
-      - 20260119
     paths:
       - 'vscode-extension/**'
   workflow_dispatch:
@@ -36,17 +35,27 @@ jobs:
           cd vscode-extension
           vsce package
       
-      - name: Get version from package.json
-        id: package-version
+      - name: Bump version and commit
+        id: version-bump
         run: |
-          VERSION=$(node -p "require('./vscode-extension/package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Extension version: $VERSION"
+          cd vscode-extension
+          # Bump patch version (1.2.0 -> 1.2.1)
+          npm version patch --no-git-tag-version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Bumped extension version to: $NEW_VERSION"
+          
+          # Commit the version change
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json
+          git commit -m "Bump extension version to $NEW_VERSION [skip ci]"
+          git push
       
       - name: Check if release exists
         id: check-release
         run: |
-          if gh release view "v${{ steps.package-version.outputs.version }}" &>/dev/null; then
+          if gh release view "v${{ steps.version-bump.outputs.new_version }}" &>/dev/null; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
@@ -58,13 +67,13 @@ jobs:
         if: steps.check-release.outputs.exists == 'false'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ steps.package-version.outputs.version }}
-          name: VS Code Extension v${{ steps.package-version.outputs.version }}
+          tag_name: v${{ steps.version-bump.outputs.new_version }}
+          name: VS Code Extension v${{ steps.version-bump.outputs.new_version }}
           body: |
-            ## core.js VS Code Extension v${{ steps.package-version.outputs.version }}
+            ## core.js VS Code Extension v${{ steps.version-bump.outputs.new_version }}
             
             ### Installation
-            1. Download `corejs-snippets-${{ steps.package-version.outputs.version }}.vsix`
+            1. Download `corejs-snippets-${{ steps.version-bump.outputs.new_version }}.vsix`
             2. Open VS Code
             3. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
             4. Type "Extensions: Install from VSIX"
@@ -88,7 +97,7 @@ jobs:
       - name: Upload to existing release
         if: steps.check-release.outputs.exists == 'true'
         run: |
-          gh release upload "v${{ steps.package-version.outputs.version }}" \
+          gh release upload "v${{ steps.version-bump.outputs.new_version }}" \
             vscode-extension/*.vsix \
             --clobber
         env:
