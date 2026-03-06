@@ -1688,6 +1688,45 @@ core.ud.postflight = (ref, obj, type) => {
                         class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
                         Installation</h2>
 
+                    <!-- CLI Tools Installation -->
+                    <div class="glass p-6 bg-primary/5 border-primary/20 mb-8">
+                        <h3 class="text-2xl font-bold mb-4 text-primary">🚀 CLI Tools (Recommended for Development)</h3>
+                        <p class="text-lg text-slate-300 mb-6">Install complete development toolkit for project scaffolding, component generation, and hot-reload development server.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3 text-primary">Windows:</h4>
+                                <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                    <code class="text-green-400">curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd</code>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3 text-primary">Mac/Linux:</h4>
+                                <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                    <code class="text-green-400">curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-3 text-primary">What Gets Installed:</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-black/30 p-4 rounded-lg">
+                                    <code class="text-primary font-bold">create-core-app</code>
+                                    <p class="text-sm text-slate-400 mt-2">Scaffold new projects</p>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg">
+                                    <code class="text-accent font-bold">core-gen</code>
+                                    <p class="text-sm text-slate-400 mt-2">Generate components</p>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg">
+                                    <code class="text-primary-light font-bold">core-dev</code>
+                                    <p class="text-sm text-slate-400 mt-2">Dev server with hot reload</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <h3 class="text-xl font-bold mb-4 text-white">CDN Installation</h3>
@@ -1803,7 +1842,7 @@ core.ud.postflight = (ref, obj, type) => {
                         <div class="glass p-6 bg-primary/5 border-primary/20 mb-6">
                             <h4 class="text-lg font-bold mb-4 text-primary">Quick Start</h4>
                             <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-                                <code class="text-green-400">npx @core-js/create-core-app my-app</code>
+                                <code class="text-green-400">create-core-app my-app</code>
                             </div>
                         </div>
 
@@ -1841,9 +1880,9 @@ core.ud.postflight = (ref, obj, type) => {
                         <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
                             <h4 class="text-lg font-bold mb-4 text-accent">Usage</h4>
                             <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto space-y-2">
-                                <div><code class="text-green-400">npx @core-js/gen card --pricing --name=pro</code></div>
-                                <div><code class="text-green-400">npx @core-js/gen form --validation --name=contact</code></div>
-                                <div><code class="text-green-400">npx @core-js/gen navbar --name=main</code></div>
+                                <div><code class="text-green-400">core-gen card --pricing --name=pro</code></div>
+                                <div><code class="text-green-400">core-gen form --validation --name=contact</code></div>
+                                <div><code class="text-green-400">core-gen navbar --name=main</code></div>
                             </div>
                         </div>
 
@@ -1896,7 +1935,7 @@ core.ud.postflight = (ref, obj, type) => {
                         <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
                             <h4 class="text-lg font-bold mb-4 text-accent">Start Dev Server</h4>
                             <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-                                <code class="text-green-400">npx @core-js/dev</code>
+                                <code class="text-green-400">core-dev</code>
                             </div>
                         </div>
 

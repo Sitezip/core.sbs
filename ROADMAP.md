@@ -7,10 +7,14 @@ This roadmap outlines the planned features and improvements for core.js. Priorit
 ## Q1 2026
 
 ### High Priority
-- [ ] **npm Package Publishing**
-  - Publish CLI tools to npm registry
-  - Set up automated releases via GitHub Actions
-  - Create installation documentation
+- [x] **CLI Installation Script**
+  - Created universal install script for all platforms
+  - Set up direct GitHub downloads
+  - Updated all documentation to remove npm references
+- [ ] **GitHub Releases Automation**
+  - Automated CLI tool releases
+  - Version management system
+  - Update mechanism
 
 - [ ] **Documentation Enhancements**
   - Video tutorials for getting started

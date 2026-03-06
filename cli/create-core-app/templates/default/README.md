@@ -47,9 +47,9 @@ await core.be.getData('myData', '/api/endpoint');
 Use the component generator to quickly add pre-built components:
 
 ```bash
-npx @core-js/gen form --validation --name=contact
-npx @core-js/gen table --name=users
-npx @core-js/gen modal --name=confirm
+core-gen form --validation --name=contact
+core-gen table --name=users
+core-gen modal --name=confirm
 ```
 
 Components are generated into the `components/` folder.

@@ -32,10 +32,10 @@ git clone https://github.com/Sitezip/core.sbs.git
 cd core.sbs
 
 # Install CLI tools
-npm install -g @core-js/create-app @core-js/gen @core-js/dev
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
 
 # Start development server
-npx serve
+core-dev
 ```
 
 ## Code Style
