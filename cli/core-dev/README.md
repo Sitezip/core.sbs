@@ -12,13 +12,17 @@ Development server for core.js applications with hot reload.
 
 ## Usage
 
-### From npm (once published)
+### Quick Start
+
+After installing the CLI tools:
 
 ```bash
-npx @core-js/dev
+core-dev
 ```
 
-### Local Testing (before publishing)
+### Manual Installation
+
+If you prefer manual setup or are testing locally:
 
 From the root of the core.sbs repository:
 
@@ -101,11 +105,11 @@ This script:
 
 ```bash
 # Create a new app
-node cli/create-core-app/bin/create-core-app.js my-app
+create-core-app my-app
 cd my-app
 
 # Start dev server
-node ../cli/core-dev/bin/core-dev.js
+core-dev
 
 # Open http://localhost:3000 in browser
 # Edit files - browser auto-refreshes!

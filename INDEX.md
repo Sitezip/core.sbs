@@ -15,14 +15,21 @@
 
 ## 🚀 Getting Started
 
-### CDN
-```html
-<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+### Install CLI Tools
+
+**Windows:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd
+```
+
+**Mac/Linux:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
 ```
 
 ### Create New Project
 ```bash
-npx @core-js/create-core-app my-app
+create-core-app my-app
 ```
 
 ---
@@ -34,7 +41,7 @@ npx @core-js/create-core-app my-app
 **Purpose:** Scaffold new core.js projects
 
 ```bash
-npx @core-js/create-core-app my-app
+create-core-app my-app
 ```
 
 **Features:**
@@ -52,7 +59,7 @@ npx @core-js/create-core-app my-app
 **Purpose:** Generate pre-built components
 
 ```bash
-npx @core-js/gen <component> [options]
+core-gen <component> [options]
 ```
 
 **Available Components (23):**
@@ -107,7 +114,7 @@ npx @core-js/gen <component> [options]
 **Purpose:** Development server with hot reload
 
 ```bash
-npx @core-js/dev
+core-dev
 ```
 
 **Features:**
@@ -336,17 +343,17 @@ core.sbs/
 
 **...create a new project**
 ```bash
-npx @core-js/create-core-app my-app
+create-core-app my-app
 ```
 
 **...generate a component**
 ```bash
-npx @core-js/gen card --name=product
+core-gen card --name=product
 ```
 
 **...start dev server**
 ```bash
-npx @core-js/dev
+core-dev
 ```
 
 **...fetch data from API**

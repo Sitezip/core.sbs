@@ -105,6 +105,36 @@ For detailed specifications, see [core.md](./core.md).
 
 ---
 
+## Quick Start
+
+### 1. Install CLI Tools
+
+**Windows:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd
+```
+
+**Mac/Linux:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
+```
+
+📖 **[Detailed Installation Guide](INSTALL.md)**
+
+### 2. Create New Project
+```bash
+create-core-app my-app
+cd my-app
+```
+
+### 3. Start Development
+```bash
+core-dev
+```
+Open http://localhost:3000 in your browser.
+
+---
+
 ## Usage Example
 
 ### Defined Pocket

@@ -4,15 +4,19 @@ Scaffold a new core.js application with zero configuration.
 
 ## Usage
 
-### From npm (once published)
+### Quick Start
+
+After installing the CLI tools:
 
 ```bash
-npx @core-js/create-core-app my-app
+create-core-app my-app
 ```
 
 The dev server will automatically start after scaffolding!
 
-### Local Testing (before publishing)
+### Manual Installation
+
+If you prefer manual setup or are testing locally:
 
 From the root of the core.sbs repository:
 
@@ -26,9 +30,9 @@ node cli/create-core-app/bin/create-core-app.js my-app
 If you don't want the dev server to start automatically:
 
 ```bash
-npx @core-js/create-core-app my-app --no-server
+create-core-app my-app --no-server
 cd my-app
-npx @core-js/dev
+core-dev
 ```
 
 Or link it globally for testing:
@@ -57,7 +61,7 @@ create-core-app my-app
 ### Default Template
 
 ```bash
-npx @core-js/create-core-app my-app
+create-core-app my-app
 ```
 
 Creates a welcome page with interactive demos and getting started guide.
@@ -89,8 +93,8 @@ After creating your app:
 
 2. **Generate Components** - Use the component generator
    ```bash
-   npx @core-js/gen form --validation
-   npx @core-js/gen table --sortable
+   core-gen form --validation
+   core-gen table --sortable
    ```
 
 3. **Read the Docs** - Learn more about core.js

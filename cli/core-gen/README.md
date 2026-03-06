@@ -4,13 +4,17 @@ Generate pre-built components for core.js applications.
 
 ## Usage
 
-### From npm (once published)
+### Quick Start
+
+After installing the CLI tools:
 
 ```bash
-npx @core-js/gen form --validation --name=contact
+core-gen form --validation --name=contact
 ```
 
-### Local Testing (before publishing)
+### Manual Installation
+
+If you prefer manual setup or are testing locally:
 
 From the root of the core.sbs repository:
 

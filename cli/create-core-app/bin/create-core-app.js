@@ -111,9 +111,9 @@ Optional: Install the VS Code extension for 56 code snippets:
 📦 Component generator available!
 
 Generate pre-built components:
-  npx @core-js/gen form --validation --name=contact
-  npx @core-js/gen table --name=users
-  npx @core-js/gen modal --name=confirm
+  core-gen form --validation --name=contact
+  core-gen table --name=users
+  core-gen modal --name=confirm
 `);
     }
 
@@ -121,7 +121,7 @@ Generate pre-built components:
         console.log(`
 To start the dev server:
   cd ${projectName}
-  npx @core-js/dev
+  core-dev
 
 Happy coding! 🎉
 `);
@@ -151,7 +151,7 @@ Happy coding! 🎉
             console.log(`
 You can start it manually:
   cd ${projectName}
-  npx @core-js/dev
+  core-dev
 `);
         });
         

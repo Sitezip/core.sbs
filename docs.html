@@ -341,7 +341,37 @@
         <section id="installation">
             <h2 class="text-3xl font-bold">Installation</h2>
 
-            <h3>CDN (Recommended)</h3>
+            <h3>CLI Tools (Recommended for Development)</h3>
+            <p class="mb-4">Install the complete development toolkit for project scaffolding, component generation, and hot-reload development server.</p>
+            
+            <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-6 mb-6">
+                <h4 class="font-semibold text-blue-300 mb-3">🚀 Quick Install</h4>
+                <div class="space-y-3">
+                    <div>
+                        <strong class="text-blue-200">Windows:</strong>
+                        <div class="code-block mt-2">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd</code></pre>
+                        </div>
+                    </div>
+                    <div>
+                        <strong class="text-blue-200">Mac/Linux:</strong>
+                        <div class="code-block mt-2">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>What Gets Installed:</h4>
+            <ul class="list-disc list-inside space-y-2 text-slate-300 mb-6">
+                <li><strong>create-core-app</strong> - Scaffold new core.js projects</li>
+                <li><strong>core-gen</strong> - Generate pre-built components</li>
+                <li><strong>core-dev</strong> - Development server with hot reload</li>
+            </ul>
+
+            <h3>CDN (For Production)</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!-- Latest version --&gt;
