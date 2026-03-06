@@ -94,14 +94,14 @@
       </div>
 
       <div class="flex items-center gap-4">
-        <a href="./docs.html" class="nav-link-premium">← Back to Docs</a>
-        <a href="./core.html" class="nav-link-premium">← Back to Home</a>
+        <a href="./docs.html" class="flex items-center gap-2">← Docs</a>
+        <a href="./core.html" class="flex items-center gap-2">← Home</a>
       </div>
     </div>
   </nav>
 
   <!-- Main Content -->
-  <div class="pt-24 sm:pt-32 pb-16 sm:pb-20 min-h-screen">
+  <div class="pt-32 sm:pt-32 pb-16 sm:pb-20 min-h-screen">
     <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
 
       <!-- Hero Section -->
@@ -670,57 +670,56 @@
           </div>
 
           <!-- Next Steps -->
-          <div class="glass p-3 sm:p-4 md:p-6 lg:p-8 border-2 border-primary/30 mb-12 sm:mb-16">
-            <div class="flex items-start gap-6">
-              <div class="text-5xl">🚀</div>
+          <div class="glass p-4 border-2 border-primary/30 mb-8">
+            <div class="flex items-start gap-4">
               <div class="flex-1">
-                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-white">You're Ready to Build!
+                <h3 class="text-lg font-bold mb-3 text-white">You're Ready to Build!
                 </h3>
-                <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-4 sm:mb-6">
+                <p class="text-sm text-slate-300 leading-relaxed mb-4">
                   You've just built a working todo app with core.js. You now understand the fundamentals: pockets,
                   templates, data binding, and state management.
                 </p>
 
-                <h4 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">📚 Learn More</h4>
-                <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-                  <a href="docs.html" class="btn-premium">
+                <h4 class="text-base font-bold text-white mb-3">Learn More</h4>
+                <div class="flex flex-col gap-2 mb-4">
+                  <a href="docs.html" class="btn-premium text-sm">
                     Read Full Docs
                   </a>
                   <a href="playground.html"
-                    class="px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/20 transition-all">
-                    🎮 Try Playground
+                    class="px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-lg hover:bg-white/10 hover:border-white/20 transition-all text-sm text-center">
+                    Try Playground
                   </a>
-                                  </div>
+                </div>
 
-                <h4 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">🛠️ CLI Tools</h4>
-                <p class="text-slate-300 mb-4">Scaffold new projects instantly with our CLI tools:</p>
-                <div class="space-y-3 sm:space-y-4">
-                  <div class="bg-black/40 p-4 rounded-lg">
-                    <div class="flex items-center justify-between mb-2">
-                      <code class="text-primary-light font-bold">create-core-app</code>
+                <h4 class="text-base font-bold text-white mb-3">CLI Tools</h4>
+                <p class="text-slate-300 text-sm mb-3">Scaffold new projects instantly with our CLI tools:</p>
+                <div class="space-y-3">
+                  <div class="bg-black/40 p-3 rounded-lg">
+                    <div class="flex flex-col gap-2 mb-2">
+                      <code class="text-primary-light font-bold text-sm">create-core-app</code>
                       <button onclick="navigator.clipboard.writeText('npx create-core-app my-app')"
-                        class="px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                        class="px-2 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all self-start">Copy</button>
                     </div>
-                    <pre class="text-emerald-400 text-sm">npx create-core-app my-app</pre>
-                    <p class="text-slate-400 text-sm mt-2">Create a new core.js project with templates and examples</p>
+                    <pre class="text-emerald-400 text-xs break-all">npx create-core-app my-app</pre>
+                    <p class="text-slate-400 text-xs mt-2">Create a new core.js project with templates and examples</p>
                   </div>
-                  <div class="bg-black/40 p-4 rounded-lg">
-                    <div class="flex items-center justify-between mb-2">
-                      <code class="text-primary-light font-bold">core-gen</code>
+                  <div class="bg-black/40 p-3 rounded-lg">
+                    <div class="flex flex-col gap-2 mb-2">
+                      <code class="text-primary-light font-bold text-sm">core-gen</code>
                       <button onclick="navigator.clipboard.writeText('npx core-gen component MyComponent')"
-                        class="px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                        class="px-2 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all self-start">Copy</button>
                     </div>
-                    <pre class="text-emerald-400 text-sm">npx core-gen component MyComponent</pre>
-                    <p class="text-slate-400 text-sm mt-2">Generate components, templates, and boilerplate code</p>
+                    <pre class="text-emerald-400 text-xs break-all">npx core-gen component MyComponent</pre>
+                    <p class="text-slate-400 text-xs mt-2">Generate components, templates, and boilerplate code</p>
                   </div>
-                  <div class="bg-black/40 p-4 rounded-lg">
-                    <div class="flex items-center justify-between mb-2">
-                      <code class="text-primary-light font-bold">core-dev</code>
+                  <div class="bg-black/40 p-3 rounded-lg">
+                    <div class="flex flex-col gap-2 mb-2">
+                      <code class="text-primary-light font-bold text-sm">core-dev</code>
                       <button onclick="navigator.clipboard.writeText('npx core-dev')"
-                        class="px-3 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all">Copy</button>
+                        class="px-2 py-1 bg-primary/20 hover:bg-primary/30 rounded text-xs text-white transition-all self-start">Copy</button>
                     </div>
-                    <pre class="text-emerald-400 text-sm">npx core-dev</pre>
-                    <p class="text-slate-400 text-sm mt-2">Development server with hot reload and debugging tools</p>
+                    <pre class="text-emerald-400 text-xs break-all">npx core-dev</pre>
+                    <p class="text-slate-400 text-xs mt-2">Development server with hot reload and debugging tools</p>
                   </div>
                 </div>
               </div>
@@ -738,7 +737,7 @@
           <div class="space-y-4">
 
             <!-- Input Form -->
-            <form onsubmit="addTodo(event)" class="flex gap-2">
+            <form onsubmit="addTodo(event)" class="flex flex-col sm:flex-row gap-1 sm:gap-2">
               <input type="text" id="todoInput" placeholder="What needs to be done?"
                 class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:border-primary/50 outline-none transition-all"
                 required>
