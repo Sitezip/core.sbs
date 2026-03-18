@@ -56,6 +56,91 @@ const core = (() => {
         }
     }, 50);
 
+    // Enhanced error handling with suggestions
+    const coreErrorHandler = {
+        getErrorSuggestion: (error, context) => {
+            const suggestions = {
+                'Failed to fetch': {
+                    message: 'Network request failed',
+                    suggestions: [
+                        'Check if the server is running',
+                        'Verify the URL is correct',
+                        'Check CORS settings',
+                        'Ensure network connectivity'
+                    ]
+                },
+                'template not found': {
+                    message: 'Template file missing',
+                    suggestions: [
+                        'Verify template file exists',
+                        'Check file path in data-core-templates attribute',
+                        'Ensure file extension is correct (.html)',
+                        'Check file permissions'
+                    ]
+                },
+                'JSON parse': {
+                    message: 'Invalid JSON format',
+                    suggestions: [
+                        'Validate JSON syntax',
+                        'Check for trailing commas',
+                        'Ensure proper quote usage',
+                        'Use JSON linter for validation'
+                    ]
+                },
+                'null': {
+                    message: 'Null reference error',
+                    suggestions: [
+                        'Check if element exists in DOM',
+                        'Verify data is loaded before accessing',
+                        'Add null checks',
+                        'Use optional chaining (?.)'
+                    ]
+                },
+                'undefined': {
+                    message: 'Undefined reference error',
+                    suggestions: [
+                        'Check variable declarations',
+                        'Verify function parameters',
+                        'Check object property names',
+                        'Ensure proper initialization'
+                    ]
+                }
+            };
+
+            const errorStr = error.toString().toLowerCase();
+            for (const [key, suggestion] of Object.entries(suggestions)) {
+                if (errorStr.includes(key)) {
+                    return suggestion;
+                }
+            }
+
+            return {
+                message: 'Unknown error occurred',
+                suggestions: [
+                    'Check browser console for details',
+                    'Verify core.js version compatibility',
+                    'Check documentation for proper usage',
+                    'Report issue if problem persists'
+                ]
+            };
+        },
+
+        logEnhancedError: (error, context = 'general') => {
+            if (!useDebugger) return;
+
+            const suggestion = coreErrorHandler.getErrorSuggestion(error, context);
+            
+            console.group(`🚨 core.js Error [${context}]`);
+            console.error('Error:', error);
+            console.warn('💡 Suggestion:', suggestion.message);
+            console.info('🔧 Possible solutions:');
+            suggestion.suggestions.forEach((sol, i) => {
+                console.info(`  ${i + 1}. ${sol}`);
+            });
+            console.groupEnd();
+        }
+    };
+
     return {
         get section() {
             return section;
@@ -1256,7 +1341,7 @@ const core = (() => {
                         await core.pk.getData();
                         core.pk.addData();
                     } catch (e) {
-                        console.error("core.js error in soc lifecycle", e);
+                        coreErrorHandler.logEnhancedError(e, 'soc lifecycle');
                     }
 
                     core.pk.pk_eol();
@@ -1468,7 +1553,7 @@ const core = (() => {
                     import(baseUrl + '/module/form.js').then(form => {
                         form[funcName](args);
                     }).catch(error => {
-                        console.error(`Error loading ${funcName}:`, error);
+                        coreErrorHandler.logEnhancedError(error, `module loading - ${funcName}`);
                     });
                 }
             }

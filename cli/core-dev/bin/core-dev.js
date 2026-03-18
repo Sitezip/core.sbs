@@ -9,12 +9,12 @@ const WebSocket = require('ws');
 const args = process.argv.slice(2);
 const portFlag = args.find(f => f.startsWith('--port='));
 const port = portFlag ? parseInt(portFlag.split('=')[1]) : 3000;
-const dir = args[0] || '.';
+const dir = args[0] || '../..';
 
 console.log(`
 ╔═══════════════════════════════════════╗
 ║                                       ║
-║          🚀 core-dev                  ║
+║               core-dev                ║
 ║                                       ║
 ╚═══════════════════════════════════════╝
 `);
@@ -34,9 +34,12 @@ Examples:
 
 Features:
   • Static file server
-  • Hot reload on file changes
-  • No build step required
+  • Hot Module Replacement (HMR) for core.js
+  • CSS hot reloading without page refresh
+  • Intelligent reload based on file type
   • WebSocket-based live updates
+  • State preservation during core.js hot reload
+  • Toggle hot reload with Ctrl+Shift+H
 `);
     process.exit(0);
 }
@@ -62,7 +65,8 @@ const mimeTypes = {
     '.woff': 'font/woff',
     '.woff2': 'font/woff2',
     '.ttf': 'font/ttf',
-    '.eot': 'application/vnd.ms-fontobject'
+    '.eot': 'application/vnd.ms-fontobject',
+    '.map': 'application/json'
 };
 
 // Hot reload script to inject
@@ -70,13 +74,105 @@ const hotReloadScript = `
 <script>
 (function() {
     const ws = new WebSocket('ws://localhost:${port}');
+    let isHotReloadEnabled = true;
+    
+    // Hot Module Replacement for core.js
+    const hotReplaceModule = (moduleName, newContent) => {
+        try {
+            if (moduleName === 'core.js') {
+                // Create a sandbox for the new core.js
+                const script = document.createElement('script');
+                script.textContent = newContent;
+                script.id = 'core-js-hot-reload';
+                
+                // Remove previous hot-reload script
+                const oldScript = document.getElementById('core-js-hot-reload');
+                if (oldScript) oldScript.remove();
+                
+                // Preserve current state
+                const currentCore = window.core;
+                const currentData = {};
+                if (currentCore) {
+                    // Save current data registry
+                    Object.keys(currentCore.cr || {}).forEach(key => {
+                        if (typeof currentCore.cr[key] === 'function') {
+                            try {
+                                currentData[key] = currentCore.cr.getData(key);
+                            } catch (e) {
+                                console.warn('Could not save data for:', key);
+                            }
+                        }
+                    });
+                }
+                
+                document.head.appendChild(script);
+                
+                // Restore data if available
+                setTimeout(() => {
+                    if (window.core && window.core.cr) {
+                        Object.keys(currentData).forEach(key => {
+                            try {
+                                window.core.cr.setData(key, currentData[key]);
+                            } catch (e) {
+                                console.warn('Could not restore data for:', key);
+                            }
+                        });
+                        console.log('🔥 Hot reloaded core.js with state preservation');
+                    }
+                }, 100);
+            }
+        } catch (e) {
+            console.error('Hot reload failed:', e);
+            // Fallback to full page reload
+            window.location.reload();
+        }
+    };
+    
     ws.onmessage = (event) => {
-        if (event.data === 'reload') {
+        try {
+            const data = JSON.parse(event.data);
+            
+            if (data.type === 'reload') {
+                if (isHotReloadEnabled && data.file && data.file.endsWith('core.js')) {
+                    console.log('🔥 Hot reloading core.js...');
+                    fetch(data.file)
+                        .then(response => response.text())
+                        .then(content => hotReplaceModule('core.js', content))
+                        .catch(() => {
+                            console.log('🔄 Hot reload failed, reloading page...');
+                            window.location.reload();
+                        });
+                } else {
+                    console.log('🔄 File changed, reloading...');
+                    window.location.reload();
+                }
+            } else if (data.type === 'css-change') {
+                // Hot reload CSS without page refresh
+                const links = document.querySelectorAll('link[rel="stylesheet"]');
+                links.forEach(link => {
+                    if (link.href.includes(data.file)) {
+                        const newUrl = link.href.split('?')[0] + '?t=' + Date.now();
+                        link.href = newUrl;
+                        console.log('🎨 Hot reloaded CSS:', data.file);
+                    }
+                });
+            }
+        } catch (e) {
             console.log('🔄 File changed, reloading...');
             window.location.reload();
         }
     };
-    ws.onopen = () => console.log('✓ Hot reload connected');
+    
+    ws.onopen = () => {
+        console.log('✓ Hot reload connected');
+        // Enable/disable hot reload with keyboard shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'H') {
+                isHotReloadEnabled = !isHotReloadEnabled;
+                console.log(\`Hot reload \${isHotReloadEnabled ? 'enabled' : 'disabled'}\`);
+            }
+        });
+    };
     ws.onerror = () => console.log('✗ Hot reload connection failed');
 })();
 </script>
@@ -140,12 +236,37 @@ const watcher = chokidar.watch(rootDir, {
 
 watcher.on('change', (filePath) => {
     const relativePath = path.relative(rootDir, filePath);
+    const ext = path.extname(filePath);
+    
     console.log(`📝 Changed: ${relativePath}`);
     
-    // Broadcast reload to all connected clients
+    // Broadcast appropriate message to all connected clients
     wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
-            client.send('reload');
+            let message;
+            
+            if (ext === '.css') {
+                // Hot reload CSS
+                message = JSON.stringify({
+                    type: 'css-change',
+                    file: relativePath
+                });
+            } else if (relativePath.endsWith('core.js')) {
+                // Hot reload core.js
+                message = JSON.stringify({
+                    type: 'reload',
+                    file: relativePath,
+                    hotReload: true
+                });
+            } else {
+                // Regular reload for other files
+                message = JSON.stringify({
+                    type: 'reload',
+                    file: relativePath
+                });
+            }
+            
+            client.send(message);
         }
     });
 });

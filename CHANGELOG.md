@@ -8,8 +8,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Interactive playground for trying core.js live in browser
-- Playground links in navigation and footer
+- Enhanced error handling system with contextual suggestions
+- Hot Module Replacement (HMR) for core.js with state preservation
+- CSS hot reloading without page refresh
+- Source map generator and support for better debugging
+- Intelligent file type detection for optimal reload behavior
+- Fixed dev server default path to serve project root
+- Support for both CDN and local core.js usage patterns
+
+### Enhanced
+- Development server with HMR capabilities
+- Error messages with actionable solutions for common issues
+- CLI tool distribution-ready configuration
+- Hot reload toggle with Ctrl+Shift+H keyboard shortcut
+
+### Fixed
+- Dev server serving wrong directory by default
+- Path resolution for global CLI installation
+- State preservation during core.js hot reload
+
+### Developer Experience
+- Better debugging with source map support
+- Faster development cycles with intelligent hot reload
+- Improved error context and suggestions
+- Smarter file watching based on file types
 
 ## [20260125.1] - 2026-01-25
 
