@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Interactive playground for trying core.js live in browser
 - Playground links in navigation and footer
+- Notes directory with project planning documentation
+- GitHub releases automation completed
+- Enhanced documentation with video tutorials and interactive examples
+
+### Completed
+- GitHub Releases Automation
+- Documentation Enhancements
+- CLI Installation Script improvements
 
 ## [20260125.1] - 2026-01-25
 
