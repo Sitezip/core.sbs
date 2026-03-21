@@ -85,10 +85,16 @@ if %errorlevel% equ 0 (
 )
 
 echo [INFO] Adding %BIN_DIR% to PATH...
-setx PATH "%PATH%;%BIN_DIR%" >nul
 
-echo [SUCCESS] Added to PATH. Please restart your command prompt.
-goto :eof
+REM Add to current session
+set PATH=%PATH%;%BIN_DIR%
+
+REM Add to permanent PATH for future sessions
+setx PATH "%PATH%" >nul 2>&1
+
+echo [SUCCESS] PATH updated permanently
+echo [INFO] Tools are now available in this session and future sessions
+echo.
 
 REM Main installation
 :main
