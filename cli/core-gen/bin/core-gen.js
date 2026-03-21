@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 
 const args = process.argv.slice(2);
 const componentType = args[0];
@@ -114,17 +115,33 @@ switch (componentType) {
         process.exit(1);
 }
 
-const templatePath = path.join(__dirname, '..', 'components', componentType, templateFile);
-
-if (!fs.existsSync(templatePath)) {
-    console.error(`❌ Error: Template not found at ${templatePath}`);
-    process.exit(1);
-}
-
 console.log(`📦 Generating ${componentType} component...`);
 
-// Read template
-let template = fs.readFileSync(templatePath, 'utf8');
+// Fetch template from CDN
+const cdnUrl = `https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@main/cli/core-gen/components/${componentType}/${templateFile}`;
+console.log(`Fetching template from: ${cdnUrl}`);
+
+function fetchTemplate(url) {
+    return new Promise((resolve, reject) => {
+        https.get(url, (res) => {
+            if (res.statusCode === 302 || res.statusCode === 301) {
+                // Follow redirect
+                fetchTemplate(res.headers.location).then(resolve).catch(reject);
+                return;
+            }
+            if (res.statusCode !== 200) {
+                reject(new Error(`Failed to fetch template: HTTP ${res.statusCode}`));
+                return;
+            }
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => resolve(data));
+        }).on('error', reject);
+    });
+}
+
+// Fetch and process template
+fetchTemplate(cdnUrl).then(template => {
 
 // Replace placeholders
 template = template.replace(/\{\{NAME\}\}/g, componentName);
@@ -218,3 +235,7 @@ Component includes:
 
 Happy coding! 🎉
 `);
+}).catch(err => {
+    console.error(`❌ Error: ${err.message}`);
+    process.exit(1);
+});
