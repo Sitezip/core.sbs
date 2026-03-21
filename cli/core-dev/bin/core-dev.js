@@ -66,7 +66,7 @@ class SourceMapGenerator {
 const args = process.argv.slice(2);
 const portFlag = args.find(f => f.startsWith('--port='));
 const port = portFlag ? parseInt(portFlag.split('=')[1]) : 3000;
-const dir = args[0] || '../..';
+const dir = args[0] || '.';
 
 console.log(`
 ╔═══════════════════════════════════════╗

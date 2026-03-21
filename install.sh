@@ -103,12 +103,21 @@ download_cli() {
     
     # Create wrapper script or symlink
     if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
-        # Windows: Create batch wrapper
-        cat > "$BIN_DIR/$tool_name$SCRIPT_EXT" << EOF
+        # Windows: Create both .bat wrapper and bash wrapper
+        # Batch wrapper for cmd.exe
+        cat > "$BIN_DIR/$tool_name.bat" << EOF
 @echo off
 "$NODE_CMD" "$INSTALL_DIR/$tool_name.js" %*
 EOF
-        print_success "$tool_name.bat wrapper created"
+        
+        # Bash wrapper for Git Bash/MSYS
+        cat > "$BIN_DIR/$tool_name" << EOF
+#!/bin/bash
+exec node "$INSTALL_DIR/$tool_name.js" "\$@"
+EOF
+        chmod +x "$BIN_DIR/$tool_name"
+        
+        print_success "$tool_name wrappers created (.bat and bash)"
     else
         # Unix: Create symlink
         ln -sf "$INSTALL_DIR/$tool_name.js" "$BIN_DIR/$tool_name"
@@ -152,10 +161,10 @@ add_to_path() {
     echo "# core.sbs CLI tools" >> "$shell_file"
     echo "export PATH=\"\$PATH:$BIN_DIR\"" >> "$shell_file"
     
-    # Add to current session
+    # Add to current session immediately
     export PATH="$PATH:$BIN_DIR"
     
-    print_success "Added to PATH. Tools are now available in this session."
+    print_success "Added to PATH. Tools are now available in this session and future sessions."
 }
 
 # Main installation
@@ -173,6 +182,12 @@ main() {
     download_cli "create-core-app" "$platform"
     download_cli "core-gen" "$platform"
     download_cli "core-dev" "$platform"
+    
+    # Install dependencies for core-dev
+    print_status "Installing dependencies for core-dev..."
+    cd "$INSTALL_DIR"
+    npm install chokidar ws --silent
+    cd - > /dev/null
     
     # Add to PATH
     add_to_path

@@ -21,16 +21,89 @@ const templates = {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1>Welcome to core.js</h1>
+        <p>A lightweight, progressive JavaScript framework for building modern web applications.</p>
+    </div>
+    
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <h3>Live Stats</h3>
+        <div class="stat-grid">
+            <div class="stat-item">
+                <div class="stat-value">1,234</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">567</div>
+                <div class="stat-label">Requests/min</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Demos Section -->
+    <div class="demos-section">
+        <h2>Demo Components</h2>
+        <p>Explore core.js features with these interactive demos.</p>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h4>🚀 Hot Reload</h4>
+                <p>Changes reflect instantly without page refresh</p>
+            </div>
+            <div class="demo-card">
+                <h4>📊 Data Binding</h4>
+                <p>Automatic UI updates when data changes</p>
+            </div>
+            <div class="demo-card">
+                <h4>🧩 Components</h4>
+                <p>Reusable, self-contained UI elements</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Container -->
     <div id="app">
-        <!-- Welcome Pocket -->
-        <div class="core-pocket" data-core-templates="welcome"></div>
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1>Welcome to core.js</h1>
+            <p>A lightweight, progressive JavaScript framework for building modern web applications.</p>
+        </div>
         
-        <!-- Live Stats Pocket -->
-        <div class="core-pocket" data-core-templates="stats"></div>
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <h3>Live Stats</h3>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value">1,234</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">567</div>
+                    <div class="stat-label">Requests/min</div>
+                </div>
+            </div>
+        </div>
         
-        <!-- Demo Sections -->
-        <div class="core-pocket" data-core-templates="demos"></div>
+        <!-- Demos Section -->
+        <div class="demos-section">
+            <h2>Demo Components</h2>
+            <p>Explore core.js features with these interactive demos.</p>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h4>🚀 Hot Reload</h4>
+                    <p>Changes reflect instantly without page refresh</p>
+                </div>
+                <div class="demo-card">
+                    <h4>📊 Data Binding</h4>
+                    <p>Automatic UI updates when data changes</p>
+                </div>
+                <div class="demo-card">
+                    <h4>🧩 Components</h4>
+                    <p>Reusable, self-contained UI elements</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Core.js Framework -->
@@ -385,8 +458,11 @@ Happy coding! 🎉
 
 `);
         
-        // Start the dev server using the globally installed command
-        const devServer = spawn('core-dev', [], {
+        // Start dev server
+        const coreDevPath = path.join(process.env.USERPROFILE || process.env.HOME, '.core-sbs', 'core-dev.js');
+        console.log('Dev server path:', coreDevPath);
+        
+        const devServer = spawn('node', [coreDevPath], {
             cwd: projectPath,
             stdio: 'inherit',
             shell: true
