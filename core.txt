@@ -78,7 +78,7 @@
 </section>
 
 <!-- SAMPLES: include core.js library -->
-<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
 
 <script>

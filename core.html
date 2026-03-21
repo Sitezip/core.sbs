@@ -1049,7 +1049,7 @@
 &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
 
 &lt;!-- Option B: Historical version via CDN (advised) --&gt;
-&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
 
 &lt;!-- Option C: Production --&gt;
 &lt;script src="https://core.sbs/core.js"&gt;&lt;/script&gt;</code></pre>
@@ -1676,7 +1676,105 @@ core.ud.postflight = (ref, obj, type) => {
                                     <code class="text-accent">eoc()</code> - End of Call (cleanup)
                                 </div>
                             </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start -->
+            <section id="quick-start" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-6 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Quick Start</h2>
+
+                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                        core.js works with 3 simple concepts: <strong class="text-primary">Pockets</strong> (DOM containers), 
+                        <strong class="text-accent">Templates</strong> (HTML snippets), and <strong class="text-primary-light">Data</strong> (what fills them).
+                        No build step, no npm, just add a CDN link and start building.
+                    </p>
+
+                    <!-- Step 1: Add CDN -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+                            Add the CDN to your HTML
+                        </h3>
+                        <div class="glass p-6 bg-dark-darker/50 border-white/10">
+                            <p class="text-slate-400 mb-3 text-sm">Paste this in your HTML <code class="text-primary">&lt;head&gt;</code>:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code class="text-green-400">&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;</code></pre>
                         </div>
+                    </div>
+
+                    <!-- Step 2: Create Pocket -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+                            Create a Pocket
+                        </h3>
+                        <div class="glass p-6 bg-dark-darker/50 border-white/10">
+                            <p class="text-slate-400 mb-3 text-sm">Add a pocket where your content will appear:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code class="text-blue-400">&lt;div class="core-pocket" data-core-templates="greeting"&gt;&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Define Template -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">3</span>
+                            Define a Template
+                        </h3>
+                        <div class="glass p-6 bg-dark-darker/50 border-white/10">
+                            <p class="text-slate-400 mb-3 text-sm">Create a template and bind your data:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code class="text-purple-400">&lt;template name="greeting"&gt;
+    &lt;h1&gt;Hello, {{data:name}}!&lt;/h1&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    core.cr.set('greeting', { name: 'World' });
+    core.init();
+&lt;/script&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Working Example -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="text-2xl mr-2">✨</span> Complete Working Example
+                        </h3>
+                        <div class="glass p-6 bg-primary/5 border-primary/20">
+                            <p class="text-slate-300 mb-4 text-sm">Copy this entire file and open it in your browser:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- This is where content appears --&gt;
+    &lt;div class="core-pocket" data-core-templates="greeting"&gt;&lt;/div&gt;
+
+    &lt;!-- Hidden template definition --&gt;
+    &lt;section id="cr-data" style="display:none;"&gt;
+        &lt;template name="greeting"&gt;
+            &lt;h1 style="color: #10b981"&gt;Hello, {{data:name}}! 👋&lt;/h1&gt;
+            &lt;p&gt;Welcome to core.js&lt;/p&gt;
+        &lt;/template&gt;
+    &lt;/section&gt;
+
+    &lt;script&gt;
+        // Set your data
+        core.cr.set('greeting', { name: 'Developer' });
+        
+        // Initialize
+        core.init();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="glass p-6 bg-accent/5 border-accent/20">
+                        <h4 class="text-lg font-bold text-accent mb-2">🎉 That's it!</h4>
+                        <p class="text-slate-300">You've just built your first core.js app. The framework automatically renders templates, binds data, and handles updates. No virtual DOM, no build tools, no complexity.</p>
                     </div>
                 </div>
             </section>
@@ -1688,303 +1786,157 @@ core.ud.postflight = (ref, obj, type) => {
                         class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
                         Installation</h2>
 
-                    <!-- CLI Tools Installation -->
-                    <div class="glass p-6 bg-primary/5 border-primary/20 mb-8">
-                        <h3 class="text-2xl font-bold mb-4 text-primary">🚀 CLI Tools (Recommended for Development)</h3>
-                        <p class="text-lg text-slate-300 mb-6">Install complete development toolkit for project scaffolding, component generation, and hot-reload development server.</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="text-lg font-semibold mb-3 text-primary">Windows:</h4>
-                                <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-                                    <code class="text-green-400">curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd</code>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold mb-3 text-primary">Mac/Linux:</h4>
-                                <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-                                    <code class="text-green-400">curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6">
-                            <h4 class="text-lg font-semibold mb-3 text-primary">What Gets Installed:</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="bg-black/30 p-4 rounded-lg">
-                                    <code class="text-primary font-bold">create-core-app</code>
-                                    <p class="text-sm text-slate-400 mt-2">Scaffold new projects</p>
-                                </div>
-                                <div class="bg-black/30 p-4 rounded-lg">
-                                    <code class="text-accent font-bold">core-gen</code>
-                                    <p class="text-sm text-slate-400 mt-2">Generate components</p>
-                                </div>
-                                <div class="bg-black/30 p-4 rounded-lg">
-                                    <code class="text-primary-light font-bold">core-dev</code>
-                                    <p class="text-sm text-slate-400 mt-2">Dev server with hot reload</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
-                            <h3 class="text-xl font-bold mb-4 text-white">CDN Installation</h3>
+                            <h3 class="text-xl font-bold mb-4 text-white">CDN (Recommended)</h3>
                             <div class="glass p-6">
-                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;!-- Production version -->
-&lt;script src="https://core.sbs/core.js">&lt;/script>
-
-&lt;!-- Specific version (recommended) -->
-&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js">&lt;/script></code></pre>
+                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;</code></pre>
                             </div>
                         </div>
 
                         <div>
-                            <h3 class="text-xl font-bold mb-4 text-white">Local Installation</h3>
+                            <h3 class="text-xl font-bold mb-4 text-white">Local</h3>
                             <div class="glass p-6">
-                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;script src="core.js">&lt;/script>
-&lt;link rel="stylesheet" href="core.css"></code></pre>
+                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;script src="core.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="core.css"&gt;</code></pre>
                             </div>
                         </div>
                     </div>
 
                     <div class="glass p-6 bg-primary/5 border-primary/20 mt-8">
-                        <h4 class="text-lg font-bold text-primary mb-2">🚀 Quick Start</h4>
-                        <p class="text-slate-300">After installation, simply call <code
-                                class="text-primary">core.init()</code> to initialize the engine.</p>
+                        <p class="text-slate-300">After including the script, call <code class="text-primary">core.init()</code> to initialize the engine.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Quick Start -->
-            <section id="quick-start" class="mb-20">
-                <div class="glass p-8 md:p-12">
-                    <h2
-                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
-                        Quick Start</h2>
-
-                    <div class="space-y-8">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
-                                <span
-                                    class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
-                                Define a Template
-                            </h3>
-                            <div class="glass p-6">
-                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
-    &lt;template name="userprofile">
-        &lt;div class="profile-card">
-            &lt;h1>{{data:userprofile:name}}&lt;/h1>
-            &lt;div class="core-clone" data-core-data="userprofile:posts">
-                &lt;p>{{rec:title}}&lt;/p>
-            &lt;/div>
-        &lt;/div>
-    &lt;/template>
-&lt;/section></code></pre>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
-                                <span
-                                    class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
-                                Create a Pocket
-                            </h3>
-                            <div class="glass p-6">
-                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;div class="core-pocket" 
-     data-core-templates="userprofile" 
-     data-userprofile-core-source="/api/user/123">
-&lt;/div></code></pre>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-2xl font-bold mb-4 text-white flex items-center">
-                                <span
-                                    class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">3</span>
-                                Initialize
-                            </h3>
-                            <div class="glass p-6">
-                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;script>
-    core.init();
-&lt;/script></code></pre>
-                            </div>
-                        </div>
-
-                        <div class="glass p-6 bg-primary/5 border-primary/20">
-                            <h4 class="text-lg font-bold text-primary mb-2">🎉 That's it!</h4>
-                            <p class="text-slate-300">core.js will automatically fetch the data and render your
-                                template. No additional JavaScript required!</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CLI Tools Section -->
+            <!-- CLI Tools Section (Collapsible) -->
             <section id="cli-tools" class="mb-20">
                 <div class="glass p-8 md:p-12">
-                    <h2
-                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
-                        CLI Tools & Ecosystem</h2>
-
-                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
-                        core.js comes with a complete development toolkit to accelerate your workflow. From project scaffolding to component generation and hot-reload development servers - everything you need to build modern web applications.
-                    </p>
-
-                    <!-- create-core-app -->
-                    <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-                            <span class="text-3xl">🚀</span>
-                            create-core-app
-                        </h3>
-                        <p class="text-lg text-slate-300 mb-6">Scaffold new core.js projects with zero configuration. Interactive setup with beautiful welcome pages and auto-starting dev server.</p>
-
-                        <div class="glass p-6 bg-primary/5 border-primary/20 mb-6">
-                            <h4 class="text-lg font-bold mb-4 text-primary">Quick Start</h4>
-                            <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-                                <code class="text-green-400">create-core-app my-app</code>
+                    <details class="group">
+                        <summary class="cursor-pointer list-none">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-2 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent flex items-center justify-between">
+                                <span>CLI Tools & Ecosystem</span>
+                                <span class="text-sm font-normal text-slate-400 bg-dark-darker/50 px-3 py-1 rounded-full border border-white/10">Advanced</span>
+                            </h2>
+                            <p class="text-lg text-slate-400 mt-2">Optional development toolkit for power users</p>
+                            <div class="flex items-center gap-2 mt-4 text-slate-500 text-sm">
+                                <span>Click to expand</span>
+                                <svg class="w-4 h-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
                             </div>
-                        </div>
+                        </summary>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-primary">Features</h4>
-                                <ul class="space-y-2 text-slate-300">
-                                    <li>• Interactive project setup</li>
-                                    <li>• Auto-starts dev server with hot reload</li>
-                                    <li>• Beautiful welcome page with demos</li>
-                                    <li>• Component loader included</li>
-                                    <li>• Optional routing configuration</li>
-                                </ul>
-                            </div>
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-accent">What You Get</h4>
-                                <ul class="space-y-2 text-slate-300">
-                                    <li>• Live framework metrics</li>
-                                    <li>• Interactive examples</li>
-                                    <li>• Pre-configured setup</li>
-                                    <li>• Getting started guide</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="mt-8 pt-8 border-t border-white/10">
+                            <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                                core.js comes with a complete development toolkit to accelerate your workflow. From project scaffolding to component generation and hot-reload development servers - everything you need to build modern web applications.
+                            </p>
 
-                    <!-- core-gen -->
-                    <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-                            <span class="text-3xl">🎨</span>
-                            core-gen
-                        </h3>
-                        <p class="text-lg text-slate-300 mb-6">Generate pre-built, production-ready components. 23 component types covering forms, tables, modals, navigation, and more.</p>
-
-                        <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
-                            <h4 class="text-lg font-bold mb-4 text-accent">Usage</h4>
-                            <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto space-y-2">
-                                <div><code class="text-green-400">core-gen card --pricing --name=pro</code></div>
-                                <div><code class="text-green-400">core-gen form --validation --name=contact</code></div>
-                                <div><code class="text-green-400">core-gen navbar --name=main</code></div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-primary">UI Components</h4>
-                                <ul class="space-y-2 text-slate-300 text-sm">
-                                    <li>• Cards (basic, pricing)</li>
-                                    <li>• Buttons & Badges</li>
-                                    <li>• Avatars & Spinners</li>
-                                    <li>• Progress bars</li>
-                                    <li>• Skeleton loaders</li>
-                                </ul>
-                            </div>
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-accent">Interactive</h4>
-                                <ul class="space-y-2 text-slate-300 text-sm">
-                                    <li>• Modals & Dropdowns</li>
-                                    <li>• Tabs & Accordions</li>
-                                    <li>• Tooltips & Toasts</li>
-                                    <li>• Forms with validation</li>
-                                    <li>• Data tables</li>
-                                </ul>
-                            </div>
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-primary-light">Navigation</h4>
-                                <ul class="space-y-2 text-slate-300 text-sm">
-                                    <li>• Navbar (responsive)</li>
-                                    <li>• Breadcrumbs</li>
-                                    <li>• Pagination</li>
-                                    <li>• Search bars</li>
-                                    <li>• Footers</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="glass p-6 bg-primary/5 border-primary/20">
-                            <p class="text-slate-300"><strong class="text-white">23 components total</strong> - All styled, functional, and ready to use. No build step required.</p>
-                        </div>
-                    </div>
-
-                    <!-- core-dev -->
-                    <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-                            <span class="text-3xl">⚡</span>
-                            core-dev
-                        </h3>
-                        <p class="text-lg text-slate-300 mb-6">Development server with hot reload. Watch files and automatically refresh your browser when changes are detected.</p>
-
-                        <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
-                            <h4 class="text-lg font-bold mb-4 text-accent">Start Dev Server</h4>
-                            <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-                                <code class="text-green-400">core-dev</code>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-primary">Features</h4>
-                                <ul class="space-y-2 text-slate-300">
-                                    <li>• Static file server</li>
-                                    <li>• Hot reload on file changes</li>
-                                    <li>• WebSocket-based updates</li>
-                                    <li>• Zero configuration</li>
-                                    <li>• Custom port support</li>
-                                </ul>
-                            </div>
-                            <div class="glass p-6">
-                                <h4 class="text-lg font-bold mb-4 text-accent">No Build Step</h4>
-                                <ul class="space-y-2 text-slate-300">
-                                    <li>• Serves files as-is</li>
-                                    <li>• No compilation needed</li>
-                                    <li>• No bundling required</li>
-                                    <li>• Pure file serving</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- VS Code Extension -->
-                    <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-                            <span class="text-3xl">💻</span>
-                            VS Code Extension
-                        </h3>
-                        <p class="text-lg text-slate-300 mb-6">82 code snippets for HTML and JavaScript. Accelerate development with intelligent autocomplete for pockets, templates, clones, and more.</p>
-
-                        <div class="glass p-6 bg-primary/5 border-primary/20">
-                            <h4 class="text-lg font-bold mb-4 text-primary">Download</h4>
-                            <p class="text-slate-300 mb-4">Available from <a href="https://github.com/Sitezip/core.sbs/releases" class="text-primary-light hover:text-primary underline" target="_blank">GitHub Releases</a></p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <strong class="text-white">HTML Snippets (42)</strong>
-                                    <p class="text-sm text-slate-400">Pockets, templates, clones, components</p>
+                            <!-- Install CLI -->
+                            <div class="glass p-6 bg-primary/5 border-primary/20 mb-8">
+                                <h3 class="text-xl font-bold mb-4 text-primary">Installation</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-3 text-primary">Windows:</h4>
+                                        <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                            <code class="text-green-400">curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd</code>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-3 text-primary">Mac/Linux:</h4>
+                                        <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                            <code class="text-green-400">curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <strong class="text-white">JavaScript Snippets (40)</strong>
-                                    <p class="text-sm text-slate-400">Lifecycle hooks, API calls, utilities</p>
+                            </div>
+
+                            <!-- create-core-app -->
+                            <div class="mb-12">
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">🚀</span>
+                                    create-core-app
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">Scaffold new core.js projects with zero configuration. Interactive setup with beautiful welcome pages and auto-starting dev server.</p>
+
+                                <div class="glass p-6 bg-primary/5 border-primary/20 mb-6">
+                                    <h4 class="text-lg font-bold mb-4 text-primary">Quick Start</h4>
+                                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                        <code class="text-green-400">create-core-app my-app</code>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="glass p-6">
+                                        <h4 class="text-lg font-bold mb-4 text-primary">Features</h4>
+                                        <ul class="space-y-2 text-slate-300">
+                                            <li>• Interactive project setup</li>
+                                            <li>• Auto-starts dev server with hot reload</li>
+                                            <li>• Beautiful welcome page with demos</li>
+                                            <li>• Component loader included</li>
+                                        </ul>
+                                    </div>
+                                    <div class="glass p-6">
+                                        <h4 class="text-lg font-bold mb-4 text-accent">What You Get</h4>
+                                        <ul class="space-y-2 text-slate-300">
+                                            <li>• Live framework metrics</li>
+                                            <li>• Interactive examples</li>
+                                            <li>• Pre-configured setup</li>
+                                            <li>• Getting started guide</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- core-gen -->
+                            <div class="mb-12">
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">🎨</span>
+                                    core-gen
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">Generate pre-built, production-ready components. 23 component types covering forms, tables, modals, navigation, and more.</p>
+
+                                <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
+                                    <h4 class="text-lg font-bold mb-4 text-accent">Usage</h4>
+                                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto space-y-2">
+                                        <div><code class="text-green-400">core-gen card --pricing --name=pro</code></div>
+                                        <div><code class="text-green-400">core-gen form --validation --name=contact</code></div>
+                                        <div><code class="text-green-400">core-gen navbar --name=main</code></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- core-dev -->
+                            <div class="mb-12">
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">⚡</span>
+                                    core-dev
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">Development server with hot reload. Watch files and automatically refresh your browser when changes are detected.</p>
+
+                                <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
+                                    <h4 class="text-lg font-bold mb-4 text-accent">Start Dev Server</h4>
+                                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                        <code class="text-green-400">core-dev</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- VS Code Extension -->
+                            <div>
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">💻</span>
+                                    VS Code Extension
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">82 code snippets for HTML and JavaScript. Accelerate development with intelligent autocomplete.</p>
+
+                                <div class="glass p-6 bg-primary/5 border-primary/20">
+                                    <h4 class="text-lg font-bold mb-4 text-primary">Download</h4>
+                                    <p class="text-slate-300">Available from <a href="https://github.com/Sitezip/core.sbs/releases" class="text-primary-light hover:text-primary underline" target="_blank">GitHub Releases</a></p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </details>
                 </div>
             </section>
 

@@ -118,7 +118,7 @@ switch (componentType) {
 console.log(`📦 Generating ${componentType} component...`);
 
 // Fetch template from CDN
-const cdnUrl = `https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@main/cli/core-gen/components/${componentType}/${templateFile}`;
+const cdnUrl = `https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/cli/core-gen/components/${componentType}/${templateFile}`;
 console.log(`Fetching template from: ${cdnUrl}`);
 
 function fetchTemplate(url) {
