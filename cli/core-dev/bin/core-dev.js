@@ -6,6 +6,63 @@ const path = require('path');
 const chokidar = require('chokidar');
 const WebSocket = require('ws');
 
+// Source Map Generator (built-in)
+class SourceMapGenerator {
+    constructor() {
+        this.version = 3;
+        this.file = '';
+        this.sourceRoot = '';
+        this.sources = [];
+        this.names = [];
+        this.mappings = '';
+        this.sourcesContent = [];
+    }
+
+    generateMap(jsFilePath, sourceFilePath) {
+        const jsContent = fs.readFileSync(jsFilePath, 'utf8');
+        const sourceContent = fs.readFileSync(sourceFilePath, 'utf8');
+        
+        this.file = path.basename(jsFilePath);
+        this.sources = [path.basename(sourceFilePath)];
+        this.sourcesContent = [sourceContent];
+        
+        // Generate basic mappings (line 1:1 -> 1:1 for each line)
+        const lines = jsContent.split('\n');
+        const mappings = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+            if (i === 0) {
+                mappings.push('AAAA');
+            } else {
+                mappings.push(';AACA');
+            }
+        }
+        
+        this.mappings = mappings.join('');
+        return this.toJSON();
+    }
+
+    toJSON() {
+        return {
+            version: this.version,
+            file: this.file,
+            sourceRoot: this.sourceRoot,
+            sources: this.sources,
+            names: this.names,
+            mappings: this.mappings,
+            sourcesContent: this.sourcesContent
+        };
+    }
+
+    addSourceMapComment(jsFilePath, mapFilePath) {
+        const jsContent = fs.readFileSync(jsFilePath, 'utf8');
+        const mapFileName = path.basename(mapFilePath);
+        const sourceMapComment = `\n//# sourceMappingURL=${mapFileName}`;
+        
+        fs.writeFileSync(jsFilePath, jsContent + sourceMapComment);
+    }
+}
+
 const args = process.argv.slice(2);
 const portFlag = args.find(f => f.startsWith('--port='));
 const port = portFlag ? parseInt(portFlag.split('=')[1]) : 3000;
@@ -25,12 +82,14 @@ Usage: core-dev [directory] [options]
 
 Options:
   --port=<port>     Port to run server on (default: 3000)
+  --sourcemap       Generate source map for core.js
   -h, --help        Show this help message
 
 Examples:
   core-dev                    # Serve current directory on port 3000
   core-dev ./dist             # Serve ./dist directory
   core-dev --port=8080        # Serve on port 8080
+  core-dev --sourcemap        # Generate source map for core.js
 
 Features:
   • Static file server
@@ -39,8 +98,32 @@ Features:
   • Intelligent reload based on file type
   • WebSocket-based live updates
   • State preservation during core.js hot reload
+  • Source map generation for debugging
   • Toggle hot reload with Ctrl+Shift+H
 `);
+    process.exit(0);
+}
+
+// Handle source map generation
+if (args.includes('--sourcemap')) {
+    const coreJsPath = path.join(rootDir, 'core.js');
+    const sourceJsPath = path.join(rootDir, 'core.src.js');
+    
+    if (fs.existsSync(coreJsPath) && fs.existsSync(sourceJsPath)) {
+        const generator = new SourceMapGenerator();
+        const sourceMap = generator.generateMap(coreJsPath, sourceJsPath);
+        const mapFilePath = coreJsPath + '.map';
+        
+        fs.writeFileSync(mapFilePath, JSON.stringify(sourceMap, null, 2));
+        generator.addSourceMapComment(coreJsPath, mapFilePath);
+        
+        console.log('✅ Source map generated for core.js');
+        console.log(`   Map file: ${mapFilePath}`);
+        console.log(`   Source map comment added to: ${coreJsPath}`);
+    } else {
+        console.log('❌ Could not find core.js and core.src.js in the current directory');
+        console.log('   Make sure both files exist to generate source maps');
+    }
     process.exit(0);
 }
 
