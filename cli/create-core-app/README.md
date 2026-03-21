@@ -2,11 +2,32 @@
 
 Scaffold a new core.js application with zero configuration.
 
+## Installation
+
+Install all core.js CLI tools with one command:
+
+**Windows:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd
+```
+
+**Mac/Linux:**
+```bash
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
+```
+
+This installs:
+- **create-core-app** - Project scaffolding
+- **core-gen** - Component generator  
+- **core-dev** - Development server
+
+📖 **[Full Installation Guide](../../INSTALL.md)**
+
 ## Usage
 
 ### Quick Start
 
-After installing the CLI tools:
+After installation:
 
 ```bash
 create-core-app my-app
@@ -14,13 +35,12 @@ create-core-app my-app
 
 The dev server will automatically start after scaffolding!
 
-### Manual Installation
+### Development (Local Repository)
 
-If you prefer manual setup or are testing locally:
-
-From the root of the core.sbs repository:
+If you're developing locally or testing from the repository:
 
 ```bash
+# From the root of the core.sbs repository
 node cli/create-core-app/bin/create-core-app.js my-app
 # Dev server starts automatically at http://localhost:3000
 ```
