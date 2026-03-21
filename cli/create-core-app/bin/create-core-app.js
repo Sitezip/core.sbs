@@ -385,16 +385,8 @@ Happy coding! 🎉
 
 `);
         
-        // Find the core-dev script
-        // Try node_modules first (when installed via npm), then fallback to local dev path
-        let coreDevPath = path.join(__dirname, '..', 'node_modules', '@core-js', 'dev', 'bin', 'core-dev.js');
-        if (!fs.existsSync(coreDevPath)) {
-            // Fallback for local development
-            coreDevPath = path.join(__dirname, '..', '..', 'core-dev', 'bin', 'core-dev.js');
-        }
-        
-        // Start the dev server
-        const devServer = spawn('node', [coreDevPath], {
+        // Start the dev server using the globally installed command
+        const devServer = spawn('core-dev', [], {
             cwd: projectPath,
             stdio: 'inherit',
             shell: true
@@ -403,7 +395,10 @@ Happy coding! 🎉
         devServer.on('error', (err) => {
             console.error(`❌ Failed to start dev server: ${err.message}`);
             console.log(`
-You can start it manually:
+Make sure core-dev is installed:
+  curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
+
+Or start it manually:
   cd ${projectName}
   core-dev
 `);
