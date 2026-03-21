@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# core.sbs CLI Tools Installer
-# Installs create-core-app, core-gen, and core-dev globally
+# core.sbs CLI Tools Installer (Cross-platform)
+# Works on Linux, Mac, and Windows (Git Bash/WSL)
 
 set -e
 
@@ -16,7 +16,17 @@ NC='\033[0m' # No Color
 REPO="Sitezip/core.sbs"
 VERSION="latest"
 INSTALL_DIR="$HOME/.core-sbs"
-BIN_DIR="$HOME/.local/bin"
+
+# Detect Windows and adjust paths
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
+    BIN_DIR="$INSTALL_DIR/bin"
+    SCRIPT_EXT=".bat"
+    NODE_CMD="node"
+else
+    BIN_DIR="$HOME/.local/bin"
+    SCRIPT_EXT=""
+    NODE_CMD="node"
+fi
 
 # Create directories
 mkdir -p "$INSTALL_DIR"
@@ -61,6 +71,9 @@ detect_platform() {
                 echo "linux-x64"
             fi
             ;;
+        MINGW*|MSYS*|CYGWIN*|WIN32*)
+            echo "windows-x64"
+            ;;
         *)
             print_error "Unsupported OS: $OS"
             exit 1
@@ -77,21 +90,30 @@ download_cli() {
     print_status "Downloading $tool_name..."
     
     if command -v curl >/dev/null 2>&1; then
-        curl -fsSL "$download_url" -o "$INSTALL_DIR/$tool_name"
+        curl -fsSL "$download_url" -o "$INSTALL_DIR/$tool_name.js"
     elif command -v wget >/dev/null 2>&1; then
-        wget -q "$download_url" -O "$INSTALL_DIR/$tool_name"
+        wget -q "$download_url" -O "$INSTALL_DIR/$tool_name.js"
     else
         print_error "Neither curl nor wget is available"
         exit 1
     fi
     
     # Make executable
-    chmod +x "$INSTALL_DIR/$tool_name"
+    chmod +x "$INSTALL_DIR/$tool_name.js"
     
-    # Create symlink in bin directory
-    ln -sf "$INSTALL_DIR/$tool_name" "$BIN_DIR/$tool_name"
-    
-    print_success "$tool_name installed successfully"
+    # Create wrapper script or symlink
+    if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
+        # Windows: Create batch wrapper
+        cat > "$BIN_DIR/$tool_name$SCRIPT_EXT" << EOF
+@echo off
+"$NODE_CMD" "$INSTALL_DIR/$tool_name.js" %*
+EOF
+        print_success "$tool_name.bat wrapper created"
+    else
+        # Unix: Create symlink
+        ln -sf "$INSTALL_DIR/$tool_name.js" "$BIN_DIR/$tool_name"
+        print_success "$tool_name symlink created"
+    fi
 }
 
 # Function to check if Node.js is available
@@ -130,7 +152,10 @@ add_to_path() {
     echo "# core.sbs CLI tools" >> "$shell_file"
     echo "export PATH=\"\$PATH:$BIN_DIR\"" >> "$shell_file"
     
-    print_success "Added to PATH. Please restart your terminal or run: source $shell_file"
+    # Add to current session
+    export PATH="$PATH:$BIN_DIR"
+    
+    print_success "Added to PATH. Tools are now available in this session."
 }
 
 # Main installation
@@ -165,7 +190,7 @@ main() {
     echo "  cd my-app"
     echo "  core-dev"
     echo
-    print_warning "Don't forget to restart your terminal or source your shell profile!"
+    print_warning "Tools are now available in this session!"
 }
 
 # Run installation
