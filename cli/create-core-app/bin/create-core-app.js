@@ -17,112 +17,54 @@ const templates = {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to core.js</title>
+    <title>core.sbs - Smoke Test</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Welcome Section -->
-    <div class="welcome-section">
-        <h1>Welcome to core.js</h1>
-        <p>A lightweight, progressive JavaScript framework for building modern web applications.</p>
-    </div>
-    
-    <!-- Stats Section -->
-    <div class="stats-section">
-        <h3>Live Stats</h3>
-        <div class="stat-grid">
-            <div class="stat-item">
-                <div class="stat-value">1,234</div>
-                <div class="stat-label">Active Users</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">567</div>
-                <div class="stat-label">Requests/min</div>
-            </div>
+    <div class="container">
+        <div class="logo">core.sbs</div>
+        <h1>It works!</h1>
+        <p>A lightweight, progressive JavaScript framework</p>
+        
+        <div class="counter-box">
+            <div class="counter" id="counter">0</div>
+            <div class="counter-label">Live Counter</div>
         </div>
-    </div>
-    
-    <!-- Demos Section -->
-    <div class="demos-section">
-        <h2>Demo Components</h2>
-        <p>Explore core.js features with these interactive demos.</p>
-        <div class="demo-grid">
-            <div class="demo-card">
-                <h4>🚀 Hot Reload</h4>
-                <p>Changes reflect instantly without page refresh</p>
-            </div>
-            <div class="demo-card">
-                <h4>📊 Data Binding</h4>
-                <p>Automatic UI updates when data changes</p>
-            </div>
-            <div class="demo-card">
-                <h4>🧩 Components</h4>
-                <p>Reusable, self-contained UI elements</p>
-            </div>
+        
+        <div class="buttons">
+            <button class="btn" onclick="increment()">+</button>
+            <button class="btn btn-secondary" onclick="decrement()">-</button>
+            <button class="btn btn-secondary" onclick="reset()">Reset</button>
         </div>
     </div>
 
-    <!-- Main Container -->
-    <div id="app">
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <h1>Welcome to core.js</h1>
-            <p>A lightweight, progressive JavaScript framework for building modern web applications.</p>
-        </div>
-        
-        <!-- Stats Section -->
-        <div class="stats-section">
-            <h3>Live Stats</h3>
-            <div class="stat-grid">
-                <div class="stat-item">
-                    <div class="stat-value">1,234</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">567</div>
-                    <div class="stat-label">Requests/min</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Demos Section -->
-        <div class="demos-section">
-            <h2>Demo Components</h2>
-            <p>Explore core.js features with these interactive demos.</p>
-            <div class="demo-grid">
-                <div class="demo-card">
-                    <h4>🚀 Hot Reload</h4>
-                    <p>Changes reflect instantly without page refresh</p>
-                </div>
-                <div class="demo-card">
-                    <h4>📊 Data Binding</h4>
-                    <p>Automatic UI updates when data changes</p>
-                </div>
-                <div class="demo-card">
-                    <h4>🧩 Components</h4>
-                    <p>Reusable, self-contained UI elements</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Core.js Framework -->
     <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
-    
-    <!-- Core Components -->
-    <script src="core-components.js"></script>
-    
-    <!-- App Configuration -->
     <script>
-        // USER CONFIGURATION
-        core.useRouting = true; // Set to false to disable routing
+        let count = 0;
+        const counterEl = document.getElementById('counter');
         
-        // Initialize the app
-        core.pk.soc();
+        function updateDisplay() {
+            counterEl.textContent = count;
+        }
+        
+        function increment() {
+            count++;
+            updateDisplay();
+        }
+        
+        function decrement() {
+            count--;
+            updateDisplay();
+        }
+        
+        function reset() {
+            count = 0;
+            updateDisplay();
+        }
     </script>
 </body>
 </html>`,
-        'styles.css': `/* Core.js Default Styles */
+        'styles.css': `/* core.sbs Smoke Test Styles */
 * {
     margin: 0;
     padding: 0;
@@ -131,97 +73,108 @@ const templates = {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
-#app {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.welcome-section {
+.container {
     text-align: center;
-    margin-bottom: 3rem;
-    color: white;
+    padding: 2rem;
 }
 
-.welcome-section h1 {
+.logo {
     font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #10b981, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.welcome-section p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #10b981;
 }
 
-.stats-section {
-    background: rgba(255, 255, 255, 0.1);
+p {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    margin-bottom: 3rem;
+}
+
+.counter-box {
+    background: rgba(16, 185, 129, 0.1);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 2rem 4rem;
     margin-bottom: 2rem;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.demos-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.demo-card {
-    background: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #e0e0e0;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.demo-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.btn {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.2s;
-}
-
-.btn:hover {
-    transform: translateY(-1px);
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .counter {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #667eea;
-    margin: 1rem 0;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: #10b981;
+    text-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
 }
 
-@media (max-width: 768px) {
-    .welcome-section h1 {
-        font-size: 2rem;
-    }
-    
-    #app {
-        padding: 1rem;
-    }
+.counter-label {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 60px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(6, 182, 212, 0.2);
+    color: #06b6d4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(6, 182, 212, 0.3);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
+}
+
+@media (max-width: 480px) {
+    .logo { font-size: 2rem; }
+    h1 { font-size: 1.5rem; }
+    .counter { font-size: 3rem; }
+    .counter-box { padding: 1.5rem 2rem; }
+    .buttons { flex-direction: column; }
+    .btn { width: 100%; }
 }`,
         'core-components.js': `/**
  * core-components.js
