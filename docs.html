@@ -114,6 +114,7 @@
 
         .code-block {
             position: relative;
+            margin: 1rem 0;
         }
 
         .code-block:hover .copy-btn {
@@ -147,12 +148,18 @@
         h2 {
             border-bottom: 2px solid #10b981;
             padding-bottom: 0.5rem;
-            margin-top: 3rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
         }
 
         h3 {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
             color: #10b981;
+        }
+
+        section {
+            padding-bottom: 2rem;
         }
 
         .param-table {
@@ -252,6 +259,76 @@
                 opacity: 1;
             }
         }
+
+        /* Simple/Advanced Toggle Styles */
+        .toggle-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-btn:hover {
+            background: #7c3aed;
+        }
+
+        .toggle-btn::before {
+            content: '▼';
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .toggle-btn.collapsed::before {
+            transform: rotate(-90deg);
+        }
+
+        .advanced-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .advanced-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .simple-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .advanced-badge {
+            display: inline-block;
+            background: #8b5cf6;
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 
@@ -278,7 +355,6 @@
         <a href="#introduction">Introduction</a>
         <a href="#installation">Installation</a>
         <a href="#quick-start">Quick Start</a>
-        <a href="tutorial.html">📖 Tutorial</a>
         <a href="#architecture">Architecture</a>
 
         <div class="section-title">Core Concepts</div>
@@ -341,50 +417,60 @@
         <section id="installation">
             <h2 class="text-3xl font-bold">Installation</h2>
 
-            <h3>CLI Tools (Recommended for Development)</h3>
-            <p class="mb-4">Install the complete development toolkit for project scaffolding, component generation, and hot-reload development server.</p>
-            
-            <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-6 mb-6">
-                <h4 class="font-semibold text-blue-300 mb-3">🚀 Quick Install</h4>
-                <div class="space-y-3">
-                    <div>
-                        <strong class="text-blue-200">Windows:</strong>
-                        <div class="code-block mt-2">
-                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                            <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd</code></pre>
-                        </div>
-                    </div>
-                    <div>
-                        <strong class="text-blue-200">Mac/Linux:</strong>
-                        <div class="code-block mt-2">
-                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                            <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code></pre>
-                        </div>
-                    </div>
+            <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold text-emerald-300 mb-3">🚀 Just add this one line:</h3>
+                <div class="code-block mb-0">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;</code></pre>
                 </div>
+                <p class="text-emerald-200 text-sm mt-3">That's it. No build step. No dependencies. No npm install.</p>
             </div>
 
-            <h4>What Gets Installed:</h4>
-            <ul class="list-disc list-inside space-y-2 text-slate-300 mb-6">
-                <li><strong>create-core-app</strong> - Scaffold new core.js projects</li>
-                <li><strong>core-gen</strong> - Generate pre-built components</li>
-                <li><strong>core-dev</strong> - Development server with hot reload</li>
-            </ul>
-
-            <h3>CDN (For Production)</h3>
+            <h3>CDN Options</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;!-- Latest version --&gt;
-&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
-
-&lt;!-- Specific version (recommended for production) --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;</code></pre>
             </div>
 
             <h3>Self-Hosted</h3>
+            <p class="mb-4">Download core.js and serve it yourself:</p>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;script src="/path/to/core.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+
+            <button class="toggle-btn collapsed" data-target="installation-advanced">Show Advanced (CLI Tools)</button>
+            <div id="installation-advanced" class="advanced-content collapsed">
+                <h3>CLI Tools <span class="advanced-badge">For Developers</span></h3>
+                <p class="mb-4">Install the complete development toolkit for project scaffolding, component generation, and hot-reload development server.</p>
+                
+                <div class="bg-blue-900/20 border border-blue-500/30 rounded-lg p-6 mb-6">
+                    <h4 class="font-semibold text-blue-300 mb-3">Quick Install</h4>
+                    <div class="space-y-3">
+                        <div>
+                            <strong class="text-blue-200">Windows:</strong>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd</code></pre>
+                            </div>
+                        </div>
+                        <div>
+                            <strong class="text-blue-200">Mac/Linux:</strong>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>What Gets Installed:</h4>
+                <ul class="list-disc list-inside space-y-2 text-slate-300 mb-6">
+                    <li><strong>create-core-app</strong> - Scaffold new core.js projects</li>
+                    <li><strong>core-gen</strong> - Generate pre-built components</li>
+                    <li><strong>core-dev</strong> - Development server with hot reload</li>
+                </ul>
             </div>
         </section>
 
@@ -438,7 +524,7 @@
                     <li><strong>addTemplate()</strong> - Inject templates into pockets</li>
                     <li><strong>getData()</strong> - Fetch missing data</li>
                     <li><strong>addData()</strong> - Clone and populate with data</li>
-                    <li><strong>EOL (End of Lifecycle)</strong> - Hydration, formatting, cleanup</li>
+                    <li><strong>EOC (End of Call)</strong> - Hydration, formatting, cleanup</li>
                 </ol>
             </div>
 
@@ -612,29 +698,60 @@
         </section>
 
         <section id="routing">
-            <h2 class="text-3xl font-bold">Routing</h2>
+            <h2 class="text-3xl font-bold">Routing <span class="simple-badge">Optional</span></h2>
 
-            <h3>Enable Routing</h3>
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>core.ud.init = () => {
+            <p class="mb-4">Routing is <strong>completely optional</strong> in core.js. Many applications work perfectly without it.</p>
+
+            <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6">
+                <h4 class="font-semibold mb-3">When to Use Routing</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="text-emerald-400 font-medium mb-2">✅ Use Routing For:</h5>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>• Multi-view dashboards (admin panels, CRMs)</li>
+                            <li>• E-commerce checkout flows</li>
+                            <li>• Apps needing bookmarkable/shareable URLs</li>
+                            <li>• Complex SPAs with many screens</li>
+                            <li>• User profiles with tabbed navigation</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-slate-400 font-medium mb-2">🚫 Skip Routing For:</h5>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>• Landing pages & marketing sites</li>
+                            <li>• Simple content displays</li>
+                            <li>• Single-view dashboards</li>
+                            <li>• Forms with simple hide/show logic</li>
+                            <li>• Static data displays (tables, lists)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="toggle-btn collapsed" data-target="routing-advanced">Show Advanced</button>
+            <div id="routing-advanced" class="advanced-content collapsed">
+                <h3>Enable Routing</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>core.ud.init = () => {
     core.useRouting = true;
 };</code></pre>
-            </div>
+                </div>
 
-            <h3>Pretty Path Format</h3>
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>&lt;a href="#/_main/home"&gt;Home&lt;/a&gt;
+                <h3>Pretty Path Format</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>&lt;a href="#/_main/home"&gt;Home&lt;/a&gt;
 &lt;a href="#/_main/dashboard/_sidebar/menu"&gt;Dashboard&lt;/a&gt;
 &lt;a href="#/_main/profile:https%3A%2F%2Fapi.com%2Fuser%2F123"&gt;Profile&lt;/a&gt;</code></pre>
-            </div>
+                </div>
 
-            <h3>Programmatic Navigation</h3>
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>core.hf.setRoute('#/_main/about');
+                <h3>Programmatic Navigation</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>core.hf.setRoute('#/_main/about');
 const currentRoute = core.hf.getRoute();</code></pre>
+                </div>
             </div>
         </section>
 
@@ -713,16 +830,34 @@ core.be.getData('products', '/api/products');
 await core.be.awaitAll();</code></pre>
             </div>
 
-            <h3>Cache Configuration</h3>
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>core.be.cacheExpireDefault = 3600;
+            <h3>Cache Configuration <span class="advanced-badge">Advanced</span></h3>
+            <button class="toggle-btn collapsed" data-target="cache-advanced">Show Advanced</button>
+            <div id="cache-advanced" class="advanced-content collapsed">
+                <p class="mb-4">Configure caching with real URL binding:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>// Set default cache expiration (seconds)
+core.be.cacheExpireDefault = 3600; // 1 hour
 
+// Cache specific API endpoint with URL binding
 core.be.cacheExpire = {
     type: 'data',
-    name: 'users',
-    seconds: 300
-};</code></pre>
+    name: 'products',
+    seconds: 300, // 5 minutes
+    url: 'https://api.example.com/products'
+};
+
+// Cache template with URL
+core.be.cacheExpire = {
+    type: 'template',
+    name: 'header',
+    seconds: 86400, // 24 hours
+    url: '/templates/header.html'
+};
+
+// Check cache timestamp
+const isValid = core.be.checkCacheTs('products', 'data');</code></pre>
+                </div>
             </div>
         </section>
 
@@ -904,54 +1039,13 @@ core.hf.hydrateByClass();
         <section id="core-sv">
             <h2 class="text-3xl font-bold">core.sv - Validation</h2>
 
-            <h3>core.sv.scrub()</h3>
-            <p class="mb-4">Validates and transforms an array of input objects.</p>
-
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Scrub</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>req</code></td>
-                        <td>Required field</td>
-                    </tr>
-                    <tr>
-                        <td><code>email</code></td>
-                        <td>Valid email</td>
-                    </tr>
-                    <tr>
-                        <td><code>url</code></td>
-                        <td>Valid URL</td>
-                    </tr>
-                    <tr>
-                        <td><code>num</code></td>
-                        <td>Numeric value</td>
-                    </tr>
-                    <tr>
-                        <td><code>min:n</code></td>
-                        <td>Minimum length</td>
-                    </tr>
-                    <tr>
-                        <td><code>max:n</code></td>
-                        <td>Maximum length</td>
-                    </tr>
-                    <tr>
-                        <td><code>match:field</code></td>
-                        <td>Match another field</td>
-                    </tr>
-                </tbody>
-            </table>
-
+            <h3>core.sv.scrub() <span class="simple-badge">Simple</span></h3>
+            <p class="mb-4">The easiest way to validate form inputs:</p>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>const result = core.sv.scrub([
     { name: 'email', value: 'user@example.com', scrubs: ['req', 'email'] },
-    { name: 'password', value: 'secret123', scrubs: ['req', 'min:8'] },
-    { name: 'age', value: '25', scrubs: ['req', 'num', 'gte:18'] }
+    { name: 'password', value: 'secret123', scrubs: ['req', 'min:8'] }
 ]);
 
 if (result.success) {
@@ -961,47 +1055,90 @@ if (result.success) {
 }</code></pre>
             </div>
 
-            <h3>core.sv.format()</h3>
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Format</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>upper</code></td>
-                        <td>Uppercase</td>
-                    </tr>
-                    <tr>
-                        <td><code>lower</code></td>
-                        <td>Lowercase</td>
-                    </tr>
-                    <tr>
-                        <td><code>money</code></td>
-                        <td>Currency</td>
-                    </tr>
-                    <tr>
-                        <td><code>date</code></td>
-                        <td>Date format</td>
-                    </tr>
-                    <tr>
-                        <td><code>phone</code></td>
-                        <td>Phone format</td>
-                    </tr>
-                    <tr>
-                        <td><code>nohtml</code></td>
-                        <td>Strip HTML</td>
-                    </tr>
-                </tbody>
-            </table>
+            <button class="toggle-btn collapsed" data-target="validation-advanced">Show Advanced</button>
+            <div id="validation-advanced" class="advanced-content collapsed">
+                <h3>All Scrub Rules</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Scrub</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>req</code></td>
+                            <td>Required field</td>
+                        </tr>
+                        <tr>
+                            <td><code>email</code></td>
+                            <td>Valid email</td>
+                        </tr>
+                        <tr>
+                            <td><code>url</code></td>
+                            <td>Valid URL</td>
+                        </tr>
+                        <tr>
+                            <td><code>num</code></td>
+                            <td>Numeric value</td>
+                        </tr>
+                        <tr>
+                            <td><code>min:n</code></td>
+                            <td>Minimum length</td>
+                        </tr>
+                        <tr>
+                            <td><code>max:n</code></td>
+                            <td>Maximum length</td>
+                        </tr>
+                        <tr>
+                            <td><code>match:field</code></td>
+                            <td>Match another field</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>core.sv.format('hello', 'upper');
+                <h3>core.sv.format()</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Format</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>upper</code></td>
+                            <td>Uppercase</td>
+                        </tr>
+                        <tr>
+                            <td><code>lower</code></td>
+                            <td>Lowercase</td>
+                        </tr>
+                        <tr>
+                            <td><code>money</code></td>
+                            <td>Currency</td>
+                        </tr>
+                        <tr>
+                            <td><code>date</code></td>
+                            <td>Date format</td>
+                        </tr>
+                        <tr>
+                            <td><code>phone</code></td>
+                            <td>Phone format</td>
+                        </tr>
+                        <tr>
+                            <td><code>nohtml</code></td>
+                            <td>Strip HTML</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>core.sv.format('hello', 'upper');
 core.sv.format(1234.56, 'money...$');
 core.sv.format('5551234567', 'phone');</code></pre>
+                </div>
             </div>
         </section>
 
@@ -1266,19 +1403,20 @@ core.ud.postpaint = (dataRef, dataObj, type) => {
                         <td><code>ccnum</code></td>
                         <td>['ccnum']</td>
                         <td>Valid credit card</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
 
         <section id="caching">
-            <h2 class="text-3xl font-bold">Caching</h2>
+            <h2 class="text-3xl font-bold">Caching <span class="advanced-badge">Advanced</span></h2>
 
-            <p class="mb-4">core.js implements TTL-based caching for both data and templates.</p>
+            <p class="mb-4">core.js automatically caches data to improve performance. The default cache lasts 1 hour.</p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>// Set default cache expiration (seconds)
+            <button class="toggle-btn collapsed" data-target="caching-advanced">Show Advanced</button>
+            <div id="caching-advanced" class="advanced-content collapsed">
+                <p class="mb-4">core.js implements TTL-based caching for both data and templates.</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>// Set default cache expiration (seconds)
 core.be.cacheExpireDefault = 3600; // 1 hour
 
 // Set cache for specific data
@@ -1297,48 +1435,53 @@ core.be.cacheExpire = {
 
 // Check cache timestamp
 const isValid = core.be.checkCacheTs('users', 'data');</code></pre>
+                </div>
             </div>
         </section>
 
         <section id="storage">
-            <h2 class="text-3xl font-bold">Storage Tiers</h2>
+            <h2 class="text-3xl font-bold">Storage Tiers <span class="advanced-badge">Advanced</span></h2>
 
-            <p class="mb-4">Choose the appropriate storage tier based on your needs:</p>
+            <p class="mb-4">By default, core.js stores data in memory. For most apps, this is all you need.</p>
 
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Tier</th>
-                        <th>Persistence</th>
-                        <th>Visibility</th>
-                        <th>Use Case</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>0 - DOM</code></td>
-                        <td>Page only</td>
-                        <td>Hidden</td>
-                        <td>Sensitive data, temporary state</td>
-                    </tr>
-                    <tr>
-                        <td><code>1 - Static</code></td>
-                        <td>Page only</td>
-                        <td>Visible in HTML</td>
-                        <td>Public data, debugging (default)</td>
-                    </tr>
-                    <tr>
-                        <td><code>2 - Session</code></td>
-                        <td>Tab session</td>
-                        <td>Hidden</td>
-                        <td>User session, auth tokens</td>
-                    </tr>
-                </tbody>
-            </table>
+            <button class="toggle-btn collapsed" data-target="storage-advanced">Show Advanced</button>
+            <div id="storage-advanced" class="advanced-content collapsed">
+                <p class="mb-4">For advanced use cases, choose the appropriate storage tier:</p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>// DOM storage (memory only)
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Persistence</th>
+                            <th>Visibility</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>0 - DOM</code></td>
+                            <td>Page only</td>
+                            <td>Hidden</td>
+                            <td>Sensitive data, temporary state</td>
+                        </tr>
+                        <tr>
+                            <td><code>1 - Static</code></td>
+                            <td>Page only</td>
+                            <td>Visible in HTML</td>
+                            <td>Public data, debugging (default)</td>
+                        </tr>
+                        <tr>
+                            <td><code>2 - Session</code></td>
+                            <td>Tab session</td>
+                            <td>Hidden</td>
+                            <td>User session, auth tokens</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>// DOM storage (memory only)
 core.cr.setData('tempState', { count: 0 }, element, 0);
 
 // Static storage (default, visible in HTML)
@@ -1346,6 +1489,7 @@ core.cr.setData('users', usersArray, null, 1);
 
 // Session storage (persists across page loads)
 core.cr.setData('authToken', 'abc123', null, 2);</code></pre>
+                </div>
             </div>
         </section>
 
@@ -1443,6 +1587,8 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
         <section id="example-api">
             <h2 class="text-3xl font-bold">Example: API Integration</h2>
 
+            <p class="mb-4">Fetch and display data from an API with just HTML:</p>
+
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <pre><code>&lt;div class="core-pocket" 
@@ -1458,9 +1604,17 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
         &lt;p class="price"&gt;{{rec:price:money:$}}&lt;/p&gt;
         &lt;button onclick="addToCart('{{rec:id}}')"&gt;Add to Cart&lt;/button&gt;
     &lt;/div&gt;
-&lt;/template&gt;
+&lt;/template&gt;</code></pre>
+            </div>
 
-&lt;script&gt;
+            <button class="toggle-btn collapsed" data-target="api-advanced">Show Advanced</button>
+            <div id="api-advanced" class="advanced-content collapsed">
+                <p class="mb-4">For APIs requiring authentication or data transformation:</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>&lt;script&gt;
+// Add auth headers before API calls
 core.ud.preflight = (dataRef, dataSrc, type) => {
     if (dataRef === 'products') {
         return {
@@ -1471,6 +1625,7 @@ core.ud.preflight = (dataRef, dataSrc, type) => {
     }
 };
 
+// Filter/transform data after receiving
 core.ud.postflight = (dataRef, dataObj, type) => {
     if (dataRef === 'products') {
         // Filter out inactive products
@@ -1479,6 +1634,7 @@ core.ud.postflight = (dataRef, dataObj, type) => {
     return dataObj;
 };
 &lt;/script&gt;</code></pre>
+                </div>
             </div>
         </section>
 
@@ -2139,6 +2295,28 @@ core.ud.init = () => {
                 }
             });
         });
+
+        // Simple/Advanced Toggle Functionality
+        function initToggles() {
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const target = document.getElementById(targetId);
+                    
+                    if (target) {
+                        this.classList.toggle('collapsed');
+                        target.classList.toggle('collapsed');
+                        
+                        // Update button text
+                        const isCollapsed = target.classList.contains('collapsed');
+                        this.innerHTML = isCollapsed ? 'Show Advanced' : 'Hide Advanced';
+                    }
+                });
+            });
+        }
+
+        // Initialize toggles on page load
+        initToggles();
     </script>
 </body>
 
