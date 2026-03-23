@@ -73,18 +73,22 @@ body {
     border-radius: 9999px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
+    display: block;
 }
 
 @media (min-width: 1280px) {
     .nav-link-premium {
         font-size: 1.125rem;
         padding: 0.875rem 1.75rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        display: block;
     }
-}
-
-.nav-link-premium:hover {
-    color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.05);
+    
+    .nav-link-premium:hover {
+        color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
 }
 
 .nav-link-premium.active {
@@ -148,14 +152,14 @@ select {
         background: rgba(2, 6, 23, 0.98);
         backdrop-filter: blur(24px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 1.5rem;
+        padding: 0.75rem;
         opacity: 1;
         transform: translateY(0);
     }
 
     .nav-link-premium {
-        padding: 1rem 1.5rem;
-        border-radius: 1rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
         width: 100%;
         display: block;
         text-align: left;
@@ -169,6 +173,11 @@ select {
         box-shadow: none;
         margin-top: 0.5rem;
         width: 100% !important;
+    }
+    
+    .group:hover ul li a {
+        padding: 0.75rem 1rem !important;
+        border-radius: 0.75rem !important;
     }
 }
 
