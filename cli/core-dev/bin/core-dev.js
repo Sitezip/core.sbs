@@ -261,55 +261,6 @@ const hotReloadScript = `
 </script>
 `;
 
-// HTTP Server
-const server = http.createServer((req, res) => {
-    let filePath = path.join(rootDir, req.url === '/' ? 'index.html' : req.url);
-    
-    // Security: prevent directory traversal
-    if (!filePath.startsWith(rootDir)) {
-        res.writeHead(403);
-        res.end('Forbidden');
-        return;
-    }
-    
-    const ext = path.extname(filePath);
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-    
-    fs.readFile(filePath, (err, content) => {
-        if (err) {
-            if (err.code === 'ENOENT') {
-                res.writeHead(404);
-                res.end('404 Not Found');
-            } else {
-                res.writeHead(500);
-                res.end('500 Internal Server Error');
-            }
-        } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            
-            // Inject hot reload script into HTML files
-            if (ext === '.html') {
-                const html = content.toString();
-                const injected = html.replace('</body>', `${hotReloadScript}</body>`);
-                res.end(injected);
-            } else {
-                res.end(content);
-            }
-        }
-    });
-});
-
-// WebSocket Server for hot reload
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', (ws) => {
-    console.log('🔌 Client connected');
-    
-    ws.on('close', () => {
-        console.log('🔌 Client disconnected');
-    });
-});
-
 // File watcher
 const watcher = chokidar.watch(rootDir, {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
@@ -317,71 +268,171 @@ const watcher = chokidar.watch(rootDir, {
     ignoreInitial: true
 });
 
-watcher.on('change', (filePath) => {
-    const relativePath = path.relative(rootDir, filePath);
-    const ext = path.extname(filePath);
+// Function to find available port
+function findAvailablePort(startPort, maxAttempts = 10) {
+    return new Promise((resolve, reject) => {
+        const testServer = http.createServer();
+        let currentPort = startPort;
+        let attempts = 0;
+
+        const tryPort = () => {
+            if (attempts >= maxAttempts) {
+                reject(new Error(`No available ports found from ${startPort} to ${startPort + maxAttempts - 1}`));
+                return;
+            }
+
+            testServer.listen(currentPort, () => {
+                testServer.close(() => {
+                    resolve(currentPort);
+                });
+            });
+
+            testServer.on('error', (err) => {
+                if (err.code === 'EADDRINUSE') {
+                    attempts++;
+                    currentPort++;
+                    testServer.close(() => {
+                        tryPort();
+                    });
+                } else {
+                    reject(err);
+                }
+            });
+        };
+
+        tryPort();
+    });
+}
+
+// Start server with port fallback
+async function startServer() {
+    let actualPort = port;
     
-    console.log(`📝 Changed: ${relativePath}`);
-    
-    // Broadcast appropriate message to all connected clients
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            let message;
+    try {
+        // Try to find available port starting from the specified port
+        actualPort = await findAvailablePort(port);
+        
+        if (actualPort !== port) {
+            console.log(`⚠️  Port ${port} is in use, using port ${actualPort} instead`);
+        }
+        
+        // Update hot reload script with actual port
+        const hotReloadScriptWithPort = hotReloadScript.replace('${port}', actualPort);
+        
+        // Create a new server instance with the updated script
+        const serverWithHotReload = http.createServer((req, res) => {
+            let filePath = path.join(rootDir, req.url === '/' ? 'index.html' : req.url);
             
-            if (ext === '.css') {
-                // Hot reload CSS
-                message = JSON.stringify({
-                    type: 'css-change',
-                    file: relativePath
-                });
-            } else if (relativePath.endsWith('core.js')) {
-                // Hot reload core.js
-                message = JSON.stringify({
-                    type: 'reload',
-                    file: relativePath,
-                    hotReload: true
-                });
-            } else {
-                // Regular reload for other files
-                message = JSON.stringify({
-                    type: 'reload',
-                    file: relativePath
-                });
+            // Security: prevent directory traversal
+            if (!filePath.startsWith(rootDir)) {
+                res.writeHead(403);
+                res.end('Forbidden');
+                return;
             }
             
-            client.send(message);
-        }
-    });
-});
-
-watcher.on('add', (filePath) => {
-    const relativePath = path.relative(rootDir, filePath);
-    console.log(`➕ Added: ${relativePath}`);
-    
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send('reload');
-        }
-    });
-});
-
-watcher.on('unlink', (filePath) => {
-    const relativePath = path.relative(rootDir, filePath);
-    console.log(`➖ Removed: ${relativePath}`);
-    
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send('reload');
-        }
-    });
-});
-
-// Start server
-server.listen(port, () => {
-    console.log(`
+            const ext = path.extname(filePath);
+            const contentType = mimeTypes[ext] || 'application/octet-stream';
+            
+            fs.readFile(filePath, (err, content) => {
+                if (err) {
+                    if (err.code === 'ENOENT') {
+                        res.writeHead(404);
+                        res.end('404 Not Found');
+                    } else {
+                        res.writeHead(500);
+                        res.end('500 Internal Server Error');
+                    }
+                } else {
+                    res.writeHead(200, { 'Content-Type': contentType });
+                    
+                    // Inject hot reload script into HTML files
+                    if (ext === '.html') {
+                        const html = content.toString();
+                        const injected = html.replace('</body>', `${hotReloadScriptWithPort}</body>`);
+                        res.end(injected);
+                    } else {
+                        res.end(content);
+                    }
+                }
+            });
+        });
+        
+        // WebSocket Server for hot reload
+        const wssWithPort = new WebSocket.Server({ server: serverWithHotReload });
+        
+        wssWithPort.on('connection', (ws) => {
+            console.log('🔌 Client connected');
+            
+            ws.on('close', () => {
+                console.log('🔌 Client disconnected');
+            });
+        });
+        
+        // File watcher (reuse existing logic)
+        watcher.on('change', (filePath) => {
+            const relativePath = path.relative(rootDir, filePath);
+            const ext = path.extname(filePath);
+            
+            console.log(`📝 Changed: ${relativePath}`);
+            
+            // Broadcast appropriate message to all connected clients
+            wssWithPort.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN) {
+                    let message;
+                    
+                    if (ext === '.css') {
+                        // Hot reload CSS
+                        message = JSON.stringify({
+                            type: 'css-change',
+                            file: relativePath
+                        });
+                    } else if (relativePath.endsWith('core.js')) {
+                        // Hot reload core.js
+                        message = JSON.stringify({
+                            type: 'reload',
+                            file: relativePath,
+                            hotReload: true
+                        });
+                    } else {
+                        // Regular reload for other files
+                        message = JSON.stringify({
+                            type: 'reload',
+                            file: relativePath
+                        });
+                    }
+                    
+                    client.send(message);
+                }
+            });
+        });
+        
+        watcher.on('add', (filePath) => {
+            const relativePath = path.relative(rootDir, filePath);
+            console.log(`➕ Added: ${relativePath}`);
+            
+            wssWithPort.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send('reload');
+                }
+            });
+        });
+        
+        watcher.on('unlink', (filePath) => {
+            const relativePath = path.relative(rootDir, filePath);
+            console.log(`➖ Removed: ${relativePath}`);
+            
+            wssWithPort.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send('reload');
+                }
+            });
+        });
+        
+        serverWithHotReload.listen(actualPort, () => {
+            console.log(`
 ✅ Server running!
 
-  Local:   http://localhost:${port}
+  Local:   http://localhost:${actualPort}
   Serving: ${rootDir}
 
 📝 Watching for file changes...
@@ -389,12 +440,21 @@ server.listen(port, () => {
 
 Press Ctrl+C to stop
 `);
-});
+        });
+        
+        // Update graceful shutdown to use the new server
+        process.on('SIGINT', () => {
+            console.log('\n\n👋 Shutting down...');
+            watcher.close();
+            serverWithHotReload.close();
+            process.exit(0);
+        });
+        
+    } catch (err) {
+        console.error(`❌ Error: ${err.message}`);
+        process.exit(1);
+    }
+}
 
-// Graceful shutdown
-process.on('SIGINT', () => {
-    console.log('\n\n👋 Shutting down...');
-    watcher.close();
-    server.close();
-    process.exit(0);
-});
+// Start server
+startServer();
