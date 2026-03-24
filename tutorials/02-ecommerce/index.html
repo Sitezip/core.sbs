@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopCore - E-Commerce Demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cart-btn:hover {
+            background: #5a6fd6;
+        }
+
+        .cart-badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-info {
+            padding: 1.25rem;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.75rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-to-cart:hover:not(:disabled) {
+            background: #5a6fd6;
+        }
+
+        .add-to-cart:disabled {
+            background: #27ae60;
+            cursor: default;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+
+        /* Cart Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-modal {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.25rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 1rem;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .qty-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .qty-value {
+            min-width: 32px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 0.875rem;
+            margin-left: 0.5rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #27ae60;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ShopCore</div>
+        <div class="search-bar">
+            <input 
+                type="text" 
+                placeholder="Search products..."
+                data-core-bind="value: searchQuery"
+                data-core-on="input: filterProducts"
+            >
+        </div>
+        <button class="cart-btn" data-core-on="click: openCart" aria-label="Open shopping cart">
+            <span>Cart</span>
+            <span class="cart-badge" data-core-bind="text: cartCount, visible: cartCount > 0"></span>
+        </button>
+    </header>
+
+    <main>
+        <div class="filters">
+            <button 
+                class="filter-btn active" 
+                data-core-on="click: setFilter('all')"
+                data-core-bind="class: activeFilter === 'all' ? 'filter-btn active' : 'filter-btn'"
+            >All</button>
+            <button 
+                class="filter-btn"
+                data-core-on="click: setFilter('electronics')"
+                data-core-bind="class: activeFilter === 'electronics' ? 'filter-btn active' : 'filter-btn'"
+            >Electronics</button>
+            <button 
+                class="filter-btn"
+                data-core-on="click: setFilter('clothing')"
+                data-core-bind="class: activeFilter === 'clothing' ? 'filter-btn active' : 'filter-btn'"
+            >Clothing</button>
+            <button 
+                class="filter-btn"
+                data-core-on="click: setFilter('home')"
+                data-core-bind="class: activeFilter === 'home' ? 'filter-btn active' : 'filter-btn'"
+            >Home</button>
+        </div>
+
+        <div class="products-grid" data-core-for="product in filteredProducts">
+            <div class="product-card">
+                <div class="product-image">{{product.emoji}}</div>
+                <div class="product-info">
+                    <div class="product-category">{{product.category}}</div>
+                    <div class="product-name">{{product.name}}</div>
+                    <div class="product-price">${{product.price}}</div>
+                    <button 
+                        class="add-to-cart"
+                        data-core-on="click: addToCart(product)"
+                        data-core-bind="disabled: isInCart(product.id), text: isInCart(product.id) ? 'Added' : 'Add to Cart'"
+                    >
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" data-core-bind="visible: filteredProducts.length === 0">
+            <h3>No products found</h3>
+            <p>Try adjusting your search or filters</p>
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" data-core-bind="class: cartOpen ? 'modal-overlay visible' : 'modal-overlay'" data-core-on="click: closeCartOnOverlay">
+        <div class="cart-modal" data-core-on="click: stopPropagation">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <button class="close-btn" data-core-on="click: closeCart" aria-label="Close cart">&times;</button>
+            </div>
+
+            <div class="cart-items" data-core-bind="visible: cart.length > 0">
+                <div data-core-for="item in cart">
+                    <div class="cart-item">
+                        <div class="cart-item-image">{{item.emoji}}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">{{item.name}}</div>
+                            <div class="cart-item-price">${{item.price}}</div>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" data-core-on="click: updateQuantity(item.id, -1)">-</button>
+                            <span class="qty-value">{{item.quantity}}</span>
+                            <button class="qty-btn" data-core-on="click: updateQuantity(item.id, 1)">+</button>
+                        </div>
+                        <button class="remove-btn" data-core-on="click: removeFromCart(item.id)">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-cart" data-core-bind="visible: cart.length === 0">
+                <p>Your cart is empty</p>
+            </div>
+
+            <div class="cart-footer" data-core-bind="visible: cart.length > 0">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>${{cartTotal}}</span>
+                </div>
+                <button class="checkout-btn" data-core-on="click: checkout">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+    <script>
+        // Sample product data
+        const products = [
+            { id: 1, name: 'Wireless Headphones', category: 'electronics', price: 79.99, emoji: '🎧' },
+            { id: 2, name: 'Smart Watch', category: 'electronics', price: 199.99, emoji: '⌚' },
+            { id: 3, name: 'Cotton T-Shirt', category: 'clothing', price: 24.99, emoji: '👕' },
+            { id: 4, name: 'Running Shoes', category: 'clothing', price: 89.99, emoji: '👟' },
+            { id: 5, name: 'Desk Lamp', category: 'home', price: 45.99, emoji: '💡' },
+            { id: 6, name: 'Coffee Maker', category: 'home', price: 129.99, emoji: '☕' },
+            { id: 7, name: 'Laptop Stand', category: 'electronics', price: 34.99, emoji: '💻' },
+            { id: 8, name: 'Throw Pillow', category: 'home', price: 19.99, emoji: '🛋️' }
+        ];
+
+        core_pk_create('shopApp', {
+            state: {
+                products: products,
+                filteredProducts: products,
+                cart: [],
+                searchQuery: '',
+                activeFilter: 'all',
+                cartOpen: false
+            },
+
+            computed: {
+                cartCount() {
+                    return this.cart.reduce((sum, item) => sum + item.quantity, 0);
+                },
+                cartTotal() {
+                    return this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+                }
+            },
+
+            methods: {
+                filterProducts() {
+                    let filtered = this.products;
+
+                    // Filter by category
+                    if (this.activeFilter !== 'all') {
+                        filtered = filtered.filter(p => p.category === this.activeFilter);
+                    }
+
+                    // Filter by search
+                    if (this.searchQuery.trim()) {
+                        const query = this.searchQuery.toLowerCase();
+                        filtered = filtered.filter(p => 
+                            p.name.toLowerCase().includes(query) ||
+                            p.category.toLowerCase().includes(query)
+                        );
+                    }
+
+                    this.filteredProducts = filtered;
+                },
+
+                setFilter(category) {
+                    this.activeFilter = category;
+                    this.filterProducts();
+                },
+
+                addToCart(product) {
+                    const existing = this.cart.find(item => item.id === product.id);
+                    if (existing) {
+                        existing.quantity++;
+                    } else {
+                        this.cart.push({ ...product, quantity: 1 });
+                    }
+                    this.cart = [...this.cart]; // Trigger reactivity
+                },
+
+                isInCart(productId) {
+                    return this.cart.some(item => item.id === productId);
+                },
+
+                updateQuantity(productId, change) {
+                    const item = this.cart.find(i => i.id === productId);
+                    if (item) {
+                        item.quantity += change;
+                        if (item.quantity <= 0) {
+                            this.removeFromCart(productId);
+                        } else {
+                            this.cart = [...this.cart];
+                        }
+                    }
+                },
+
+                removeFromCart(productId) {
+                    this.cart = this.cart.filter(item => item.id !== productId);
+                },
+
+                openCart() {
+                    this.cartOpen = true;
+                },
+
+                closeCart() {
+                    this.cartOpen = false;
+                },
+
+                closeCartOnOverlay(e) {
+                    if (e.target === e.currentTarget) {
+                        this.closeCart();
+                    }
+                },
+
+                stopPropagation(e) {
+                    e.stopPropagation();
+                },
+
+                checkout() {
+                    alert('Proceeding to checkout! (Demo only)');
+                    this.closeCart();
+                }
+            }
+        });
+
+        core_pk_mount('shopApp', document.body);
+    </script>
+</body>
+</html>
