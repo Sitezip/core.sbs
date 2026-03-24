@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form Tutorial</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        input.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .strength-indicator {
+            height: 4px;
+            margin-top: 0.5rem;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .strength-weak { background: #e74c3c; width: 33%; }
+        .strength-medium { background: #f39c12; width: 66%; }
+        .strength-strong { background: #27ae60; width: 100%; }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.875rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            background: #5a6fd6;
+        }
+
+        button[type="submit"]:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div data-core-bind="state: visible">
+            <h1>Welcome Back</h1>
+            
+            <form id="loginForm" data-core-on="submit: handleSubmit">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="you@example.com"
+                        required
+                        autocomplete="email"
+                        data-core-bind="value: email, class: emailError ? 'error' : ''"
+                        data-core-on="blur: validateEmail, input: clearEmailError"
+                    >
+                    <span class="error-message" data-core-bind="text: emailError, class: emailError ? 'visible' : ''"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input 
+                            :type="showPassword ? 'text' : 'password'"
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            required
+                            minlength="8"
+                            autocomplete="current-password"
+                            data-core-bind="value: password"
+                            data-core-on="input: checkStrength"
+                        >
+                        <button 
+                            type="button" 
+                            class="toggle-password"
+                            aria-label="Toggle password visibility"
+                            data-core-on="click: togglePassword"
+                            data-core-bind="text: showPassword ? 'Hide' : 'Show'"
+                        ></button>
+                    </div>
+                    <div class="strength-indicator" data-core-bind="class: strengthClass"></div>
+                    <span class="error-message" data-core-bind="text: passwordError, class: passwordError ? 'visible' : ''"></span>
+                </div>
+
+                <button type="submit" aria-label="Sign in to your account" data-core-bind="disabled: isLoading">
+                    <span data-core-bind="text: isLoading ? 'Logging in' : 'Sign In'"></span>
+                    <span class="loading" data-core-bind="visible: isLoading"></span>
+                </button>
+            </form>
+        </div>
+
+        <div class="success-message" data-core-bind="class: success ? 'visible' : ''">
+            <h2>Login Successful!</h2>
+            <p>Redirecting you to your dashboard...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+    <script>
+        core_pk_create('loginApp', {
+            state: {
+                email: '',
+                password: '',
+                showPassword: false,
+                isLoading: false,
+                success: false,
+                emailError: '',
+                passwordError: '',
+                strengthClass: ''
+            },
+
+            methods: {
+                validateEmail() {
+                    const email = this.email.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (!email) {
+                        this.emailError = 'Email is required';
+                    } else if (!emailRegex.test(email)) {
+                        this.emailError = 'Please enter a valid email address';
+                    } else {
+                        this.emailError = '';
+                    }
+                },
+
+                clearEmailError() {
+                    if (this.emailError) this.validateEmail();
+                },
+
+                togglePassword() {
+                    this.showPassword = !this.showPassword;
+                },
+
+                checkStrength() {
+                    const pwd = this.password;
+                    if (!pwd) {
+                        this.strengthClass = '';
+                        return;
+                    }
+                    
+                    let score = 0;
+                    if (pwd.length >= 8) score++;
+                    if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
+                    if (/\d/.test(pwd)) score++;
+                    if (/[^a-zA-Z0-9]/.test(pwd)) score++;
+
+                    if (score <= 1) this.strengthClass = 'strength-weak';
+                    else if (score === 2) this.strengthClass = 'strength-medium';
+                    else this.strengthClass = 'strength-strong';
+                },
+
+                async handleSubmit(e) {
+                    e.preventDefault();
+                    
+                    this.validateEmail();
+                    if (this.emailError) return;
+
+                    if (this.password.length < 8) {
+                        this.passwordError = 'Password must be at least 8 characters';
+                        return;
+                    }
+                    this.passwordError = '';
+
+                    this.isLoading = true;
+
+                    try {
+                        // Simulate API call
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                        
+                        // In production: Send to your backend
+                        // const response = await fetch('/api/login', {
+                        //     method: 'POST',
+                        //     headers: { 'Content-Type': 'application/json' },
+                        //     body: JSON.stringify({
+                        //         email: this.email,
+                        //         password: this.password
+                        //     })
+                        // });
+
+                        this.success = true;
+                        
+                    } catch (error) {
+                        this.passwordError = 'Login failed. Please try again.';
+                    } finally {
+                        this.isLoading = false;
+                    }
+                }
+            }
+        });
+
+        core_pk_mount('loginApp', document.querySelector('.login-container'));
+    </script>
+</body>
+</html>

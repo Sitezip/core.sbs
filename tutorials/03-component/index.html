@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reusable Components - core.sbs Tutorial</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .demo-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .demo-section h2 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd6;
+        }
+
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        /* Modal Component Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: scale(0.9) translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.open .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal.small { max-width: 350px; }
+        .modal.large { max-width: 700px; }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        .modal-footer button {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        /* Component Props Demo */
+        .prop-demo {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .prop-demo code {
+            background: #e9ecef;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .event-log {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            min-height: 120px;
+        }
+
+        .event-log p {
+            margin: 0.25rem 0;
+            opacity: 0.8;
+        }
+
+        .event-log p:first-child {
+            opacity: 1;
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Building Reusable Components</h1>
+
+        <div class="demo-section">
+            <h2>Basic Modal</h2>
+            <p>A simple modal with title, content, and close button.</p>
+            <div class="btn-group">
+                <button class="btn-primary" data-core-on="click: openModal('welcome')">Open Welcome Modal</button>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Modal Sizes</h2>
+            <p>Components can accept props to change their appearance.</p>
+            <div class="btn-group">
+                <button class="btn-primary" data-core-on="click: openModal('small')">Small Modal</button>
+                <button class="btn-primary" data-core-on="click: openModal('medium')">Medium Modal</button>
+                <button class="btn-primary" data-core-on="click: openModal('large')">Large Modal</button>
+            </div>
+            <div class="prop-demo">
+                <strong>Props used:</strong> <code>size</code> (small | medium | large)
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Confirm Dialog</h2>
+            <p>A modal with action buttons that emit events.</p>
+            <div class="btn-group">
+                <button class="btn-danger" data-core-on="click: openModal('confirm')">Delete Item</button>
+                <button class="btn-success" data-core-on="click: openModal('form')">Open Form</button>
+            </div>
+            <div class="prop-demo">
+                <strong>Events:</strong> <code>onConfirm</code>, <code>onCancel</code>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Event Log</h2>
+            <p>See component events in real-time:</p>
+            <div class="event-log" data-core-for="event in eventLog">
+                <p>{{event}}</p>
+            </div>
+            <button class="btn-secondary" data-core-on="click: clearLog" style="margin-top: 0.5rem;">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Reusable Modal Component -->
+    <div id="modalComponent" class="modal-overlay" data-core-bind="class: isOpen ? 'modal-overlay open' : 'modal-overlay'" data-core-on="click: handleOverlayClick">
+        <div class="modal" data-core-bind="class: modalSize" data-core-on="click: stopPropagation">
+            <div class="modal-header">
+                <h3 class="modal-title" data-core-bind="text: modalTitle"></h3>
+                <button class="modal-close" data-core-on="click: closeModal" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p data-core-bind="text: modalContent"></p>
+                
+                <!-- Dynamic form content for 'form' modal -->
+                <div data-core-bind="visible: modalType === 'form'" style="margin-top: 1rem;">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Name</label>
+                        <input type="text" placeholder="Enter your name" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Email</label>
+                        <input type="email" placeholder="Enter your email" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" data-core-bind="visible: showFooter">
+                <button class="btn-secondary" data-core-on="click: handleCancel">Cancel</button>
+                <button class="btn-primary" data-core-on="click: handleConfirm" data-core-bind="text: confirmText"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+    <script>
+        // Modal Component Definition
+        const modalComponent = {
+            state: {
+                isOpen: false,
+                modalType: '',
+                modalTitle: '',
+                modalContent: '',
+                modalSize: 'medium',
+                showFooter: true,
+                confirmText: 'Confirm',
+                onConfirm: null,
+                onCancel: null
+            },
+
+            methods: {
+                open(config) {
+                    this.modalType = config.type || 'default';
+                    this.modalTitle = config.title || 'Modal';
+                    this.modalContent = config.content || '';
+                    this.modalSize = config.size || 'medium';
+                    this.showFooter = config.showFooter !== false;
+                    this.confirmText = config.confirmText || 'Confirm';
+                    this.onConfirm = config.onConfirm || null;
+                    this.onCancel = config.onCancel || null;
+                    this.isOpen = true;
+                    this.logEvent(`Modal opened: "${this.modalTitle}" (${this.modalSize})`);
+                },
+
+                close() {
+                    this.isOpen = false;
+                    this.logEvent('Modal closed');
+                },
+
+                closeModal() {
+                    if (this.onCancel) this.onCancel();
+                    this.close();
+                },
+
+                handleConfirm() {
+                    if (this.onConfirm) this.onConfirm();
+                    this.logEvent('Confirm button clicked');
+                    this.close();
+                },
+
+                handleCancel() {
+                    if (this.onCancel) this.onCancel();
+                    this.logEvent('Cancel button clicked');
+                    this.close();
+                },
+
+                handleOverlayClick(e) {
+                    if (e.target === e.currentTarget) {
+                        this.closeModal();
+                    }
+                },
+
+                stopPropagation(e) {
+                    e.stopPropagation();
+                },
+
+                logEvent(message) {
+                    const app = core_pk_get('componentDemo');
+                    if (app) app.addEvent(message);
+                }
+            }
+        };
+
+        // Main App
+        core_pk_create('componentDemo', {
+            state: {
+                eventLog: ['Event log ready...'],
+                modal: null
+            },
+
+            methods: {
+                init() {
+                    // Create modal instance
+                    this.modal = core_pk_create('modalInstance', modalComponent);
+                    core_pk_mount('modalInstance', document.getElementById('modalComponent'));
+                },
+
+                openModal(type) {
+                    const configs = {
+                        welcome: {
+                            title: 'Welcome!',
+                            content: 'This is a reusable modal component built with core.sbs. It accepts props for title, content, size, and events.',
+                            size: 'medium',
+                            showFooter: false
+                        },
+                        small: {
+                            title: 'Small Modal',
+                            content: 'This modal uses the "small" size prop.',
+                            size: 'small',
+                            showFooter: false
+                        },
+                        medium: {
+                            title: 'Medium Modal',
+                            content: 'This is the default medium size.',
+                            size: 'medium',
+                            showFooter: false
+                        },
+                        large: {
+                            title: 'Large Modal',
+                            content: 'This modal uses the "large" size prop for more content space.',
+                            size: 'large',
+                            showFooter: false
+                        },
+                        confirm: {
+                            title: 'Confirm Delete',
+                            content: 'Are you sure you want to delete this item? This action cannot be undone.',
+                            size: 'small',
+                            confirmText: 'Delete',
+                            onConfirm: () => this.addEvent('Item deleted!'),
+                            onCancel: () => this.addEvent('Delete cancelled')
+                        },
+                        form: {
+                            title: 'Edit Profile',
+                            content: 'Update your information below:',
+                            size: 'medium',
+                            confirmText: 'Save Changes',
+                            onConfirm: () => this.addEvent('Form submitted!'),
+                            onCancel: () => this.addEvent('Form cancelled')
+                        }
+                    };
+
+                    if (this.modal) {
+                        this.modal.open(configs[type]);
+                    }
+                },
+
+                addEvent(message) {
+                    const timestamp = new Date().toLocaleTimeString();
+                    this.eventLog.unshift(`[${timestamp}] ${message}`);
+                    if (this.eventLog.length > 10) this.eventLog.pop();
+                    this.eventLog = [...this.eventLog];
+                },
+
+                clearLog() {
+                    this.eventLog = ['Event log cleared'];
+                }
+            },
+
+            mounted() {
+                this.init();
+            }
+        });
+
+        core_pk_mount('componentDemo', document.body);
+    </script>
+</body>
+</html>
