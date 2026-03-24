@@ -7,7 +7,7 @@ A lightweight, dependency-free JavaScript library for building dynamic, data-dri
 <!-- option A: production version via CDN -->
 <script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
 <!-- option B: historical version via CDN (advised) -->
-<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@20251212.0/core.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
 <!-- option C: production -->
 <script src="https://core.sbs/core.js"></script>
 ```

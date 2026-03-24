@@ -318,7 +318,7 @@ function ask(question) {
 console.log(`
 ╔═══════════════════════════════════════╗
 ║                                       ║
-║        🚀 create-core-app             ║
+║            create-core-app            ║
 ║                                       ║
 ╚═══════════════════════════════════════╝
 `);

@@ -1,10 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM core.sbs CLI Tools Installer for Windows
-REM Installs create-core-app, core-gen, and core-dev globally
+REM core.sbs CLI Tools Updater for Windows
+REM Updates create-core-app, core-gen, and core-dev globally
 
-echo [INFO] Installing core.sbs CLI tools...
+echo [INFO] Updating core.sbs CLI tools...
 
 REM Configuration
 set REPO=Sitezip/core.sbs
@@ -20,7 +20,7 @@ REM Function to download CLI tool
 set tool_name=%1
 set download_url=https://raw.githubusercontent.com/%REPO%/main/cli/%tool_name%/bin/%tool_name%.js
 
-echo [INFO] Downloading %tool_name%...
+echo [INFO] Updating %tool_name%...
 
 REM Check if curl is available
 where curl >nul 2>nul
@@ -39,7 +39,7 @@ if %errorlevel% equ 0 (
     )
 )
 
-echo [SUCCESS] %tool_name% installed successfully
+echo [SUCCESS] %tool_name% updated successfully
 goto :eof
 
 REM Function to check Node.js
@@ -72,7 +72,7 @@ REM core-dev.bat
 echo @echo off > "%BIN_DIR%\core-dev.bat"
 echo node "%INSTALL_DIR%\core-dev.js" %%* >> "%BIN_DIR%\core-dev.bat"
 
-echo [SUCCESS] Wrapper scripts created
+echo [SUCCESS] Wrapper scripts updated
 goto :eof
 
 REM Function to add to PATH
@@ -95,9 +95,10 @@ setx PATH "%PATH%" >nul 2>&1
 echo [SUCCESS] PATH updated permanently
 echo [INFO] Tools are now available in this session and future sessions
 echo.
+goto :eof
 
-REM Main installation
-:main
+REM Function to update all tools
+:update_all
 REM Check prerequisites
 call :check_node
 
@@ -112,25 +113,109 @@ call :create_wrappers
 REM Add to PATH
 call :add_to_path
 
-REM Installation complete
+REM Update complete
 echo.
-echo [SUCCESS] Installation completed successfully!
+echo [SUCCESS] Update completed successfully!
 echo.
-echo [INFO] CLI tools installed:
+echo [INFO] CLI tools updated:
 echo   - create-core-app: Scaffold new core.js projects
 echo   - core-gen: Generate pre-built components
 echo   - core-dev: Development server with hot reload
 echo.
-echo [INFO] Quick start:
-echo   create-core-app my-app
-echo   cd my-app
-echo   core-dev
-echo.
-echo [WARNING] Tools are now available in this session!
+echo [WARNING] Tools are now updated and ready to use!
 echo [WARNING] For full functionality, please restart your terminal.
 echo.
+goto :eof
+
+REM Function to update specific tool
+:update_tool
+set tool_name=%1
+
+REM Check prerequisites
+call :check_node
+
+REM Download specific tool
+call :download_cli %tool_name%
+
+REM Create wrapper script for specific tool
+if "%tool_name%"=="create-core-app" (
+    echo @echo off > "%BIN_DIR%\create-core-app.bat"
+    echo node "%INSTALL_DIR%\create-core-app.js" %%* >> "%BIN_DIR%\create-core-app.bat"
+    echo [SUCCESS] create-core-app wrapper updated
+)
+
+if "%tool_name%"=="core-gen" (
+    echo @echo off > "%BIN_DIR%\core-gen.bat"
+    echo node "%INSTALL_DIR%\core-gen.js" %%* >> "%BIN_DIR%\core-gen.bat"
+    echo [SUCCESS] core-gen wrapper updated
+)
+
+if "%tool_name%"=="core-dev" (
+    echo @echo off > "%BIN_DIR%\core-dev.bat"
+    echo node "%INSTALL_DIR%\core-dev.js" %%* >> "%BIN_DIR%\core-dev.bat"
+    echo [SUCCESS] core-dev wrapper updated
+    
+    REM Install dependencies for core-dev
+    echo [INFO] Updating dependencies for core-dev...
+    cd "%INSTALL_DIR%"
+    npm install chokidar ws --silent
+    cd >nul
+)
+
+REM Add to PATH
+call :add_to_path
+
+echo.
+echo [SUCCESS] %tool_name% updated successfully!
+echo [WARNING] For full functionality, please restart your terminal.
+echo.
+goto :eof
+
+REM Function to display help
+:show_help
+echo core.sbs CLI Tools Updater
+echo.
+echo Usage: %0 [tool]
+echo.
+echo Tools:
+echo   create-core-app    Update create-core-app only
+echo   core-gen           Update core-gen only
+echo   core-dev           Update core-dev only
+echo   (no argument)      Update all tools
+echo.
+echo Examples:
+echo   %0                 Update all tools
+echo   %0 core-gen        Update core-gen only
+echo   %0 core-dev        Update core-dev only
+echo.
+goto :eof
+
+REM Main update logic
+:main
+set tool_name=%1
+
+if "%tool_name%"=="create-core-app" (
+    call :update_tool create-core-app
+) else if "%tool_name%"=="core-gen" (
+    call :update_tool core-gen
+) else if "%tool_name%"=="core-dev" (
+    call :update_tool core-dev
+) else if "%tool_name%"=="-h" (
+    call :show_help
+) else if "%tool_name%"=="--help" (
+    call :show_help
+) else if "%tool_name%"=="" (
+    call :update_all
+) else (
+    echo [ERROR] Unknown tool: %tool_name%
+    echo.
+    call :show_help
+    pause
+    exit /b 1
+)
+
 pause
 goto :eof
 
-REM Run installation
-call :main
+REM Run update
+call :main %*

@@ -21,7 +21,7 @@ const injectFile = injectFileFlag ? injectFileFlag.split('=')[1] : 'index.html';
 console.log(`
 ╔═══════════════════════════════════════╗
 ║                                       ║
-║          🎨 core-gen                  ║
+║               core-gen                ║
 ║                                       ║
 ╚═══════════════════════════════════════╝
 `);
@@ -118,7 +118,7 @@ switch (componentType) {
 console.log(`📦 Generating ${componentType} component...`);
 
 // Fetch template from CDN
-const cdnUrl = `https://cdn.jsdelivr.net/gh/Sitezip/core.sbs@main/cli/core-gen/components/${componentType}/${templateFile}`;
+const cdnUrl = `https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/cli/core-gen/components/${componentType}/${templateFile}`;
 console.log(`Fetching template from: ${cdnUrl}`);
 
 function fetchTemplate(url) {
@@ -146,6 +146,10 @@ fetchTemplate(cdnUrl).then(template => {
 // Replace placeholders
 template = template.replace(/\{\{NAME\}\}/g, componentName);
 
+// Handle API endpoint pluralization (avoid double 's')
+const apiEndpoint = componentName.endsWith('s') ? componentName : componentName + 's';
+template = template.replace(/\{\{NAME\}\}s/g, apiEndpoint);
+
 // Create components directory if it doesn't exist
 const componentsDir = path.join(process.cwd(), 'components');
 if (!fs.existsSync(componentsDir)) {
@@ -165,12 +169,6 @@ if (fs.existsSync(outputPath)) {
 // Write file
 fs.writeFileSync(outputPath, template);
 
-// Display generated code
-console.log(`\n${'='.repeat(60)}`);
-console.log('📋 GENERATED CODE (ready to copy):');
-console.log('='.repeat(60));
-console.log(template);
-console.log('='.repeat(60));
 console.log(`\n✓ Code saved to: components/${outputFile}\n`);
 
 // Auto-inject into HTML file if requested

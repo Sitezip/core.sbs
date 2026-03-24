@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# core.sbs CLI Tools Installer (Cross-platform)
+# core.sbs CLI Tools Updater (Cross-platform)
 # Works on Linux, Mac, and Windows (Git Bash/WSL)
 
 set -e
@@ -87,7 +87,7 @@ download_cli() {
     local platform="$2"
     local download_url="https://raw.githubusercontent.com/$REPO/main/cli/$tool_name/bin/$tool_name.js"
     
-    print_status "Downloading $tool_name..."
+    print_status "Updating $tool_name..."
     
     if command -v curl >/dev/null 2>&1; then
         curl -fsSL "$download_url" -o "$INSTALL_DIR/$tool_name.js"
@@ -117,11 +117,11 @@ exec node "$INSTALL_DIR/$tool_name.js" "\$@"
 EOF
         chmod +x "$BIN_DIR/$tool_name"
         
-        print_success "$tool_name wrappers created (.bat and bash)"
+        print_success "$tool_name updated successfully"
     else
         # Unix: Create symlink
         ln -sf "$INSTALL_DIR/$tool_name.js" "$BIN_DIR/$tool_name"
-        print_success "$tool_name symlink created"
+        print_success "$tool_name updated successfully"
     fi
 }
 
@@ -167,9 +167,38 @@ add_to_path() {
     print_success "Added to PATH. Tools are now available in this session and future sessions."
 }
 
-# Main installation
-main() {
-    print_status "Installing core.sbs CLI tools..."
+# Function to update individual tool
+update_tool() {
+    local tool_name="$1"
+    
+    # Check prerequisites
+    check_node
+    
+    # Detect platform
+    local platform=$(detect_platform)
+    print_status "Detected platform: $platform"
+    
+    # Download specific tool
+    download_cli "$tool_name" "$platform"
+    
+    # Install dependencies for core-dev
+    if [[ "$tool_name" == "core-dev" ]]; then
+        print_status "Updating dependencies for core-dev..."
+        cd "$INSTALL_DIR"
+        npm install chokidar ws --silent
+        cd - > /dev/null
+    fi
+    
+    # Add to PATH
+    add_to_path
+    
+    print_success "$tool_name updated successfully!"
+    print_warning "For full functionality, please restart your terminal."
+}
+
+# Function to update all tools
+update_all() {
+    print_status "Updating core.sbs CLI tools..."
     
     # Check prerequisites
     check_node
@@ -184,7 +213,7 @@ main() {
     download_cli "core-dev" "$platform"
     
     # Install dependencies for core-dev
-    print_status "Installing dependencies for core-dev..."
+    print_status "Updating dependencies for core-dev..."
     cd "$INSTALL_DIR"
     npm install chokidar ws --silent
     cd - > /dev/null
@@ -192,22 +221,58 @@ main() {
     # Add to PATH
     add_to_path
     
-    # Installation complete
-    print_success "Installation completed successfully!"
+    # Update complete
+    print_success "Update completed successfully!"
     echo
-    print_status "CLI tools installed:"
+    print_status "CLI tools updated:"
     echo "  - create-core-app: Scaffold new core.js projects"
     echo "  - core-gen: Generate pre-built components"
     echo "  - core-dev: Development server with hot reload"
     echo
-    print_status "Quick start:"
-    echo "  create-core-app my-app"
-    echo "  cd my-app"
-    echo "  core-dev"
-    echo
-    print_warning "Tools are now available in this session!"
+    print_warning "Tools are now updated and ready to use!"
     print_warning "For full functionality, please restart your terminal."
 }
 
-# Run installation
+# Display help
+show_help() {
+    echo "core.sbs CLI Tools Updater"
+    echo
+    echo "Usage: $0 [tool]"
+    echo
+    echo "Tools:"
+    echo "  create-core-app    Update create-core-app only"
+    echo "  core-gen           Update core-gen only"
+    echo "  core-dev           Update core-dev only"
+    echo "  (no argument)      Update all tools"
+    echo
+    echo "Examples:"
+    echo "  $0                 Update all tools"
+    echo "  $0 core-gen        Update core-gen only"
+    echo "  $0 core-dev        Update core-dev only"
+}
+
+# Main update logic
+main() {
+    local tool_name="$1"
+    
+    case "$tool_name" in
+        "create-core-app"|"core-gen"|"core-dev")
+            update_tool "$tool_name"
+            ;;
+        "-h"|"--help")
+            show_help
+            ;;
+        "")
+            update_all
+            ;;
+        *)
+            print_error "Unknown tool: $tool_name"
+            echo
+            show_help
+            exit 1
+            ;;
+    esac
+}
+
+# Run update
 main "$@"
