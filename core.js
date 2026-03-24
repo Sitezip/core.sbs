@@ -1042,10 +1042,11 @@ const core = (() => {
                     objects = objects || [{}];
                     type = type || 'automatic';
                     let objType = typeof objects;
+                    sort = sort.toUpperCase();
 
                     if (objType === 'object' && objects.length && objects[0].hasOwnProperty(key)) {
                         //check if previous sort on same key
-                        if (key === prevSortKey && sort === 'ASC') {
+                        if (prevSortKey && key === prevSortKey && sort === 'TOGGLE') {
                             objects = objects.reverse();
                             return objects;
                         }
@@ -1078,7 +1079,7 @@ const core = (() => {
                             break;
                     }
 
-                    if (sort !== 'ASC') { //DESC
+                    if (!['ASC','TOGGLE'].includes(sort)) { //DESC
                         objects = objects.reverse();
                     } else {
                         prevSortKey = key;
