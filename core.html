@@ -292,7 +292,7 @@
                                 </a>
 
                                 <a href="tutorial.html" target="_top"
-                                    class="group px-4 py-2.5 sm:px-6 sm:py-3 w-full text-center justify-center bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-lg sm:rounded-xl hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 no-underline flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base">
+                                    class="group w-full text-center justify-center bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-lg sm:rounded-xl hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 no-underline flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base">
                                     <div
                                         class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
                                         <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 group-hover:rotate-180 transition-transform duration-700"
@@ -2522,87 +2522,135 @@ core.ud.postflight = (ref, obj, type) => {
         </div>
     </template>
 
-    <!-- PHILOSOPHY TEMPLATE -->
+    <!-- ABOUT TEMPLATE -->
     <template name="philosophy">
         <div class="container mx-auto px-4 pt-24 sm:py-16 md:py-32 text-white">
             <div class="glass p-6 md:p-16 space-y-12">
                 <header class="border-b border-white/10 pb-12">
-                    <span class="badge-premium mb-4 inline-block font-outfit">The Manifest</span>
-                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 font-outfit tracking-tight">core.js
-                        Philosophy</h1>
-                    <p class="text-xl text-slate-400">core.js is a small, honest UI runtime. It exists to ship real
-                        software, not to grow a framework ecosystem.</p>
+                    <span class="badge-premium mb-4 inline-block font-outfit">Technical Overview</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 font-outfit tracking-tight">How core.js Works</h1>
+                    <p class="text-xl text-slate-400">core.js is a high-performance JavaScript orchestration layer built on standard web technologies. It uses HTML attributes and native browser APIs to deliver reactive applications without virtual DOM overhead.</p>
                 </header>
 
                 <div class="space-y-12 text-slate-300">
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">Ship Early. Stay Honest.</h2>
-                        <p class="text-lg leading-relaxed">We ship usable software as soon as it’s real. Not
-                            perfect. Not overdesigned. Not wrapped in roadmap theater. If it exists, it runs. If it
-                            runs, it ships.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">HTML-First Architecture</h2>
+                        <p class="text-lg leading-relaxed">core.js leverages standard HTML attributes as the API. No special syntax, no build step, no compilation. Just add data attributes to your existing HTML and core.js handles the rest.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+&lt;div data-core-templates="userCard" data-core-source="/api/users"&gt;&lt;/div&gt;
+                            </code>
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">No Regressions Is the Rule</h2>
-                        <p class="text-lg leading-relaxed">New ideas are welcome. Breaking working applications is
-                            not. If something breaks: it’s a bug, it gets fixed quickly, or it gets reverted.
-                            Stability is earned through discipline, not promises.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">Pocket-Based Component System</h2>
+                        <p class="text-lg leading-relaxed">Components are defined in &lt;template&gt; tags with the <code class="text-emerald-400">data-core-templates</code> attribute. The system automatically discovers, caches, and instantiates components when data becomes available.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+&lt;template name="userCard"&gt;
+  &lt;div class="user-card"&gt;
+    &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+    &lt;p&gt;{{rec:email}}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+                            </code>
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">Upstream First, Always</h2>
-                        <p class="text-lg leading-relaxed">Fixes belong in the core. Not in forks, not in wrappers,
-                            and not in project-specific hacks. If something requires a workaround, the core is
-                            wrong. We fix the core.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">Automatic Data Binding</h2>
+                        <p class="text-lg leading-relaxed">Data flows from APIs to templates using simple {{}} syntax. core.js handles fetching, caching, and automatic updates. No manual DOM manipulation required.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+{{rec:name}} - User name
+{{rec:email}} - User email  
+{{rec:posts.length}} - Post count
+                            </code>
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">Small Surface Area Over Clever Abstractions
-                        </h2>
-                        <p class="text-lg leading-relaxed">Every API has a cost. Every layer is a liability. We
-                            prefer fewer concepts, explicit behavior, and boring primitives that compose well. If it
-                            can’t be explained quickly, it doesn’t belong.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">Cloner Engine for Recursive Components</h2>
+                        <p class="text-lg leading-relaxed">The cloner engine enables nested, recursive component definitions. When data contains arrays or objects, core.js automatically clones and hydrates child components. Perfect for lists, trees, and nested data structures.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+&lt;div data-core-clone="commentList" data-core-data="comments"&gt;
+  &lt;!-- Auto-cloned for each comment --&gt;
+&lt;/div&gt;
+                            </code>
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">Real Usage Is the Test Suite</h2>
-                        <p class="text-lg leading-relaxed">We don’t design in isolation. core.js is used to build
-                            real applications. Feedback comes from production, constraints, and mistakes—not
-                            hypotheticals.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">Built-in Caching & Performance</h2>
+                        <p class="text-lg leading-relaxed">core.js includes intelligent caching for templates and data. Requests are parallelized, responses are cached, and the system automatically invalidates and refreshes when needed. Zero configuration required.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-black/50 p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-emerald-400 mb-2">⚡</div>
+                                <div class="text-sm text-slate-300">Template Cache</div>
+                                <div class="text-xs text-slate-500 mt-1">Auto-invalidation</div>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-primary-light mb-2">📦</div>
+                                <div class="text-sm text-slate-300">Data Cache</div>
+                                <div class="text-xs text-slate-500 mt-1">Parallel fetching</div>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-accent mb-2">🔄</div>
+                                <div class="text-sm text-slate-300">Smart Updates</div>
+                                <div class="text-xs text-slate-500 mt-1">Only what changed</div>
+                            </div>
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">Opinionated, Not Bloated</h2>
-                        <p class="text-lg leading-relaxed">core.js is not everything for everyone. It does one job
-                            well and stays out of your way. If you want magic, indirection, or framework gravity,
-                            React already exists.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">Async-Native Rendering</h2>
+                        <p class="text-lg leading-relaxed">Built for modern JavaScript with native async/await. No callbacks, no promises chaining. The system handles asynchronous data flow automatically while maintaining UI consistency.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+// Automatic async handling
+const users = await core.getData('/api/users');
+// UI updates automatically when data arrives
+                            </code>
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="text-3xl font-bold text-white mb-4">Respect the Runtime</h2>
-                        <p class="text-lg leading-relaxed">The browser is the platform. JavaScript is the contract.
-                            We don’t fight the environment. We work with it.</p>
+                        <h2 class="text-3xl font-bold text-white mb-4">Shadow-less Direct DOM</h2>
+                        <p class="text-lg leading-relaxed">No virtual DOM, no diffing, no reconciliation overhead. core.js works directly with the browser's DOM for maximum performance. What you write is what gets rendered.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+Performance Benefits:
+✓ Zero virtual DOM overhead
+✓ Instant hydration  
+✓ Direct DOM manipulation
+✓ No diffing cost
+✓ Native browser optimization
+                            </code>
+                        </div>
                     </section>
 
                     <div class="bg-white/5 p-8 border border-white/10 mt-12 rounded-[1.5rem]">
-                        <h3 class="text-2xl font-bold text-white mb-4">What core.js Is Not</h3>
-                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-400 font-mono text-sm">
-                            <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A dependency
-                                magnet</li>
-                            <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A platform play
-                            </li>
-                            <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A social
-                                experiment</li>
-                            <li class="flex items-center gap-2"><span class="text-rose-500">×</span> A
-                                rewrite-everything framework</li>
-                        </ul>
+                        <h3 class="text-2xl font-bold text-white mb-4">Quick Start</h3>
+                        <p class="text-lg text-slate-300 mb-6">Add core.js to any HTML file and start building reactive components immediately.</p>
+                        <div class="bg-black/50 p-4 rounded-xl font-mono text-sm">
+                            <code class="text-emerald-400 block">
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"&gt;&lt;/script&gt;
+&lt;div data-core-templates="myApp" data-core-source="/api/data"&gt;&lt;/div&gt;
+                            </code>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                            <a href="#/_main/docs" class="btn-premium">View Documentation</a>
+                            <a href="tutorial.html" class="px-4 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-lg hover:bg-white/10 transition-all no-underline flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                </svg>
+                                <span>Try Tutorial</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-
-                <footer class="pt-12 border-t border-white/10">
-                    <p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Sharp. Small. Reliable.
-                    </p>
-                </footer>
             </div>
         </div>
     </template>
