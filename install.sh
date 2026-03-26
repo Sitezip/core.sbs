@@ -127,7 +127,8 @@ EOF
 
 # Function to check if Node.js is available
 check_node() {
-    if ! command -v node >/dev/null 2>&1; then
+    # Try multiple methods to find node
+    if ! command -v node >/dev/null 2>&1 && ! which node >/dev/null 2>&1 && ! type node >/dev/null 2>&1; then
         print_error "Node.js is required but not installed"
         print_status "Please install Node.js from https://nodejs.org/"
         exit 1
