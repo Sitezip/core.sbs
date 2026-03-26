@@ -129,9 +129,44 @@ EOF
 check_node() {
     # Try multiple methods to find node
     if ! command -v node >/dev/null 2>&1 && ! which node >/dev/null 2>&1 && ! type node >/dev/null 2>&1; then
-        print_error "Node.js is required but not installed"
-        print_status "Please install Node.js from https://nodejs.org/"
-        exit 1
+        print_error "Node.js not found. Attempting to install..."
+        
+        # Detect OS and try to install Node.js
+        if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
+            print_status "Windows detected. Please download and install Node.js from:"
+            print_status "https://nodejs.org/"
+            print_status "After installation, restart your terminal and run this script again."
+            exit 1
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            print_status "macOS detected. Installing Node.js via Homebrew..."
+            if command -v brew >/dev/null 2>&1; then
+                brew install node
+            else
+                print_error "Homebrew not found. Please install Node.js from https://nodejs.org/"
+                exit 1
+            fi
+        else
+            print_status "Linux detected. Attempting to install Node.js..."
+            if command -v apt-get >/dev/null 2>&1; then
+                curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+                sudo apt-get install -y nodejs
+            elif command -v yum >/dev/null 2>&1; then
+                curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+                sudo yum install -y nodejs npm
+            elif command -v dnf >/dev/null 2>&1; then
+                curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+                sudo dnf install -y nodejs npm
+            else
+                print_error "Package manager not found. Please install Node.js from https://nodejs.org/"
+                exit 1
+            fi
+        fi
+        
+        # Verify installation
+        if ! command -v node >/dev/null 2>&1; then
+            print_error "Node.js installation failed. Please install manually from https://nodejs.org/"
+            exit 1
+        fi
     fi
     
     local node_version=$(node --version | cut -d'v' -f2)

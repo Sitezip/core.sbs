@@ -477,7 +477,30 @@
         <section id="quick-start">
             <h2 class="text-3xl font-bold">Quick Start</h2>
 
-            <h3>1. Create a Template</h3>
+            <h3>1. Install CLI Tools</h3>
+            <p class="mb-4">Install the development toolkit:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash</code></pre>
+            </div>
+
+            <h3>2. Create New Project</h3>
+            <p class="mb-4">Scaffold a new core.js project:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>create-core-app my-app
+cd my-app</code></pre>
+            </div>
+
+            <h3>3. Start Development</h3>
+            <p class="mb-4">Launch the development server with hot reload:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>core-dev</code></pre>
+            </div>
+            <p class="mb-6">Open http://localhost:3000 in your browser.</p>
+
+            <h3>4. Create a Template</h3>
             <p class="mb-4">Templates are defined in a hidden section with <code>id="cr-data"</code>:</p>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -492,7 +515,7 @@
 &lt;/section&gt;</code></pre>
             </div>
 
-            <h3>2. Create a Pocket</h3>
+            <h3>5. Create a Pocket</h3>
             <p class="mb-4">Pockets are containers where templates are rendered:</p>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -502,7 +525,7 @@
 &lt;/div&gt;</code></pre>
             </div>
 
-            <h3>3. Initialize</h3>
+            <h3>6. Initialize</h3>
             <p class="mb-4">core.js initializes automatically on DOMContentLoaded, but you can also call it manually:
             </p>
             <div class="code-block">
