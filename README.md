@@ -109,9 +109,9 @@ For detailed specifications, see [core.md](./core.md).
 
 ### 1. Install CLI Tools
 
-**Windows:**
+**Windows (Git Bash/WSL):**
 ```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd
+curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
 ```
 
 **Mac/Linux:**
