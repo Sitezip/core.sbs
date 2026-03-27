@@ -2,10 +2,7 @@
 
 All notable changes to core.js will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
+## [20260204.1] - 2026-02-04
 
 ### Added
 - Enhanced error handling system with contextual suggestions
@@ -85,7 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API integration
 - CDN delivery
 
-[Unreleased]: https://github.com/Sitezip/core.sbs/compare/20260125.1...HEAD
+[20260204.1]: https://github.com/Sitezip/core.sbs/compare/20260125.1...20260204.1
 [20260125.1]: https://github.com/Sitezip/core.sbs/compare/20260125...20260125.1
 [20260125]: https://github.com/Sitezip/core.sbs/compare/20251212...20260125
 [20251212]: https://github.com/Sitezip/core.sbs/releases/tag/20251212
