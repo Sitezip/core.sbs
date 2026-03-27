@@ -162,6 +162,20 @@ const core = (() => {
         },
         init: () => {
             if (useDebugger) console.log('core.js loaded at ' + core.hf.date());
+            
+            //set hit data for use in templates and user scripts, also making it available via core.hit and core.cr.getData('hit')
+            core.hit = {
+                baseUrl: baseUrl,
+                useDebugger: useDebugger,
+                useLocking: useLocking,
+                useRouting: useRouting,
+                version: core_version,
+                ts: core.hf.date(null, 'ts'),
+                uuid: core.hf.uuid(),
+                YYYY: +core.hf.date(null, 'YYYY')
+            };
+            core.cr.setData('hit', core.hit);
+
             core.cr.init();
             core.hf.addClickListeners();
 
