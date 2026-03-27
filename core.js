@@ -174,7 +174,7 @@ const core = (() => {
                 uuid: core.hf.uuid(),
                 YYYY: +core.hf.date(null, 'YYYY')
             };
-            core.cr.setData('hit', core.hit);
+            core.cr.setData('coreInternalHit', core.hit);
 
             core.cr.init();
             core.hf.addClickListeners();
