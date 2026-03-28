@@ -1,7 +1,7 @@
 {
-  "name": "@core-js/create-core-app",
+  "name": "@core.sbs/create-core-app",
   "version": "1.0.0",
-  "description": "Scaffold a new core.js application",
+  "description": "Scaffold a new core.js application. Optionally include a development server, component generator, and more.",
   "bin": {
     "create-core-app": "./bin/create-core-app.js"
   },
@@ -9,7 +9,12 @@
     "core.js",
     "scaffold",
     "create-app",
-    "boilerplate"
+    "boilerplate",
+    "development server",
+    "component generator",
+    "cli",
+    "scaffolding",
+    "create-core-app"
   ],
   "author": "core.js team",
   "license": "MIT",

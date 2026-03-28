@@ -425,7 +425,7 @@ Happy coding! 🎉
             console.error(`❌ Failed to start dev server: ${err.message}`);
             console.log(`
 Make sure core-dev is installed:
-  curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
+  npm install -g @core.sbs/create-core-app
 
 Or start it manually:
   cd ${projectName}

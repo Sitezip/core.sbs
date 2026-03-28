@@ -6,14 +6,9 @@ Generate pre-built components for core.js applications.
 
 Install all core.js CLI tools with one command:
 
-**Windows:**
+**Install via npm:**
 ```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd
-```
-
-**Mac/Linux:**
-```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
+npm install -g @core.sbs/create-core-app
 ```
 
 This installs:

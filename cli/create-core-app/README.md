@@ -4,24 +4,11 @@ Scaffold a new core.js application with zero configuration.
 
 ## Installation
 
-Install all core.js CLI tools with one command:
+Install via npm:
 
-**Windows:**
 ```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.bat | cmd
+npm install -g @core.sbs/create-core-app
 ```
-
-**Mac/Linux:**
-```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
-```
-
-This installs:
-- **create-core-app** - Project scaffolding
-- **core-gen** - Component generator  
-- **core-dev** - Development server
-
-📖 **[Full Installation Guide](../../INSTALL.md)**
 
 ## Usage
 
@@ -33,16 +20,22 @@ After installation:
 create-core-app my-app
 ```
 
-The dev server will automatically start after scaffolding!
+The CLI will guide you through setup options:
+- **Development server** - Install and start core-dev for hot reloading
+- **Component generator** - Install core-gen for scaffolding components  
+- **Routing** - Enable SPA routing in your app
 
-### Development (Local Repository)
+## Usage
 
-If you're developing locally or testing from the repository:
+### Interactive Prompts
+
+The CLI will ask about optional tools:
 
 ```bash
-# From the root of the core.sbs repository
-node cli/create-core-app/bin/create-core-app.js my-app
-# Dev server starts automatically at http://localhost:3000
+create-core-app my-app
+? Would you like to install the development server? (Y/n)
+? Would you like to install the component generator? (Y/n)  
+? Would you like to enable routing? (Y/n)
 ```
 
 ### Skip Auto-Start
@@ -108,7 +101,7 @@ After creating your app:
 
 1. **Install VS Code Extension** - Get 56 code snippets
    ```
-   Download from: https://github.com/Sitezip/core.sbs/releases
+   Search for "core.js" in VS Code extensions tab and install
    ```
 
 2. **Generate Components** - Use the component generator
