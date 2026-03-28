@@ -211,7 +211,7 @@ server.listen(config.port, config.host, () => {
                 spawn('open', [url]);
                 break;
             case 'win32': // Windows
-                spawn('start', [url]);
+                spawn('start', [url], { shell: true });
                 break;
             default: // Linux
                 spawn('xdg-open', [url]);
