@@ -306,6 +306,29 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+// Install tool locally
+function installTool(toolName) {
+    const homeDir = process.env.USERPROFILE || process.env.HOME;
+    const coreSbsDir = path.join(homeDir, '.core-sbs');
+    const toolPath = path.join(coreSbsDir, `${toolName}.js`);
+    
+    // Create .core-sbs directory if it doesn't exist
+    if (!fs.existsSync(coreSbsDir)) {
+        fs.mkdirSync(coreSbsDir, { recursive: true });
+    }
+    
+    // Get the path to the tool from the npm package
+    const npmToolPath = path.join(__dirname, `${toolName}.js`);
+    
+    // Copy the tool to the local directory
+    if (fs.existsSync(npmToolPath)) {
+        fs.copyFileSync(npmToolPath, toolPath);
+        console.log(`✅ ${toolName} installed locally`);
+    } else {
+        console.error(`❌ Failed to install ${toolName}`);
+    }
+}
+
 // Promisify question
 function ask(question) {
     return new Promise((resolve) => {
@@ -340,7 +363,23 @@ async function main() {
     
     rl.close();
     
-    console.log('');
+    if (wantsDevServer) {
+        console.log(`
+📦 Installing development server...
+`);
+        
+        // Install core-dev locally
+        installTool('core-dev');
+    }
+
+    if (wantsComponentGen) {
+        console.log(`
+📦 Installing component generator...
+`);
+        
+        // Install core-gen locally
+        installTool('core-gen');
+    }
 
     // Create project directory
     const projectPath = path.join(process.cwd(), projectName);
@@ -424,11 +463,12 @@ Happy coding! 🎉
         devServer.on('error', (err) => {
             console.error(`❌ Failed to start dev server: ${err.message}`);
             console.log(`
-Make sure core-dev is installed:
-  npm install -g @core.sbs/create-core-app
+Tools are available locally:
+  core-gen - Generate components
+  core-dev - Start development server
 
-Or start it manually:
-  cd ${projectName}
+Or run them directly:
+  core-gen form --validation
   core-dev
 `);
         });
