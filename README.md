@@ -109,14 +109,9 @@ For detailed specifications, see [core.md](./core.md).
 
 ### 1. Install CLI Tools
 
-**Windows (Git Bash/WSL):**
+**Quick Install (Recommended):**
 ```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
-```
-
-**Mac/Linux:**
-```bash
-curl -sSL https://raw.githubusercontent.com/Sitezip/core.sbs/main/install.sh | bash
+npm install -g @core.sbs/create-core-app
 ```
 
 📖 **[Detailed Installation Guide](INSTALL.md)**
