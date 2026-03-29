@@ -107,14 +107,22 @@ For detailed specifications, see [core.md](./core.md).
 
 ## Quick Start
 
-### 1. Install CLI Tools
+### 1. Install Core.js
 
-**Quick Install (Recommended):**
+**Option A: NPM Package (Recommended)**
 ```bash
 npm install -g @core.sbs/create-core-app
 ```
 
-📖 **[Detailed Installation Guide](INSTALL.md)**
+**Option B: VS Code Extension**
+```
+Search "core.sbs" in VS Code Extensions Marketplace
+```
+
+**Option C: CDN**
+```html
+<script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.js"></script>
+```
 
 ### 2. Create New Project
 ```bash
@@ -127,6 +135,10 @@ cd my-app
 core-dev
 ```
 Open http://localhost:3000 in your browser.
+
+### AI Agent Support
+
+For AI assistants and LLMs working with core.js, see [agent.md](./agent.md) for comprehensive API documentation and usage examples.
 
 ---
 

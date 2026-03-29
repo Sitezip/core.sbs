@@ -2,6 +2,23 @@
 
 All notable changes to core.js will be documented in this file.
 
+## [20260329] - 2026-03-29
+
+### Added
+- **AI Agent Support**: New `agent.md` documentation for LLM/agent integration
+- **Published Packages**: Core.js now available as npm package and VS Code extension
+- **Enhanced Documentation**: Comprehensive AI agent guide with API reference and examples
+
+### Changed
+- Updated installation instructions to reflect published packages
+- Improved developer onboarding experience
+
+### Documentation
+- Added `agent.md` for AI agent integration
+- Updated README with proper npm and VS Code extension installation steps
+
+[20260329]: https://github.com/Sitezip/core.sbs/compare/20260204.1...20260329
+
 ## [20260204.1] - 2026-02-04
 
 ### Added
