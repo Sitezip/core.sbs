@@ -3,9 +3,83 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>core.js Playground - Try it Live</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <meta name="description"
+        content="Try core.js live in your browser - interactive playground with examples and real-time preview.">
+    <meta name="keywords"
+        content="core.js playground, JavaScript playground, interactive coding, live editor, core.js examples">
+    <meta name="author" content="core.js Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://core.sbs/playground.html">
+    <meta property="og:title" content="core.js Playground - Try it Live">
+    <meta property="og:description" content="Interactive playground for core.js with live preview and examples.">
+    <meta property="og:image" content="https://core.sbs/banner.png">
+
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="canonical" href="https://core.sbs/playground.html">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#10b981',
+                            dark: '#047857',
+                            light: '#34d399',
+                            glow: 'rgba(16, 185, 129, 0.5)',
+                        },
+                        accent: {
+                            DEFAULT: '#06b6d4',
+                            glow: 'rgba(6, 182, 212, 0.5)',
+                        },
+                        dark: {
+                            DEFAULT: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="core.css">
+    <link rel="icon" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
@@ -13,7 +87,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
-    <link rel="icon" href="/favicon.png">
     <style>
         body {
             background: #0f172a;
@@ -64,18 +137,18 @@
 </head>
 <!-- Navbar -->
 <nav
-    class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-white/10 py-4 transition-all duration-300">
+    class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
     <div class="container mx-auto px-4 flex items-center justify-between">
         <div class="flex items-center">
-            <a href="./core.html" class="flex items-center" style="width: 140px;">
+            <a href="./core.html" class="flex items-center -mt-4" style="width: 140px;">
                 <img src="/core.svg" alt="core.js"
                     style="width: 100%; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));">
             </a>
         </div>
 
         <div class="flex items-center gap-4">
-            <a href="./docs.html" class="px-4 py-2 text-slate-300 hover:text-white transition-colors">← Back to Docs</a>
-            <a href="./core.html" class="px-4 py-2 text-slate-300 hover:text-white transition-colors">← Back to Home</a>
+            <a href="./docs.html" class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">← Docs</a>
+            <a href="./core.html" class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">← Home</a>
         </div>
     </div>
 </nav>
