@@ -58,6 +58,28 @@ Utility methods for common operations:
 *   `digData(object, path)`: Deep-seek values in nested JSON objects using dot notation.
 *   `date(dateStr, format)`: Robust date formatting supporting Unix timestamps and custom tokens.
 *   `hydrateByClass()` / `formatByClass()`: Mass-hydration of static DOM elements based on CSS class directives (e.g., `h-user-name`, `f-money`).
+*   `uuid()`: Generates a unique identifier for tracking purposes.
+
+### 5.1. Internal Objects (`coreInternalObjects`)
+Built-in data schema definitions loaded from `core.json`:
+*   **Purpose**: Standardized object structures for e-commerce/CRM applications
+*   **Key Objects**: `product`, `item`, `order`, `contact`, `address`, `transaction`, `card`, `category`, `inventory`, `chat`, `discount`, `subscription`
+*   **Auto-loaded**: Retrieved automatically on initialization from CDN or local `/core.json`
+*   **Usage**: Reference for data structure consistency across applications
+*   **Template Binding**: Accessible via `{{data:coreInternalObjects:objectName:property}}`
+
+### 5.2. Internal Hit Tracking (`coreInternalHit`)
+Built-in analytics tracking system that captures session information:
+*   **Data Structure**: Stores `core.hit` object with:
+    *   `version`: Current core.js version
+    *   `ts`: Timestamp of initialization
+    *   `uuid`: Unique session identifier
+    *   `YYYY`: Current year
+*   **Template Binding**: Accessible via `{{data:coreInternalHit:property}}` syntax
+*   **Usage Example**:
+    ```html
+    &copy; <span class="h--coreInternalHit-YYYY"></span> CORE_ORCHESTRATOR // version <span class="h--coreInternalHit-version"></span>
+    ```
 
 ---
 
