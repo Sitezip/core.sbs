@@ -1,6 +1,6 @@
 {
   "name": "@core.sbs/create-core-app",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Scaffold a new core.js application. Optionally include a development server, component generator, and more.",
   "bin": {
     "create-core-app": "./bin/create-core-app.js"
@@ -26,6 +26,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "@core-js/dev": "^1.0.0"
+    "chokidar": "^3.5.3",
+    "ws": "^8.14.2"
   }
 }
