@@ -315,13 +315,202 @@ function ask(question) {
     });
 }
 
-console.log(`
-╔═══════════════════════════════════════╗
-║                                       ║
-║            create-core-app            ║
-║                                       ║
-╚═══════════════════════════════════════╝
-`);
+// Install dev server to global location
+function installDevServer() {
+    const fs = require('fs');
+    const path = require('path');
+    
+    const globalDir = path.join(process.env.USERPROFILE || process.env.HOME, '.core-sbs');
+    const coreDevPath = path.join(globalDir, 'core-dev.js');
+    
+    // Create .core-sbs directory if it doesn't exist
+    if (!fs.existsSync(globalDir)) {
+        fs.mkdirSync(globalDir, { recursive: true });
+    }
+    
+    // Copy the dev server code
+    const devServerCode = `#!/usr/bin/env node
+
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const chokidar = require('chokidar');
+const WebSocket = require('ws');
+
+// Configuration
+const config = {
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || 'localhost',
+    watchDirs: ['.', 'components'],
+    excludePatterns: ['node_modules', '.git', '*.log'],
+    openBrowser: process.env.OPEN_BROWSER !== 'false'
+};
+
+// MIME types
+const mimeTypes = {
+    '.html': 'text/html',
+    '.css': 'text/css',
+    '.js': 'text/javascript',
+    '.json': 'application/json',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.svg': 'image/svg+xml',
+    '.ico': 'image/x-icon'
+};
+
+// Get MIME type
+function getMimeType(filePath) {
+    const ext = path.extname(filePath).toLowerCase();
+    return mimeTypes[ext] || 'text/plain';
+}
+
+// Hot reload script to inject into HTML files
+const hotReloadScript = \`
+<script>
+(function() {
+    const ws = new WebSocket('ws://\${config.host}:\${config.port}');
+    
+    ws.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.type === 'reload') {
+                console.log('🔄 File changed, reloading...');
+                window.location.reload();
+            }
+        } catch (e) {
+            console.log('🔄 File changed, reloading...');
+            window.location.reload();
+        }
+    };
+    
+    ws.onopen = () => console.log('✓ Hot reload connected');
+    ws.onerror = () => console.log('✗ Hot reload connection failed');
+})();
+</script>
+\`;
+
+// Serve file with hot reload injection
+function serveFile(res, filePath) {
+    try {
+        let content = fs.readFileSync(filePath);
+        const mimeType = getMimeType(filePath);
+        
+        // Inject hot reload script into HTML files
+        if (mimeType === 'text/html') {
+            const html = content.toString();
+            if (html.includes('</body>')) {
+                content = Buffer.from(html.replace('</body>', \`\${hotReloadScript}</body>\`));
+            } else {
+                content = Buffer.from(html + hotReloadScript);
+            }
+        }
+        
+        res.setHeader('Content-Type', mimeType);
+        res.setHeader('Content-Length', content.length);
+        res.end(content);
+    } catch (error) {
+        console.error(\`Error serving \${filePath}:\`, error.message);
+        res.statusCode = 404;
+        res.end('Not Found');
+    }
+}
+
+// Create HTTP server
+const server = http.createServer((req, res) => {
+    let filePath = path.join(process.cwd(), req.url === '/' ? 'index.html' : req.url);
+    
+    // Security: prevent directory traversal
+    if (filePath.includes('..')) {
+        res.statusCode = 400;
+        res.end('Bad Request');
+        return;
+    }
+    
+    // Handle 404 for missing files
+    if (!fs.existsSync(filePath)) {
+        res.statusCode = 404;
+        res.end('Not Found');
+        return;
+    }
+    
+    serveFile(res, filePath);
+});
+
+// WebSocket server for hot reload (same port as HTTP server)
+const wss = new WebSocket.Server({ server });
+
+// File watcher
+const watcher = chokidar.watch(config.watchDirs, {
+    ignored: config.excludePatterns,
+    persistent: true
+});
+
+watcher.on('change', (filePath) => {
+    console.log(\`📝 File changed: \${path.relative(process.cwd(), filePath)}\`);
+    
+    // Notify all connected clients
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ type: 'reload', file: filePath }));
+        }
+    });
+});
+
+watcher.on('add', (filePath) => {
+    console.log(\`➕ File added: \${path.relative(process.cwd(), filePath)}\`);
+    
+    // Notify all connected clients
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ type: 'reload', file: filePath }));
+        }
+    });
+});
+
+watcher.on('unlink', (filePath) => {
+    console.log(\`➖ File removed: \${path.relative(process.cwd(), filePath)}\`);
+    
+    // Notify all connected clients
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ type: 'reload', file: filePath }));
+        }
+    });
+});
+
+// WebSocket connection handling
+wss.on('connection', (ws) => {
+    console.log('🔌 Client connected for hot reload');
+    
+    ws.on('close', () => {
+        console.log('🔌 Client disconnected');
+    });
+});
+
+// Start server
+server.listen(config.port, config.host, () => {
+    console.log(\`🚀 Development server running at http://\${config.host}:\${config.port}\`);
+    console.log(\`📁 Watching: \${config.watchDirs.join(', ')}\`);
+    console.log(\`🔌 Hot reload enabled on port \${config.port}\`);
+});
+
+// Handle graceful shutdown
+process.on('SIGINT', () => {
+    console.log('\\n👋 Shutting down development server...');
+    server.close();
+    wss.close();
+    watcher.close();
+    process.exit(0);
+});
+`;
+    
+    fs.writeFileSync(coreDevPath, devServerCode);
+    console.log('✅ Dev server installed to ~/.core-sbs/core-dev.js');
+}
+
+// Install dev server on first run
+installDevServer();
 
 async function main() {
     console.log(`Creating a new core.js app in ${projectName}/\n`);
