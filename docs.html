@@ -1033,6 +1033,97 @@ core.hf.sortObj(users, 'age', 'numeric', 'DESC');</code></pre>
 const prefixed = core.hf.uuid('user-');</code></pre>
             </div>
 
+            <h3>coreInternalObjects - Data Schema</h3>
+            <p class="mb-4">Built-in standardized object definitions for e-commerce/CRM applications.</p>
+            
+            <h4>Available Objects</h4>
+            <table class="param-table">
+                <thead>
+                    <tr>
+                        <th>Object</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>product</code></td><td>Complete product data with inventory</td></tr>
+                    <tr><td><code>item</code></td><td>Product summary/cart item</td></tr>
+                    <tr><td><code>order</code></td><td>Complete order with items, contacts, transactions</td></tr>
+                    <tr><td><code>contact</code></td><td>Entity data (customer, vendor, affiliate)</td></tr>
+                    <tr><td><code>address</code></td><td>Shipping/billing address</td></tr>
+                    <tr><td><code>transaction</code></td><td>Payment transaction data</td></tr>
+                    <tr><td><code>card</code></td><td>Credit card information</td></tr>
+                    <tr><td><code>category</code></td><td>Product/item categories</td></tr>
+                    <tr><td><code>inventory</code></td><td>Stock level tracking</td></tr>
+                    <tr><td><code>chat</code></td><td>Communication data</td></tr>
+                    <tr><td><code>discount</code></td><td>Coupon/promotion data</td></tr>
+                    <tr><td><code>subscription</code></td><td>Recurring billing setup</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Auto-Loading</h4>
+            <p class="mb-4">Automatically loaded on initialization from:</p>
+            <ul class="mb-4">
+                <li>CDN: <code>https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/core.json</code></li>
+                <li>Local: <code>/core.json</code></li>
+            </ul>
+
+            <h4>Template Usage</h4>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>// Access schema properties
+{{data:coreInternalObjects:product:name}}
+{{data:coreInternalObjects:order:total}}
+{{data:coreInternalObjects:contact:email}}</code></pre>
+            </div>
+
+            <h3>coreInternalHit - Analytics Tracking</h3>
+            <p class="mb-4">Built-in session tracking system that captures initialization data.</p>
+            
+            <h4>Data Structure</h4>
+            <p class="mb-4">The <code>coreInternalHit</code> object contains:</p>
+            <table class="param-table">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>version</code></td>
+                        <td>Current core.js version</td>
+                    </tr>
+                    <tr>
+                        <td><code>ts</code></td>
+                        <td>Timestamp of initialization</td>
+                    </tr>
+                    <tr>
+                        <td><code>uuid</code></td>
+                        <td>Unique session identifier</td>
+                    </tr>
+                    <tr>
+                        <td><code>YYYY</code></td>
+                        <td>Current year</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Template Usage</h4>
+            <p class="mb-4">Access via data binding in templates:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;!-- Direct template binding --&gt;
+&lt;span&gt;{{data:coreInternalHit:version}}&lt;/span&gt;
+&lt;span&gt;{{data:coreInternalHit:YYYY}}&lt;/span&gt;
+
+&lt;!-- CSS class hydration --&gt;
+&lt;span class="h--coreInternalHit-version"&gt;&lt;/span&gt;
+&lt;span class="h--coreInternalHit-YYYY"&gt;&lt;/span&gt;
+
+&lt;!-- Footer example --&gt;
+&amp;copy; &lt;span class="h--coreInternalHit-YYYY"&gt;&lt;/span&gt; CORE_ORCHESTRATOR // version &lt;span class="h--coreInternalHit-version"&gt;&lt;/span&gt;</code></pre>
+            </div>
+
             <h3>core.hf.hydrateByClass()</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
