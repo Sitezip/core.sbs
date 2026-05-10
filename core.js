@@ -1263,12 +1263,12 @@ const core = (() => {
                  *
                  * @returns {void}
                  */
-                pk_eol: () => {
+                eoc: () => {
                     core.hf.hydrateByClass();
                     setTimeout(() => { //setTimeout added in attempt to fix formatting bug 20240821
                         core.hf.formatByClass();
-                        if (typeof core.ud.pk_eol === "function") {
-                            core.ud.pk_eol();
+                        if (typeof core.ud.eoc === "function") {
+                            core.ud.eoc();
                         }
                     })
 
@@ -1309,7 +1309,7 @@ const core = (() => {
                         const search = core.hf.getRoute('search');
 
                         if (newPath) {
-                            // Use replaceState for URL sync in EOL to avoid redundant history entries
+                            // Use replaceState for URL sync in EOC to avoid redundant history entries
                             core.hf.setRoute(newPath + search, null, null, null, true);
                         }
                     }
@@ -1334,7 +1334,7 @@ const core = (() => {
                  * 4. Renders templates.
                  * 5. Fetches data.
                  * 6. Renders data (clones).
-                 * 7. Calls `pk_eol` (End of Call).
+                 * 7. Calls `eoc` (End of Call).
                  * 
                  * @async
                  * @returns {Promise<void>}
@@ -1359,7 +1359,7 @@ const core = (() => {
                         coreErrorHandler.logEnhancedError(e, 'soc lifecycle');
                     }
 
-                    core.pk.pk_eol();
+                    core.pk.eoc();
                 },
                 /**
                  * Scans the DOM for `data-core-templates` attributes and fetches missing templates.
@@ -1881,7 +1881,7 @@ const core = (() => {
          * core.ud.postflight() called post all backend requests
          * core.ud.prepaint() called prior to each template insert
          * core.ud.postpaint() called post each data-driven cloning process
-         * core.ud.pk_eol() called at end of process
+         * core.ud.eoc() called at end of process
          *
          * core.ud.formatValue() called after core.ux.formatValue()
         * */
