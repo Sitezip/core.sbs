@@ -56,6 +56,9 @@
         {{rec:user.id:core_pk_attr:data-user-id}} <!-- result: data-user-id="242" -->
         {{rec:detail:linkify|wrap: &#8901; | }} <!-- {{type:dataRef:formatA|formatB:clue}} this example has two formats linkify and wrap, currently only allows one clue -->
 
+        <!-- use a pipe delimited list of fields to fall back through until one isn't empty -->
+        {{rec:nickname|firstName:upperfirst}} <!-- {{type:memberA|memberB|...:format:clue}} shows nickname, or firstName if nickname is empty -->
+
         <!-- Advanced Example: working with objects, digging -->
         {{rec:customer.shipping.address.city}}
         {{rec:customer.shipping.address.state:upper}}

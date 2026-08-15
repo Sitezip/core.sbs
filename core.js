@@ -927,6 +927,25 @@ const core = (() => {
                         }
                     }
                 },
+                /**
+                 * Resolves a pipe delimited list of digData references against an object,
+                 * returning the first result that isn't empty (undefined/null/'').
+                 * Single-member strings (no '|') behave identically to digData().
+                 * Examples:
+                 * preferredName|firstName RETURNS preferredName's value, or firstName's if preferredName is empty
+                 *
+                 * @param {object} object - The target object to be searched.
+                 * @param {string} memberStr - Pipe delimited list of digData path references.
+                 * @returns {mixed} The first non-empty resolved value, or undefined if all are empty.
+                 */
+                digDataFallback: (object, memberStr) => {
+                    let value;
+                    for (const member of String(memberStr).split('|')) {
+                        value = core.hf.digData(object, member);
+                        if (value !== undefined && value !== null && value !== '') break;
+                    }
+                    return value;
+                },
                 parseJSON: (str) => {
                     let obj;
                     try {
@@ -1506,6 +1525,8 @@ const core = (() => {
                 /**
                  * Hydrates HTML by using the classic pocket find/replace
                  * Basic Syntax: {{data:user:customer.name:upper}} Result -> JOHN
+                 * The ref segment accepts a pipe delimited fallback chain, e.g.
+                 * {{data:user:nickname|customer.name:upper}} uses nickname, or customer.name if nickname is empty
                  */
                 injector: (templateStr) => {
                     let newString = templateStr;
@@ -1515,7 +1536,7 @@ const core = (() => {
                         let [type, dataSrc, ref, format, clue] = placeholder.split(':');
                         if (type !== 'data' && type !== '@') continue;
                         let object = core.cr.getData(dataSrc);
-                        let value = core.hf.digData(object, ref);
+                        let value = core.hf.digDataFallback(object, ref);
                         //format if a format/value are present
                         if (format && value != undefined) {
                             value = core.ux.formatValue(value, format, clue);
@@ -1524,6 +1545,11 @@ const core = (() => {
                     }
                     return newString;
                 },
+                /**
+                 * Clones cloneStr once per record, resolving {{rec:member}} / {{aug:...}} placeholders per record.
+                 * The member segment accepts a pipe delimited fallback chain, e.g.
+                 * {{rec:nickname|firstName:upperfirst}} shows nickname, or firstName if nickname is empty
+                 */
                 cloner: (records = [], cloneStr) => {
                     let newCloneStr = '';
                     let count = 0;
@@ -1547,7 +1573,7 @@ const core = (() => {
                                     }
                                     break;
                                 case 'rec': case '#':
-                                    value = core.hf.digData(record, member);
+                                    value = core.hf.digDataFallback(record, member);
                                     break;
                                 default:
                                     value = core.ud.alertMissingTypeReference + " '" + type + "'";
