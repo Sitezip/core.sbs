@@ -480,6 +480,9 @@ const core = (() => {
                     } else if (storageId === 2 && sessionStorage.getItem(name)) {
                         //SESSION (Option C), elem is ignored
                         sessionStorage.removeItem(name)
+                    }else if(storageId === 3 && localStorage.getItem(name)){
+                        //LOCAL (Option D), elem is ignored
+                        localStorage.removeItem(name)
                     }
                 },
                 setData: (name, data, elem, storageId) => {
@@ -503,6 +506,9 @@ const core = (() => {
                     } else if (storageId === 2) {
                         //SESSION (Option C), elem is ignored
                         sessionStorage.setItem(name, JSON.stringify(data));
+                    }else if(storageId === 3){
+                        //LOCAL (Option D), elem is ignored
+                        localStorage.setItem(name, JSON.stringify(data));
                     }
 
                     return core.cr.getData(name, elem);
@@ -547,6 +553,9 @@ const core = (() => {
                     } else if (storageId === 2 && sessionStorage.getItem(name)) {
                         //SESSION (Option C), elem is ignored
                         return core.hf.parseJSON(sessionStorage.getItem(name));
+                    }else if(storageId === 3 && localStorage.getItem(name)){
+                        //LOCAL (Option D), elem is ignored
+                        return core.hf.parseJSON(localStorage.getItem(name));
                     }
 
                     // If data is not available but there are active promises, wait for them
