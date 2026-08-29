@@ -1,0 +1,3119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>coremoji.js is the way!</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="coremoji.js is a revolutionary high-performance JavaScript orchestration layer that eliminates virtual DOM overhead. Experience shadow-less rendering, async-native architecture, and zero-overload performance for modern web applications.">
+    <meta name="keywords"
+        content="JavaScript framework, client-side rendering, performance optimization, virtual DOM alternative, async rendering, web development, frontend framework, coremoji.js, shadow-less rendering">
+    <meta name="author" content="coremoji.js Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://core.sbs/">
+    <meta property="og:title" content="coremoji.js - The Future of Client-Side Rendering">
+    <meta property="og:description"
+        content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
+    <meta property="og:image" content="https://core.sbs/banner.png">
+    <meta property="og:image:alt" content="coremoji.js Framework Banner">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://core.sbs/">
+    <meta property="twitter:title" content="coremoji.js - The Future of Client-Side Rendering">
+    <meta property="twitter:description"
+        content="Revolutionary JavaScript framework that eliminates virtual DOM overhead. Experience shadow-less rendering and async-native performance.">
+    <meta property="twitter:image" content="https://core.sbs/banner.png">
+
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="msapplication-TileColor" content="#0a0a0a">
+    <link rel="canonical" href="https://core.sbs/">
+
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#10b981',
+                            dark: '#047857',
+                            light: '#34d399',
+                            glow: 'rgba(16, 185, 129, 0.5)',
+                        },
+                        accent: {
+                            DEFAULT: '#06b6d4',
+                            glow: 'rgba(6, 182, 212, 0.5)',
+                        },
+                        dark: {
+                            DEFAULT: '#0f172a',
+                            darker: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="core.css">
+    <link rel="icon" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-dark-darker/80 backdrop-blur-xl border-b border-white/5 py-4 transition-all duration-300">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="#/_main/home" class="core-pocket -mt-4" data-core-templates="core" data-core-core-source="core.svg"
+                    data-core-routing="false"
+                    style="width: 140px; filter: brightness(1.5) drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));">
+                </a>
+            </div>
+
+            <button class="xl:hidden text-white p-2 hover:bg-white/5 rounded-xl transition-colors focus:outline-none"
+                type="button" onclick="document.getElementById('navbarNav').classList.toggle('hidden')"
+                title="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M4 6h16M4 12h16m-16 6h16">
+                    </path>
+                </svg>
+            </button>
+
+            <div class="hidden xl:flex items-center space-x-2 w-full xl:w-auto mt-0" id="navbarNav">
+                <ul class="flex flex-col xl:flex-row items-center w-full xl:w-auto space-y-1 xl:space-y-0 xl:space-x-1">
+                    <li class="w-full xl:w-auto"><a href="#/_main/home" class="nav-link-premium">Home</a>
+                    </li>
+                    <li class="w-full xl:w-auto"><a href="#/_main/philosophy" class="nav-link-premium">About</a>
+                    </li>
+                    
+                    <!-- Resources Dropdown -->
+                    <li class="relative group w-full xl:w-auto">
+                        <button class="nav-link-premium flex items-center justify-between xl:justify-start">
+                            <span>Resources</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
+                        <ul class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+                            <li><a href="#/_main/docs" class="nav-link-premium">Quick Start</a></li>
+                            <li><a href="tutorial.html" class="nav-link-premium">Tutorial</a></li>
+                            <li><a href="docs.html" class="nav-link-premium">Full API Docs</a></li>
+                            <li><a href="playground.html" class="nav-link-premium">Playground</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Demos Dropdown -->
+                    <li class="relative group w-full xl:w-auto">
+                        <button class="nav-link-premium flex items-center justify-between xl:justify-start">
+                            <span>Demos</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
+                        <ul class="xl:absolute left-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+                            <li><a href="#/_main/bridge" class="nav-link-premium">Bridge</a></li>
+                            <li><a href="#/_main/stuff" class="nav-link-premium">Product Grid</a></li>
+                            <li><a href="#/_main/counter" class="nav-link-premium">Realtime Data</a></li>
+                            <li><a href="#/_main/deep" class="nav-link-premium">Recursive Logic</a></li>
+                            <li><a href="#/_main/user" class="nav-link-premium">Form Engine</a></li>
+                            <li><a href="#/_main/news" class="nav-link-premium">Scammer News</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Community Dropdown -->
+                    <li class="relative group w-full xl:w-auto">
+                        <button class="nav-link-premium flex items-center justify-between xl:justify-start">
+                            <span>Community</span>
+                            <svg class="w-4 h-4 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 right-0 h-4 top-full hidden xl:block"></div>
+                        <ul class="xl:absolute right-0 top-full mt-2 w-full xl:w-64 bg-dark-darker/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-primary/10 rounded-2xl hidden group-hover:block py-3 z-50">
+                            <li><a href="CHANGELOG.md" class="nav-link-premium">Changelog</a></li>
+                            <li><a href="ROADMAP.md" class="nav-link-premium">Roadmap</a></li>
+                            <li><a href="https://github.com/Sitezip/core.sbs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="nav-link-premium">Contributing</a></li>
+                            <li><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener" class="nav-link-premium">GitHub</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Viewhost -->
+    <div id="main" class="animate-fade-in-up p-2">
+        <div class="core-pocket" data-core-templates="home"></div>
+    </div>
+
+    <!-- Secondary Insertion Point -->
+    <div id="under"></div>
+
+    <!-- Toast Notification Container -->
+    <div class="fixed bottom-0 right-0 p-6 z-[100] flex flex-col gap-4">
+        <div id="coreToast"
+            class="glass p-4 rounded-xl hidden flex items-start justify-between min-w-[300px] animate-fade-in-up">
+            <div>
+                <strong class="block text-primary-light text-sm font-bold uppercase tracking-wider mb-1">coremoji.js
+                    Event</strong>
+                <div id="toastMessage" class="text-slate-200"></div>
+            </div>
+            <button aria-label="Close notification" type="button" class="text-white/50 hover:text-white"
+                onclick="this.parentElement.classList.add('hidden')">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Component Registry (Templates) -->
+    <section id="cr-data" style="display:none;">
+
+        <!-- FORM ENGINE DEFAULT TEMPLATE -->
+        <template name="default">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Email
+                        Address</label>
+                    <input type="email" required
+                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                        placeholder="engine@core.sbs">
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                    <input type="password"
+                        class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                        placeholder="Enter password">
+                </div>
+                <button class="btn-premium w-full mt-4">Sign In</button>
+            </div>
+        </template>
+
+        <!-- HOME TEMPLATE -->
+        <template name="home">
+            <section class="min-h-[90vh] pt-24 lg:pt-36 pb-8 sm:pb-12 flex items-center relative">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                        <div class="lg:w-1/2">
+                            <span class="badge-premium mb-4 sm:mb-6 inline-block">V2.0 Core Engine</span>
+                            <h1
+                                class="text-4xl md:text-6xl lg:text-7xl font-extrabold font-outfit leading-[1.1] mb-6 text-white tracking-tight">
+                                Build Web Apps.<br><span
+                                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-accent">No
+                                    Build Step.</span>
+                            </h1>
+                            <p class="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed font-medium">A
+                                high-performance JS
+                                orchestration layer that eliminates virtual DOM overhead. Decoupled, asynchronous, and
+                                remarkably clean.</p>
+
+                            <div class="flex flex-wrap gap-4 md:gap-6 mb-12">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]">
+                                    </div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Async-Native
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_12px_rgba(34,197,190,0.6)]">
+                                    </div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Zero
+                                        Overload</div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]">
+                                    </div>
+                                    <div class="text-xs font-bold uppercase tracking-widest text-slate-300">Recursive
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-3 w-full">
+                                <a href="#/_main/docs" target="_top"
+                                    class="group relative w-full text-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-lg sm:rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all hover:-translate-y-1 overflow-hidden no-underline text-sm sm:text-base">
+                                    <div
+                                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                    </div>
+                                    <span class="relative flex justify-center items-center gap-1.5 sm:gap-2">
+                                        Get Started
+                                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                        </svg>
+                                    </span>
+                                </a>
+
+                                <a href="tutorial.html" target="_top"
+                                    class="group w-full text-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-lg sm:rounded-xl hover:bg-white/10 hover:border-white/20 transition-all hover:-translate-y-1 no-underline flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base">
+                                    <div
+                                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 group-hover:rotate-180 transition-transform duration-700"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                        </svg>
+                                    </div>
+                                    <span>Try Tutorial</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 relative order-2 lg:order-1 mt-16 lg:mt-0">
+                            <div class="relative z-10">
+                                <img src="/banner.png" class="rounded-3xl shadow-2xl border border-white/5 mx-auto w-full max-w-md lg:max-w-none">
+                                <div class="absolute -inset-4 bg-primary/20 blur-3xl -z-10 rounded-full animate-pulse">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unified Metrics Dive -->
+            <div class="container mx-auto px-4 my-20">
+                <div class="glass p-8 md:p-12">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 text-white">System Performance Metrics</h2>
+
+                    <!-- Live Metrics Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                        <div class="metric-box">
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-1.5 sm:mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                                id="cacheHits">0</h2>
+                            <div class="text-xs sm:text-sm text-slate-300 font-semibold">Cache Integrity</div>
+                        </div>
+                        <div class="metric-box">
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-1.5 sm:mb-2 text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent"
+                                id="dataCalls">0</h2>
+                            <div class="text-xs sm:text-sm text-slate-300 font-semibold">Backend Flow</div>
+                        </div>
+                        <div class="metric-box">
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-1.5 sm:mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                                id="templates">0</h2>
+                            <div class="text-xs sm:text-sm text-slate-300 font-semibold">Registered DOM</div>
+                        </div>
+                    </div>
+
+                    <!-- System Status Separator -->
+                    <div class="border-t border-white/10 pt-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                            <div class="flex items-center gap-3">
+                                <span id="status-dot"
+                                    class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span id="status-text"
+                                    class="text-xs font-bold text-emerald-500/80 uppercase tracking-widest leading-none">System
+                                    Operational</span>
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                Shadow-less rendering active with zero overhead
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                Zero Dependencies - Just one script tag, no npm required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Benefits Section -->
+            <div class="container mx-auto px-4 mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 text-white">Key Benefits</h2>
+
+                    <!-- Key Benefits Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                        <div class="text-center lg:text-left lg:flex lg:items-center lg:gap-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                            <div class="w-16 h-16 mx-auto mb-4 lg:mb-0 lg:w-12 lg:h-12 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl lg:text-xl">⚡</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Lightning Fast</h3>
+                                <p class="text-sm text-slate-400 mb-2">No virtual DOM overhead means instant updates</p>
+                                <ul class="text-xs text-slate-500 space-y-1">
+                                    <li>• Direct DOM manipulation</li>
+                                    <li>• Zero diffing cost</li>
+                                    <li>• Instant hydration</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-left lg:flex lg:items-center lg:gap-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                            <div class="w-16 h-16 mx-auto mb-4 lg:mb-0 lg:w-12 lg:h-12 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl lg:text-xl">📦</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Zero Dependencies</h3>
+                                <p class="text-sm text-slate-400 mb-2">Just one script tag, no npm required</p>
+                                <ul class="text-xs text-slate-500 space-y-1">
+                                    <li>• Drop-in CDN</li>
+                                    <li>• No package.json</li>
+                                    <li>• No bundlers needed</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-left lg:flex lg:items-center lg:gap-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                            <div class="w-16 h-16 mx-auto mb-4 lg:mb-0 lg:w-12 lg:h-12 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl lg:text-xl">🔄</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Auto-Routing</h3>
+                                <p class="text-sm text-slate-400 mb-2">Built-in SPA routing with hash URLs</p>
+                                <ul class="text-xs text-slate-500 space-y-1">
+                                    <li>• Hash-based navigation</li>
+                                    <li>• Browser history support</li>
+                                    <li>• No router library needed</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-left lg:flex lg:items-center lg:gap-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                            <div class="w-16 h-16 mx-auto mb-4 lg:mb-0 lg:w-12 lg:h-12 rounded-full bg-pink-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl lg:text-xl">💾</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Smart Caching</h3>
+                                <p class="text-sm text-slate-400 mb-2">Data and template caching included</p>
+                                <ul class="text-xs text-slate-500 space-y-1">
+                                    <li>• Automatic cache management</li>
+                                    <li>• Configurable TTL</li>
+                                    <li>• Parallel fetching</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Advantages Callout -->
+            <div class="container mx-auto px-4 mb-20">
+                <div class="glass p-8 md:p-12 border-2 border-primary/30">
+                    <div class="flex items-start gap-6">
+                        <div class="w-full">
+                            <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white">Start Building in Seconds</h3>
+                            <p class="text-lg md:text-xl text-slate-300 leading-relaxed mb-6">
+                                No setup, no configuration, no build tools. Just add one script tag and you're ready to build modern web applications.
+                            </p>
+                            <div class="bg-black/50 p-3 sm:p-4 rounded-xl font-mono text-xs sm:text-sm mb-6 break-all">
+                                <code class="text-emerald-400 block">&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;</code>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                <div class="flex items-center gap-2 text-slate-400">
+                                    <span class="text-emerald-400 text-xl">✓</span>
+                                    <span>Drop-in CDN</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-400">
+                                    <span class="text-emerald-400 text-xl">✓</span>
+                                    <span>Instant hydration</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-400">
+                                    <span class="text-emerald-400 text-xl">✓</span>
+                                    <span>Production ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Deep-Dive (Inlined from information section) -->
+            <section id="architecture-overview" class="container mx-auto -mt-16 px-4 py-16 md:py-20 text-white pb-10">
+                <div class="">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-12">Architecture Overview</h1>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                        <div class="space-y-6 text-lg text-slate-300 leading-relaxed">
+                            <p><strong class="text-white">coremoji.js</strong> delivers a <span
+                                    class="text-primary-light font-bold">Shadow-less Rendering</span> engine that treats
+                                the DOM as the state tree, eliminating virtual DOM diffing overhead.</p>
+
+                            <p>Its <span class="text-accent font-bold">Async-Native</span> architecture fetches data and
+                                templates in parallel using modern <code class="text-primary-light">async/await</code>
+                                patterns.</p>
+
+                            <p>The built-in <span class="text-primary-light font-bold">Cloner Engine</span> enables
+                                nested, recursive component definitions that hydrate automatically on data insertion.
+                            </p>
+
+                            <div class="my-8">
+                                <h3 class="text-2xl font-bold text-white mb-4">Lifecycle Hooks</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.preflight</code>
+                                            <p class="text-sm text-slate-400 mt-1">Modify fetch settings before a
+                                                request</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.postflight</code>
+                                            <p class="text-sm text-slate-400 mt-1">Transform response data after fetch
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.prepaint</code>
+                                            <p class="text-sm text-slate-400 mt-1">Adjust data before rendering</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-primary-light mt-1">→</span>
+                                        <div>
+                                            <code class="text-accent">core.ud.postpaint</code>
+                                            <p class="text-sm text-slate-400 mt-1">Run logic after template is rendered
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="relative max-w-full">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-xs md:text-sm shadow-2xl overflow-hidden">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Basic
+                                        Template</div>
+                                    <div class="overflow-x-auto">
+                                        <pre class="text-emerald-400 whitespace-pre-wrap break-all"><code class="language-html">&lt;<span class="text-rose-400">template</span> <span class="text-blue-400">name</span>=<span class="text-amber-200">"userCard"</span>&gt;
+  &lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"user-card"</span>&gt;
+    &lt;<span class="text-rose-400">h3</span>&gt;{{<span class="text-purple-400">rec:name</span>}}&lt;/<span class="text-rose-400">h3</span>&gt;
+    &lt;<span class="text-rose-400">p</span>&gt;{{<span class="text-purple-400">rec:email</span>}}&lt;/<span class="text-rose-400">p</span>&gt;
+  &lt;/<span class="text-rose-400">div</span>&gt;
+&lt;/<span class="text-rose-400">template</span>&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative max-w-full">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-xs md:text-sm shadow-2xl overflow-hidden">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Pocket
+                                        Rendering</div>
+                                    <div class="overflow-x-auto">
+                                        <pre class="text-emerald-400 whitespace-pre-wrap break-all"><code class="language-html">&lt;<span class="text-rose-400">div</span> <span class="text-blue-400">class</span>=<span class="text-amber-200">"core-pocket"</span>
+     <span class="text-blue-400">data-core-templates</span>=<span class="text-amber-200">"userCard"</span>
+     <span class="text-blue-400">data-core-source-users</span>=<span class="text-amber-200">"https://api.example.com/users"</span>&gt;
+&lt;/<span class="text-rose-400">div</span>&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative max-w-full">
+                                <div
+                                    class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-20">
+                                </div>
+                                <div
+                                    class="relative bg-black p-6 rounded-2xl font-mono text-xs md:text-sm shadow-2xl overflow-hidden">
+                                    <div class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Data
+                                        Formatting</div>
+                                    <div class="overflow-x-auto">
+                                        <pre class="text-emerald-400 whitespace-pre-wrap break-all"><code class="language-html"><span class="text-slate-500">&lt;!-- Format as money --&gt;</span>
+{{<span class="text-purple-400">rec:price:money:$</span>}}
+
+<span class="text-slate-500">&lt;!-- Recursive cloning --&gt;</span>
+{{<span class="text-purple-400">rec:items:core_pk_cloner:itemTemplate</span>}}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-white/5 rounded-xl border border-white/10 mt-16">
+                    <h4 class="text-xl font-bold text-white mb-3">Silent Calls</h4>
+                    <p class="text-slate-400">Use <code class="text-primary-light">target="core_be_getData"</code>
+                        to fetch data or templates without immediate UI updates.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mt-8 my-auto items-center">
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
+                        <h2 class="text-3xl font-extrabold text-white mb-1">Low</h2>
+                        <span class="text-xs font-bold uppercase tracking-widest text-primary-light">Reflows</span>
+                    </div>
+                    <div
+                        class="p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center my-auto flex justify-center h-full">
+                        <div class="flex flex-col items-center my-auto h-full justify-center text-center">
+                            <h2 class="text-6xl font-extrabold text-white mb-1 flex -mt-4">∞</h2>
+                            <span class="text-xs font-bold uppercase tracking-widest text-accent">Scalability</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+            </section>
+        </template>
+
+        <!-- COUNTER TEMPLATE -->
+        <template name="counter">
+            <div class="container mx-auto px-4 py-16 md:py-32">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="w-full">
+                        <div class="pt-8 sm:pt-0">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Real-Time
+                                State Demo</h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                    <!-- Counter Display -->
+                                    <div
+                                        class="p-6 rounded-2xl bg-white/5 border border-white/10 text-center flex flex-col items-center my-auto h-full">
+                                        <h3 class="text-lg font-bold text-white mb-4">Live Counter</h3>
+                                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent mb-2 h--dataRef-counter"
+                                            data-h-data-ref="counter">0</div>
+                                        <div class="text-xs font-bold uppercase tracking-widest text-slate-400">Clicks
+                                            Tracked</div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
+                                        <h3 class="text-lg font-bold text-white mb-4">Controls</h3>
+                                        <div class="space-y-4">
+                                            <button type="button" onclick="incrementCounter()"
+                                                class="w-full px-4 py-3 rounded-xl bg-primary hover:bg-primary/80 transition-colors text-white font-bold">
+                                                Increment (+1)
+                                            </button>
+                                            <button type="button" onclick="decrementCounter()"
+                                                class="w-full px-4 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 transition-colors text-white font-bold">
+                                                Decrement (-1)
+                                            </button>
+                                            <button type="button" onclick="resetCounter()"
+                                                class="w-full px-4 py-3 rounded-xl bg-slate-600 hover:bg-slate-700 transition-colors text-white font-bold">
+                                                Reset (0)
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Status Display -->
+                                <div class="mt-8 p-4 bg-black/40 rounded-xl border border-white/10">
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-xs text-slate-500">
+                                            Using coremoji.js registry for real-time state management
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Logic Bridge Template -->
+        <template name="bridge">
+            <div class="container mx-auto px-4 py-16 md:py-32">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="w-full">
+                        <div class="pt-8 sm:pt-0">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">The Logic
+                                Bridge</h1>
+                            <p class="text-xl text-slate-400 mb-12 leading-relaxed">
+                                coremoji.js automatically manages the serialization of your state directly into the DOM,
+                                allowing for instant <span class="text-primary-light font-bold">"resurrection"</span>
+                                of UI components without virtual DOM overhead.
+                            </p>
+
+                            <div
+                                class="p-10 border-l-4 border-primary bg-white/5 rounded-r-3xl relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 p-4 opacity-5 font-bold text-9xl pointer-events-none text-white">
+                                    "</div>
+                                <p class="h--dataRef text-2xl font-light italic mb-4 relative z-1 leading-relaxed text-white"
+                                    data-h-data-ref="quote.quote">Fetch in progress...</p>
+                                <cite class="text-primary-light font-bold not-italic relative z-1">— <span
+                                        class="h--dataRef" data-h-data-ref="quote.author">System Architect</span></cite>
+                            </div>
+
+                            <div id="core_pk_bridgePanel" class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                    <label
+                                        class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Joke</label>
+                                    <p class="h--dataRef text-slate-200 leading-relaxed" data-h-data-ref="joke">
+                                        Fetch in progress...</p>
+                                </div>
+
+                                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                    <label
+                                        class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Pip</label>
+                                    <div class="grid grid-cols-1 gap-3 text-sm">
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-slate-400 font-bold">Name</span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.name"></span>
+                                        </div>
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-slate-400 font-bold">Title</span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.title"></span>
+                                        </div>
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-slate-400 font-bold">Phone</span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.phone"></span>
+                                        </div>
+                                        <div class="flex justify-between gap-4">
+                                            <span class="text-slate-400 font-bold">Vendor</span>
+                                            <span class="h--dataRef text-slate-200 font-mono"
+                                                data-h-data-ref="pip.stuff.vendor">under20bucks</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="md:col-span-2 p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                    <label
+                                        class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Pop</label>
+                                    <div class="space-y-4">
+                                        <div class="core-clone" data-core-data="pop">
+                                            <div class="p-4 rounded-xl bg-black/40 border border-white/10">
+                                                <div class="flex items-center justify-between gap-4">
+                                                    <div class="font-bold text-white">{{rec:name:upper}}</div>
+                                                    <div class="text-sm font-mono text-primary-light">
+                                                        {{rec:paid:money:$}}</div>
+                                                </div>
+                                                <div class="mt-2 text-xs text-slate-400 font-mono">{{rec:ts:date:date}}
+                                                </div>
+                                                <div class="mt-3 text-sm text-slate-300">Food: <span
+                                                        class="text-amber-400 font-bold">{{rec:stuff.food}}</span></div>
+                                                <div class="mt-4 border-t border-white/10 pt-4 text-slate-400">
+                                                    {{rec:more:core_pk_cloner:colors}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- USER TEMPLATE -->
+        <template name="user">
+            <div class="container mx-auto px-4 pt-24 sm:py-16 md:py-32 text-white">
+                <div id="core_pk_userFormView" class="max-w-2xl mx-auto">
+                    <div class="glass p-6 md:p-12">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-2">Create Your Profile</h1>
+                        <p class="text-lg text-slate-400 mb-10">Enter your info to generate a profile page.</p>
+
+                        <form id="core_pk_userForm" class="space-y-6"
+                            onsubmit="return core_pk_user_handleSubmit(event)">
+                            <div>
+                                <label
+                                    class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Name</label>
+                                <input id="core_pk_userName" type="text" required
+                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                                    placeholder="Franklin" autocomplete="name">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Job</label>
+                                <input id="core_pk_userJob" type="text" required
+                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                                    placeholder="Senior Developer" autocomplete="organization-title">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Email</label>
+                                <input id="core_pk_userEmail" type="email" required
+                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                                    placeholder="you@core.sbs" autocomplete="email">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                                <input id="core_pk_userPassword" type="password" required
+                                    class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary/50 outline-none transition-all"
+                                    placeholder="Enter password" autocomplete="new-password">
+                            </div>
+
+                            <button class="btn-premium w-full mt-4" type="submit">Create Profile</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="core_pk_userProfileView" class="hidden">
+                    <div class="glass p-6 md:p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
+                        <img src="/avatar.png" class="rounded-full shadow-2xl border-4 border-white/10 w-32 h-32"
+                            alt="Avatar">
+                        <div class="text-center md:text-left">
+                            <h1 id="core_pk_userProfileName" class="text-3xl md:text-5xl font-bold mb-2"></h1>
+                            <p class="text-xl text-slate-400">
+                                <span id="core_pk_userProfileJob"></span>
+                            </p>
+                        </div>
+                        <div class="md:ml-auto">
+                            <button type="button" onclick="core_pk_user_showForm()"
+                                class="px-6 py-2 border border-white/20 rounded-full hover:bg-white/5 transition-colors">Edit
+                                Profile</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <div class="glass p-12 space-y-8">
+                                <div>
+                                    <h3 class="text-2xl font-bold mb-8">Profile Details</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                            <label
+                                                class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Email</label>
+                                            <div id="core_pk_userProfileEmail"
+                                                class="text-lg font-bold text-primary-light font-mono break-all"></div>
+                                        </div>
+                                        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
+                                            <label
+                                                class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                                            <div id="core_pk_userProfilePassword"
+                                                class="text-lg font-bold text-accent font-mono break-all"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2">
+                                    <button onclick="showToast('Profile saved locally (demo)', 'success')"
+                                        class="btn-premium">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-1">
+                            <div class="glass p-12 h-full flex flex-col">
+                                <h4 class="text-xl font-bold mb-8">Profile Management</h4>
+                                <div class="space-y-8 flex-grow">
+                                    <div
+                                        class="p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm">
+                                        Form data is processed and stored locally using coremoji.js registry system.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- NEWS TEMPLATE -->
+        <template name="news">
+            <div class="container mx-auto px-4 py-16 md:py-32">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="w-full">
+                        <div class="pt-8 sm:pt-0">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Scammer News
+                            </h1>
+                            <p class="text-lg md:text-xl text-slate-400">Breaking updates from the underground network.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-4">
+                    <button onclick="
+                        // Clear the news data cache
+                        delete core.be.cacheCreateTs.data.news;
+                        // Re-render the news template
+                        core.pk.soc();
+                        // Show toast notification
+                        showToast('News feed refreshed!', 'success');
+                    " class="btn-premium">Refresh Feed</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="core-clone" data-core-data="news"
+                        data-core-source="https://newsdata.io/api/1/news?apikey=pub_499644bc0f473c4fa28fc8e472d99213ee5b3&q=phishing&country=gb,us&language=en&category=crime,education,technology,technology">
+                        <div class="glass h-full flex flex-col overflow-hidden group">
+                            <div class="p-6 md:p-8 flex-grow">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <img src="https://www.google.com/s2/favicons?domain={{rec:link}}&sz=64"
+                                        class="w-10 h-10 rounded-xl bg-white/5 p-1" alt="Source favicon">
+                                    <div class="flex-grow">
+                                        <span
+                                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">ID:
+                                            #{{rec:article_id}}</span>
+                                        <span
+                                            class="block text-xs font-bold text-primary-light leading-none">{{rec:pubDate}}
+                                            views</span>
+                                    </div>
+                                </div>
+                                <h4
+                                    class="text-xl font-bold mb-4 line-clamp-2 group-hover:text-primary-light transition-colors">
+                                    {{rec:title}}</h4>
+                                <p class="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-6">{{rec:description}}
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-3 py-1 bg-white/5 rounded-md text-[10px] font-bold uppercase tracking-wider text-slate-400 border border-white/5">{{rec:category:upper}}</span>
+                                    <span
+                                        class="px-3 py-1 bg-white/5 rounded-md text-[10px] font-bold uppercase tracking-wider text-slate-400 border border-white/5">{{rec:country:upper}}</span>
+                                </div>
+                            </div>
+                            <div class="px-8 py-6 border-t border-white/5 bg-white/5">
+                                <div class="flex items-center justify-between gap-4">
+                                    <div class="flex items-center gap-3 overflow-hidden">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center font-bold text-primary text-xs">
+                                            {{rec:source_name:truncate:1:upper}}</div>
+                                        <div class="overflow-hidden">
+                                            <span
+                                                class="block text-xs font-bold truncate text-white">{{rec:source_name}}</span>
+                                            <span
+                                                class="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">{{rec:source_priority}}
+                                                priority</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{rec:link}}" target="_blank"
+                                        class="px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary-light text-xs font-bold rounded-lg transition-colors whitespace-nowrap no-underline">Read
+                                        More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- STUFF TEMPLATE -->
+        <template name="stuff">
+            <div class="container mx-auto px-4 py-16 md:py-32">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="w-full">
+                        <div class="pt-8 sm:pt-0">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Component
+                                Registry</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                            id="cacheHits">0</h2>
+                        <div class="text-slate-300 font-semibold">Cache Integrity</div>
+                    </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-primary-light to-accent"
+                            id="dataCalls">0</h2>
+                        <div class="text-slate-300 font-semibold">Backend Flow</div>
+                    </div>
+                    <div class="metric-box">
+                        <h2 class="text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
+                            id="templates">0</h2>
+                        <div class="text-slate-300 font-semibold">Registered DOM</div>
+                    </div>
+                </div>
+
+                <!-- Table View -->
+                <div class="glass overflow-hidden mb-16">
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr
+                                    class="bg-white/5 text-left border-b border-white/10 text-slate-400 uppercase text-[10px] font-bold tracking-widest">
+                                    <th class="px-8 py-6">Dev ID</th>
+                                    <th class="px-8 py-6">Interface</th>
+                                    <th class="px-8 py-6 text-center">Sync Status</th>
+                                    <th class="px-8 py-6 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr class="core-clone hover:bg-white/5 transition-colors group text-white"
+                                    data-core-data="users" data-core-source="https://dummyjson.com/users?limit=5">
+                                    <td class="px-8 py-6 text-slate-500 font-mono text-sm">#{{aug:count}}</td>
+                                    <td class="px-8 py-6 font-bold">{{rec:firstName}} {{rec:lastName}}</td>
+                                    <td class="px-8 py-6 text-center">
+                                        <span
+                                            class="px-4 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold tracking-wider rounded-full border border-emerald-500/20">ACTIVE</span>
+                                    </td>
+                                    <td class="px-8 py-6 text-right">
+                                        <a href="#" onclick="showToast('Hydrating source from registry...', 'primary')"
+                                            class="text-accent hover:text-accent/80 transition-colors text-xs font-bold uppercase tracking-widest no-underline">Pocket
+                                            Source</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="core-clone" data-core-data="prods"
+                        data-core-source="https://dummyjson.com/products?limit=12">
+                        <div class="glass p-6 h-full flex flex-col group">
+                            <div
+                                class="bg-black/40 rounded-2xl p-6 mb-6 flex items-center justify-center aspect-square overflow-hidden border border-white/5 group-hover:border-primary/20 transition-colors">
+                                <img {{rec:thumbnail:core_pk_attr:src}}
+                                    class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <h5 class="text-lg font-bold mb-2 leading-tight">{{rec:title}}</h5>
+                            <div class="flex justify-between items-center mb-6 mt-auto">
+                                <div class="text-2xl font-bold text-primary-light">{{rec:price:money:$}}</div>
+                                <div class="px-2 py-1 bg-rose-500/10 text-rose-400 text-xs font-bold rounded">
+                                    -{{rec:discountPercentage:decimal}}%
+                                </div>
+                            </div>
+                            <button onclick="showToast('Object added to local cache', 'info')"
+                                class="btn-premium py-2 text-sm w-full">Buffer Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- MANUAL TEMPLATE (Comprehensive Guide) -->
+        <template name="manual">
+            <div class="container mx-auto px-4 py-16 md:py-32 text-white">
+                <div class="glass p-6 md:p-16 space-y-20">
+                    <header class="border-b border-white/10 pb-12">
+                        <span class="badge-premium mb-4 inline-block">The Complete Engine Reference</span>
+                        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 font-outfit tracking-tight">coremoji.js Manual
+                        </h1>
+                        <p class="text-2xl text-slate-400 italic">Create Once, Render Everywhere — Orchestration without
+                            Overhead.</p>
+                    </header>
+
+                    <!-- INSTALLATION -->
+                    <section id="installation" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-2xl font-black">00</span>
+                            Installation
+                        </h2>
+                        <p class="text-xl text-slate-300 leading-relaxed max-w-3xl">Choose your preferred CDN option. No
+                            build tools required.</p>
+
+                        <div class="glass p-8 space-y-6">
+                            <h3 class="text-xl font-bold text-slate-200">CDN Options</h3>
+                            <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
+                                <pre class="text-emerald-400 text-sm overflow-x-auto"><code>&lt;!-- Option A: Production version via CDN --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;
+
+&lt;!-- Option B: Historical version via CDN (advised) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;
+
+&lt;!-- Option C: Production --&gt;
+&lt;script src="https://core.sbs/coremoji.js"&gt;&lt;/script&gt;</code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <nav
+                        class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 no-underline">
+                        <a href="#quick-start"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Quick
+                            Start</a>
+                        <a href="#attributes"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Attributes</a>
+                        <a href="#referencing"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Referencing</a>
+                        <a href="#formatting"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Formatting</a>
+                        <a href="#hooks"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Lifecycle
+                            Hooks</a>
+                        <a href="#helpers"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Helper
+                            API</a>
+                        <a href="#expert"
+                            class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-primary-light transition-colors no-underline">Expert
+                            Mode</a>
+                    </nav>
+
+                    <!-- QUICK START -->
+                    <section id="quick-start" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary text-2xl font-black">01</span>
+                            Quick Start
+                        </h2>
+                        <p class="text-xl text-slate-300 leading-relaxed max-w-3xl">coremoji.js is dependency-free. Just
+                            import the script and start defining pockets of logic in your HTML.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-6">
+                                <h3 class="text-xl font-bold text-slate-200">1. Define a Template</h3>
+                                <p class="text-slate-400">Templates and data live inside a hidden <code>cr-data</code>
+                                    section.</p>
+                                <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
+                                    <pre class="text-emerald-400 overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;"&gt;
+  &lt;template name="users"&gt;
+    &lt;div class="user-card"&gt;
+      &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+      &lt;p&gt;{{rec:email}}&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+&lt;/section&gt;</code></pre>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h3 class="text-xl font-bold text-slate-200">2. Create a Pocket</h3>
+                                <p class="text-slate-400">Pockets are insertion points that fetch their own data.</p>
+                                <div class="bg-black p-6 rounded-2xl border border-white/10 shadow-inner">
+                                    <pre class="text-emerald-400 overflow-x-auto"><code>&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-core-source-users="api/v1/users"&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ATTRIBUTES REFERENCE -->
+                    <section id="attributes" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center text-accent text-2xl font-black">02</span>
+                            Attributes Reference
+                        </h2>
+                        <div class="glass overflow-hidden border border-white/10">
+                            <table class="w-full text-left">
+                                <thead
+                                    class="bg-white/5 border-b border-white/10 text-xs font-bold uppercase tracking-widest text-slate-500">
+                                    <tr>
+                                        <th class="px-8 py-6">Attribute</th>
+                                        <th class="px-8 py-6">Target</th>
+                                        <th class="px-8 py-6">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm divide-y divide-white/5">
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-core-templates</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Element /
+                                            Anchor</td>
+                                        <td class="px-8 py-6 text-slate-300">Comma-separated list of templates to
+                                            render.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-core-source</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Element /
+                                            Clone</td>
+                                        <td class="px-8 py-6 text-slate-300">URL or JSON string for the primary data
+                                            source.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-core-data</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Clone /
+                                            Silent</td>
+                                        <td class="px-8 py-6 text-slate-300">A custom reference name for the fetched
+                                            data.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-8 py-6 font-mono text-primary-light">data-[name]-core-source</td>
+                                        <td class="px-8 py-6 text-slate-400 uppercase text-[10px] font-bold">Element /
+                                            Anchor</td>
+                                        <td class="px-8 py-6 text-slate-300">A specific data source for a named template
+                                            in the stack.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- DATA REFERENCING -->
+                    <section id="referencing" class="space-y-8 scroll-mt-32">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                            <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                                <span
+                                    class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-2xl font-black">03</span>
+                                Data Referencing
+                            </h2>
+                            <code
+                                class="text-xs bg-black/40 px-4 py-2 rounded-lg border border-white/5 font-mono text-slate-500 block overflow-x-auto whitespace-nowrap">Syntax: {{type:ref:format:clue}}</code>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="glass p-8 space-y-6">
+                                <h3 class="text-xl font-bold text-white uppercase tracking-tighter">Token Types</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-4">
+                                        <div
+                                            class="bg-primary/10 text-primary-light px-2 py-1 rounded font-mono text-xs">
+                                            rec:</div>
+                                        <p class="text-sm text-slate-400 italic">Reference to a member of the current
+                                            record being cloned.</p>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div class="bg-accent/10 text-accent px-2 py-1 rounded font-mono text-xs">aug:
+                                        </div>
+                                        <p class="text-sm text-slate-400 italic">Augmented runtime values (index, count,
+                                            custom strings).</p>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <div class="bg-white/10 text-white px-2 py-1 rounded font-mono text-xs">data:
+                                        </div>
+                                        <p class="text-sm text-slate-400 italic">Global reference to any cached data
+                                            source in the registry.</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="glass p-8 space-y-6 text-white font-mono text-sm overflow-x-auto">
+                                <h3 class="text-xl font-bold uppercase tracking-tighter">Advanced Digging</h3>
+                                <div class="space-y-3">
+                                    <p class="text-slate-500">// Deep object traversal</p>
+                                    <p class="text-emerald-400">{{rec:customer.shipping.address.city}}</p>
+                                    <p class="text-slate-500">// Array index and listing</p>
+                                    <p class="text-emerald-400">{{rec:tags.1}} <span class="text-slate-600">// Index
+                                            1</span></p>
+                                    Formatting & Piping
+                                    </h2>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <div class="glass p-8 space-y-4">
+                                            <h4
+                                                class="font-bold text-white uppercase text-xs tracking-widest text-primary-light">
+                                                Standard</h4>
+                                            <ul class="text-sm text-slate-400 space-y-2 font-mono">
+                                                <li>money:$</li>
+                                                <li>date / date-time</li>
+                                                <li>upper / lower</li>
+                                                <li>upperfirst</li>
+                                                <li>truncate:n</li>
+                                            </ul>
+                                        </div>
+                                        <div class="glass p-8 space-y-4">
+                                            <h4
+                                                class="font-bold text-white uppercase text-xs tracking-widest text-accent">
+                                                Structural</h4>
+                                            <ul class="text-sm text-slate-400 space-y-2 font-mono">
+                                                <li>core_pk_cloner:name</li>
+                                                <li>core_pk_attr:attrName</li>
+                                                <li>linkify / urllink</li>
+                                                <li>emaillink</li>
+                                                <li>imgsrc</li>
+                                            </ul>
+                                        </div>
+                                        <div class="glass p-8 space-y-4">
+                                            <h4
+                                                class="font-bold text-white uppercase text-xs tracking-widest text-purple-400">
+                                                Piping (Expert)</h4>
+                                            <p class="text-xs text-slate-400">Chain multiple formats using the pipe
+                                                <code>|</code>
+                                                delimiter.
+                                            </p>
+                                            <div
+                                                class="bg-black/60 p-4 rounded-xl border border-white/10 font-mono text-[10px] text-emerald-400 overflow-x-auto whitespace-nowrap">
+                                                {{rec:detail:linkify|wrap:&bull;| }}
+                                            </div>
+                                        </div>
+                                    </div>
+                    </section>
+
+                    <!-- LIFECYCLE HOOKS -->
+                    <section id="hooks" class="space-y-8 scroll-mt-32">
+                        <h2 class="text-4xl font-bold text-white flex items-center gap-4">
+                            <span
+                                class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-2xl font-black">05</span>
+                            Lifecycle Hooks
+                        </h2>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <p class="text-slate-400 italic leading-relaxed">The <code>core.ud</code> (User Defined)
+                                    registry allows you to intercept every stage of the orchestration.</p>
+                                <div class="glass p-8 font-mono text-sm space-y-4">
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.init()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Bootstrapping</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.soc()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Start of Call</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.preflight()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Fetch Request</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.postflight()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Data Receipt</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.prepaint()</span>
+                                        <span class="text-slate-500 font-sans text-xs">Pre-rendering</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-white/5 pb-2">
+                                        <span class="text-rose-300">core.ud.pk_eol()</span>
+                                        <span class="text-slate-500 font-sans text-xs">End of Call</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass p-8 space-y-6">
+                                <h4 class="font-bold text-white uppercase text-xs tracking-widest">Augmentation Hooks
+                                </h4>
+                                <div class="space-y-6">
+                                    <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
+                                        <code
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.cloneValue(record, args)</code>
+                                        <p class="text-xs text-slate-400 leading-relaxed">Invoked by
+                                            <code>{{aug:value}}</code> during cloning to return custom dynamic values
+                                            based on the record.
+                                        </p>
+                                    </div>
+                                    <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
+                                        <code
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.cloneString(record, args)</code>
+                                        <p class="text-xs text-slate-400 leading-relaxed">Invoked by
+                                            <code>{{aug:string}}</code>. Allows raw manipulation of the template string
+                                            before it's injected.
+                                        </p>
+                                    </div>
+                                    <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
+                                        <code
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.getTemplate(name, templateStr)</code>
+                                        <p class="text-xs text-slate-400 leading-relaxed">Modify fetched templates
+
+                                            &lt;!-- defining data/template silent request --&gt;
+                                            &lt;button class="nav-link" data-target="core_be_getData"
+                                            data-core="silent"
+                                            data-core-source-silent="https://dummyjson.com/products?limit=1"&gt;
+                                            Silent Data&lt;/button&gt;
+                                            &lt;button class="nav-link" data-target="core_be_getTemplate"
+                                            data-core="author"
+                                            data-core-source-author="/html/author.html"&gt;
+                                            Silent Template&lt;/button&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+                    Helper API (core.hf)
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                            <code class="text-xs text-emerald-400">copy(text)</code>
+                            <p class="text-[11px] text-slate-500">Copy to clipboard with invisible textarea
+                                fallback.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                            <code class="text-xs text-emerald-400">uuid()</code>
+                            <p class="text-[11px] text-slate-500">Generate a compliant v4-like unique identifier.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                            <code class="text-xs text-emerald-400">sortObj(arr, key)</code>
+                            <p class="text-[11px] text-slate-500">High-performance object array sorting (ASC/DESC).
+                            </p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                            <code class="text-xs text-emerald-400">digData(obj, ref)</code>
+                            <p class="text-[11px] text-slate-500">The engine's internal recursive digging logic.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                            <code class="text-xs text-emerald-400">date(str, format)</code>
+                            <p class="text-[11px] text-slate-500">Versatile date formatter with TS/ISO/PERF tokens.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-2">
+                        </div>
+                    </div>
+    </section>
+
+    <!-- EXPERT MODE -->
+    <!-- EXPERT MODE -->
+    <section id="expert" class="space-y-8 scroll-mt-32">
+        <div
+            class="p-6 md:p-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl md:rounded-[3rem] border border-white/10 relative overflow-hidden group">
+            <div
+                class="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 blur-[100px] rounded-full group-hover:scale-150 transition-transform duration-1000">
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-8 relative z-10">Expert Mode: Silent Orchestration
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 relative z-10">
+                <div class="space-y-6">
+                    <p class="text-base md:text-lg text-slate-300 leading-relaxed">Static anchor tags can trigger
+                        background syncs without any UI flicker or state transition.</p>
+                    <div
+                        class="bg-black/80 p-6 md:p-8 rounded-3xl border border-white/10 font-mono text-xs md:text-sm space-y-4 overflow-x-auto">
+                        <p class="text-slate-500">// Silent Data Fetching</p>
+                        <pre class="text-primary-light overflow-x-auto"><code>&lt;a href="#" 
+   target="core_be_getData" 
+   data-core-data="globalStore" 
+   data-core-source="api/data"&gt;
+   Background Sync
+&lt;/a&gt;</code></pre>
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4 md:gap-6">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-white">
+                            1</div>
+                        <div>
+                            <h4
+                                class="font-bold text-white mb-2 underline decoration-primary decoration-4 underline-offset-4">
+                                Internal Memory Access</h4>
+                            <p class="text-sm text-slate-400">Access `core.be.fetchLogFIFO` to view
+                                every network request's history and configuration.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 md:gap-6">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-white">
+                            2</div>
+                        <div>
+                            <h4
+                                class="font-bold text-white mb-2 underline decoration-accent decoration-4 underline-offset-4">
+                                Direct Registry Storage</h4>
+                            <p class="text-sm text-slate-400">Manually push data to specific storage
+                                layers (DOM, dataset, or session) via `core.cr.setData`.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs font-bold uppercase tracking-widest gap-4 text-center md:text-left">
+        <p>&copy; 2025 coremoji.js Development Team // Licensed MIT</p>
+        <div class="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
+            <a href="docs.html"
+                class="text-primary-light hover:text-white transition-colors no-underline">Full API Documentation</a>
+            <a href="#" target="#main" data-core-templates="cheatsheet"
+                class="text-primary-light hover:text-white transition-colors no-underline">Quick
+                Cheatsheet</a>
+            <a href="#main" class="text-slate-500 hover:text-white transition-colors no-underline">Back
+                to Dashboard &uarr;</a>
+        </div>
+    </footer>
+    </div>
+    </div>
+    </template>
+
+
+    <!-- CHEATSHEET TEMPLATE (Renders core.txt equivalent) -->
+    <template name="cheatsheet">
+        <div class="container mx-auto px-4 py-16 md:py-32 text-white">
+            <div class="space-y-12">
+                <header>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Core Cheatsheet</h1>
+                    <p class="text-xl text-slate-400 leading-relaxed">Quick logic snippets and implementation
+                        patterns for power users.</p>
+                </header>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Navigation Patterns -->
+                    <div class="glass p-8 space-y-6">
+                        <h3 class="text-2xl font-bold flex items-center gap-3">
+                            <span
+                                class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary-light">01</span>
+                            Navigation Links
+                        </h3>
+                        <div class="bg-black p-4 rounded-xl font-mono text-sm border border-white/5">
+                            <pre class="text-blue-300 overflow-x-auto"><code>&lt;button data-core="other" 
+   data-target="#main"&gt;Navigate&lt;/button&gt;</code></pre>
+                        </div>
+                        <p class="text-sm text-slate-400 italic">Defining a specific viewhost (target) and template
+                            chain.</p>
+                    </div>
+
+                    <!-- Data Formatting -->
+                    <div class="glass p-8 space-y-6">
+                        <h3 class="text-2xl font-bold flex items-center gap-3">
+                            <span
+                                class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center text-accent">02</span>
+                            Process Formatting
+                        </h3>
+                        <div class="space-y-3 font-mono text-sm bg-black p-4 rounded-xl border border-white/5">
+                            <p class="text-emerald-400">{{rec:email:emaillink:class="link"}}</p>
+                            <p class="text-emerald-400">{{rec:thumbnail:imgsrc:class="img"}}</p>
+                            <p class="text-emerald-400">{{rec:price:money:$}}</p>
+                            <p class="text-emerald-400">{{rec:name:upper}}</p>
+                        </div>
+                        <p class="text-sm text-slate-400 italic">Formatting tokens: money, date, upper, lower,
+                            linkify, imgsrc.</p>
+                    </div>
+
+                    <!-- Advanced Logic -->
+                    <div class="glass p-8 space-y-6 lg:col-span-2">
+                        <h3 class="text-2xl font-bold flex items-center gap-3">
+                            <span
+                                class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center text-pink-400">03</span>
+                            Advanced Logic & Lifecycle
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <h4 class="text-white font-bold">JavaScript Hooks</h4>
+                                <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
+                                    <pre class="text-rose-300 overflow-x-auto"><code>core.ud.preflight = (ref, src, type) => {
+  return {dataRef: ref, dataSrc: src};
+}
+
+core.ud.postflight = (ref, obj, type) => {
+  return obj;
+}</code></pre>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-white font-bold">Recursive Cloning</h4>
+                                <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
+                                    <pre class="text-purple-300 overflow-x-auto"><code>// Recursive cloner pattern
+{{rec:items:core_pk_cloner:colors}}</code></pre>
+                                </div>
+                                <p class="text-xs text-slate-500 italic">Allows for infinite nesting of data
+                                    structures (e.g. tree views, threaded comments).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- RECURSIVE TEMPLATE -->
+    <template name="deep">
+        <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="w-full">
+                    <div class="pt-8 sm:pt-0">
+                        <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-white leading-tight">Recursive Logic
+                            Chains</h1>
+                        <p class="text-slate-400 mb-8">Infinite nesting with recursive data patterns</p>
+                        <p class="text-slate-500 mb-8">Create infinitely nested data structures with recursive templates
+                            and logic chains. Perfect for tree views, nested comments, hierarchical data displays like
+                            org charts, file explorers, nested menus, collapsible content, interactive dashboards,
+                            dynamic content hierarchies, nested UI components, complex nested data visualizations, and
+                            deeply nested logical expressions.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="glass p-12">
+                <div class="core-clone space-y-4" data-core-data="pop"
+                    data-core-source="https://dummyjson.com/products?limit=1">
+                    <div class="p-6 rounded-2xl bg-white/5 border-l-4 border-primary text-slate-300">
+                        <span class="font-bold text-white">{{rec:name:upper}}</span> paid <span
+                            class="text-emerald-400">{{rec:paid:money:$}}</span> on <span
+                            class="italic">{{rec:ts:date:date}}</span> for a <span
+                            class="text-amber-400 font-bold">{{rec:stuff.food}}</span>.
+                        <div class="mt-6 border-t border-white/5 pt-6 text-slate-400">
+                            {{rec:more:core_pk_cloner:colors}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template name="colors">
+        <div class="mb-6 pl-8 border-l border-white/10 group transition-all hover:border-primary/50 text-white">
+            <div class="flex items-center gap-4 mb-2">
+                <span class="text-xs font-mono text-slate-500">0{{aug:index}}</span>
+                <strong class="text-lg group-hover:text-primary-light transition-colors">{{rec:color}}</strong>
+            </div>
+            <div class="space-y-2">
+                <p class="text-sm text-slate-400">{{rec:hex}}</p>
+                <p class="text-sm text-slate-400">{{rec:rgb}}</p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Docs Template -->
+    <template name="docs">
+        <div class="container mt-12 sm:mt-20 mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <header class="mb-20 text-left">
+                <h1
+                    class="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 font-outfit bg-gradient-to-r from-primary via-accent to-accent-light bg-clip-text text-transparent leading-tight">
+                    coremoji.js Documentation
+                </h1>
+                <p class="text-xl sm:text-2xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed mb-12">
+                    A lightweight, client-side rendering and state management library designed to facilitate the
+                    decoupling of data, templates, and DOM logic through modern asynchronous patterns.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                    <div class="glass p-6 text-center">
+                        <div class="text-3xl mb-3">⚡</div>
+                        <h3 class="font-bold text-white mb-2">Shadow-less Rendering</h3>
+                        <p class="text-slate-400 text-sm">No virtual DOM overhead</p>
+                    </div>
+                    <div class="glass p-6 text-center">
+                        <div class="text-3xl mb-3">🔄</div>
+                        <h3 class="font-bold text-white mb-2">Async-Native</h3>
+                        <p class="text-slate-400 text-sm">Promise-based architecture</p>
+                    </div>
+                    <div class="glass p-6 text-center">
+                        <div class="text-3xl mb-3">📦</div>
+                        <h3 class="font-bold text-white mb-2">Pocket-based</h3>
+                        <p class="text-slate-400 text-sm">Component architecture</p>
+                    </div>
+                    <div class="glass p-6 text-center">
+                        <div class="text-3xl mb-3">🔧</div>
+                        <h3 class="font-bold text-white mb-2">Zero Dependencies</h3>
+                        <p class="text-slate-400 text-sm">Vanilla JavaScript only</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Technical Overview -->
+            <section id="technical-overview" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Technical Overview</h2>
+
+                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                        coremoji.js operates on a lifecycle-driven approach, identifying specific "pockets" in the DOM and
+                        populating them with hydrated templates. It provides a robust suite of utility functions for
+                        data validation, formatting, and backend synchronization.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="glass p-6 bg-primary/5 border-primary/20">
+                            <h3 class="text-xl font-bold mb-4 text-primary">Key Architectural Pillars</h3>
+                            <ul class="space-y-3 text-slate-300">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-primary mt-1">•</span>
+                                    <div>
+                                        <strong class="text-white">Pockets (`core-pocket`):</strong> Container elements
+                                        that act as dynamic insertion points
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-primary mt-1">•</span>
+                                    <div>
+                                        <strong class="text-white">Clones (`core-clone`):</strong> Template structures
+                                        duplicated for each dataset record
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-primary mt-1">•</span>
+                                    <div>
+                                        <strong class="text-white">Registry (`core.cr`):</strong> Centralized storage
+                                        with multiple persistence levels
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-primary mt-1">•</span>
+                                    <div>
+                                        <strong class="text-white">Async Lifecycle:</strong> Linear promise-based flow
+                                        ensuring data integrity
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass p-6 bg-accent/5 border-accent/20">
+                            <h3 class="text-xl font-bold mb-4 text-accent">Lifecycle Flow</h3>
+                            <div class="space-y-3 font-mono text-sm">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-accent/20 text-accent px-3 py-1 rounded">1</span>
+                                    <code class="text-accent">soc()</code> - Start of Call
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-accent/20 text-accent px-3 py-1 rounded">2</span>
+                                    <code class="text-accent">getTemplate()</code> - Batch template requests
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-accent/20 text-accent px-3 py-1 rounded">3</span>
+                                    <code class="text-accent">getData()</code> - Batch data requests
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-accent/20 text-accent px-3 py-1 rounded">4</span>
+                                    <code class="text-accent">eoc()</code> - End of Call (cleanup)
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start -->
+            <section id="quick-start" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-6 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Quick Start</h2>
+
+                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                        coremoji.js works with 3 simple concepts: <strong class="text-primary">Pockets</strong> (DOM containers), 
+                        <strong class="text-accent">Templates</strong> (HTML snippets), and <strong class="text-primary-light">Data</strong> (what fills them).
+                        No build step, no npm, just add a CDN link and start building.
+                    </p>
+
+                    <!-- Step 1: Add CDN -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">1</span>
+                            Add the CDN to your HTML
+                        </h3>
+                        <div class="glass p-6 bg-dark-darker/50 border-white/10">
+                            <p class="text-slate-400 mb-3 text-sm">Paste this in your HTML <code class="text-primary">&lt;head&gt;</code>:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code class="text-green-400">&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Create Pocket -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">2</span>
+                            Create a Pocket
+                        </h3>
+                        <div class="glass p-6 bg-dark-darker/50 border-white/10">
+                            <p class="text-slate-400 mb-3 text-sm">Add a pocket where your content will appear:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code class="text-blue-400">&lt;div class="core-pocket" data-core-templates="greeting"&gt;&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Define Template -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="bg-primary/20 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm font-bold">3</span>
+                            Define a Template
+                        </h3>
+                        <div class="glass p-6 bg-dark-darker/50 border-white/10">
+                            <p class="text-slate-400 mb-3 text-sm">Create a template and bind your data:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code class="text-purple-400">&lt;template name="greeting"&gt;
+    &lt;h1&gt;Hello, {{data:name}}!&lt;/h1&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    core.cr.set('greeting', { name: 'World' });
+    core.init();
+&lt;/script&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Working Example -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                            <span class="text-2xl mr-2">✨</span> Complete Working Example
+                        </h3>
+                        <div class="glass p-6 bg-primary/5 border-primary/20">
+                            <p class="text-slate-300 mb-4 text-sm">Copy this entire file and open it in your browser:</p>
+                            <pre class="bg-black/50 border border-white/10 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- This is where content appears --&gt;
+    &lt;div class="core-pocket" data-core-templates="greeting"&gt;&lt;/div&gt;
+
+    &lt;!-- Hidden template definition --&gt;
+    &lt;section id="cr-data" style="display:none;"&gt;
+        &lt;template name="greeting"&gt;
+            &lt;h1 style="color: #10b981"&gt;Hello, {{data:name}}! 👋&lt;/h1&gt;
+            &lt;p&gt;Welcome to coremoji.js&lt;/p&gt;
+        &lt;/template&gt;
+    &lt;/section&gt;
+
+    &lt;script&gt;
+        // Set your data
+        core.cr.set('greeting', { name: 'Developer' });
+        
+        // Initialize
+        core.init();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="glass p-6 bg-accent/5 border-accent/20">
+                        <h4 class="text-lg font-bold text-accent mb-2">🎉 That's it!</h4>
+                        <p class="text-slate-300">You've just built your first coremoji.js app. The framework automatically renders templates, binds data, and handles updates. No virtual DOM, no build tools, no complexity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Installation</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-white">CDN (Recommended)</h3>
+                            <div class="glass p-6">
+                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;</code></pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-white">Local</h3>
+                            <div class="glass p-6">
+                                <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;script src="coremoji.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="core.css"&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass p-6 bg-primary/5 border-primary/20 mt-8">
+                        <p class="text-slate-300">After including the script, call <code class="text-primary">core.init()</code> to initialize the engine.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CLI Tools Section (Collapsible) -->
+            <section id="cli-tools" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <details class="group">
+                        <summary class="cursor-pointer list-none">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-2 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent flex items-center justify-between">
+                                <span>CLI Tools & Ecosystem</span>
+                                <span class="text-sm font-normal text-slate-400 bg-dark-darker/50 px-3 py-1 rounded-full border border-white/10">Advanced</span>
+                            </h2>
+                            <p class="text-lg text-slate-400 mt-2">Optional development toolkit for power users</p>
+                            <div class="flex items-center gap-2 mt-4 text-slate-500 text-sm">
+                                <span>Click to expand</span>
+                                <svg class="w-4 h-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </summary>
+
+                        <div class="mt-8 pt-8 border-t border-white/10">
+                            <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                                coremoji.js comes with a complete development toolkit to accelerate your workflow. From project scaffolding to component generation and hot-reload development servers - everything you need to build modern web applications.
+                            </p>
+
+                            <!-- Install CLI -->
+                            <div class="glass p-6 bg-primary/5 border-primary/20 mb-8">
+                                <h3 class="text-xl font-bold mb-4 text-primary">Installation</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-3 text-primary">Install via npm:</h4>
+                                        <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                            <code class="text-green-400">npm install -g @core.sbs/create-core-app</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- create-core-app -->
+                            <div class="mb-12">
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">🚀</span>
+                                    create-core-app
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">Scaffold new coremoji.js projects with zero configuration. Interactive setup with beautiful welcome pages and auto-starting dev server.</p>
+
+                                <div class="glass p-6 bg-primary/5 border-primary/20 mb-6">
+                                    <h4 class="text-lg font-bold mb-4 text-primary">Quick Start</h4>
+                                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                        <code class="text-green-400">create-core-app my-app</code>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="glass p-6">
+                                        <h4 class="text-lg font-bold mb-4 text-primary">Features</h4>
+                                        <ul class="space-y-2 text-slate-300">
+                                            <li>• Interactive project setup</li>
+                                            <li>• Auto-starts dev server with hot reload</li>
+                                            <li>• Beautiful welcome page with demos</li>
+                                            <li>• Component loader included</li>
+                                        </ul>
+                                    </div>
+                                    <div class="glass p-6">
+                                        <h4 class="text-lg font-bold mb-4 text-accent">What You Get</h4>
+                                        <ul class="space-y-2 text-slate-300">
+                                            <li>• Live framework metrics</li>
+                                            <li>• Interactive examples</li>
+                                            <li>• Pre-configured setup</li>
+                                            <li>• Getting started guide</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- core-gen -->
+                            <div class="mb-12">
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">🎨</span>
+                                    core-gen
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">Generate pre-built, production-ready components. 23 component types covering forms, tables, modals, navigation, and more.</p>
+
+                                <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
+                                    <h4 class="text-lg font-bold mb-4 text-accent">Usage</h4>
+                                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto space-y-2">
+                                        <div><code class="text-green-400">core-gen card --pricing --name=pro</code></div>
+                                        <div><code class="text-green-400">core-gen form --validation --name=contact</code></div>
+                                        <div><code class="text-green-400">core-gen navbar --name=main</code></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- core-dev -->
+                            <div class="mb-12">
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">⚡</span>
+                                    core-dev
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">Development server with hot reload. Watch files and automatically refresh your browser when changes are detected.</p>
+
+                                <div class="glass p-6 bg-accent/5 border-accent/20 mb-6">
+                                    <h4 class="text-lg font-bold mb-4 text-accent">Start Dev Server</h4>
+                                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                                        <code class="text-green-400">core-dev</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- VS Code Extension -->
+                            <div>
+                                <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                    <span class="text-3xl">💻</span>
+                                    VS Code Extension
+                                </h3>
+                                <p class="text-lg text-slate-300 mb-6">82 code snippets for HTML and JavaScript. Accelerate development with intelligent autocomplete.</p>
+
+                                <div class="glass p-6 bg-primary/5 border-primary/20">
+                                    <h4 class="text-lg font-bold mb-4 text-primary">Download</h4>
+                                    <p class="text-slate-300">Available from <a href="https://github.com/Sitezip/core.sbs/releases" class="text-primary-light hover:text-primary underline" target="_blank">GitHub Releases</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- Subsystem Documentation -->
+            <section id="subsystems" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Subsystem Documentation</h2>
+
+                    <!-- Backend Subsystem -->
+                    <div class="mb-12">
+                        <h3 class="text-2xl font-bold mb-6 text-white">1. Backend (`core.be`)</h3>
+                        <p class="text-lg text-slate-300 mb-6">Handles all external I/O using the Fetch API with
+                            built-in promise tracking to prevent race conditions.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-primary">Core Methods</h4>
+                                <ul class="space-y-3 text-slate-300">
+                                    <li><code class="text-primary">getData(dataRef, dataSrc, settings)</code> -
+                                        Retrieves JSON data</li>
+                                    <li><code class="text-primary">getTemplate(dataRef, dataSrc, settings)</code> -
+                                        Retrieves HTML templates</li>
+                                    <li><code class="text-primary">awaitAll()</code> - Global synchronization method
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-accent">Features</h4>
+                                <ul class="space-y-3 text-slate-300">
+                                    <li>• TTL-based caching for data and templates</li>
+                                    <li>• Promise tracking to prevent race conditions</li>
+                                    <li>• Automatic request batching</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registry Subsystem -->
+                    <div class="mb-12">
+                        <h3 class="text-2xl font-bold mb-6 text-white">2. Registry (`core.cr`)</h3>
+                        <p class="text-lg text-slate-300 mb-6">Manages the internal state of the application with
+                            multiple storage tiers.</p>
+
+                        <div class="glass p-6 mb-6">
+                            <h4 class="text-lg font-bold mb-4 text-primary">Storage Tiers</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-primary/20 text-primary px-3 py-1 rounded font-mono">0</span>
+                                    <span class="text-slate-300">Memory-only (stored as DOM properties)</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-primary/20 text-primary px-3 py-1 rounded font-mono">1</span>
+                                    <span class="text-slate-300">DOM-persistent (stored in data-* attributes)</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-primary/20 text-primary px-3 py-1 rounded font-mono">2</span>
+                                    <span class="text-slate-300">Session-persistent (stored in sessionStorage)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-primary">Core Methods</h4>
+                                <ul class="space-y-3 text-slate-300">
+                                    <li><code class="text-primary">setData(name, data, elem, storageId)</code> - Store
+                                        data</li>
+                                    <li><code class="text-primary">getTemplate(name)</code> - Retrieve and hydrate
+                                        template</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pocket Lifecycle -->
+                    <div class="mb-12">
+                        <h3 class="text-2xl font-bold mb-6 text-white">3. Pocket Lifecycle (`core.pk`)</h3>
+                        <p class="text-lg text-slate-300 mb-6">The core engine responsible for DOM manipulation and
+                            rendering.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-primary">Lifecycle Methods</h4>
+                                <ul class="space-y-3 text-slate-300">
+                                    <li><code class="text-primary">soc()</code> - Start of Call, awaits backend requests
+                                    </li>
+                                    <li><code class="text-primary">getTemplate()</code> - Batches template requests</li>
+                                    <li><code class="text-primary">addTemplate()</code> - Injects static templates</li>
+                                    <li><code class="text-primary">getData()</code> - Batches data requests</li>
+                                    <li><code class="text-primary">addData()</code> - Performs cloning and hydration
+                                    </li>
+                                    <li><code class="text-primary">eoc()</code> - End of Call, cleanup and formatting
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-accent">Template Directives</h4>
+                                <div class="space-y-2 text-slate-300">
+                                    <p><strong class="text-white">Double Curly Syntax:</strong></p>
+                                    <code
+                                        class="text-primary block bg-dark-darker/50 p-2 rounded overflow-x-auto whitespace-nowrap">{{type:source:reference:format}}</code>
+                                    <div class="mt-3 space-y-1 text-sm">
+                                        <div><code class="text-accent">data:</code> - Global registry lookup</div>
+                                        <div><code class="text-accent">rec:</code> - Current record lookup</div>
+                                        <div><code class="text-accent">aug:</code> - Augmented metadata (index, count)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Validation & Scrubbing -->
+                    <div class="mb-12">
+                        <h3 class="text-2xl font-bold mb-6 text-white">4. Validation & Scrubbing (`core.sv`)</h3>
+                        <p class="text-lg text-slate-300 mb-6">Comprehensive validation engine for data sanitization and
+                            formatting.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-primary">Core Methods</h4>
+                                <ul class="space-y-3 text-slate-300">
+                                    <li><code class="text-primary">scrub(scrubArr)</code> - Validate input objects</li>
+                                    <li><code class="text-primary">format(value, formatStr)</code> - Transform data</li>
+                                </ul>
+                            </div>
+                            <div class="glass p-6">
+                                <h4 class="text-lg font-bold mb-4 text-accent">Validation Rules</h4>
+                                <ul class="space-y-2 text-slate-300 text-sm">
+                                    <li>• <code class="text-accent">req</code> - Required field</li>
+                                    <li>• <code class="text-accent">email</code> - Email validation</li>
+                                    <li>• <code class="text-accent">url</code> - URL validation</li>
+                                    <li>• <code class="text-accent">min/max</code> - Length/range validation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Helper Functions -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-white">5. Helper Functions (`core.hf`)</h3>
+                        <p class="text-lg text-slate-300 mb-6">Utility methods for common operations.</p>
+
+                        <div class="glass p-6">
+                            <ul class="space-y-3 text-slate-300">
+                                <li><code class="text-primary">digData(object, path)</code> - Deep-seek values in nested
+                                    JSON</li>
+                                <li><code class="text-primary">date(dateStr, format)</code> - Robust date formatting
+                                </li>
+                                <li><code class="text-primary">hydrateByClass()</code> - Mass-hydration by CSS class
+                                </li>
+                                <li><code class="text-primary">formatByClass()</code> - Mass-formatting by CSS class
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuration & Hooks -->
+            <section id="configuration" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Configuration & Hooks</h2>
+
+                    <p class="text-lg text-slate-300 mb-8">Extend the engine's behavior by defining hooks in the <code
+                            class="text-primary">core.ud</code> (User Defined) namespace.</p>
+
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Hook</th>
+                                    <th class="text-left">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="text-primary">soc()</code></td>
+                                    <td>Executed before the rendering lifecycle begins</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">eoc()</code></td>
+                                    <td>Executed after rendering lifecycle and DOM updates are complete</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">preflight()</code></td>
+                                    <td>Intercepts backend requests before they are dispatched</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">postflight()</code></td>
+                                    <td>Processes backend responses before they are committed to the registry</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">prepaint()</code></td>
+                                    <td>Executed before a specific template or data block is injected</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">postpaint()</code></td>
+                                    <td>Executed after injection and cloner execution</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass p-6">
+                        <h3 class="text-xl font-bold mb-4 text-white">Global Settings</h3>
+                        <ul class="space-y-3 text-slate-300">
+                            <li><code class="text-primary">core.useDebugger</code> - Enable verbose console logging</li>
+                            <li><code class="text-primary">core.useRouting</code> - Enable URL hash-based state
+                                persistence</li>
+                            <li><code class="text-primary">core.baseUrl</code> - Define root path for dynamic module
+                                imports</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass p-6">
+                        <h3 class="text-xl font-bold mb-4 text-white">Example Configuration</h3>
+                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto text-sm"><code>core.ud.init = () => {
+    core.useDebugger = window.location.hostname === 'localhost';
+    core.useRouting = true;
+    core.baseUrl = '/modules';
+};</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="data-referencing" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Data Referencing</h2>
+
+                    <div class="glass p-6 mb-8 bg-primary/5 border-primary/20">
+                        <p class="text-lg text-slate-300 mb-2"><strong class="text-primary">Syntax:</strong></p>
+                        <code
+                            class="text-xl text-primary font-mono bg-dark-darker/50 px-4 py-2 rounded-lg block overflow-x-auto whitespace-nowrap">{{type:object-member:format:clue}}</code>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-6 text-white">Common Examples</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Syntax</th>
+                                    <th class="text-left">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:name}}</code></td>
+                                    <td>Simple property access</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{data:userprofile:name}}</code></td>
+                                    <td>Global registry lookup</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:balance:money:$}}</code></td>
+                                    <td>Currency formatting with dollar sign</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:status:upper}}</code></td>
+                                    <td>Uppercase transformation</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:email:emaillink}}</code></td>
+                                    <td>Email link generation</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:url:urllink}}</code></td>
+                                    <td>URL link generation</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:image:imgsrc}}</code></td>
+                                    <td>Image source attribute</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:customer.address.city}}</code></td>
+                                    <td>Nested property access</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{rec:items:core_pk_cloner:item}}</code></td>
+                                    <td>Array cloning with template</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{aug:index}}</code></td>
+                                    <td>Current record index in clone loop</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">{{aug:count}}</code></td>
+                                    <td>Total number of records</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attributes Reference -->
+            <section id="attributes" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Attributes Reference</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Attribute</th>
+                                    <th class="text-left">Description</th>
+                                    <th class="text-left">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="text-primary">data-core-templates</code></td>
+                                    <td>Template names to load</td>
+                                    <td><code class="text-primary">data-core-templates="user,profile"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">data-core-source</code></td>
+                                    <td>Default data source URL</td>
+                                    <td><code class="text-primary">data-core-source="/api/user"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">data-core-source-[name]</code></td>
+                                    <td>Template-specific source</td>
+                                    <td><code class="text-primary">data-core-source-profile="/api/profile"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">data-core-data</code></td>
+                                    <td>Data reference for clones</td>
+                                    <td><code class="text-primary">data-core-data="users:posts"</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Reference -->
+            <section id="api-reference" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        API Reference</h2>
+
+                    <h3 class="text-2xl font-bold mb-6 text-white">Core Methods</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Method</th>
+                                    <th class="text-left">Description</th>
+                                    <th class="text-left">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="text-primary">core.init()</code></td>
+                                    <td>Initialize the engine</td>
+                                    <td><code class="text-primary">core.init()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">core.cr.setData(name, data)</code></td>
+                                    <td>Store data in registry</td>
+                                    <td><code class="text-primary">core.cr.setData('user', {name: 'John'})</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">core.cr.getData(name)</code></td>
+                                    <td>Retrieve data from registry</td>
+                                    <td><code class="text-primary">const user = core.cr.getData('user')</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">core.be.getData(ref, src)</code></td>
+                                    <td>Fetch data from URL</td>
+                                    <td><code class="text-primary">core.be.getData('users', '/api/users')</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code class="text-primary">core.be.awaitAll()</code></td>
+                                    <td>Wait for all requests to complete</td>
+                                    <td><code class="text-primary">await core.be.awaitAll()</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Considerations -->
+            <section id="security" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Security Considerations</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass p-6 bg-red-500/10 border-red-500/20">
+                            <h3 class="text-xl font-bold mb-4 text-red-400">Sanitization</h3>
+                            <p class="text-slate-300 mb-4">coremoji.js provides <code class="text-red-400">nohtml</code>
+                                and <code class="text-red-400">removehtml</code> scrubbers. Apply these to
+                                user-generated content before injection.</p>
+                            <pre
+                                class="bg-dark-darker/50 border border-red-500/20 p-4 rounded-lg overflow-x-auto text-sm"><code>{{rec:userInput:nohtml}}</code></pre>
+                        </div>
+
+                        <div class="glass p-6 bg-amber-500/10 border-amber-500/20">
+                            <h3 class="text-xl font-bold mb-4 text-amber-400">Data Exposure</h3>
+                            <p class="text-slate-300 mb-4">Storage ID <code class="text-amber-400">1</code> (Static)
+                                exposes data in the DOM. Use Storage ID <code class="text-amber-400">0</code> (DOM) for
+                                sensitive state data.</p>
+                            <pre
+                                class="bg-dark-darker/50 border border-amber-500/20 p-4 rounded-lg overflow-x-auto text-sm"><code>core.cr.setData('sensitive', data, elem, 0)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="examples" class="mb-20">
+                <div class="glass p-8 md:p-12">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-8 font-outfit bg-gradient-to-r from-primary-light to-accent bg-clip-text text-transparent">
+                        Examples</h2>
+
+                    <div class="space-y-12">
+                        <div class="glass p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Basic User Card</h3>
+                            <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="users">
+        &lt;div class="user-card">
+            &lt;h3>{{rec:name}}&lt;/h3>
+            &lt;p>{{rec:email}}&lt;/p>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="users" 
+     data-core-source-users="api/v1/users">
+&lt;/div></code></pre>
+                        </div>
+
+                        <div class="glass p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Product List with Formatting</h3>
+                            <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="productList">
+        &lt;div class="product">
+            &lt;h3>{{rec:title}}&lt;/h3>
+            &lt;p>{{rec:description}}&lt;/p>
+            &lt;div class="price">{{rec:price:money:$}}&lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="productList" 
+     data-core-source-productList="https://fakestoreapi.com/products">
+    Loading products...
+&lt;/div></code></pre>
+                        </div>
+
+                        <div class="glass p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Recursive Data Cloning</h3>
+                            <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="colors">
+        &lt;div class="color-item">
+            &lt;span>{{rec:name:upper}}&lt;/span>
+            &lt;span>{{rec:value}}&lt;/span>
+            &lt;div>{{rec:children:core_pk_cloner:colors}}&lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-clone" 
+     data-core-source="https://api.example.com/colors">
+    &lt;div class="color-item">
+        &lt;span>{{rec:name:upper}}&lt;/span>
+        &lt;span>{{rec:value}}&lt;/span>
+        &lt;div>{{rec:children:core_pk_cloner:colors}}&lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+                        </div>
+
+                        <div class="glass p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Advanced Data Formatting</h3>
+                            <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="transaction">
+        &lt;div class="transaction">
+            &lt;span class="user">{{rec:name:upper}}&lt;/span>
+            paid 
+            &lt;span class="amount">{{rec:paid:money:$}}&lt;/span>
+            on 
+            &lt;span class="date">{{rec:ts:date:date}}&lt;/span>
+            for 
+            &lt;span class="item">{{rec:stuff.food}}&lt;/span>
+            &lt;div class="details">
+                {{rec:more:core_pk_cloner:details}}
+            &lt;/div>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-clone" 
+     data-core-source="https://dummyjson.com/products?limit=1">
+    &lt;div class="transaction">
+        &lt;span class="user">{{rec:name:upper}}&lt;/span>
+        paid 
+        &lt;span class="amount">{{rec:paid:money:$}}&lt;/span>
+        on 
+        &lt;span class="date">{{rec:ts:date:date}}&lt;/span>
+        for 
+        &lt;span class="item">{{rec:stuff.food}}&lt;/span>
+        &lt;div class="details">
+            {{rec:more:core_pk_cloner:details}}
+        &lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+                        </div>
+
+                        <div class="glass p-6">
+                            <h3 class="text-2xl font-bold mb-6 text-white">Multiple Data Sources</h3>
+                            <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto"><code>&lt;section id="cr-data" style="display:none;">
+    &lt;template name="userProfile">
+        &lt;h2>{{rec:name}}&lt;/h2>
+        &lt;p>{{rec:email}}&lt;/p>
+        &lt;div class="orders">
+            {{rec:orders:core_pk_cloner:orderItem}}
+        &lt;/div>
+    &lt;/template>
+    
+    &lt;template name="orderItem">
+        &lt;div class="order">
+            &lt;span>{{rec:product}}&lt;/span>
+            &lt;span>{{rec:price:money:$}}&lt;/span>
+        &lt;/div>
+    &lt;/template>
+&lt;/section>
+
+&lt;div class="core-pocket" 
+     data-core-templates="userProfile" 
+     data-core-source-userProfile="api/v1/users/123"
+     data-core-source-orderItem="api/v1/orders">
+&lt;/div></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="glass p-6 bg-primary/5 border-primary/20 mt-8">
+                        <h4 class="text-lg font-bold text-primary mb-2">🚀 Try it yourself!</h4>
+                        <p class="text-slate-300">Copy these code examples into your HTML file and watch coremoji.js work
+                            its magic!</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+
+    <!-- LICENSE TEMPLATE -->
+    <template name="license">
+        <div class="container mx-auto px-4 py-32 text-white">
+            <div class="glass p-16 max-w-4xl mx-auto">
+                <h1 class="text-6xl font-extrabold mb-12">MIT License</h1>
+                <div class="space-y-6 text-lg text-slate-300 leading-relaxed font-mono">
+                    <p>Copyright (c) 2025 CORE_ORCHESTRATOR</p>
+                    <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+                        and associated documentation files (the "Software"), to deal in the Software without
+                        restriction, including without limitation the rights to use, copy, modify, merge, publish,
+                        distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom
+                        the Software is furnished to do so, subject to the following conditions:</p>
+                    <p>The above copyright notice and this permission notice shall be included in all copies or
+                        substantial portions of the Software.</p>
+                    <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+                        BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+                        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+                        DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+                        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                        SOFTWARE.</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ABOUT TEMPLATE -->
+    <template name="philosophy">
+        <div class="container mx-auto px-4 pt-24 sm:py-16 md:py-32 text-white">
+            <div class="glass p-6 md:p-16 space-y-12">
+                <header class="border-b border-white/10 pb-12">
+                    <span class="badge-premium mb-4 inline-block font-outfit">Technical Overview</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 font-outfit tracking-tight">How coremoji.js Works</h1>
+                    <p class="text-xl text-slate-400">coremoji.js is a high-performance JavaScript orchestration layer built on standard web technologies. It uses HTML attributes and native browser APIs to deliver reactive applications without virtual DOM overhead.</p>
+                </header>
+
+                <div class="space-y-12 text-slate-300">
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">HTML-First Architecture</h2>
+                        <p class="text-lg leading-relaxed">coremoji.js leverages standard HTML attributes as the API. No special syntax, no build step, no compilation. Just add data attributes to your existing HTML and coremoji.js handles the rest.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+&lt;div data-core-templates="userCard" data-core-source="/api/users"&gt;&lt;/div&gt;
+                            </code>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">Pocket-Based Component System</h2>
+                        <p class="text-lg leading-relaxed">Components are defined in &lt;template&gt; tags with the <code class="text-emerald-400">data-core-templates</code> attribute. The system automatically discovers, caches, and instantiates components when data becomes available.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+&lt;template name="userCard"&gt;
+  &lt;div class="user-card"&gt;
+    &lt;h3&gt;{{rec:name}}&lt;/h3&gt;
+    &lt;p&gt;{{rec:email}}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+                            </code>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">Automatic Data Binding</h2>
+                        <p class="text-lg leading-relaxed">Data flows from APIs to templates using simple {{}} syntax. coremoji.js handles fetching, caching, and automatic updates. No manual DOM manipulation required.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+{{rec:name}} - User name
+{{rec:email}} - User email  
+{{rec:posts.length}} - Post count
+                            </code>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">Cloner Engine for Recursive Components</h2>
+                        <p class="text-lg leading-relaxed">The cloner engine enables nested, recursive component definitions. When data contains arrays or objects, coremoji.js automatically clones and hydrates child components. Perfect for lists, trees, and nested data structures.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+&lt;div data-core-clone="commentList" data-core-data="comments"&gt;
+  &lt;!-- Auto-cloned for each comment --&gt;
+&lt;/div&gt;
+                            </code>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">Built-in Caching & Performance</h2>
+                        <p class="text-lg leading-relaxed">coremoji.js includes intelligent caching for templates and data. Requests are parallelized, responses are cached, and the system automatically invalidates and refreshes when needed. Zero configuration required.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-black/50 p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-emerald-400 mb-2">⚡</div>
+                                <div class="text-sm text-slate-300">Template Cache</div>
+                                <div class="text-xs text-slate-500 mt-1">Auto-invalidation</div>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-primary-light mb-2">📦</div>
+                                <div class="text-sm text-slate-300">Data Cache</div>
+                                <div class="text-xs text-slate-500 mt-1">Parallel fetching</div>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-accent mb-2">🔄</div>
+                                <div class="text-sm text-slate-300">Smart Updates</div>
+                                <div class="text-xs text-slate-500 mt-1">Only what changed</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">Async-Native Rendering</h2>
+                        <p class="text-lg leading-relaxed">Built for modern JavaScript with native async/await. No callbacks, no promises chaining. The system handles asynchronous data flow automatically while maintaining UI consistency.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+// Automatic async handling
+const users = await core.getData('/api/users');
+// UI updates automatically when data arrives
+                            </code>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-3xl font-bold text-white mb-4">Shadow-less Direct DOM</h2>
+                        <p class="text-lg leading-relaxed">No virtual DOM, no diffing, no reconciliation overhead. coremoji.js works directly with the browser's DOM for maximum performance. What you write is what gets rendered.</p>
+                        <div class="bg-black/50 p-6 rounded-xl font-mono text-sm mt-4">
+                            <code class="text-emerald-400">
+Performance Benefits:
+✓ Zero virtual DOM overhead
+✓ Instant hydration  
+✓ Direct DOM manipulation
+✓ No diffing cost
+✓ Native browser optimization
+                            </code>
+                        </div>
+                    </section>
+
+                    <div class="bg-white/5 p-8 border border-white/10 mt-12 rounded-[1.5rem]">
+                        <h3 class="text-2xl font-bold text-white mb-4">Quick Start</h3>
+                        <p class="text-lg text-slate-300 mb-6">Add coremoji.js to any HTML file and start building reactive components immediately.</p>
+                        <div class="bg-black/50 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+                            <code class="text-emerald-400 block">
+&lt;script src="https://cdn.jsdelivr.net/gh/Sitezip/core.sbs/coremoji.js"&gt;&lt;/script&gt;
+&lt;div data-core-templates="myApp" data-core-source="/api/data"&gt;&lt;/div&gt;
+                            </code>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                            <a href="#/_main/docs" class="btn-premium">View Documentation</a>
+                            <a href="tutorial.html" class="px-4 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-lg hover:bg-white/10 transition-all no-underline flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                </svg>
+                                <span>Try Tutorial</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    </section>
+    <footer class="container mx-auto px-4 py-20 mt-20 border-t border-white/5 relative overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10 p-2">
+            <!-- About Column -->
+            <div>
+                <a class="flex items-center mb-6" href="#" target="#main" data-core-templates="home">
+                    <div class="core-pocket -ml-4" data-core-templates="core" data-core-core-source="core.svg"
+                        style="width: 120px; filter: brightness(1.2);"></div>
+                </a>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                    A high-performance JavaScript orchestration layer. Zero virtual DOM overhead, async-native rendering.
+                </p>
+            </div>
+
+            <!-- Resources Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Resources</h4>
+                <ul class="space-y-3">
+                    <li><a href="#/_main/docs"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Quick Start</a></li>
+                    <li><a href="docs.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Full API Docs</a></li>
+                    <li><a href="playground.html"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Playground</a></li>
+                </ul>
+            </div>
+
+            <!-- Community Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Community</h4>
+                <ul class="space-y-3">
+                    <li><a href="https://github.com/Sitezip/core.sbs" target="_blank" rel="noopener noreferrer"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">GitHub
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg></a></li>
+                    <li><a href="https://github.com/Sitezip/core.sbs/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm flex items-center gap-2">Contributing
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg></a></li>
+                    <li><a href="CHANGELOG.md"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Changelog</a></li>
+                    <li><a href="ROADMAP.md"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Roadmap</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-[0.2em]">Legal</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" target="#main" data-core-templates="license"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">MIT License</a></li>
+                    <li><a href="#/_main/philosophy"
+                            class="text-slate-400 hover:text-white transition-colors no-underline text-sm">Philosophy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                &copy; <span class="h--coreInternalHit-YYYY"></span> CORE_ORCHESTRATOR // version <span class="h--coreInternalHit-version"></span>
+            </div>
+            <div class="flex gap-6">
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">SHADOW-LESS</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ASYNC-NATIVE</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">RECURSIVE</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="coremoji.js"></script>
+    <script>
+        // USER CONFIGURATION - Override default settings
+        core.useRouting = true; // User can set this to true or false
+        core.useDebugger = true;
+
+        // NAVIGATION & UX HOOKS
+        setInterval(updateMetrics, 1000);
+        updateMetrics();
+
+        // NAVIGATION & UX HOOKS
+        core.ud.postpaint = (dataRef, dataObj, type) => {
+            // Smooth Scroll to top on page swap
+            if (type === 'template' && dataRef !== 'core') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Active Link Management
+                document.querySelectorAll('.nav-link-premium').forEach(link => {
+                    const templates = (link.dataset.coreTemplates || '').split(',');
+                    if (templates.includes(dataRef)) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // Auto-close mobile menu
+                const navbarNav = document.getElementById('navbarNav');
+                if (navbarNav) navbarNav.classList.add('hidden');
+            }
+
+            if (type === 'template' && dataRef === 'bridge') {
+                core_pk_bridge_render();
+            }
+
+            if (type === 'data' && document.getElementById('core_pk_bridgePanel')) {
+                if (dataRef === 'quote' || dataRef === 'joke' || dataRef === 'pip' || dataRef === 'pop') {
+                    core_pk_bridge_render();
+                }
+            }
+
+            // Real-time counter hydration trigger (principle-based)
+            if (dataRef === 'counter') {
+                if (core.hf && core.hf.hydrateByClass) {
+                    core.hf.hydrateByClass('h--dataRef-counter');
+                }
+            }
+        }
+
+        function core_pk_bridge_setJson(id, value) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            try {
+                el.textContent = JSON.stringify(value, null, 2);
+            } catch (e) {
+                el.textContent = String(value);
+            }
+        }
+
+        function core_pk_bridge_render() {
+            if (typeof core === 'undefined' || !core.cr) return;
+
+            // Update JSON debug views
+            core_pk_bridge_setJson('core_pk_bridgeQuoteJson', core.cr.getData('quote'));
+            core_pk_bridge_setJson('core_pk_bridgeJokeJson', core.cr.getData('joke'));
+            core_pk_bridge_setJson('core_pk_bridgePipJson', core.cr.getData('pip'));
+            core_pk_bridge_setJson('core_pk_bridgePopJson', core.cr.getData('pop'));
+
+            // Update UI elements directly as fallback
+            const quoteData = core.cr.getData('quote') || {};
+            const jokeData = core.cr.getData('joke') || 'Loading...';
+            const pipData = core.cr.getData('pip') || {};
+
+            // Update quote
+            const quoteEl = document.querySelector('[data-h-data-ref="quote.quote"]');
+            const authorEl = document.querySelector('[data-h-data-ref="quote.author"]');
+            if (quoteEl) quoteEl.textContent = quoteData.quote || 'No quote available';
+            if (authorEl) authorEl.textContent = quoteData.author || 'Unknown';
+
+            // Update joke
+            const jokeEl = document.querySelector('[data-h-data-ref="joke"]');
+            if (jokeEl) jokeEl.textContent = jokeData;
+
+            // Update pip data
+            if (pipData) {
+                const pipNameEl = document.querySelector('[data-h-data-ref="pip.name"]');
+                const pipTitleEl = document.querySelector('[data-h-data-ref="pip.title"]');
+                const pipPhoneEl = document.querySelector('[data-h-data-ref="pip.phone"]');
+                const pipVendorEl = document.querySelector('[data-h-data-ref="pip.stuff.vendor"]');
+
+                if (pipNameEl) pipNameEl.textContent = pipData.name || '';
+                if (pipTitleEl) pipTitleEl.textContent = pipData.title || '';
+                if (pipPhoneEl) pipPhoneEl.textContent = pipData.phone || '';
+                if (pipVendorEl) pipVendorEl.textContent = pipData.stuff?.vendor || '';
+            }
+
+            // Use core's hydration if available
+            if (core.hf && core.hf.hydrateByClass) {
+                core.hf.hydrateByClass('h--dataRef');
+            }
+        }
+
+        // NOTIFICATION SYSTEM
+        function showToast(message, type = 'primary') {
+            const toastEl = document.getElementById('coreToast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.textContent = message;
+
+            // Simple reveal
+            toastEl.classList.remove('hidden');
+
+            // Auto hide after 3s
+            setTimeout(() => {
+                toastEl.classList.add('hidden');
+            }, 3000);
+        }
+
+        function core_pk_user_setText(id, value) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = value;
+        }
+
+        function core_pk_user_getValue(id) {
+            const el = document.getElementById(id);
+            if (!el) return '';
+            return String(el.value || '').trim();
+        }
+
+        function core_pk_user_showProfile(profile) {
+            const formView = document.getElementById('core_pk_userFormView');
+            const profileView = document.getElementById('core_pk_userProfileView');
+            if (formView) formView.classList.add('hidden');
+            if (profileView) profileView.classList.remove('hidden');
+
+            core_pk_user_setText('core_pk_userProfileName', profile.name);
+            core_pk_user_setText('core_pk_userProfileJob', profile.job);
+            core_pk_user_setText('core_pk_userProfileEmail', profile.email);
+            core_pk_user_setText('core_pk_userProfilePassword', profile.password);
+        }
+
+        function core_pk_user_showForm() {
+            const formView = document.getElementById('core_pk_userFormView');
+            const profileView = document.getElementById('core_pk_userProfileView');
+            if (profileView) profileView.classList.add('hidden');
+            if (formView) formView.classList.remove('hidden');
+        }
+
+        function core_pk_user_handleSubmit(e) {
+            if (e && typeof e.preventDefault === 'function') e.preventDefault();
+
+            const profile = {
+                name: core_pk_user_getValue('core_pk_userName'),
+                job: core_pk_user_getValue('core_pk_userJob'),
+                email: core_pk_user_getValue('core_pk_userEmail'),
+                password: core_pk_user_getValue('core_pk_userPassword')
+            };
+
+            if (!profile.name || !profile.job || !profile.email || !profile.password) {
+                showToast('Please fill out all fields.', 'primary');
+                return false;
+            }
+
+            core_pk_user_showProfile(profile);
+            showToast('Profile generated.', 'success');
+            return false;
+        }
+
+        // METRICS TELEMETRY
+        function updateMetrics() {
+            const cacheHits = Object.keys(core.be.cacheCreateTs.data).length;
+            const dataCalls = Object.keys(core.be.fetchLogFIFO).length;
+            const templates = document.querySelectorAll('#cr-data template').length;
+            const clones = document.querySelectorAll('.core-cloned').length;
+
+            const els = {
+                cacheHits: document.getElementById('cacheHits'),
+                dataCalls: document.getElementById('dataCalls'),
+                templates: document.getElementById('templates'),
+                clones: document.getElementById('clones'),
+                statusDot: document.getElementById('status-dot'),
+                statusText: document.getElementById('status-text')
+            };
+
+            if (els.cacheHits) els.cacheHits.textContent = cacheHits;
+            if (els.dataCalls) els.dataCalls.textContent = dataCalls;
+            if (els.templates) els.templates.textContent = templates;
+            if (els.clones) els.clones.textContent = clones;
+
+            // Legit System Status Check
+            if (els.statusDot && els.statusText) {
+                if (typeof core !== 'undefined' && core.be) {
+                    els.statusDot.className = "flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse";
+                    els.statusText.textContent = "System Operational";
+                    els.statusText.className = "text-xs font-bold text-emerald-500/80 uppercase tracking-widest leading-none";
+                } else {
+                    els.statusDot.className = "flex h-2 w-2 rounded-full bg-rose-500";
+                    els.statusText.textContent = "System Offline";
+                    els.statusText.className = "text-xs font-bold text-rose-500 uppercase tracking-widest leading-none";
+                }
+            }
+        }
+
+        // DATA SOURCE INTERCEPTORS
+        core.ud.postflight = (dataRef, dataObj, type) => {
+            if (type === 'data') {
+                switch (dataRef) {
+                    case 'prods': return dataObj.products;
+                    case 'users': return dataObj.users;
+                    case 'news': return dataObj.results;
+                    case 'pop': return [
+                        {
+                            name: 'FRED',
+                            paid: 21.58,
+                            ts: '2024-07-23',
+                            stuff: { food: 'pizza' },
+                            more: [
+                                { color: 'blue' },
+                                { color: 'gold' }
+                            ]
+                        },
+                        {
+                            name: 'JAKE',
+                            paid: 2.11,
+                            ts: '2024-07-16',
+                            stuff: { food: 'pear' },
+                            more: [
+                                { color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }
+                            ]
+                        },
+                        {
+                            name: 'JAKER',
+                            paid: 6.87,
+                            ts: '2024-07-23',
+                            stuff: { food: 'banana' },
+                            more: [
+                                {
+                                    color: 'yellow',
+                                    hues: [
+                                        { color: 'orange' },
+                                        { color: 'pink' }
+                                    ]
+                                },
+                                {
+                                    color: 'bright',
+                                    hues: [
+                                        { color: 'hot' },
+                                        { color: 'magenta' }
+                                    ]
+                                },
+                                {
+                                    color: 'dark',
+                                    hues: [
+                                        { color: 'hot' },
+                                        { color: 'magnetic' }
+                                    ]
+                                }
+                            ]
+                        }
+                    ];
+                }
+            }
+            return dataObj;
+        }
+
+        // Logic Bridge - Data Fetching and Storage with proper binding
+        // Set static data first
+        core.cr.setData('pip', {
+            name: 'fRoDo',
+            title: 'LoR',
+            id: 33,
+            phone: 8881231234,
+            stuff: { vendor: 'under20bucks' }
+        });
+
+        // Initial render with default data
+        core.cr.setData('quote', {
+            quote: 'Loading quote...',
+            author: 'Loading...'
+        });
+
+        core.cr.setData('joke', 'Loading joke...');
+
+        // Trigger initial render
+        core_pk_bridge_render();
+
+        // Fetch and set quote data
+        fetch('https://dummyjson.com/quotes/random/')
+            .then(res => res.json())
+            .then(data => {
+                core.cr.setData('quote', {
+                    quote: data.quote,
+                    author: data.author
+                });
+                core_pk_bridge_render();
+            })
+            .catch(() => {
+                core.cr.setData('quote', {
+                    quote: 'Failed to load quote. Please try again later.',
+                    author: 'Error'
+                });
+                core_pk_bridge_render();
+            });
+
+        // Fetch and set joke data
+        fetch('https://icanhazdadjoke.com/', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                core.cr.setData('joke', data.joke || 'No joke found');
+                // Small delay to ensure data is processed before rendering
+                setTimeout(() => core_pk_bridge_render(), 10);
+            })
+            .catch(error => {
+                console.error('Joke API error:', error);
+                core.cr.setData('joke', 'Failed to load joke. Please try again later.');
+                setTimeout(() => core_pk_bridge_render(), 10);
+            });
+
+        core.cr.setData('pop', [
+            { name: 'fred', paid: 21.58, ts: 1721788872, phone: 8011231233, stuff: { food: 'pizza' }, more: [{ color: 'blue' }, { color: 'gold' }] },
+            { name: 'jake', paid: 2.11, ts: 1721188872, phone: 8018760408, stuff: { food: 'pear' }, more: [{ color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }] },
+            { name: 'jaker', paid: 6.87, ts: 1721798872, phone: 8011231233, stuff: { food: 'banana' }, more: [{ color: 'yellow' }, { color: 'orange' }, { color: 'pink', hues: [{ color: 'bright' }, { color: 'hot' }] }, { color: 'magenta', hues: [{ color: 'dark' }, { color: 'hot' }, { color: 'magnetic' }] }] }
+        ]);
+
+        // REAL-TIME COUNTER DEMO - Using coremoji.js Registry
+        function updateCounterUI() {
+            const counterEl = document.querySelector('.h--dataRef-counter');
+            if (counterEl && core.cr && core.cr.getData) {
+                counterEl.textContent = core.cr.getData('counter') || '0';
+            }
+        }
+
+        function incrementCounter() {
+            const current = Number((core.cr.getData && core.cr.getData('counter')) || 0);
+            core.cr.setData('counter', String(current + 1));
+            updateCounterUI();
+            showToast('Counter incremented!', 'success');
+        }
+
+        function decrementCounter() {
+            const current = Number((core.cr.getData && core.cr.getData('counter')) || 0);
+            core.cr.setData('counter', String(current - 1));
+            updateCounterUI();
+            showToast('Counter decremented!', 'info');
+        }
+
+        function resetCounter() {
+            core.cr.setData('counter', '0');
+            updateCounterUI();
+            showToast('Counter reset!', 'primary');
+        }
+
+        // Initialize state logic
+        function initCounter() {
+            if (!core.cr.getData('counter')) {
+                core.cr.setData('counter', '0');
+                if (core.be && core.be.setCacheTs) {
+                    core.be.setCacheTs('counter', 'data');
+                }
+            }
+
+            // Wait for template to render, then set text
+            setTimeout(() => {
+                const counterEl = document.querySelector('.h--dataRef-counter');
+                if (counterEl) {
+                    counterEl.textContent = '0';
+                }
+            }, 100);
+        }
+
+        // Initialize coremoji.js
+        core.ud.init = () => {
+            // Set storage to memory tier (0) for real-time performance
+            if (core.cr && core.cr.setStorageIdDefault) {
+                core.cr.storageIdDefault = 0;
+            }
+
+            core.useDebugger = true;
+
+            // Initialize Demo State
+            initCounter();
+            updateMetrics();
+
+            // Start metrics update loop
+            setInterval(updateMetrics, 1000);
+        }
+
+        // Proactive Data Seeding
+        core.ud.prepaint = (dataRef, dataObj, type) => {
+            if (dataRef === 'counter' && !core.cr.getData('counter')) {
+                initCounter();
+            }
+        }
+    </script>
+</body>
+
+</html>
