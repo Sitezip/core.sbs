@@ -484,7 +484,7 @@
                                     <li class="flex items-start gap-3">
                                         <span class="text-primary-light mt-1">→</span>
                                         <div>
-                                            <code class="text-accent">core.ud.preflight</code>
+                                            <code class="text-accent">$["🙋"]["🛫"]</code>
                                             <p class="text-sm text-slate-400 mt-1">Modify fetch settings before a
                                                 request</p>
                                         </div>
@@ -492,7 +492,7 @@
                                     <li class="flex items-start gap-3">
                                         <span class="text-primary-light mt-1">→</span>
                                         <div>
-                                            <code class="text-accent">core.ud.postflight</code>
+                                            <code class="text-accent">$["🙋"]["🛬"]</code>
                                             <p class="text-sm text-slate-400 mt-1">Transform response data after fetch
                                             </p>
                                         </div>
@@ -500,14 +500,14 @@
                                     <li class="flex items-start gap-3">
                                         <span class="text-primary-light mt-1">→</span>
                                         <div>
-                                            <code class="text-accent">core.ud.prepaint</code>
+                                            <code class="text-accent">$["🙋"]["🎨⏮️"]</code>
                                             <p class="text-sm text-slate-400 mt-1">Adjust data before rendering</p>
                                         </div>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="text-primary-light mt-1">→</span>
                                         <div>
-                                            <code class="text-accent">core.ud.postpaint</code>
+                                            <code class="text-accent">$["🙋"]["🎨⏭️"]</code>
                                             <p class="text-sm text-slate-400 mt-1">Run logic after template is rendered
                                             </p>
                                         </div>
@@ -864,10 +864,10 @@
                 </div>
                 <div class="my-4">
                     <button onclick="
-                        // Clear the news data cache
-                        delete core.be.cacheCreateTs.data.news;
-                        // Re-render the news template
-                        core.pk.soc();
+                        // Clear the news data cache — 📡 = be, ⏱️ = cacheCreateTs
+                        delete globalThis['🧩']['📡']['⏱️'].data.news;
+                        // Re-render the news template — 👝 = pk, 🎬 = soc (start of call)
+                        globalThis['🧩']['👝']['🎬']();
                         // Show toast notification
                         showToast('News feed refreshed!', 'success');
                     " class="btn-premium">Refresh Feed</button>
@@ -1262,31 +1262,31 @@
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div class="space-y-6">
-                                <p class="text-slate-400 italic leading-relaxed">The <code>core.ud</code> (User Defined)
+                                <p class="text-slate-400 italic leading-relaxed">The <code>🧩["🙋"]</code> (User Defined)
                                     registry allows you to intercept every stage of the orchestration.</p>
                                 <div class="glass p-8 font-mono text-sm space-y-4">
                                     <div class="flex justify-between border-b border-white/5 pb-2">
-                                        <span class="text-rose-300">core.ud.init()</span>
+                                        <span class="text-rose-300">$["🙋"]["🚀"]()</span>
                                         <span class="text-slate-500 font-sans text-xs">Bootstrapping</span>
                                     </div>
                                     <div class="flex justify-between border-b border-white/5 pb-2">
-                                        <span class="text-rose-300">core.ud.soc()</span>
+                                        <span class="text-rose-300">$["🙋"]["🎬"]()</span>
                                         <span class="text-slate-500 font-sans text-xs">Start of Call</span>
                                     </div>
                                     <div class="flex justify-between border-b border-white/5 pb-2">
-                                        <span class="text-rose-300">core.ud.preflight()</span>
+                                        <span class="text-rose-300">$["🙋"]["🛫"]()</span>
                                         <span class="text-slate-500 font-sans text-xs">Fetch Request</span>
                                     </div>
                                     <div class="flex justify-between border-b border-white/5 pb-2">
-                                        <span class="text-rose-300">core.ud.postflight()</span>
+                                        <span class="text-rose-300">$["🙋"]["🛬"]()</span>
                                         <span class="text-slate-500 font-sans text-xs">Data Receipt</span>
                                     </div>
                                     <div class="flex justify-between border-b border-white/5 pb-2">
-                                        <span class="text-rose-300">core.ud.prepaint()</span>
+                                        <span class="text-rose-300">$["🙋"]["🎨⏮️"]()</span>
                                         <span class="text-slate-500 font-sans text-xs">Pre-rendering</span>
                                     </div>
                                     <div class="flex justify-between border-b border-white/5 pb-2">
-                                        <span class="text-rose-300">core.ud.pk_eol()</span>
+                                        <span class="text-rose-300">$["🙋"]["🏁"]()</span>
                                         <span class="text-slate-500 font-sans text-xs">End of Call</span>
                                     </div>
                                 </div>
@@ -1298,7 +1298,7 @@
                                 <div class="space-y-6">
                                     <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
                                         <code
-                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.cloneValue(record, args)</code>
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">$["🙋"]["👯💎"](record, args)</code>
                                         <p class="text-xs text-slate-400 leading-relaxed">Invoked by
                                             <code>{{aug:value}}</code> during cloning to return custom dynamic values
                                             based on the record.
@@ -1306,7 +1306,7 @@
                                     </div>
                                     <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
                                         <code
-                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.cloneString(record, args)</code>
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">$["🙋"]["👯🔤"](record, args)</code>
                                         <p class="text-xs text-slate-400 leading-relaxed">Invoked by
                                             <code>{{aug:string}}</code>. Allows raw manipulation of the template string
                                             before it's injected.
@@ -1314,7 +1314,7 @@
                                     </div>
                                     <div class="p-4 bg-black/40 rounded-xl border border-white/5 space-y-2">
                                         <code
-                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">core.ud.getTemplate(name, templateStr)</code>
+                                            class="text-xs text-primary-light font-bold block overflow-x-auto whitespace-nowrap">$["🙋"]["📄📥"](name, templateStr)</code>
                                         <p class="text-xs text-slate-400 leading-relaxed">Modify fetched templates
 
                                             &lt;!-- defining data/template silent request --&gt;
@@ -1330,7 +1330,7 @@
                                 </div>
                             </div>
                     </section>
-                    Helper API (core.hf)
+                    Helper API (🧩["🔧"])
                     </h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1397,7 +1397,7 @@
                             <h4
                                 class="font-bold text-white mb-2 underline decoration-primary decoration-4 underline-offset-4">
                                 Internal Memory Access</h4>
-                            <p class="text-sm text-slate-400">Access `core.be.fetchLogFIFO` to view
+                            <p class="text-sm text-slate-400">Access `$["📡"]["📜"]` to view
                                 every network request's history and configuration.</p>
                         </div>
                     </div>
@@ -1410,7 +1410,7 @@
                                 class="font-bold text-white mb-2 underline decoration-accent decoration-4 underline-offset-4">
                                 Direct Registry Storage</h4>
                             <p class="text-sm text-slate-400">Manually push data to specific storage
-                                layers (DOM, dataset, or session) via `core.cr.setData`.</p>
+                                layers (DOM, dataset, or session) via `$["🗄️"]["✍️"]`.</p>
                         </div>
                     </div>
                 </div>
@@ -1490,11 +1490,15 @@
                             <div class="space-y-4">
                                 <h4 class="text-white font-bold">JavaScript Hooks</h4>
                                 <div class="bg-black p-4 rounded-xl font-mono text-xs border border-white/5">
-                                    <pre class="text-rose-300 overflow-x-auto"><code>core.ud.preflight = (ref, src, type) => {
+                                    <pre class="text-rose-300 overflow-x-auto"><code>// Emoji can't be a JS identifier, only a property key —
+// so bind the module once, then index it by emoji.
+const $ = globalThis["🧩"];   // 🙋 = ud (user defined)
+
+$["🙋"]["🛫"] = (ref, src, type) => {   // 🛫 preflight: before a fetch
   return {dataRef: ref, dataSrc: src};
 }
 
-core.ud.postflight = (ref, obj, type) => {
+$["🙋"]["🛬"] = (ref, obj, type) => {   // 🛬 postflight: after a fetch
   return obj;
 }</code></pre>
                                 </div>
@@ -1635,7 +1639,7 @@ core.ud.postflight = (ref, obj, type) => {
                                 <li class="flex items-start gap-3">
                                     <span class="text-primary mt-1">•</span>
                                     <div>
-                                        <strong class="text-white">Registry (`core.cr`):</strong> Centralized storage
+                                        <strong class="text-white">Registry (`🧩["🗄️"]`):</strong> Centralized storage
                                         with multiple persistence levels
                                     </div>
                                 </li>
@@ -1723,8 +1727,10 @@ core.ud.postflight = (ref, obj, type) => {
 &lt;/template&gt;
 
 &lt;script&gt;
-    core.cr.set('greeting', { name: 'World' });
-    core.init();
+    // 🧩 is the whole library; 🗄️ is the registry (cr), ✍️ writes data
+    const $ = globalThis["🧩"];
+    $["🗄️"]["✍️"]('greeting', { name: 'World' });
+    $["🚀"]();   // 🚀 = init
 &lt;/script&gt;</code></pre>
                         </div>
                     </div>
@@ -1754,11 +1760,14 @@ core.ud.postflight = (ref, obj, type) => {
     &lt;/section&gt;
 
     &lt;script&gt;
-        // Set your data
-        core.cr.set('greeting', { name: 'Developer' });
-        
-        // Initialize
-        core.init();
+        // Grab the module — emoji are legal as keys, never as identifiers
+        const $ = globalThis["🧩"];
+
+        // Set your data — 🗄️ registry (cr), ✍️ setData
+        $["🗄️"]["✍️"]('greeting', { name: 'Developer' });
+
+        // Initialize — 🚀 init
+        $["🚀"]();
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -1797,7 +1806,7 @@ core.ud.postflight = (ref, obj, type) => {
                     </div>
 
                     <div class="glass p-6 bg-primary/5 border-primary/20 mt-8">
-                        <p class="text-slate-300">After including the script, call <code class="text-primary">core.init()</code> to initialize the engine.</p>
+                        <p class="text-slate-300">After including the script, call <code class="text-primary">$["🚀"]()</code> to initialize the engine.</p>
                     </div>
                 </div>
             </section>
@@ -1936,7 +1945,7 @@ core.ud.postflight = (ref, obj, type) => {
 
                     <!-- Backend Subsystem -->
                     <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white">1. Backend (`core.be`)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-white">1. Backend (`🧩["📡"]`)</h3>
                         <p class="text-lg text-slate-300 mb-6">Handles all external I/O using the Fetch API with
                             built-in promise tracking to prevent race conditions.</p>
 
@@ -1965,7 +1974,7 @@ core.ud.postflight = (ref, obj, type) => {
 
                     <!-- Registry Subsystem -->
                     <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white">2. Registry (`core.cr`)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-white">2. Registry (`🧩["🗄️"]`)</h3>
                         <p class="text-lg text-slate-300 mb-6">Manages the internal state of the application with
                             multiple storage tiers.</p>
 
@@ -2002,7 +2011,7 @@ core.ud.postflight = (ref, obj, type) => {
 
                     <!-- Pocket Lifecycle -->
                     <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white">3. Pocket Lifecycle (`core.pk`)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-white">3. Pocket Lifecycle (`🧩["👝"]`)</h3>
                         <p class="text-lg text-slate-300 mb-6">The core engine responsible for DOM manipulation and
                             rendering.</p>
 
@@ -2040,7 +2049,7 @@ core.ud.postflight = (ref, obj, type) => {
 
                     <!-- Validation & Scrubbing -->
                     <div class="mb-12">
-                        <h3 class="text-2xl font-bold mb-6 text-white">4. Validation & Scrubbing (`core.sv`)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-white">4. Validation & Scrubbing (`🧩["🛡️"]`)</h3>
                         <p class="text-lg text-slate-300 mb-6">Comprehensive validation engine for data sanitization and
                             formatting.</p>
 
@@ -2066,7 +2075,7 @@ core.ud.postflight = (ref, obj, type) => {
 
                     <!-- Helper Functions -->
                     <div>
-                        <h3 class="text-2xl font-bold mb-6 text-white">5. Helper Functions (`core.hf`)</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-white">5. Helper Functions (`🧩["🔧"]`)</h3>
                         <p class="text-lg text-slate-300 mb-6">Utility methods for common operations.</p>
 
                         <div class="glass p-6">
@@ -2093,7 +2102,7 @@ core.ud.postflight = (ref, obj, type) => {
                         Configuration & Hooks</h2>
 
                     <p class="text-lg text-slate-300 mb-8">Extend the engine's behavior by defining hooks in the <code
-                            class="text-primary">core.ud</code> (User Defined) namespace.</p>
+                            class="text-primary">🧩["🙋"]</code> (User Defined) namespace.</p>
 
                     <div class="overflow-x-auto mb-8">
                         <table class="w-full">
@@ -2135,20 +2144,22 @@ core.ud.postflight = (ref, obj, type) => {
                     <div class="glass p-6">
                         <h3 class="text-xl font-bold mb-4 text-white">Global Settings</h3>
                         <ul class="space-y-3 text-slate-300">
-                            <li><code class="text-primary">core.useDebugger</code> - Enable verbose console logging</li>
-                            <li><code class="text-primary">core.useRouting</code> - Enable URL hash-based state
+                            <li><code class="text-primary">$["🐛"]</code> - Enable verbose console logging</li>
+                            <li><code class="text-primary">$["🧭"]</code> - Enable URL hash-based state
                                 persistence</li>
-                            <li><code class="text-primary">core.baseUrl</code> - Define root path for dynamic module
+                            <li><code class="text-primary">$["🌐"]</code> - Define root path for dynamic module
                                 imports</li>
                         </ul>
                     </div>
 
                     <div class="glass p-6">
                         <h3 class="text-xl font-bold mb-4 text-white">Example Configuration</h3>
-                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto text-sm"><code>core.ud.init = () => {
-    core.useDebugger = window.location.hostname === 'localhost';
-    core.useRouting = true;
-    core.baseUrl = '/modules';
+                        <pre class="bg-dark-darker/50 border border-white/10 p-4 rounded-lg overflow-x-auto text-sm"><code>const $ = globalThis["🧩"];   // the coremoji.js module
+
+$["🙋"]["🚀"] = () => {                                    // 🙋 ud . 🚀 init
+    $["🐛"] = window.location.hostname === 'localhost';    // 🐛 useDebugger
+    $["🧭"] = true;                                        // 🧭 useRouting
+    $["🌐"] = '/modules';                                  // 🌐 baseUrl
 };</code></pre>
                     </div>
                 </div>
@@ -2276,6 +2287,52 @@ core.ud.postflight = (ref, obj, type) => {
                         API Reference</h2>
 
                     <h3 class="text-2xl font-bold mb-6 text-white">Core Methods</h3>
+
+                    <!-- Legend: how to read the emoji API. JS identifiers must be
+                         Unicode ID_Start letters, and emoji are category So, so
+                         `let 🚀` is a SyntaxError. Emoji are perfectly legal as
+                         property KEYS, which is how the whole API is addressed. -->
+                    <div class="glass p-5 mb-6 border-primary/20 bg-primary/5">
+                        <p class="text-sm text-slate-300 mb-3">
+                            Bind the module once, then index it by emoji key:
+                            <code class="text-primary-light">const $ = globalThis["🧩"];</code>
+                        </p>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong class="text-white">Namespaces:</strong>
+                            <code class="text-accent">📡</code> backend &middot;
+                            <code class="text-accent">🔁</code> callbacks &middot;
+                            <code class="text-accent">🗄️</code> registry &middot;
+                            <code class="text-accent">🔧</code> helpers &middot;
+                            <code class="text-accent">👝</code> pockets &middot;
+                            <code class="text-accent">🧱</code> modules &middot;
+                            <code class="text-accent">🛡️</code> validation &middot;
+                            <code class="text-accent">🙋</code> user&#8209;defined &middot;
+                            <code class="text-accent">🎨</code> UX
+                            <br>
+                            <strong class="text-white">Verbs:</strong>
+                            <code class="text-accent">🚀</code> init &middot;
+                            <code class="text-accent">🎬</code> start&nbsp;of&nbsp;call &middot;
+                            <code class="text-accent">🏁</code> end&nbsp;of&nbsp;call &middot;
+                            <code class="text-accent">📥</code> fetch &middot;
+                            <code class="text-accent">📖</code> read &middot;
+                            <code class="text-accent">✍️</code> write &middot;
+                            <code class="text-accent">🗑️</code> delete &middot;
+                            <code class="text-accent">📄</code> template &middot;
+                            <code class="text-accent">💧</code> hydrate &middot;
+                            <code class="text-accent">💄</code> format &middot;
+                            <code class="text-accent">👯</code> clone &middot;
+                            <code class="text-accent">🛫</code> preflight &middot;
+                            <code class="text-accent">🛬</code> postflight
+                            <br>
+                            <strong class="text-white">Unchanged:</strong> HTML stays exactly as it was —
+                            <code class="text-accent">data-core-*</code> attributes,
+                            <code class="text-accent">.core-pocket</code>/<code class="text-accent">.core-clone</code>,
+                            <code class="text-accent">{{data:…}}</code> placeholders and
+                            <code class="text-accent">h-</code>/<code class="text-accent">f-</code> classes are
+                            contracts with the DOM, not names the library owns.
+                        </p>
+                    </div>
+
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead>
@@ -2287,29 +2344,29 @@ core.ud.postflight = (ref, obj, type) => {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><code class="text-primary">core.init()</code></td>
+                                    <td><code class="text-primary">$["🚀"]()</code></td>
                                     <td>Initialize the engine</td>
-                                    <td><code class="text-primary">core.init()</code></td>
+                                    <td><code class="text-primary">$["🚀"]()</code></td>
                                 </tr>
                                 <tr>
-                                    <td><code class="text-primary">core.cr.setData(name, data)</code></td>
+                                    <td><code class="text-primary">$["🗄️"]["✍️"](name, data)</code></td>
                                     <td>Store data in registry</td>
-                                    <td><code class="text-primary">core.cr.setData('user', {name: 'John'})</code></td>
+                                    <td><code class="text-primary">$["🗄️"]["✍️"]('user', {name: 'John'})</code></td>
                                 </tr>
                                 <tr>
-                                    <td><code class="text-primary">core.cr.getData(name)</code></td>
+                                    <td><code class="text-primary">$["🗄️"]["📖"](name)</code></td>
                                     <td>Retrieve data from registry</td>
-                                    <td><code class="text-primary">const user = core.cr.getData('user')</code></td>
+                                    <td><code class="text-primary">const user = $["🗄️"]["📖"]('user')</code></td>
                                 </tr>
                                 <tr>
-                                    <td><code class="text-primary">core.be.getData(ref, src)</code></td>
+                                    <td><code class="text-primary">$["📡"]["📥"](ref, src)</code></td>
                                     <td>Fetch data from URL</td>
-                                    <td><code class="text-primary">core.be.getData('users', '/api/users')</code></td>
+                                    <td><code class="text-primary">$["📡"]["📥"]('users', '/api/users')</code></td>
                                 </tr>
                                 <tr>
-                                    <td><code class="text-primary">core.be.awaitAll()</code></td>
+                                    <td><code class="text-primary">$["📡"]["⏳"]()</code></td>
                                     <td>Wait for all requests to complete</td>
-                                    <td><code class="text-primary">await core.be.awaitAll()</code></td>
+                                    <td><code class="text-primary">await $["📡"]["⏳"]()</code></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2340,7 +2397,7 @@ core.ud.postflight = (ref, obj, type) => {
                                 exposes data in the DOM. Use Storage ID <code class="text-amber-400">0</code> (DOM) for
                                 sensitive state data.</p>
                             <pre
-                                class="bg-dark-darker/50 border border-amber-500/20 p-4 rounded-lg overflow-x-auto text-sm"><code>core.cr.setData('sensitive', data, elem, 0)</code></pre>
+                                class="bg-dark-darker/50 border border-amber-500/20 p-4 rounded-lg overflow-x-auto text-sm"><code>$["🗄️"]["✍️"]('sensitive', data, elem, 0)</code></pre>
                         </div>
                     </div>
                 </div>
@@ -2718,16 +2775,24 @@ Performance Benefits:
     <!-- Scripts -->
     <script src="coremoji.js"></script>
     <script>
+        // coremoji.js publishes itself as globalThis["🧩"]. Emoji are Unicode
+        // category So, so they can never BE a JS identifier — only a property
+        // key. The library keeps its own "$" handle private, so bind one here
+        // and reach every function by its emoji key.
+        //   $["📡"] be   $["🔁"] cb   $["🗄️"] cr   $["🔧"] hf   $["👝"] pk
+        //   $["🧱"] md   $["🛡️"] sv   $["🙋"] ud   $["🎨"] ux   $["🎯"] hit
+        const $ = globalThis["🧩"];
+
         // USER CONFIGURATION - Override default settings
-        core.useRouting = true; // User can set this to true or false
-        core.useDebugger = true;
+        $["🧭"] = true; // useRouting — user can set this to true or false
+        $["🐛"] = true; // useDebugger
 
         // NAVIGATION & UX HOOKS
         setInterval(updateMetrics, 1000);
         updateMetrics();
 
         // NAVIGATION & UX HOOKS
-        core.ud.postpaint = (dataRef, dataObj, type) => {
+        $["🙋"]["🎨⏭️"] = (dataRef, dataObj, type) => {
             // Smooth Scroll to top on page swap
             if (type === 'template' && dataRef !== 'core') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2759,8 +2824,8 @@ Performance Benefits:
 
             // Real-time counter hydration trigger (principle-based)
             if (dataRef === 'counter') {
-                if (core.hf && core.hf.hydrateByClass) {
-                    core.hf.hydrateByClass('h--dataRef-counter');
+                if ($["🔧"] && $["🔧"]["💧"]) {   // 🔧 = hf, 💧 = hydrateByClass
+                    $["🔧"]["💧"]('h--dataRef-counter');
                 }
             }
         }
@@ -2776,18 +2841,18 @@ Performance Benefits:
         }
 
         function core_pk_bridge_render() {
-            if (typeof core === 'undefined' || !core.cr) return;
+            if (typeof $ === 'undefined' || !$ || !$["🗄️"]) return;   // 🗄️ = cr (registry)
 
             // Update JSON debug views
-            core_pk_bridge_setJson('core_pk_bridgeQuoteJson', core.cr.getData('quote'));
-            core_pk_bridge_setJson('core_pk_bridgeJokeJson', core.cr.getData('joke'));
-            core_pk_bridge_setJson('core_pk_bridgePipJson', core.cr.getData('pip'));
-            core_pk_bridge_setJson('core_pk_bridgePopJson', core.cr.getData('pop'));
+            core_pk_bridge_setJson('core_pk_bridgeQuoteJson', $["🗄️"]["📖"]('quote'));
+            core_pk_bridge_setJson('core_pk_bridgeJokeJson', $["🗄️"]["📖"]('joke'));
+            core_pk_bridge_setJson('core_pk_bridgePipJson', $["🗄️"]["📖"]('pip'));
+            core_pk_bridge_setJson('core_pk_bridgePopJson', $["🗄️"]["📖"]('pop'));
 
             // Update UI elements directly as fallback
-            const quoteData = core.cr.getData('quote') || {};
-            const jokeData = core.cr.getData('joke') || 'Loading...';
-            const pipData = core.cr.getData('pip') || {};
+            const quoteData = $["🗄️"]["📖"]('quote') || {};
+            const jokeData = $["🗄️"]["📖"]('joke') || 'Loading...';
+            const pipData = $["🗄️"]["📖"]('pip') || {};
 
             // Update quote
             const quoteEl = document.querySelector('[data-h-data-ref="quote.quote"]');
@@ -2813,8 +2878,8 @@ Performance Benefits:
             }
 
             // Use core's hydration if available
-            if (core.hf && core.hf.hydrateByClass) {
-                core.hf.hydrateByClass('h--dataRef');
+            if ($["🔧"] && $["🔧"]["💧"]) {   // 🔧 = hf, 💧 = hydrateByClass
+                $["🔧"]["💧"]('h--dataRef');
             }
         }
 
@@ -2886,8 +2951,8 @@ Performance Benefits:
 
         // METRICS TELEMETRY
         function updateMetrics() {
-            const cacheHits = Object.keys(core.be.cacheCreateTs.data).length;
-            const dataCalls = Object.keys(core.be.fetchLogFIFO).length;
+            const cacheHits = Object.keys($["📡"]["⏱️"].data).length;
+            const dataCalls = Object.keys($["📡"]["📜"]).length;
             const templates = document.querySelectorAll('#cr-data template').length;
             const clones = document.querySelectorAll('.core-cloned').length;
 
@@ -2907,7 +2972,7 @@ Performance Benefits:
 
             // Legit System Status Check
             if (els.statusDot && els.statusText) {
-                if (typeof core !== 'undefined' && core.be) {
+                if (typeof $ !== 'undefined' && $ && $["📡"]) {   // 📡 = be (backend)
                     els.statusDot.className = "flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse";
                     els.statusText.textContent = "System Operational";
                     els.statusText.className = "text-xs font-bold text-emerald-500/80 uppercase tracking-widest leading-none";
@@ -2920,7 +2985,7 @@ Performance Benefits:
         }
 
         // DATA SOURCE INTERCEPTORS
-        core.ud.postflight = (dataRef, dataObj, type) => {
+        $["🙋"]["🛬"] = (dataRef, dataObj, type) => {
             if (type === 'data') {
                 switch (dataRef) {
                     case 'prods': return dataObj.products;
@@ -2983,7 +3048,7 @@ Performance Benefits:
 
         // Logic Bridge - Data Fetching and Storage with proper binding
         // Set static data first
-        core.cr.setData('pip', {
+        $["🗄️"]["✍️"]('pip', {
             name: 'fRoDo',
             title: 'LoR',
             id: 33,
@@ -2992,12 +3057,12 @@ Performance Benefits:
         });
 
         // Initial render with default data
-        core.cr.setData('quote', {
+        $["🗄️"]["✍️"]('quote', {
             quote: 'Loading quote...',
             author: 'Loading...'
         });
 
-        core.cr.setData('joke', 'Loading joke...');
+        $["🗄️"]["✍️"]('joke', 'Loading joke...');
 
         // Trigger initial render
         core_pk_bridge_render();
@@ -3006,14 +3071,14 @@ Performance Benefits:
         fetch('https://dummyjson.com/quotes/random/')
             .then(res => res.json())
             .then(data => {
-                core.cr.setData('quote', {
+                $["🗄️"]["✍️"]('quote', {
                     quote: data.quote,
                     author: data.author
                 });
                 core_pk_bridge_render();
             })
             .catch(() => {
-                core.cr.setData('quote', {
+                $["🗄️"]["✍️"]('quote', {
                     quote: 'Failed to load quote. Please try again later.',
                     author: 'Error'
                 });
@@ -3028,17 +3093,17 @@ Performance Benefits:
         })
             .then(res => res.json())
             .then(data => {
-                core.cr.setData('joke', data.joke || 'No joke found');
+                $["🗄️"]["✍️"]('joke', data.joke || 'No joke found');
                 // Small delay to ensure data is processed before rendering
                 setTimeout(() => core_pk_bridge_render(), 10);
             })
             .catch(error => {
                 console.error('Joke API error:', error);
-                core.cr.setData('joke', 'Failed to load joke. Please try again later.');
+                $["🗄️"]["✍️"]('joke', 'Failed to load joke. Please try again later.');
                 setTimeout(() => core_pk_bridge_render(), 10);
             });
 
-        core.cr.setData('pop', [
+        $["🗄️"]["✍️"]('pop', [
             { name: 'fred', paid: 21.58, ts: 1721788872, phone: 8011231233, stuff: { food: 'pizza' }, more: [{ color: 'blue' }, { color: 'gold' }] },
             { name: 'jake', paid: 2.11, ts: 1721188872, phone: 8018760408, stuff: { food: 'pear' }, more: [{ color: 'red', hues: [{ color: 'fire engine' }, { color: 'candy apple' }] }] },
             { name: 'jaker', paid: 6.87, ts: 1721798872, phone: 8011231233, stuff: { food: 'banana' }, more: [{ color: 'yellow' }, { color: 'orange' }, { color: 'pink', hues: [{ color: 'bright' }, { color: 'hot' }] }, { color: 'magenta', hues: [{ color: 'dark' }, { color: 'hot' }, { color: 'magnetic' }] }] }
@@ -3047,37 +3112,37 @@ Performance Benefits:
         // REAL-TIME COUNTER DEMO - Using coremoji.js Registry
         function updateCounterUI() {
             const counterEl = document.querySelector('.h--dataRef-counter');
-            if (counterEl && core.cr && core.cr.getData) {
-                counterEl.textContent = core.cr.getData('counter') || '0';
+            if (counterEl && $["🗄️"] && $["🗄️"]["📖"]) {   // 📖 = getData
+                counterEl.textContent = $["🗄️"]["📖"]('counter') || '0';
             }
         }
 
         function incrementCounter() {
-            const current = Number((core.cr.getData && core.cr.getData('counter')) || 0);
-            core.cr.setData('counter', String(current + 1));
+            const current = Number(($["🗄️"]["📖"] && $["🗄️"]["📖"]('counter')) || 0);
+            $["🗄️"]["✍️"]('counter', String(current + 1));
             updateCounterUI();
             showToast('Counter incremented!', 'success');
         }
 
         function decrementCounter() {
-            const current = Number((core.cr.getData && core.cr.getData('counter')) || 0);
-            core.cr.setData('counter', String(current - 1));
+            const current = Number(($["🗄️"]["📖"] && $["🗄️"]["📖"]('counter')) || 0);
+            $["🗄️"]["✍️"]('counter', String(current - 1));
             updateCounterUI();
             showToast('Counter decremented!', 'info');
         }
 
         function resetCounter() {
-            core.cr.setData('counter', '0');
+            $["🗄️"]["✍️"]('counter', '0');
             updateCounterUI();
             showToast('Counter reset!', 'primary');
         }
 
         // Initialize state logic
         function initCounter() {
-            if (!core.cr.getData('counter')) {
-                core.cr.setData('counter', '0');
-                if (core.be && core.be.setCacheTs) {
-                    core.be.setCacheTs('counter', 'data');
+            if (!$["🗄️"]["📖"]('counter')) {
+                $["🗄️"]["✍️"]('counter', '0');
+                if ($["📡"] && $["📡"]["⏱️✍️"]) {   // ⏱️✍️ = setCacheTs
+                    $["📡"]["⏱️✍️"]('counter', 'data');
                 }
             }
 
@@ -3091,13 +3156,17 @@ Performance Benefits:
         }
 
         // Initialize coremoji.js
-        core.ud.init = () => {
-            // Set storage to memory tier (0) for real-time performance
-            if (core.cr && core.cr.setStorageIdDefault) {
-                core.cr.storageIdDefault = 0;
+        $["🙋"]["🚀"] = () => {
+            // Set storage to memory tier (0) for real-time performance.
+            // NOTE: ported as-is. 🗄️ exposes a SET-ONLY "🆔" accessor and, like
+            // core.js before it, has no setStorageIdDefault method — so reading
+            // it yields undefined, this guard is falsy, and the assignment does
+            // not run. Behaviour matches the original page exactly.
+            if ($["🗄️"] && $["🗄️"]["🆔"]) {
+                $["🗄️"]["🆔"] = 0;   // 🆔 = storageIdDefault
             }
 
-            core.useDebugger = true;
+            $["🐛"] = true;
 
             // Initialize Demo State
             initCounter();
@@ -3108,8 +3177,8 @@ Performance Benefits:
         }
 
         // Proactive Data Seeding
-        core.ud.prepaint = (dataRef, dataObj, type) => {
-            if (dataRef === 'counter' && !core.cr.getData('counter')) {
+        $["🙋"]["🎨⏮️"] = (dataRef, dataObj, type) => {
+            if (dataRef === 'counter' && !$["🗄️"]["📖"]('counter')) {
                 initCounter();
             }
         }
