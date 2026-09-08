@@ -1,5 +1,5 @@
 /*!
- * coremoji.js — an emoji port of core.js @20260329
+ * coremoji.js — an emoji port of core.js @20260908
  * ---------------------------------------------------------------------------
  * WHY IT LOOKS LIKE THIS
  * JavaScript identifiers must be Unicode ID_Start/ID_Continue letters. Emoji
@@ -44,7 +44,7 @@
  * setter and the never-exposed activePromises lookup are preserved on purpose.
  */
 
-globalThis["🏷️"] = '20260329';  // core_version
+globalThis["🏷️"] = '20260908';  // core_version
 globalThis["📡🔢"] = 0;          // core_be_count
 globalThis["🗄️🔢"] = 0;          // core_cr_count
 globalThis["👝🔢"] = 0;          // core_pk_count
@@ -549,6 +549,9 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                     },
                     // delData(name, elem, storageId)
                     "🗑️": ($1, $2, $3) => {
+                        //a missing/non-string name has no storage slot to clear
+                        if (typeof $1 !== 'string' || !$1) return undefined;
+
                         $2 = ($2 || _["📑"]);
                         $3 = (($3 === null || $3 === undefined) ? _["🗄️"]["🆔"] : +$3);
 
@@ -568,6 +571,9 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                     },
                     // setData(name, data, elem, storageId)
                     "✍️": ($1, $2, $3, $4) => {
+                        //no usable key to store under; no-op rather than throwing on $1.startsWith below
+                        if (typeof $1 !== 'string' || !$1) return undefined;
+
                         $3 = ($3 || _["📑"]);
                         $4 = (($4 === null || $4 === undefined) ? _["🗄️"]["🆔"] : +$4);
 
@@ -597,6 +603,9 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                     },
                     // getData(name, elem, storageId)
                     "📖": ($1, $2, $3) => {
+                        //no usable key to look up; no-op rather than throwing on $1.startsWith below
+                        if (typeof $1 !== 'string' || !$1) return undefined;
+
                         $2 = ($2 || _["📑"]);
                         $3 = (($3 === null || $3 === undefined) ? _["🗄️"]["🆔"] : +$3);
 
@@ -1608,6 +1617,13 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                             ___["🔖"] = $$.getAttribute('data-core-data') || $$.getAttribute('core-data') || $$.dataset.coreData;
                             ___["🎣"] = $$.getAttribute('data-core-source') || $$.getAttribute('core-source') || $$.dataset.coreSource;
 
+                            //a .core-clone with no data reference has nothing to fetch; without this,
+                            //🛫 preflight would fall back to dataSrc = dataRef and request the URL 'undefined'
+                            if (!___["🔖"]) {
+                                if (_["🐛"]) console.warn('coremoji.js: .core-clone has no data-core-data, skipping', $$);
+                                continue;
+                            }
+
                             if ($["📡"]["⏱️❓"](___["🔖"], 'data') && $["🗄️"]["📖"](___["🔖"])) {
                                 continue;
                             }
@@ -1633,6 +1649,11 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                         for (const $$ of __["👯s"]) {
                             const ___ = {};
                             ___["🔖"] = $$.getAttribute('data-core-data') || $$.getAttribute('core-data') || $$.dataset.coreData;
+                            //skip unreferenced clones; the .split() below would throw on undefined
+                            if (!___["🔖"]) {
+                                if (_["🐛"]) console.warn('coremoji.js: .core-clone has no data-core-data, skipping', $$);
+                                continue;
+                            }
                             ___["📇s"] = $["🗄️"]["📖"](___["🔖"]) || [];   // records
                             ___["👯"] = $$.cloneNode(true);                 // cloned
                             ___["🏷️"] = "core-cloned-" + ___["🔖"].split('-').map(_$ => $["🛡️"]["🧽✨"]('temp', _$, ['alphaonly']).value).join('-');
@@ -1653,8 +1674,10 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                         }
                         //remove the clone templates
                         for (const $$ of __["👯s"]) {
-                            //show the pocket, previously hidden
-                            ($$.closest('.core-pocket') || $$.closest('.core-pocketed')).style.display = '';
+                            //show the pocket, previously hidden (a clone outside any pocket has none)
+                            const ___ = {};
+                            ___["👝"] = $$.closest('.core-pocket') || $$.closest('.core-pocketed');
+                            if (___["👝"]) ___["👝"].style.display = '';
                             $$.remove();
                         }
 

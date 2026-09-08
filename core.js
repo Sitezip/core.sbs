@@ -1,4 +1,4 @@
-const core_version = '20260329';
+const core_version = '20260908';
 let core_be_count = 0;
 let core_cr_count = 0;
 let core_pk_count = 0;
@@ -468,6 +468,9 @@ const core = (() => {
                     }
                 },
                 delData: (name, elem, storageId) => {
+                    //a missing/non-string name has no storage slot to clear
+                    if (typeof name !== 'string' || !name) return undefined;
+
                     elem = (elem || section);
                     storageId = ((storageId === null || storageId === undefined) ? storageIdDefault : +storageId);
 
@@ -486,6 +489,9 @@ const core = (() => {
                     }
                 },
                 setData: (name, data, elem, storageId) => {
+                    //no usable key to store under; no-op rather than throwing on name.startsWith below
+                    if (typeof name !== 'string' || !name) return undefined;
+
                     elem = (elem || section);
                     storageId = ((storageId === null || storageId === undefined) ? storageIdDefault : +storageId);
 
@@ -514,6 +520,9 @@ const core = (() => {
                     return core.cr.getData(name, elem);
                 },
                 getData: (name, elem, storageId) => {
+                    //no usable key to look up; no-op rather than throwing on name.startsWith below
+                    if (typeof name !== 'string' || !name) return undefined;
+
                     elem = (elem || section);
                     storageId = ((storageId === null || storageId === undefined) ? storageIdDefault : +storageId);
 
@@ -1473,6 +1482,13 @@ const core = (() => {
                         const dataRef = clone.getAttribute('data-core-data') || clone.getAttribute('core-data') || clone.dataset.coreData;
                         const dataSrc = clone.getAttribute('data-core-source') || clone.getAttribute('core-source') || clone.dataset.coreSource;
 
+                        //a .core-clone with no data reference has nothing to fetch; without this,
+                        //preflight would fall back to dataSrc = dataRef and request the URL 'undefined'
+                        if (!dataRef) {
+                            if (useDebugger) console.warn('core.js: .core-clone has no data-core-data, skipping', clone);
+                            continue;
+                        }
+
                         if (core.be.checkCacheTs(dataRef, 'data') && core.cr.getData(dataRef)) {
                             continue;
                         }
@@ -1496,6 +1512,11 @@ const core = (() => {
                     let clones = Array.from(document.getElementsByClassName('core-clone'));
                     for (const clone of clones) {
                         const dataRef = clone.getAttribute('data-core-data') || clone.getAttribute('core-data') || clone.dataset.coreData;
+                        //skip unreferenced clones; dataRef.split() below would throw on undefined
+                        if (!dataRef) {
+                            if (useDebugger) console.warn('core.js: .core-clone has no data-core-data, skipping', clone);
+                            continue;
+                        }
                         const records = core.cr.getData(dataRef) || [];
                         const cloned = clone.cloneNode(true);
                         const clonedClass = "core-cloned-" + dataRef.split('-').map(s => core.sv.scrubSimple('temp', s, ['alphaonly']).value).join('-');
@@ -1516,8 +1537,9 @@ const core = (() => {
                     }
                     //remove the clone templates
                     for (const clone of clones) {
-                        //show the pocket, previously hidden
-                        (clone.closest('.core-pocket') || clone.closest('.core-pocketed')).style.display = '';
+                        //show the pocket, previously hidden (a clone outside any pocket has none)
+                        const pocket = clone.closest('.core-pocket') || clone.closest('.core-pocketed');
+                        if (pocket) pocket.style.display = '';
                         clone.remove();
                     }
 

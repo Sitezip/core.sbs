@@ -2,6 +2,29 @@
 
 All notable changes to core.js will be documented in this file.
 
+## [20260908] - 2026-09-08
+
+### Fixed
+- **Malformed clones no longer abort the data pass**: a `.core-clone` with no
+  `data-core-data` / `core-data` attribute produced an undefined `dataRef`, which threw a
+  `TypeError` inside `core.cr.getData()`. Because `core.pk.soc()` wraps the lifecycle in a
+  single try/catch, the throw was swallowed and `core.pk.addData()` never ran — one malformed
+  element silently dropped **every** clone on the page. `core.pk.getData()` and
+  `core.pk.addData()` now skip unreferenced clones (warning when `useDebugger` is on).
+- **Registry tolerates a missing name**: `core.cr.getData()`, `setData()` and `delData()`
+  return `undefined` for a missing or non-string name instead of throwing on `name.startsWith`.
+- **Clones outside a pocket**: `core.pk.addData()` no longer throws on `null.style` when a
+  clone has no `.core-pocket` / `.core-pocketed` ancestor.
+
+### Added
+- `coremoji.js` — an emoji port of core.js, addressing the full API through emoji property
+  keys (`globalThis["🧩"]`), with `coremoji.html` as its documentation and demo page
+
+### Changed
+- Default CDN `baseUrl` now resolves to `core.sbs@20260908`
+
+[20260908]: https://github.com/Sitezip/core.sbs/compare/20260329...20260908
+
 ## [20260329] - 2026-03-29
 
 ### Added
