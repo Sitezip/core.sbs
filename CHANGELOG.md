@@ -5,12 +5,18 @@ All notable changes to core.js will be documented in this file.
 ## [20260908] - 2026-09-08
 
 ### Fixed
-- **Malformed clones no longer abort the data pass**: a `.core-clone` with no
-  `data-core-data` / `core-data` attribute produced an undefined `dataRef`, which threw a
-  `TypeError` inside `core.cr.getData()`. Because `core.pk.soc()` wraps the lifecycle in a
-  single try/catch, the throw was swallowed and `core.pk.addData()` never ran — one malformed
-  element silently dropped **every** clone on the page. `core.pk.getData()` and
+- **Every re-render threw a `TypeError`**: `core.pk.addData()` clones each row keeping
+  `class="core-clone"` while stripping `data-core-data`, so the *next* lifecycle pass rescanned
+  core.js's own rendered output and read an undefined `dataRef` from it. `core.be.checkCacheTs()`
+  does not screen that out — with an undefined key it falls back to the 86400s default and to
+  *now*, so `now + 86400 > now` is true — and execution reached `core.cr.getData(undefined)`,
+  whose first statement is `name.startsWith('coreInternal')`. Because `core.pk.soc()` wraps the
+  lifecycle in a single try/catch the throw was swallowed, so every re-render (hashchange, cache
+  expiry, click-driven) silently did nothing. The same crash hit the first pass on any page whose
+  markup contained a `.core-clone` with no data attribute. `core.pk.getData()` and
   `core.pk.addData()` now skip unreferenced clones (warning when `useDebugger` is on).
+- **Re-renders no longer wipe rendered rows**: `core.pk.addData()` removes only the clones it
+  actually rendered from, instead of every `.core-clone` it scanned — its own output included.
 - **Registry tolerates a missing name**: `core.cr.getData()`, `setData()` and `delData()`
   return `undefined` for a missing or non-string name instead of throwing on `name.startsWith`.
 - **Clones outside a pocket**: `core.pk.addData()` no longer throws on `null.style` when a

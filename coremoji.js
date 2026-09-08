@@ -1646,6 +1646,8 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                         //find the clone elements
                         // Use Array.from to create a static list since we modify the DOM
                         __["👯s"] = Array.from(document.getElementsByClassName('core-clone'));
+                        //track which clones were actually used as templates this pass
+                        __["✅"] = new Set();
                         for (const $$ of __["👯s"]) {
                             const ___ = {};
                             ___["🔖"] = $$.getAttribute('data-core-data') || $$.getAttribute('core-data') || $$.dataset.coreData;
@@ -1654,6 +1656,7 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                                 if (_["🐛"]) console.warn('coremoji.js: .core-clone has no data-core-data, skipping', $$);
                                 continue;
                             }
+                            __["✅"].add($$);
                             ___["📇s"] = $["🗄️"]["📖"](___["🔖"]) || [];   // records
                             ___["👯"] = $$.cloneNode(true);                 // cloned
                             ___["🏷️"] = "core-cloned-" + ___["🔖"].split('-').map(_$ => $["🛡️"]["🧽✨"]('temp', _$, ['alphaonly']).value).join('-');
@@ -1678,7 +1681,10 @@ globalThis["👝🔢"] = 0;          // core_pk_count
                             const ___ = {};
                             ___["👝"] = $$.closest('.core-pocket') || $$.closest('.core-pocketed');
                             if (___["👝"]) ___["👝"].style.display = '';
-                            $$.remove();
+                            //only remove what we rendered from. Cloned output keeps class="core-clone"
+                            //but has no data-core-data, so a later pass rescans it and skips it here —
+                            //removing it would delete the rendered rows on every re-render.
+                            if (__["✅"].has($$)) $$.remove();
                         }
 
                     },

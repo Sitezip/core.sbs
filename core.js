@@ -1510,6 +1510,8 @@ const core = (() => {
                     //find the clone elements
                     // Use Array.from to create a static list since we modify the DOM
                     let clones = Array.from(document.getElementsByClassName('core-clone'));
+                    //track which clones were actually used as templates this pass
+                    const rendered = new Set();
                     for (const clone of clones) {
                         const dataRef = clone.getAttribute('data-core-data') || clone.getAttribute('core-data') || clone.dataset.coreData;
                         //skip unreferenced clones; dataRef.split() below would throw on undefined
@@ -1517,6 +1519,7 @@ const core = (() => {
                             if (useDebugger) console.warn('core.js: .core-clone has no data-core-data, skipping', clone);
                             continue;
                         }
+                        rendered.add(clone);
                         const records = core.cr.getData(dataRef) || [];
                         const cloned = clone.cloneNode(true);
                         const clonedClass = "core-cloned-" + dataRef.split('-').map(s => core.sv.scrubSimple('temp', s, ['alphaonly']).value).join('-');
@@ -1540,7 +1543,10 @@ const core = (() => {
                         //show the pocket, previously hidden (a clone outside any pocket has none)
                         const pocket = clone.closest('.core-pocket') || clone.closest('.core-pocketed');
                         if (pocket) pocket.style.display = '';
-                        clone.remove();
+                        //only remove what we rendered from. Cloned output keeps class="core-clone"
+                        //but has no data-core-data, so a later pass rescans it and skips it here —
+                        //removing it would delete the rendered rows on every re-render.
+                        if (rendered.has(clone)) clone.remove();
                     }
 
                 },
